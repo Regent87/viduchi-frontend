@@ -1,0 +1,49 @@
+.video {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 250px;
+	height: 250px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	background: #383A47;
+	margin-top: 20px;
+}
+
+.videoCover {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 14px;
+}
+
+.videoCover img {
+	width: 220px;
+	height: 150px;
+}
+
+.videoCover svg {
+	position: absolute;
+}
+
+.videoInfo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-left: 14px;
+	margin-right: 8px;
+}
+
+.videoTitle {
+	margin-left: 14px;
+	font-size: 16px;
+}
+
+.menu {
+	width: 24px;
+	height: 24px;
+}
+
+.videoCreated {
+	font-size: 12px;
+}

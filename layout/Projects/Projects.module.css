@@ -1,0 +1,9 @@
+.projects {
+	display: block;
+}
+
+.projectCard {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}

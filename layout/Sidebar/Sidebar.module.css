@@ -1,0 +1,59 @@
+.sidebar {
+	display: grid;
+	align-content: start;
+	gap: 20px;
+	background: #383A47;
+	box-shadow: 10px 10px 225px 0px rgba(0, 0, 0, 0.55);
+	height: 100vh;
+}
+
+.sidebar .logo {
+	margin-top: 33px;
+	margin-left: 25px;
+}
+
+.sidebar nav {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-left: 25px;
+	margin-top: 30px;
+}
+
+.menuItem {
+	display: flex;
+	align-items: center;
+}
+
+.menuItem:hover {
+	color: var(--white);
+	opacity: 1;
+}
+
+.menuItem svg {
+	fill: var(--white);
+	fill-opacity: 1;
+	margin-right: 10px;
+}
+
+.menuItem:hover svg {
+	fill: var(--white);
+	fill-opacity: 1;
+}
+
+.active {
+	color: var(--white);
+	opacity: 1;
+}
+
+.actionContainer,
+.dividerContainer {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.actionContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

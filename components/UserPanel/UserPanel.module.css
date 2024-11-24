@@ -1,0 +1,11 @@
+.userPanel {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.link:hover,
+.link:hover svg {
+	fill: var(--white);
+	fill-opacity: 1;
+}
