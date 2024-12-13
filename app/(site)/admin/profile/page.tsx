@@ -1,10 +1,13 @@
+import { AdminMenu } from "@/components/AdminMenu/AdminMenu";
 import styles from "./page.module.css";
+import { AdminInfo } from "@/components/AdminInfo/AdminInfo";
 
 export default function ProfilePage() {
 
     return (
-        <>
-        <h1 className={styles.white}>Profile page</h1>
-        </>
+       <main className={styles.admin}>
+        <AdminMenu />
+        <AdminInfo />
+       </main>
     )
 }

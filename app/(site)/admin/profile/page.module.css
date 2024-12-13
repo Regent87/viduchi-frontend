@@ -1,3 +1,11 @@
 .white {
     color: #fff;
 }
+
+.admin {
+   width: 70vw;
+   height: 60vh;
+   background-color: rgba(56, 58, 71, 0.75);
+   padding-top: 10px;
+   padding-left: 30px;
+}
