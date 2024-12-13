@@ -21,6 +21,7 @@
 .name {
 	font-size: 14px;
 	font-weight: 600;
+	color: #fff;
 }
 
 .email {
@@ -30,4 +31,11 @@
 
 .arrow {
 	margin-left: 10px;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	margin-left: -100px;
+	padding-top: 50px;
 }
