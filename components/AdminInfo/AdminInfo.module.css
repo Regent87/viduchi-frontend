@@ -1,5 +1,6 @@
 .adminInfo {
     padding-top: 20px;
+    display: flex;
 }
 
 .profilePic {
@@ -35,4 +36,79 @@
 
 .userCard {
     display: flex;
+}
+
+
+.infos {
+    /* background: #f2f2f2; */
+    /* color: #616161; */
+    /* font-size: 12px; */
+   margin-left: 30px;
+}
+
+.infos h3 {
+    font-size: 18px;
+    color: var(--white);
+}
+
+.infos hr {
+  width: 220px;
+}
+
+.infos_inner {
+   max-width: 1100px;
+    /* max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 150px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.change button {
+    display: block;
+   float: right;
+   color: var(--white);
+   font-size: 16px;
+   background-color: transparent;
+   border-radius: 25px;
+   border: 1px solid rgba(255, 255, 255, 1);
+   padding: 10px 20px;
+   margin-top: 50px;
+  /* padding-left: 70px; */
+  /* margin-left: 70px; */
+}
+
+.change{
+    padding-left: 140px;
+}
+
+.delete span{
+    /* position: relative; */
+padding-top: 100px;
+padding-left: 30px;
+float: right;
+}
+
+.delete span{
+    width: 150px;
+    color: rgba(255, 101, 82, 1);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+.profileItem {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.profileItem p {
+   padding-bottom: 10px;
+}
+
+.white {
+    color: var(--white);
 }

@@ -5,6 +5,8 @@
 	background: #383A47;
 	box-shadow: 10px 10px 225px 0px rgba(0, 0, 0, 0.55);
 	height: 100vh;
+	border-top-right-radius: 65px;
+	border-bottom-right-radius: 65px;
 }
 
 .sidebar .logo {
