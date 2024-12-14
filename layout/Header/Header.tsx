@@ -13,6 +13,10 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 
 	const [isShown, setIsShown] = useState(false);
 
+	const closeDropdown = () => {
+        setIsShown(false);
+    };
+
 	return (
 		<>
   <div className={cn(className, styles.header)} {...props}>
@@ -30,7 +34,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 
 		{   
 		  isShown && (
-			<UserMenu />
+			<UserMenu closeDropdown={closeDropdown} />
 		  )
 				
 			}
