@@ -7,3 +7,9 @@
 .menuItem {
     margin-right: 20px;
 }
+
+.menuItem:hover {
+    color: var(--white);
+    opacity: 1;
+    border-bottom: 1px solid white;
+}

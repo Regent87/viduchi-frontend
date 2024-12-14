@@ -7,9 +7,9 @@ import styles from './AdminMenu.module.css'
 
 const menuItems = [
     { title: 'Профиль', href: '/admin/profile' },
-    { title: 'Ученики', href: '/students' },
-    { title: 'Наставники', href: '/teachers' },
-    { title: 'Вход и безопасность', href: '/security' },
+    { title: 'Ученики', href: '/admin/students' },
+    { title: 'Наставники', href: '/admin/teachers' },
+    { title: 'Вход и безопасность', href: '/admin/security' },
   ];
 
 export const AdminMenu = () => {

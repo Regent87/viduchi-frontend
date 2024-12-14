@@ -1,0 +1,19 @@
+.students {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding-top: 20px;
+  }
+  
+  .students td, .students th {
+   
+    /* border: 1px solid #dddddd; */
+    color: var(--white);
+    text-align: left;
+    padding: 18px;
+    border-bottom: 1px solid gray;
+  }
+  
+  /* .students tr:nth-child(even) {
+    background-color: #dddddd;
+  } */

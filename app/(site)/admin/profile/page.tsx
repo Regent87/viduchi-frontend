@@ -5,7 +5,7 @@ import { AdminInfo } from "@/components/AdminInfo/AdminInfo";
 export default function ProfilePage() {
 
     return (
-       <main className={styles.admin}>
+       <main className={'admin'}>
         <AdminMenu />
         <AdminInfo />
        </main>
