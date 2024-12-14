@@ -13,9 +13,23 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
     const [surname, setSurname] = useState('');
     const [fatherName, setFatherName] = useState('');
     const [phone, setPhone] = useState('+7');
+    const [position, setPosition] = useState('');
+    const [email, setEmail] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+
+
+    const reset = () => {
+        setIsLoading(true);
+        setName('');
+        setEmail('');
+        setSurname('');
+        setFatherName('');
+        setPhone('+7');
+        setPosition('');
+        setIsLoading(false);
+    }
 
     return (
         <Modal
@@ -53,12 +67,32 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
 </label>
 </div>
 
+
+<div>
+<label htmlFor="name">Должность
+    <div> <input onChange={(e: any) => setPosition(e.target.value)}
+    value={position}
+     type="text" required /></div>
+</label>
+</div>
+<div>
+<label htmlFor="phone">E-mail
+    <div> <input
+    onChange={(e: any) => setEmail(e.target.value)}
+    value={email}
+     type="email" required /></div>
+</label>
+</div>
+
+
 </div>
 
 <div className={styles.buttons}>
-<button className={styles.reset}>Сброс</button>
 <button
-disabled={isLoading || !name.trim() || !surname.trim() || !fatherName.trim()}
+onClick={reset}
+className={styles.reset}>Сброс</button>
+<button
+disabled={isLoading || !name.trim() || !surname.trim() || !fatherName.trim() || !position.trim() || !email.trim()}
 className={styles.apply}>Добавить</button>
 </div>
 

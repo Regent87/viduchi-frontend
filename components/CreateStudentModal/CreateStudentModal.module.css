@@ -3,6 +3,10 @@
     color: #33333FBF;
 }
 
+.white svg {
+    stroke: #33333F;
+}
+
 .white form {
     margin-left: 20px;
     margin-right: 20px;
@@ -15,12 +19,13 @@
 }
 
 .addStudent {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
 
 
-.white input[type="text"] {
+.white input[type="text"], .white input[type="email"] {
     padding: 10px 20px;
     margin-top: 10px;
     margin-bottom: 10px;
