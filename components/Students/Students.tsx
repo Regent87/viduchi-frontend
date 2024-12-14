@@ -1,9 +1,15 @@
+"use client";
+
 import styles from './Students.module.css';
 import avatar from '../../public/user_avatar.png';
 import Image from 'next/image';
 import DotsIcon from './dots_icon.png';
+import { useState } from 'react';
+import { CreateStudentModal } from '../CreateStudentModal/CreateStudentModal';
 
 export const Students = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <>
@@ -38,9 +44,17 @@ export const Students = () => {
 </table>
 
 
-<button className={styles.addStudentButton}>
+<button
+onClick={() => setIsModalOpen(true)}
+className={styles.addStudentButton}>
     Добавить ученика
 </button>
+
+<CreateStudentModal isOpen={isModalOpen} onClose={() => {
+        setIsModalOpen(false);
+        console.log("refresh");
+      //  router.replace('/projects');
+      }} />
 </>
     )
 }
