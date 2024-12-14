@@ -43,6 +43,12 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
         const student = await createStudent(email, name, fatherName, surname);
         console.log('new student')
         console.log(student)
+        reset()
+        onClose();
+        if (student) {
+            console.log("studetns refresh")
+            router.replace("/admin/students");
+        }
 setIsLoading(false)
     }
 
