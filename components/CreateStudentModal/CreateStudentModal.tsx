@@ -5,6 +5,7 @@ import { Modal } from '@/components/site/ModalForm/ModalForm';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from './CreateStudentModal.module.css';
+import { createStudent } from "@/api/client/students";
 
 export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps): JSX.Element => { 
 
@@ -21,21 +22,38 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
 
 
     const reset = () => {
-        setIsLoading(true);
+       // setIsLoading(true);
         setName('');
         setEmail('');
         setSurname('');
         setFatherName('');
         setPhone('+7');
         setPosition('');
-        setIsLoading(false);
+     //   setIsLoading(false);
+    };
+
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        console.log('Имя - ', name)
+        console.log('Afvbkbz - ', surname)
+        console.log('Отчество - ', fatherName)
+        console.log('Должность - ', position)
+        console.log('Телефон - ', phone)
+        console.log('Почта - ', email)
+        const student = await createStudent(email, name, fatherName, surname);
+        console.log('new student')
+        console.log(student)
+setIsLoading(false)
     }
 
     return (
         <Modal
         className={styles.white}
         isOpen={isOpen} onClose={onClose} title="+ Новый ученик">
-<form>
+<form onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}>
 <div className={styles.addStudent}>
 <div>
 <label htmlFor="surname">Фамилия
