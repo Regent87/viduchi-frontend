@@ -1,0 +1,29 @@
+.edit {
+    position: absolute;
+    /* z-index: 1; */
+}
+
+.edit nav {
+position: relative;
+background-color: rgba(56, 58, 71, 1);;
+border: 1px solid gray;
+color: var(--white);
+width: 180px;
+margin: 10px 20px;
+margin-left: -180px;
+margin-top: 80px;
+}
+
+.edit nav ul {
+list-style: none;
+margin-bottom: 10px;
+}
+
+.edit nav ul li {
+    padding: 10px 20px;
+  
+    }
+
+    .edit nav ul li span {
+        cursor: pointer;
+    }

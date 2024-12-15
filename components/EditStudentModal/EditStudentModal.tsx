@@ -1,59 +1,39 @@
-'use client';
+"use client";
 
-import { CreateStudentModalProps } from "./CreateStudentModal.props"
-import { Modal } from '@/components/site/ModalForm/ModalForm';
-import { useRouter } from 'next/navigation';
+import { Modal } from "../site/ModalForm/ModalForm";
+import { EditStudentModalProps } from "./EditStudentModal.props";
 import { useState } from 'react';
-import styles from './CreateStudentModal.module.css';
-import { createStudent } from "@/api/client/students";
+import styles from './EditStudentModal.module.css';
+import { useRouter } from 'next/navigation';
 
-export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps): JSX.Element => { 
+export const EditStudentModal = ({isOpen, onClose}: EditStudentModalProps): JSX.Element => {
 
-
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
+    const [name, setName] = useState('Александр');
+    const [surname, setSurname] = useState('Изотов');
     const [fatherName, setFatherName] = useState('');
-    const [phone, setPhone] = useState('+7');
-    const [position, setPosition] = useState('');
-    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('+737529788888');
+    const [position, setPosition] = useState('Электрик');
+    const [email, setEmail] = useState('izotov@gmail.com');
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-
     const reset = () => {
-        setName('');
-        setEmail('');
-        setSurname('');
-        setFatherName('');
-        setPhone('+7');
-        setPosition('');
-    };
+         setName('');
+         setEmail('');
+         setSurname('');
+         setFatherName('');
+         setPhone('+7');
+         setPosition('');
+     };
 
-    const handleSubmit = async () => {
-        setIsLoading(true);
-        console.log('Имя - ', name)
-        console.log('Afvbkbz - ', surname)
-        console.log('Отчество - ', fatherName)
-        console.log('Должность - ', position)
-        console.log('Телефон - ', phone)
-        console.log('Почта - ', email)
-        const student = await createStudent(email, name, fatherName, surname);
-        console.log('new student')
-        console.log(student)
-        reset()
-        onClose();
-        if (student) {
-            console.log("studetns refresh")
-            router.replace("/admin/students");
-        }
-setIsLoading(false)
-    }
+     const handleSubmit = async () => {
+
+     }
 
     return (
-        <Modal
-        className={styles.white}
-        isOpen={isOpen} onClose={onClose} title="+ Новый ученик">
+        <Modal  className={styles.white}
+        isOpen={isOpen} onClose={onClose} title="+ Изменить данные">
 <form onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
@@ -121,6 +101,6 @@ className={styles.apply}>Добавить</button>
 
 
 </form>
-            </Modal>
+        </Modal>
     )
 }
