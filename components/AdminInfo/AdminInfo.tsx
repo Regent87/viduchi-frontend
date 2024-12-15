@@ -1,3 +1,5 @@
+"use client";
+
 import styles from './AdminInfo.module.css'
 import Image from 'next/image';
 import avatar from '../../public/user_avatar.png';
@@ -6,10 +8,24 @@ import DeleteIcon from './delete.png';
 import rectAdminImg from './rectadmin.png';
 import Link from 'next/link';
 import { AdminInfoProps } from './AdminInfo.props';
+import { EditAdminModal } from '../EditAdminModal/EditAdminModal';
+import { useState } from 'react';
+import { DeleteProfileModal } from '../DeleteProfileModal/DeleteProfileModal';
 
 
 
 export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const closeDropdown = () => {
+        setIsModalOpen(false);
+    }
+
+    const closeDeleteDropdown = () => {
+        setIsDeleteModalOpen(false);
+    }
 
     return (
         <>
@@ -62,7 +78,9 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element 
             </div>
 
 <div className={styles.change}>
-<button>Изменить</button>
+<button
+onClick={() => setIsModalOpen(true)}
+>Изменить</button>
 </div>
 
 
@@ -93,10 +111,31 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element 
        
 
         </div>
-        <div className={styles.delete}>
-<Image src={DeleteIcon} alt='Edit profile' />
-<span>Удалить профиль</span>
+        <div 
+      
+        className={styles.delete}>
+      
+            <Image src={DeleteIcon} alt='Delete profile' />
+            <span 
+              onClick={() => setIsDeleteModalOpen(true)}
+            >Удалить профиль</span>
+          
+
 </div>
+
+<EditAdminModal isOpen={isModalOpen} onClose={() => {
+    closeDropdown();
+    setIsModalOpen(false);
+    console.log("refresh");
+  //  router.replace('/projects');
+  }} />
+
+  <DeleteProfileModal isOpen={isDeleteModalOpen} onClose={() => {
+    closeDeleteDropdown();
+    setIsDeleteModalOpen(false);
+    console.log("refresh");
+  //  router.replace('/projects');
+  }} />
         </>
     )
 }
