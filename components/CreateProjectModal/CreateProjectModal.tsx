@@ -34,30 +34,68 @@ export const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps)
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="+ Новый проект">
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}>
-        <Input
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
-          placeholder="Введите название проекта"
-          style={{ width: '100%' }}
-        />
-        <div className={styles.buttons}>
-          <Button type="button" appearance="ghost" onClick={onClose}>
-            Отменить
-          </Button>
-          <Button
-            type="submit"
-            appearance="primary"
-            disabled={isLoading || !projectName.trim()}
-          >
-            Сохранить
-          </Button>
-        </div>
-      </form>
-    </Modal>
+
+    <Modal
+    className={styles.white}
+    isOpen={isOpen} onClose={onClose} title="+ Новый проект">
+<form onSubmit={(e) => {
+    e.preventDefault();
+    handleSubmit();
+  }}>
+<div className={styles.addProject}>
+
+<input
+onChange={(e: any) => setProjectName(e.target.value)}
+value={projectName}
+placeholder='Введите название проекта'
+type="text" required />
+
+
+
+</div>
+
+<div className={styles.buttons}>
+<button
+onClick={onClose}
+className={styles.reset}>Отмена</button>
+<button
+disabled={isLoading || !projectName.trim()}
+className={styles.apply}>Добавить</button>
+</div>
+
+
+
+</form>
+        </Modal>
+
+    // <Modal
+    // className={styles.white}
+    // isOpen={isOpen} onClose={onClose} title="+ Новый проект">
+    //   <form onSubmit={(e) => {
+    //     e.preventDefault();
+    //     handleSubmit();
+    //   }}>
+    //     <Input
+    //       value={projectName}
+    //       onChange={(e) => setProjectName(e.target.value)}
+    //       placeholder="Введите название проекта"
+    //       style={{ width: '100%' }}
+    //     />
+    //     <div className={styles.buttons}>
+    //       <Button type="button" appearance="ghost" onClick={onClose}>
+    //         Отменить
+    //       </Button>
+    //       <Button
+    //         type="submit"
+    //         appearance="primary"
+    //         disabled={isLoading || !projectName.trim()}
+    //       >
+    //         Сохранить
+    //       </Button>
+    //     </div>
+    //   </form>
+    // </Modal>
+
+
   );
 };
