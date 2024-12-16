@@ -1,12 +1,12 @@
 "use client";
 
 import { Modal } from "../site/ModalForm/ModalForm";
-import { EditStudentModalProps } from "./EditStudentModal.props";
+import { EditTeacherModalProps } from "./EditTeacherModal.props";
 import { useState } from 'react';
-import styles from './EditStudentModal.module.css';
+import styles from './EditTeacherModal.module.css';
 import { useRouter } from 'next/navigation';
 
-export const EditStudentModal = ({isOpen, onClose}: EditStudentModalProps): JSX.Element => {
+export const EditTeacherModal = ({isOpen, onClose}: EditTeacherModalProps): JSX.Element => {
 
     const [name, setName] = useState('Александр');
     const [surname, setSurname] = useState('Изотов');

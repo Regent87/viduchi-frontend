@@ -1,0 +1,61 @@
+.white {
+    background-color: var(--white);
+    color: #33333FBF;
+}
+
+.white svg {
+    stroke: #33333F;
+}
+
+.white form {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.white h2, .white svg {
+    color: #33333F;
+}
+
+.addStudent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+
+.white input[type="text"], .white input[type="email"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #33333F26;
+    border-radius: 25px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.reset {
+    cursor: pointer;
+    background-color: var(--white);
+    color: #33333FBF;
+    font-size: 18px;
+    border: 1px solid #33333F26;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 50%;
+}
+
+.apply {
+    cursor: pointer;
+    background-color: #169FFD;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 50%;
+}
