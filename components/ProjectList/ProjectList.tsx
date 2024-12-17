@@ -31,9 +31,11 @@ export default function ProjectList({ className }: ProjectListProps)  {
 	return (
 		<div className={cn(className, styles.projectList)}>
 			{projects.map((project) => (
-				<Link href={`/projects/${project.id}`} key={project.id}>
-					<ProjectCard projectModel={project} />
-				</Link>
+				// <Link href={`/projects/${project.id}`} key={project.id}>
+					<ProjectCard 
+					key={project.id}
+					projectModel={project} />
+				// </Link>
 			))}
 		</div>
 	);

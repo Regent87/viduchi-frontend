@@ -31,7 +31,8 @@ export const Projects = ({ className, ...props }: ProjectsProps): JSX.Element =>
 			console.log("refresh");
 		//	router.replace('/projects');
 	//	router.push('/projects')
-		router.refresh();
+		// router.refresh();
+	//	location.reload();
 		  }} />
 
           </>
