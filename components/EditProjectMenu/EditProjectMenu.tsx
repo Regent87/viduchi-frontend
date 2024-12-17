@@ -2,11 +2,20 @@ import { useState } from 'react';
 import styles from './EditProjectMenu.module.css';
 import { EditTeacherModal } from '../EditTeacherModal/EditTeacherModal';
 import { DeleteTeacherModal } from '../DeleteTeacherModal/DeleteTeacherModal';
+import { useRouter } from 'next/navigation';
+import { RenameProjectModal } from '../RenameProjectModal/RenameProjectModal';
+import { DeleteProjectModal } from '../DeleteProjectModal/DeleteProjectModal';
 
 export const EditProjectMenu = ({closeDropdown, project}: any) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const router = useRouter();
+
+    const editProjectHandler = () => {
+        router.push(`/projects/${project.id}`)
+    }
 
     const openHandler = () => {
         setIsModalOpen(true);
@@ -16,7 +25,7 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
         setIsDeleteModalOpen(true);
     }
 
-    console.log("Project in menu: ", project)
+   // console.log("Project in menu: ", project)
 
     return (
         <>
@@ -26,8 +35,8 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
                 <ul>
                 <li>
                     <span
-                        onClick={openHandler}
-                        >Редактирвать</span>
+                    onClick={editProjectHandler}
+                        >Редактировать</span>
                     </li>
                     <li>
                         <span
@@ -43,15 +52,15 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
             </nav>
         </div>
 
-<EditTeacherModal isOpen={isModalOpen} onClose={() => {
+<RenameProjectModal isOpen={isModalOpen} project={project} onClose={() => {
     closeDropdown();
     setIsModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
   }} />
 
-  <DeleteTeacherModal
-  isOpen={isDeleteModalOpen} onClose={() => {
+  <DeleteProjectModal
+  isOpen={isDeleteModalOpen} project={project} onClose={() => {
     closeDropdown();
     setIsDeleteModalOpen(false);
     console.log("refresh");
