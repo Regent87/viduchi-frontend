@@ -12,6 +12,7 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 		<div className={cn(styles.project, className)} {...props}>
 			<div className={styles.projectCover}>
 				<Image src={cover} alt="cover" width={220} height={150} />
+					
 				<PlayIcon />
 			</div>
 			<P size="s" className={styles.projectInfo}>
