@@ -4,10 +4,10 @@ import cn from 'classnames';
 import { InstructionsProps } from './Instructions.props';
 import styles from './Instructions.module.css';
 import ProjectList from '@/components/ProjectList/ProjectList';
-import { CreateProjectModal } from '@/components/CreateProjectModal/CreateProjectModal';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateInstructionModal } from '@/components/CreateInstructionModal/CreateInstructionModal';
+import InstructionList from '@/components/InstructionList/InstructionList';
 
 export const Instructions = ({ className, ...props }: InstructionsProps): JSX.Element => {
 
@@ -22,7 +22,7 @@ export const Instructions = ({ className, ...props }: InstructionsProps): JSX.El
 			onClick={() => setIsModalOpen(true)}
 			className={styles.apply}>Создать инструкцию</button>
 			<div className={styles.list}>
-			<ProjectList />
+			<InstructionList />
 			</div>
 			
 		</div>

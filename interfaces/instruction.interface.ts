@@ -1,4 +1,4 @@
-export interface ProjectModel {
+export interface InstructionModel {
 	id: number;
 	title: string;
 	createdAt?: string;
