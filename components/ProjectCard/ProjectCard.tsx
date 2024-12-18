@@ -27,7 +27,7 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 					
 				<PlayIcon />
 			</div>
-			<span className={styles.projectCreated}>{projectModel.date}
+			<span className={styles.projectCreated}>{projectModel.date.substring(0, 10) }
 
 			
 			</span>
