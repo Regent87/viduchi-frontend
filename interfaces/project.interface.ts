@@ -3,4 +3,5 @@ export interface ProjectModel {
 	title: string;
 	createdAt: string;
 	coverUrl: string;
+	date: string;
 }

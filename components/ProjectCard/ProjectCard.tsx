@@ -16,6 +16,9 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 		setIsEditOpen(false);
 	};
 
+	console.log(projectModel)
+	
+
 	return (
 		<>
 		<div className={cn(styles.project, className)} {...props}>
@@ -24,14 +27,21 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 					
 				<PlayIcon />
 			</div>
+			<span className={styles.projectCreated}>{projectModel.date}
+
+			
+			</span>
+
 			<P size="s" className={styles.projectInfo}>
-				<span className={styles.projectCreated}>{projectModel.createdAt}</span>
-				<span className={styles.menu}>
-					<MenuIcon onClick={() => setIsEditOpen(!isEditOpen)} />
-				</span>
-			</P>
 			
 			<P size="m" className={styles.projectTitle}>{projectModel.title}</P>
+			<span className={styles.menu}>
+				<MenuIcon onClick={() => setIsEditOpen(!isEditOpen)} />
+			</span>
+		</P>
+			
+			
+		
 			
 
 			{
