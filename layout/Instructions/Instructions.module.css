@@ -1,0 +1,27 @@
+.projects {
+	display: block;
+    /* height: 80vh; */
+}
+.list {
+    height: 70vh;
+    position: relative;
+    overflow: auto;
+    margin-top: 30px;
+}
+
+.projectCard {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.apply {
+    cursor: pointer;
+    background-color: #169FFD;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 10px;
+    width: 200px;
+}

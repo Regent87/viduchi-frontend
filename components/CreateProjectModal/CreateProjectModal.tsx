@@ -70,34 +70,5 @@ className={styles.apply}>Добавить</button>
 </form>
         </Modal>
 
-    // <Modal
-    // className={styles.white}
-    // isOpen={isOpen} onClose={onClose} title="+ Новый проект">
-    //   <form onSubmit={(e) => {
-    //     e.preventDefault();
-    //     handleSubmit();
-    //   }}>
-    //     <Input
-    //       value={projectName}
-    //       onChange={(e) => setProjectName(e.target.value)}
-    //       placeholder="Введите название проекта"
-    //       style={{ width: '100%' }}
-    //     />
-    //     <div className={styles.buttons}>
-    //       <Button type="button" appearance="ghost" onClick={onClose}>
-    //         Отменить
-    //       </Button>
-    //       <Button
-    //         type="submit"
-    //         appearance="primary"
-    //         disabled={isLoading || !projectName.trim()}
-    //       >
-    //         Сохранить
-    //       </Button>
-    //     </div>
-    //   </form>
-    // </Modal>
-
-
   );
 };
