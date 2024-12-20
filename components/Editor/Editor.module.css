@@ -1,0 +1,45 @@
+.editor {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 100px 1200px;
+}
+
+.leftMenu {
+    height: 100vh;
+    width: 100px;
+    border-top-right-radius: 65px;
+    background-color: #383A47;
+    padding-top: 20px;
+}
+
+.header {
+    display: flex;
+    height: 10vh;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+}
+
+.logo {
+    width: 218px;
+    font-size: 30px;
+    color: #169FFD;
+    font-family: var(--font-family);
+} 
+
+.name {
+    color: var(--white);
+}
+
+.profile {
+	/* grid-area: profile; */
+}
+
+.profile {
+	display: flex;
+	/* align-items: center; */
+	gap: 32px;
+}
