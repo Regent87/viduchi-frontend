@@ -28,7 +28,8 @@ export const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps)
       if (project) {
         console.log("project refresh");
         router.replace("/projects");
-        location.reload();
+        router.push('/editor/' + project.id)
+       // location.reload();
       }
 
       setIsLoading(false);

@@ -14,7 +14,7 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
     const router = useRouter();
 
     const editProjectHandler = () => {
-        router.push(`/projects/${project.id}`)
+        router.push(`/editor/${project.id}`)
     }
 
     const openHandler = () => {
