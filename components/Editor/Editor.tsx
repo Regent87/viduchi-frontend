@@ -9,12 +9,15 @@ import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
 
 import burgerButton from './hamburger.png';
 import folderIcon from './folder.png';
+import uploadMediaPhoto from './upload.png';
+import chevronClose from './chevron.png';
 import Image from "next/image";
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
 
     const [isShown, setIsShown] = useState(false);
+    const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(false);
     
         const closeDropdown = () => {
             setIsShown(false);
@@ -25,14 +28,12 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
     return (
 
         <>
-        <div className={styles.editor}>
-
-       
+        <div className={styles.editor}> 
         <aside className={styles.leftMenu}>
            <Image src={burgerButton} alt="main menu" />
 <nav>
     <ul>
-        <li>
+        <li onClick={() => setIsUploadMediaOpen(!isUploadMediaOpen)}>
             <Image src={folderIcon} alt="folder" />
            <p>Медиа</p>
         </li>
@@ -43,9 +44,10 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
         <div className={styles.header}>
         <span className={styles.logo}>
 VIDUCHI
+
+
         </span>
 
-    
     <span className={styles.name}>ПРоект 1</span>
 
    <div className={styles.profile}>
@@ -58,14 +60,35 @@ VIDUCHI
           )
                 
             }
-       
-   
-    
 
         </div>
-       
-
         </div>
+
+
+        {
+    isUploadMediaOpen && (
+        <div className={styles.uploadMedia}>
+<div className={styles.uploadFile}>
+<button className={styles.uploadButton}>Импорт медиа</button>
+</div>
+<div className={styles.dragMedia}>
+<Image src={uploadMediaPhoto} alt="upload media" />
+<p>Перетащите медиафайл <br /> для импорта</p>
+</div>
+<div
+onClick={() => setIsUploadMediaOpen(false)}
+className={styles.closeMediaMenu}>
+<Image src={chevronClose} alt="close" />
+</div>
+
+</div>
+    )
+}
+
+
+
+
+
         </>
     )
 }
