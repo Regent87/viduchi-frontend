@@ -1,9 +1,25 @@
+"use client";
+
 import { EditorProps } from "./Editor.props";
 import styles from './Editor.module.css';
 import { UserPanel } from "../UserPanel/UserPanel";
 import { UserInfo } from "../UserInfo/UserInfo";
+import { useState } from "react";
+import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
+
+import burgerButton from './hamburger.png';
+import folderIcon from './folder.png';
+import Image from "next/image";
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
+
+
+    const [isShown, setIsShown] = useState(false);
+    
+        const closeDropdown = () => {
+            setIsShown(false);
+        };
+
 
 
     return (
@@ -13,8 +29,14 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
 
        
         <aside className={styles.leftMenu}>
+           <Image src={burgerButton} alt="main menu" />
 <nav>
-    <ul>Menu 1</ul>
+    <ul>
+        <li>
+            <Image src={folderIcon} alt="folder" />
+           <p>Медиа</p>
+        </li>
+    </ul>
 </nav>
         </aside>
 
@@ -28,8 +50,14 @@ VIDUCHI
 
    <div className={styles.profile}>
    <UserPanel />
-   <UserInfo />
+   <UserInfo onClick={() => setIsShown(!isShown)} />
    </div>
+   {   
+          isShown && (
+            <EditorUserMenu closeDropdown={closeDropdown} />
+          )
+                
+            }
        
    
     

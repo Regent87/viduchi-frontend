@@ -11,11 +11,28 @@
     border-top-right-radius: 65px;
     background-color: #383A47;
     padding-top: 20px;
+    text-align: center;
+}
+
+.leftMenu nav {
+    padding-top: 30px;
+}
+
+.leftMenu p:hover {
+    color: var(--white);
+}
+
+.leftMenu p {
+   cursor: pointer;
+}
+
+.leftMenu img {
+   cursor: pointer;
 }
 
 .header {
     display: flex;
-    height: 10vh;
+    height: 60px;
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -42,4 +59,6 @@
 	display: flex;
 	/* align-items: center; */
 	gap: 32px;
+    /* position: absolute; */
 }
+
