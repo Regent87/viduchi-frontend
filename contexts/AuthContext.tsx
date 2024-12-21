@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             window.location.pathname === '/projects' ||
             !window.location.pathname.includes('/login') ||
             !window.location.pathname.includes('/confirm')) {
-          router.push('/login');
+        //  router.push('/login');
         }
         return;
       }
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             window.location.pathname === '/projects' ||
             !window.location.pathname.includes('/login') ||
             !window.location.pathname.includes('/confirm')) {
-          router.push('/login');
+        //  router.push('/login');
         }
         return;
       }
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           window.location.pathname === '/projects' ||
           !window.location.pathname.includes('/login') ||
           !window.location.pathname.includes('/confirm')) {
-        router.push('/login');
+      //  router.push('/login');
       }
     } finally {
       setLoading(false);

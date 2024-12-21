@@ -10,7 +10,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login');
+     // router.push('/login');
     }
   }, [loading, user, router]);
 
@@ -23,7 +23,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!user) {
-    return null;
+   // return null;
   }
 
   return <>{children}</>;

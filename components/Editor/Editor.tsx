@@ -4,7 +4,7 @@ import { EditorProps } from "./Editor.props";
 import styles from './Editor.module.css';
 import { UserPanel } from "../UserPanel/UserPanel";
 import { UserInfo } from "../UserInfo/UserInfo";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
 
 import burgerButton from './hamburger.png';
@@ -12,10 +12,21 @@ import folderIcon from './folder.png';
 import uploadMediaPhoto from './upload.png';
 import chevronClose from './chevron.png';
 import Image from "next/image";
+import { UploadButton } from "../UploadButton/UploadButton";
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
 
+    const [videoFilePath, setVideoFilePath] = useState(''); 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file: any = event.target.files?.[0];
+        if (!file) return;
+        file.url = URL.createObjectURL(file);
+        setUploadedFiles([...uploadedFiles, file]);
+      //  store.addVideoResource(URL.createObjectURL(file));
+      };
+
+    const [uploadedFiles, setUploadedFiles] = useState<any>([]);
     // загрузка файлов перетаксиванием
     const [drag, setDrag] = useState(false);
 
@@ -31,9 +42,20 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
 
     function onDropHandler(e: any) {
         e.preventDefault();
-        let files = [...e.dataTransfer.files];
-        console.log(files);
-
+        let file: any = e.dataTransfer.files?.[0];
+        if (!file) return;
+        file.url = URL.createObjectURL(file);
+        console.log(file)
+      //  let files = [...e.target.files];
+     //   console.log(files);
+        // добавить файлы
+        // вывести файлы в стейт когда они будут
+        //  виедо выводить с видео тэгом
+        // https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_video
+       // setUploadedFiles(files[0]);
+        setUploadedFiles([...uploadedFiles, file]);
+// setVideoFilePath(URL.createObjectURL(file));
+      //  console.log(uploadedFiles)
         setDrag(false);
     }
 
@@ -89,8 +111,30 @@ VIDUCHI
         {
     isUploadMediaOpen && (
         <div className={styles.uploadMedia}>
+
+
+
 <div className={styles.uploadFile}>
 <button className={styles.uploadButton}>Импорт медиа</button>
+
+{/* <UploadButton
+accept="video/mp4,video/x-m4v,video/*"
+className={styles.uploadButton}
+onChange={handleFileChange}
+/> */}
+
+{
+    uploadedFiles.length > 0 && (
+        <>
+        <video>
+  <source src={uploadedFiles[0].url} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+<p>{uploadedFiles[0].name}</p>
+</>
+
+    )
+}
 </div>
 <div
 onDragStart = {(e: any) => dragStartHandler(e)}
