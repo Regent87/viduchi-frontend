@@ -16,6 +16,27 @@ import Image from "next/image";
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
 
+    // загрузка файлов перетаксиванием
+    const [drag, setDrag] = useState(false);
+
+    function dragStartHandler(e: any) {
+        e.preventDefault();
+        setDrag(true);
+    }
+
+    function dragLeaveHandler(e: any) {
+        e.preventDefault();
+        setDrag(false);
+    }
+
+    function onDropHandler(e: any) {
+        e.preventDefault();
+        let files = [...e.dataTransfer.files];
+        console.log(files);
+
+        setDrag(false);
+    }
+
     const [isShown, setIsShown] = useState(false);
     const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(false);
     
@@ -71,9 +92,17 @@ VIDUCHI
 <div className={styles.uploadFile}>
 <button className={styles.uploadButton}>Импорт медиа</button>
 </div>
-<div className={styles.dragMedia}>
+<div
+onDragStart = {(e: any) => dragStartHandler(e)}
+onDragLeave = {(e: any) => dragLeaveHandler(e)}
+onDragOver={(e: any) => dragStartHandler(e)}
+onDrop = {(e: any) => onDropHandler(e)}
+className={styles.dragMedia}>
 <Image src={uploadMediaPhoto} alt="upload media" />
-<p>Перетащите медиафайл <br /> для импорта</p>
+{
+    drag ? <p>Отпустите файлы <br /> чтобы загрузить</p> : <p>Перетащите медиафайл <br /> для импорта</p>
+}
+
 </div>
 <div
 onClick={() => setIsUploadMediaOpen(false)}

@@ -24,6 +24,7 @@
 
 .leftMenu p {
    cursor: pointer;
+   color: var(--white);
 }
 
 .leftMenu img {
