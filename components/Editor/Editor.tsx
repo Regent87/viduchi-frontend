@@ -123,18 +123,30 @@ className={styles.uploadButton}
 onChange={handleFileChange}
 /> */}
 
-{
-    uploadedFiles.length > 0 && (
-        <>
-        <video>
-  <source src={uploadedFiles[0].url} type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
-<p>{uploadedFiles[0].name}</p>
-</>
 
-    )
-}
+    {
+        uploadedFiles.length > 0 && uploadedFiles.map((uploadedFile: any) => {
+
+            return (
+                <div className={styles.videoItem}>
+                <video>
+          <source src={uploadedFile.url} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p>{uploadedFile.name}</p>
+        </div>
+            )
+          })
+
+    }
+      
+          
+        
+    
+    
+
+       
+
 </div>
 <div
 onDragStart = {(e: any) => dragStartHandler(e)}
