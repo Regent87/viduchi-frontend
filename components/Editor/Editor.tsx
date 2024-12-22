@@ -13,6 +13,9 @@ import uploadMediaPhoto from './upload.png';
 import chevronClose from './chevron.png';
 import Image from "next/image";
 import { UploadButton } from "../UploadButton/UploadButton";
+import cubeIcon from './cube.png';
+import cropIcon from './crop.png';
+import vectorIcon from './vector.png';
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
@@ -91,7 +94,7 @@ VIDUCHI
 
         </span>
 
-    <span className={styles.name}>ПРоект 1</span>
+    <input type='text' value={'Проект 1'} className={styles.name} />
 
    <div className={styles.profile}>
    <UserPanel />
@@ -104,8 +107,29 @@ VIDUCHI
                 
             }
 
+
+
         </div>
+
+
+
         </div>
+        {/* VIdeo editor */}
+<div className={styles.videoEditorWindow}>
+
+
+   
+    <div className={styles.videoPlayer}>
+    
+</div>
+<div className={styles.videoTopMenu}>
+        <Image src={cubeIcon} alt="cube icon" />
+        <Image src={cropIcon} alt="cube icon" />
+        <Image src={vectorIcon} alt="cube icon" />
+    </div>
+    
+</div>
+{/* video editor */}
 
 
         {
@@ -169,6 +193,7 @@ className={styles.closeMediaMenu}>
 </div>
     )
 }
+
 
 
 

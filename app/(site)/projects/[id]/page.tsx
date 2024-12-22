@@ -19,5 +19,7 @@ export default async function EditProjectPage({ params }: Props) {
     }
 
     // return <ProjectForm project={project} />;
-    return <Editor project={project} />;
+    // return <Editor project={project} />;
+  //  return <Editor />;
+  return;
 }

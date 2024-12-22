@@ -48,6 +48,14 @@
     font-family: var(--font-family);
 } 
 
+.header input[type='text'] {
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+}
+
 .name {
     color: var(--white);
 }
@@ -142,4 +150,64 @@
     margin-left: 10px;
     margin-right: 5px;
     margin-top: 5px;
+}
+
+
+.videoEditorWindow {
+  display: flex;
+  flex-direction: column;
+
+   text-align: center;
+   /* margin-left: 330px; */
+   align-items: center;
+ 
+}
+
+.videoEditorRow {
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    /* justify-content: center; */
+    
+}
+
+.videoPlayer {
+    width: 700px;
+    height: 50vh;
+ margin-top: -80vh;
+    border-radius: 10px;
+    /* margin-top: 25vh; */
+   /* margin-top: -80vh; */
+   background-color: #383A47;
+   border: 1px solid gray;;
+  
+   /* margin-top: 20vh; */
+}
+
+.videoTopMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 37x;
+ 
+    /* display: flex;
+    justify-content: start
+    tac; */
+    /* width: 50vw; */
+    /* position: relative; */
+    /* margin-right: -50%; */
+    /* text-align: center; */
+    /* height: 5vh;
+    margin-top: -165vh; */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    /* margin-top: -90vh; */
+    height: 5vh;
+    margin-top: -55vh;
+    cursor: pointer;
+}
+
+.videoTopMenu img {
+    margin-right: 5px;
 }
