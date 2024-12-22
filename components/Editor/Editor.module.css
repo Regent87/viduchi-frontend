@@ -58,6 +58,7 @@
 
 .name {
     color: var(--white);
+    padding-left: 100px;
 }
 
 .profile {
@@ -225,3 +226,27 @@
     height: 30px;
     cursor: pointer;
 }
+
+/* Right menu */
+.navRight {
+    width: 90px;
+    height: 80vh;
+    background-color: #383A47;
+    float: right;
+    margin-top: -80vh;
+    text-align: center;
+}
+
+.navRight nav ul { 
+    list-style: none;
+    margin-top: 10px;
+}
+
+.navRight nav ul li {
+    cursor: pointer;
+}
+
+.navRight nav ul li:hover { 
+    color: var(--white);
+}
+  

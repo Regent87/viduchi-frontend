@@ -21,6 +21,7 @@ import previousIcon from './previous.png';
 import nextIcon from './next.png';
 import refreshIcon from './refresh.png';
 import refreshForwardIcon from './refreshforward.png';
+import subtitlesIcon from './сс.png';
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
@@ -100,7 +101,7 @@ VIDUCHI
 
         </span>
 
-    <input type='text' value={'Проект 1'} className={styles.name} />
+    <input type='text' value={'Проект 1 / Viduchi'} className={styles.name} />
 
    <div className={styles.profile}>
    <UserPanel />
@@ -137,7 +138,7 @@ VIDUCHI
     <div className={styles.videoBottomMenu}>
          <Image src={previousIcon}  alt='previous' />
          <Image src={refreshIcon}  alt='refresh' />
-        <Image src={playIcon}  alt='play' />
+        <Image src={playIcon}  alt='play' title="Воспроизвести" />
         <Image src={refreshForwardIcon}  alt='refresh forward' />
         <Image src={nextIcon}  alt='next' />
         </div>
@@ -145,6 +146,18 @@ VIDUCHI
     
 </div>
 {/* video editor */}
+
+{/* right menu with subtitles */}
+<div className={styles.navRight}>
+<nav>
+    <ul>
+        <li>
+          <Image src={subtitlesIcon} alt="Subtitles" />
+        <p>Субтитры</p>
+        </li>
+    </ul>
+</nav>
+</div>
 
 
         {
