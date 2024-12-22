@@ -22,6 +22,7 @@ import nextIcon from './next.png';
 import refreshIcon from './refresh.png';
 import refreshForwardIcon from './refreshforward.png';
 import subtitlesIcon from './сс.png';
+import maximiseIcon from './maximise.png';
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
@@ -141,6 +142,12 @@ VIDUCHI
         <Image src={playIcon}  alt='play' title="Воспроизвести" />
         <Image src={refreshForwardIcon}  alt='refresh forward' />
         <Image src={nextIcon}  alt='next' />
+       <span className={styles.maximise}>
+       <Image  src={maximiseIcon}  alt='maximise' />
+       </span>
+     
+      
+      
         </div>
 
     

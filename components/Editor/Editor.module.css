@@ -205,10 +205,11 @@
 
 .videoBottomMenu {
     display: flex;
+    /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
     height: 4vh;
-    width: 151px;
+    width: 700px;
     margin-top: 70vh;
     /* display: flex;
     justify-content: center;
@@ -217,7 +218,7 @@
     width: 151px;
     margin-top: -30vh; */
     background-color: transparent;
- 
+ margin-left: 300px;
 }
 
 .videoBottomMenu img {
@@ -225,6 +226,10 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+.videoBottomMenu .maximise {
+    margin-left: 300px;
 }
 
 /* Right menu */
@@ -249,4 +254,4 @@
 .navRight nav ul li:hover { 
     color: var(--white);
 }
-  
+
