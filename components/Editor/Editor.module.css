@@ -188,26 +188,40 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 37x;
- 
-    /* display: flex;
-    justify-content: start
-    tac; */
-    /* width: 50vw; */
-    /* position: relative; */
-    /* margin-right: -50%; */
-    /* text-align: center; */
-    /* height: 5vh;
-    margin-top: -165vh; */
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    /* margin-top: -90vh; */
-    height: 5vh;
+    height: 4vh;
+    width: 120px;
     margin-top: -55vh;
-    cursor: pointer;
+    background-color: #383A47;
+
 }
 
 .videoTopMenu img {
     margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.videoBottomMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    width: 151px;
+    margin-top: 70vh;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    width: 151px;
+    margin-top: -30vh; */
+    background-color: transparent;
+ 
+}
+
+.videoBottomMenu img {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }

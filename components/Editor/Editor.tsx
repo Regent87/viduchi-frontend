@@ -15,7 +15,13 @@ import Image from "next/image";
 import { UploadButton } from "../UploadButton/UploadButton";
 import cubeIcon from './cube.png';
 import cropIcon from './crop.png';
-import vectorIcon from './vector.png';
+import ellypsisIcon from './ellypsis.png';
+import playIcon from './play.png';
+import previousIcon from './previous.png';
+import nextIcon from './next.png';
+import refreshIcon from './refresh.png';
+import refreshForwardIcon from './refreshforward.png';
+
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
@@ -125,8 +131,17 @@ VIDUCHI
 <div className={styles.videoTopMenu}>
         <Image src={cubeIcon} alt="cube icon" />
         <Image src={cropIcon} alt="cube icon" />
-        <Image src={vectorIcon} alt="cube icon" />
+        <Image src={ellypsisIcon} alt="cube icon" />
     </div>
+
+    <div className={styles.videoBottomMenu}>
+         <Image src={previousIcon}  alt='previous' />
+         <Image src={refreshIcon}  alt='refresh' />
+        <Image src={playIcon}  alt='play' />
+        <Image src={refreshForwardIcon}  alt='refresh forward' />
+        <Image src={nextIcon}  alt='next' />
+        </div>
+
     
 </div>
 {/* video editor */}
