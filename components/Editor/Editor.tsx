@@ -4,7 +4,7 @@ import { EditorProps } from "./Editor.props";
 import styles from './Editor.module.css';
 import { UserPanel } from "../UserPanel/UserPanel";
 import { UserInfo } from "../UserInfo/UserInfo";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
 
 import burgerButton from './hamburger.png';
@@ -30,9 +30,14 @@ import kadryVideoImg from './kadryvideo.png';
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
+
+    // handle file upload
+const fileInputField: any = useRef(null);
+
     const [projectName, setProjectName] = useState('');
 
     const [videoFilePath, setVideoFilePath] = useState(''); 
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file: any = event.target.files?.[0];
         if (!file) return;
@@ -187,7 +192,18 @@ VIDUCHI
 
 
 <div className={styles.uploadFile}>
+
+<input
+style={{ display: 'none' }}
+id ="file-upload" type='file' onChange={handleFileChange} ref={fileInputField}/>
+
+<label htmlFor='file' className='custom-file-upload' onClick={() => fileInputField?.current?.click()}>
 <button className={styles.uploadButton}>Импорт медиа</button>
+        </label>
+
+           
+          
+
 
 {/* <UploadButton
 accept="video/mp4,video/x-m4v,video/*"
@@ -259,9 +275,14 @@ className={styles.closeMediaMenu}>
 
 
 {
-    isBottomMenuUploadVideoOpen && <><div className={styles.bottomVideoUpload}>
+    isBottomMenuUploadVideoOpen && <><div
+    onDragStart = {(e: any) => dragStartHandler(e)}
+onDragLeave = {(e: any) => dragLeaveHandler(e)}
+onDragOver={(e: any) => dragStartHandler(e)}
+onDrop = {(e: any) => onDropHandler(e)}
+    className={styles.bottomVideoUpload}>
 <Image src={kadryVideoImg} alt="kadry video" />
-<p>Перетащите сюда видео</p>
+{ drag ? <p>Отпустите файл</p> : <p>Перетащите сюда видео</p> }
 </div>
 
 

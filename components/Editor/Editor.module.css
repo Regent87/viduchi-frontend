@@ -82,12 +82,12 @@
 .uploadMedia {
 
     width: 218px;
-    height: 85vh;
-    background-color: #383A47;
+    height: 65vh;
+    /* background-color: #383A47; */
     position: relative;
     margin-top: -85vh;
     margin-left: 100px;
-    z-index: -1
+    z-index: 1
 }
 
 .uploadButton {
@@ -107,7 +107,7 @@
 
 .dragMedia {
 
-    height: 70vh;
+    height: 55vh;
     border: 3px dotted #F4F4F440;
     margin: 10px 20px;
     display: flex;
@@ -289,7 +289,7 @@
     width: 70wv;
     height: 20vh;
     background-color: #000;
-    margin-top: -20vh;
+    /* margin-top: -10vh; */
     /* position: relative; */
 }
 
