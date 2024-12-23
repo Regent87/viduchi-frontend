@@ -23,6 +23,7 @@ import refreshIcon from './refresh.png';
 import refreshForwardIcon from './refreshforward.png';
 import subtitlesIcon from './сс.png';
 import maximiseIcon from './maximise.png';
+import soundIcon from './sound.png';
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
@@ -185,16 +186,31 @@ onChange={handleFileChange}
 
     {
         uploadedFiles.length > 0 && uploadedFiles.map((uploadedFile: any) => {
+console.log(uploadedFile)
+            if (uploadedFile.type === "video/mp4") {
+                return (
+                    <div className={styles.videoItem}>
+                   <video>
+             <source src={uploadedFile.url} type="video/mp4" />
+             Your browser does not support the video tag.
+           </video>
+           <p>{uploadedFile.name}</p>
+           </div>
+           )
 
+        }
+
+        if (uploadedFile.type === "audio/mpeg") {
             return (
-                <div className={styles.videoItem}>
-                <video>
-          <source src={uploadedFile.url} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <p>{uploadedFile.name}</p>
-        </div>
+                <div className={styles.audioItem}> <Image src={soundIcon} alt="sound icon" /> {uploadedFile.name}</div>
             )
+        }
+            // } else if {
+            //     return (<div>{uploadedFile.name}</div>)
+            // } else {
+            //     return (<div>{uploadedFile.name}</div>)
+            // }
+       
           })
 
     }
