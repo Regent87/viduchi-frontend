@@ -4,7 +4,7 @@ import { EditorProps } from "./Editor.props";
 import styles from './Editor.module.css';
 import { UserPanel } from "../UserPanel/UserPanel";
 import { UserInfo } from "../UserInfo/UserInfo";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
 
 import burgerButton from './hamburger.png';
@@ -28,6 +28,7 @@ import soundIcon from './sound.png';
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
+    const [projectName, setProjectName] = useState('');
 
     const [videoFilePath, setVideoFilePath] = useState(''); 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,13 +72,18 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
         setDrag(false);
     }
 
-    const [isShown, setIsShown] = useState(false);
+    const [isShown, setIsShown] = useState(true);
     const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(false);
     
         const closeDropdown = () => {
             setIsShown(false);
         };
 
+
+
+        useEffect(() => {
+            setProjectName('ПРоект 1 / Viduchi');
+        }, [])
 
 
     return (
@@ -103,7 +109,9 @@ VIDUCHI
 
         </span>
 
-    <input type='text' value={'Проект 1 / Viduchi'} className={styles.name} />
+    <input
+    onChange={(e: any) => setProjectName(e.target.value)}
+    type='text' value={projectName} className={styles.name} />
 
    <div className={styles.profile}>
    <UserPanel />
