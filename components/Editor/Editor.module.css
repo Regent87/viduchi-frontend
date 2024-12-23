@@ -87,6 +87,7 @@
     position: relative;
     margin-top: -85vh;
     margin-left: 100px;
+    z-index: -1
 }
 
 .uploadButton {
@@ -237,7 +238,7 @@
     align-items: center;
     height: 4vh;
     width: 700px;
-    margin-top: 70vh;
+    margin-top: 55vh;
     /* display: flex;
     justify-content: center;
     align-items: center;
@@ -282,3 +283,29 @@
     color: var(--white);
 }
 
+
+/* bottom video upload menu */
+.bottomVideoUpload {
+    width: 70wv;
+    height: 20vh;
+    background-color: #000;
+    margin-top: -20vh;
+    /* position: relative; */
+}
+
+.bottomVideoUpload img {
+    margin-left: 200px;
+    margin-top: 15px;
+}
+
+.bottomVideoUpload p {
+    text-align: center;
+    color: var(--white);
+}
+
+.hideVideoButton {
+    position: absolute;
+margin-left: 70vw;
+margin-top: -135px;
+cursor: pointer;
+} 

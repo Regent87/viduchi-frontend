@@ -24,6 +24,8 @@ import refreshForwardIcon from './refreshforward.png';
 import subtitlesIcon from './сс.png';
 import maximiseIcon from './maximise.png';
 import soundIcon from './sound.png';
+import hideVIdeoIcon from './chevronDown.png';
+import kadryVideoImg from './kadryvideo.png';
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
@@ -72,8 +74,10 @@ export const Editor = ({params, className, ...props }: EditorProps ): JSX.Elemen
         setDrag(false);
     }
 
-    const [isShown, setIsShown] = useState(true);
-    const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(false);
+    const [isShown, setIsShown] = useState(false);
+    const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
+    // нижнее меню загрузки видео
+    const [isBottomMenuUploadVideoOpen, setIsBottomMenuUploadVideoOpen] = useState(true)
     
         const closeDropdown = () => {
             setIsShown(false);
@@ -254,10 +258,21 @@ className={styles.closeMediaMenu}>
 }
 
 
+{
+    isBottomMenuUploadVideoOpen && <><div className={styles.bottomVideoUpload}>
+<Image src={kadryVideoImg} alt="kadry video" />
+<p>Перетащите сюда видео</p>
+</div>
 
 
 
+<Image 
+onClick={() => setIsBottomMenuUploadVideoOpen(!isBottomMenuUploadVideoOpen)}
+className={styles.hideVideoButton} src={hideVIdeoIcon} alt="Hide ideo upload menu"/></>
+}
 
         </>
+
+
     )
 }
