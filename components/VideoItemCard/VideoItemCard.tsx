@@ -38,11 +38,17 @@ export const VideoItemCard = ({ videoItem, onDelete, className, ...props }: Vide
 <source src={videoItem.url} type="video/mp4" />
 Your browser does not support the video tag.
 </video>
+
 <p>{videoItem.name}</p>
 
 </div>
+
 { isMediaFileDeleteMenuOpen && <Image 
-onClick={onDelete}
+onClick={() => {
+ console.log('cliked')
+    onDelete(videoItem.url)
+
+}}
 className={styles.deleteVideo} src={deleteMediaIcon} alt="Delete file" /> }
 </>
     )
