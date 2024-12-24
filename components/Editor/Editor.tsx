@@ -28,7 +28,8 @@ import hideVIdeoIcon from './chevronDown.png';
 import kadryVideoImg from './kadryvideo.png';
 import addMediaIcon from './add_media.png';
 import deleteMediaIcon from './delete_media.png';
-import { VIdeoItemCard } from "../VideoItemCard/VideoItemCard";
+import { VideoItemCard } from "../VideoItemCard/VideoItemCard";
+import { AudioItemCard } from "../AudioItemCard/AudioItemCard";
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
@@ -227,7 +228,7 @@ onChange={handleFileChange}
 console.log(uploadedFile)
             if (uploadedFile.type === "video/mp4") {
 
-                return <VIdeoItemCard videoItem={uploadedFile} />
+                return <VideoItemCard videoItem={uploadedFile} />
                
         //         return (
         //             <div
@@ -248,9 +249,7 @@ console.log(uploadedFile)
         }
 
         if (uploadedFile.type === "audio/mpeg") {
-            return (
-                <div className={styles.audioItem}> <Image src={soundIcon} alt="sound icon" /> {uploadedFile.name}</div>
-            )
+            return <AudioItemCard audioItem={uploadedFile} />
         }
             // } else if {
             //     return (<div>{uploadedFile.name}</div>)

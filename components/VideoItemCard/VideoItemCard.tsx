@@ -6,7 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 
-export const VIdeoItemCard = ({ videoItem, className, ...props }: VideoItemCardProps): JSX.Element => {
+export const VideoItemCard = ({ videoItem, className, ...props }: VideoItemCardProps): JSX.Element => {
 
 
        // showing adding and deleting media file elements
