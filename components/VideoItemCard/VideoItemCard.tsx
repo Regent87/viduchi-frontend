@@ -13,23 +13,35 @@ export const VIdeoItemCard = ({ videoItem, className, ...props }: VideoItemCardP
        const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] = useState(false);
 
        function handleShowAddDeleteMediaFile() {
-           setIsMediaFileDeleteMenuOpen(true);
+        setIsMediaFileDeleteMenuOpen(true);
        }
 
-    return (
+       function handleHideAddDeleteMediaFile() {
+        setTimeout(() => {
+            setIsMediaFileDeleteMenuOpen(false);
+        }, 1000)
+       
+       }
 
+       
+
+    return (
+<>
+{ isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={addMediaIcon} alt="Add file" /> }
     <div
     onMouseEnter={handleShowAddDeleteMediaFile} 
-    onMouseLeave={() => setIsMediaFileDeleteMenuOpen(false)} 
+    onMouseLeave={handleHideAddDeleteMediaFile} 
     className={styles.videoItem}>
-        { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={addMediaIcon} alt="Add file" /> }
+       
         
    <video>
 <source src={videoItem.url} type="video/mp4" />
 Your browser does not support the video tag.
 </video>
 <p>{videoItem.name}</p>
-{ isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={deleteMediaIcon} alt="Delete file" /> }
+
 </div>
+{ isMediaFileDeleteMenuOpen && <Image className={styles.deleteVideo} src={deleteMediaIcon} alt="Delete file" /> }
+</>
     )
 }

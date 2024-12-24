@@ -12,6 +12,14 @@
 
 /* add video item icon */
 .addVideo {
-    margin-left: 190px;
-    margin-top: -25px;
+    margin-left: 200px;
+    /* margin-top: -10px; */
+    margin-bottom: -20px;
+    cursor: pointer;
     }
+
+    .deleteVideo {
+        margin-left: 200px;
+        margin-top: -35px;
+        cursor: pointer;
+        }
