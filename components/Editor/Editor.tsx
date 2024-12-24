@@ -28,17 +28,18 @@ import hideVIdeoIcon from './chevronDown.png';
 import kadryVideoImg from './kadryvideo.png';
 import addMediaIcon from './add_media.png';
 import deleteMediaIcon from './delete_media.png';
+import { VIdeoItemCard } from "../VideoItemCard/VideoItemCard";
 
 
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
 
-    // showing adding and deleting media file elements
-    const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] = useState(false);
+    // // showing adding and deleting media file elements
+    // const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] = useState(false);
 
-    function handleShowAddDeleteMediaFile() {
-        setIsMediaFileDeleteMenuOpen(true);
-    }
+    // function handleShowAddDeleteMediaFile() {
+    //     setIsMediaFileDeleteMenuOpen(true);
+    // }
 
     // handle file upload
 const fileInputField: any = useRef(null);
@@ -225,21 +226,24 @@ onChange={handleFileChange}
         uploadedFiles.length > 0 && uploadedFiles.map((uploadedFile: any) => {
 console.log(uploadedFile)
             if (uploadedFile.type === "video/mp4") {
-                return (
-                    <div
-                    onMouseEnter={handleShowAddDeleteMediaFile} 
-                    onMouseLeave={() => setIsMediaFileDeleteMenuOpen(false)} 
-                    className={styles.videoItem}>
-                        { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={addMediaIcon} alt="Add file" /> }
+
+                return <VIdeoItemCard videoItem={uploadedFile} />
+               
+        //         return (
+        //             <div
+        //             onMouseEnter={handleShowAddDeleteMediaFile} 
+        //             onMouseLeave={() => setIsMediaFileDeleteMenuOpen(false)} 
+        //             className={styles.videoItem}>
+        //                 { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={addMediaIcon} alt="Add file" /> }
                         
-                   <video>
-             <source src={uploadedFile.url} type="video/mp4" />
-             Your browser does not support the video tag.
-           </video>
-           <p>{uploadedFile.name}</p>
-           { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={deleteMediaIcon} alt="Delete file" /> }
-           </div>
-           )
+        //            <video>
+        //      <source src={uploadedFile.url} type="video/mp4" />
+        //      Your browser does not support the video tag.
+        //    </video>
+        //    <p>{uploadedFile.name}</p>
+        //    { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={deleteMediaIcon} alt="Delete file" /> }
+        //    </div>
+        //    )
 
         }
 

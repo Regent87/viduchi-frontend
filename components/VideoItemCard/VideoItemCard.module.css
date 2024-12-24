@@ -1,0 +1,17 @@
+.videoItem {
+    cursor: pointer;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: #33333F;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+/* add video item icon */
+.addVideo {
+    margin-left: 190px;
+    margin-top: -25px;
+    }
