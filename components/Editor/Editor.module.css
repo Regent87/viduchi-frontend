@@ -309,3 +309,10 @@ margin-left: 70vw;
 margin-top: -135px;
 cursor: pointer;
 } 
+
+
+/* add video item icon */
+.addVideo {
+margin-left: 190px;
+margin-top: -25px;
+}
