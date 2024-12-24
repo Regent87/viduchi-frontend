@@ -6,7 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 
-export const VideoItemCard = ({ videoItem, className, ...props }: VideoItemCardProps): JSX.Element => {
+export const VideoItemCard = ({ videoItem, onDelete, className, ...props }: VideoItemCardProps): JSX.Element => {
 
 
        // showing adding and deleting media file elements
@@ -41,7 +41,9 @@ Your browser does not support the video tag.
 <p>{videoItem.name}</p>
 
 </div>
-{ isMediaFileDeleteMenuOpen && <Image className={styles.deleteVideo} src={deleteMediaIcon} alt="Delete file" /> }
+{ isMediaFileDeleteMenuOpen && <Image 
+onClick={onDelete}
+className={styles.deleteVideo} src={deleteMediaIcon} alt="Delete file" /> }
 </>
     )
 }

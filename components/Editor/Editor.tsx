@@ -35,6 +35,11 @@ import { AudioItemCard } from "../AudioItemCard/AudioItemCard";
 export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
 
 
+//    delete media file form state 
+function deleteMediaFile(url: any) {
+    const new_mediafiles = uploadedFiles.filter((item: any) => item.url !== url);
+}
+
     // // showing adding and deleting media file elements
     // const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] = useState(false);
 
@@ -228,23 +233,9 @@ onChange={handleFileChange}
 console.log(uploadedFile)
             if (uploadedFile.type === "video/mp4") {
 
-                return <VideoItemCard videoItem={uploadedFile} />
+                return <VideoItemCard videoItem={uploadedFile} onDelete={deleteMediaFile} />
                
-        //         return (
-        //             <div
-        //             onMouseEnter={handleShowAddDeleteMediaFile} 
-        //             onMouseLeave={() => setIsMediaFileDeleteMenuOpen(false)} 
-        //             className={styles.videoItem}>
-        //                 { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={addMediaIcon} alt="Add file" /> }
-                        
-        //            <video>
-        //      <source src={uploadedFile.url} type="video/mp4" />
-        //      Your browser does not support the video tag.
-        //    </video>
-        //    <p>{uploadedFile.name}</p>
-        //    { isMediaFileDeleteMenuOpen && <Image className={styles.addVideo} src={deleteMediaIcon} alt="Delete file" /> }
-        //    </div>
-        //    )
+       
 
         }
 

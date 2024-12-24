@@ -7,7 +7,8 @@
 
 .leftMenu {
     height: 100vh;
-    width: 100px;
+    /* width: 100px; */
+    width: 100%;
     border-top-right-radius: 65px;
     background-color: #383A47;
     padding-top: 20px;
@@ -42,7 +43,8 @@
 }
 
 .logo {
-    width: 218px;
+    /* width: 218px; */
+    width: 18%;
     font-size: 30px;
     color: #169FFD;
     font-family: var(--font-family);
@@ -81,7 +83,8 @@
 
 .uploadMedia {
 
-    width: 218px;
+    /* width: 218px; */
+    width: 18%;
     height: 65vh;
     /* background-color: #383A47; */
     position: relative;
@@ -142,7 +145,7 @@
     padding-right: 20px;
     /* margin-left: 20px;
     margin-right: 20px; */
-    width: 200px;
+    width: 100%;
     height: auto;
     text-align: center;
 }
@@ -201,9 +204,10 @@
 }
 
 .videoPlayer {
-    width: 700px;
+    width: 55%;
     height: 50vh;
  margin-top: -80vh;
+ margin-left: 10%;
     border-radius: 10px;
     /* margin-top: 25vh; */
    /* margin-top: -80vh; */
@@ -237,7 +241,8 @@
     justify-content: center;
     align-items: center;
     height: 4vh;
-    width: 700px;
+    /* width: 700px; */
+    width: 65%;
     margin-top: 55vh;
     /* display: flex;
     justify-content: center;
@@ -257,12 +262,12 @@
 }
 
 .videoBottomMenu .maximise {
-    margin-left: 200px;
+    margin-left: 20%;
 }
 
 /* Right menu */
 .navRight {
-    width: 90px;
+    width: 5%;
     height: 80vh;
     background-color: #383A47;
     float: right;

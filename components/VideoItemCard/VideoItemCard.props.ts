@@ -3,4 +3,5 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface VideoItemCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	videoItem: any;
+	onDelete: any;
 }
