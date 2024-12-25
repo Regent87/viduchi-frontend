@@ -14,8 +14,6 @@ export const getProjectById = async (id: number): Promise<ProjectModel> => {
     });
 
     if (!response.ok) {
-        console.log("response");
-        console.log(response);
         throw new Error('Failed to get project');
     }
 

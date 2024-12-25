@@ -57,7 +57,6 @@ export const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
       </aside>
       <CreateProjectModal isOpen={isModalOpen} onClose={() => {
         setIsModalOpen(false);
-        console.log("refresh");
         router.replace('/projects');
       }} />
 		</div>

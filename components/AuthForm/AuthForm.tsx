@@ -6,6 +6,7 @@ import { Input } from "../Input/Input"
 import { Button } from "../Button/Button"
 import LogoIcon from '../../public/logo.svg'
 import { useAuth } from '@/contexts/AuthContext'
+import { FieldError } from 'react-hook-form'
 
 export default function AuthForm({
   title,
