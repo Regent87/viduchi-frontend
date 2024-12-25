@@ -86,7 +86,7 @@
     /* width: 218px; */
     width: 18%;
     height: 65vh;
-    /* background-color: #383A47; */
+    background-color: #383A47;
     position: relative;
     margin-top: -85vh;
     margin-left: 100px;
@@ -100,6 +100,7 @@
     width: 80%;
     padding: 10px 20px;
     border-radius: 10px;
+    border: none;
     cursor: pointer;
 }
 
