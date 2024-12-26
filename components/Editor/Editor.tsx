@@ -14,15 +14,15 @@ import chevronClose from './chevron.png';
 import Image from "next/image";
 import { UploadButton } from "../UploadButton/UploadButton";
 import cubeIcon from './cube.png';
-import cropIcon from './crop.png';
-import ellypsisIcon from './ellypsis.png';
-import playIcon from './play.png';
-import previousIcon from './previous.png';
-import nextIcon from './next.png';
-import refreshIcon from './refresh.png';
-import refreshForwardIcon from './refreshforward.png';
+import CropIcon from './crop.svg';
+import EllypsisIcon from './ellypsis.svg';
+import PlayIcon from './play.svg';
+import PreviousIcon from './previous.svg';
+import NextIcon from './next.svg';
+import RefreshIcon from './refresh.svg';
+import RefreshForwardIcon from './refreshForward.svg';
 import subtitlesIcon from './сс.png';
-import maximiseIcon from './maximise.png';
+import MaximiseIcon from './maximise.svg';
 import soundIcon from './sound.png';
 import hideVIdeoIcon from './chevronDown.png';
 import kadryVideoImg from './kadryvideo.png';
@@ -166,18 +166,29 @@ VIDUCHI
 </div>
 <div className={styles.videoTopMenu}>
         <Image src={cubeIcon} alt="cube icon" />
-        <Image src={cropIcon} alt="cube icon" />
-        <Image src={ellypsisIcon} alt="cube icon" />
+        <CropIcon />
+        <EllypsisIcon />
     </div>
 
     <div className={styles.videoBottomMenu}>
-         <Image src={previousIcon}  alt='previous' />
-         <Image src={refreshIcon}  alt='refresh' />
-        <Image src={playIcon}  alt='play' title="Воспроизвести" />
-        <Image src={refreshForwardIcon}  alt='refresh forward' />
-        <Image src={nextIcon}  alt='next' />
+    <span className={styles.icons}>
+         <PreviousIcon />
+         </span>
+         <span className={styles.icons}>
+         <RefreshIcon />
+         </span>
+         <span className={styles.icons}>
+         <PlayIcon />
+         </span>
+         <span className={styles.icons}>
+        <RefreshForwardIcon />
+        </span>
+        <span className={styles.icons}>
+        <NextIcon />
+        </span>
+        
        <span className={styles.maximise}>
-       <Image  src={maximiseIcon}  alt='maximise' />
+       <MaximiseIcon />
        </span>
      
       

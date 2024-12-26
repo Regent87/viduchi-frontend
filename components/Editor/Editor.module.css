@@ -5,6 +5,22 @@
     grid-template-columns: 100px 1200px;
 }
 
+
+    .icons svg path:hover {
+        /* stroke: black !important; */
+    }
+
+    .icons svg {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+
+.icons svg path{
+    stroke: var(--white);
+    font-weight: bold;
+}
+
 .leftMenu {
     height: 100vh;
     /* width: 100px; */
@@ -264,8 +280,21 @@
     cursor: pointer;
 }
 
-.videoBottomMenu .maximise {
-    margin-left: 20%;
+ .maximise svg {
+    display: inline;
+    margin-left: 25vw;
+    /* margin-left: 40%; */
+    cursor: pointer;
+}
+
+.videoBottomMenu {
+    margin-left: 27vw;
+}
+
+.icons svg {
+    cursor: pointer;
+    /* width: 30px;
+    height: 30px; */
 }
 
 /* Right menu */
