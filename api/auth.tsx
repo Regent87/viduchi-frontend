@@ -29,9 +29,9 @@ export async function authConfirm(otp: string, email?: string): Promise<User | n
 	}
 
     const data = await response.json();
-    if (data.token) {
-		localStorage.setItem('jwt_token', data.token);
-        setCookie('jwt_token', data.token, {
+    if (data.access_token) {
+		localStorage.setItem('jwt_token', data.access_token);
+        setCookie('jwt_token', data.access_token, {
             path: '/',
         });
     }

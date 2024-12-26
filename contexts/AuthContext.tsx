@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             window.location.pathname === '/projects' ||
             !window.location.pathname.includes('/login') ||
             !window.location.pathname.includes('/confirm')) {
-        //  router.push('/login');
+          router.push('/login');
         }
         return;
       }
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             window.location.pathname === '/projects' ||
             !window.location.pathname.includes('/login') ||
             !window.location.pathname.includes('/confirm')) {
-        //  router.push('/login');
+          router.push('/login');
         }
         return;
       }
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           window.location.pathname === '/projects' ||
           !window.location.pathname.includes('/login') ||
           !window.location.pathname.includes('/confirm')) {
-      //  router.push('/login');
+        router.push('/login');
       }
     } finally {
       setLoading(false);
@@ -69,13 +69,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = async (email: string) => {
-    console.log('login', email)
-    const user = await authLogin(email);
-    if (user) {
-      setEmail(user.email);
+    const message = await authLogin(email);
+    if (message) {
+      setEmail(email);
       router.push('/confirm');
     }
-    return user;
+    return message;
   };
 
   const confirmOtp = async (otp: string) => {

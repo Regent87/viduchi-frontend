@@ -16,7 +16,7 @@ export default function EditorLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <ProtectedRoute>
+      <ProtectedRoute>
       <div className={styles.page}>
         {/* <div className={styles.sidebar}>
           <Sidebar/>
@@ -28,6 +28,6 @@ export default function EditorLayout({
           {children}
         </main>
       </div>
-    //  </ProtectedRoute>
+      </ProtectedRoute>
   );
 }
