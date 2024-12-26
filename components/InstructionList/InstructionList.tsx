@@ -14,7 +14,7 @@ export default function InstructionList({ className }: InstructionListProps)  {
     let new_instructions: InstructionModel[] = [
         {
             id: 1,
-            title: "первая",
+            title: "первая длинная инструкция для замены батарейки и еще текст",
             date: "2024-12-17T13:24:20.980895Z",
 
         },

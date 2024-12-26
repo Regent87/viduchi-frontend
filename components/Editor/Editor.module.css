@@ -75,7 +75,9 @@
 .profile {
 	display: flex;
 	/* align-items: center; */
+    width: 350px;
 	gap: 32px;
+    
     /* position: absolute; */
 }
 
