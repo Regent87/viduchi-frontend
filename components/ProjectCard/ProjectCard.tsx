@@ -21,7 +21,9 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 
 	return (
 		<>
-		<div className={cn(styles.project, className)} {...props}>
+
+
+		{/* <div className={cn(styles.project, className)} {...props}>
 			<div className={styles.projectCover}>
 				<Image src={cover} alt="cover" width={220} height={150} />
 					
@@ -38,10 +40,27 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 			<span className={styles.menu}>
 				<MenuIcon onClick={() => setIsEditOpen(!isEditOpen)} />
 			</span>
-		</P>
+		</P> */}
 			
+			
+			<div className={cn(styles.project, className)} {...props}>
+			<div className={styles.projectCover}>
+				<Image src={cover} alt="cover" width={220} height={150} />
+					
+				<PlayIcon />
+			</div>
+			<div className={styles.dateAndTitle}>
+			<span className={styles.projectCreated}>{projectModel.date.substring(0, 10) }
+		
+			</span>
+			<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
 			
 		
+			</div>
+			<span className={styles.title}>
+			{projectModel.title}
+			</span>
+
 			
 
 			{
