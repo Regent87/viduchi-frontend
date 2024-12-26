@@ -27,18 +27,19 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 					
 				<PlayIcon />
 			</div>
+			<div className={styles.dateAndTitle}>
 			<span className={styles.projectCreated}>{instructionModel.date.substring(0, 10) }
-
+		
+			</span>
+			<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
 			
+		
+			</div>
+			<span className={styles.title}>
+			{instructionModel.title}
 			</span>
 
-			<P size="s" className={styles.projectInfo}>
-			
-			<P size="m" className={styles.projectTitle}>{instructionModel.title}</P>
-			<span className={styles.menu}>
-				<MenuIcon onClick={() => setIsEditOpen(!isEditOpen)} />
-			</span>
-		</P>
+		
 			
 			
 		
