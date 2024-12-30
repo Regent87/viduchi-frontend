@@ -8,9 +8,9 @@ import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { EditorUserMenu } from "../EditorUserMenu/EditorUserMenu";
 
 import burgerButton from './hamburger.png';
-import folderIcon from './folder.png';
+import FolderIcon from './folder.svg';
 import uploadMediaPhoto from './upload.png';
-import chevronClose from './chevron.png';
+import ChevronCloseIcon from './chevron.svg';
 import Image from "next/image";
 import { UploadButton } from "../UploadButton/UploadButton";
 import cubeIcon from './cube.png';
@@ -21,19 +21,39 @@ import PreviousIcon from './previous.svg';
 import NextIcon from './next.svg';
 import RefreshIcon from './refresh.svg';
 import RefreshForwardIcon from './refreshForward.svg';
-import subtitlesIcon from './сс.png';
+import SubtitlesIcon from './cc.svg';
 import MaximiseIcon from './maximise.svg';
 import soundIcon from './sound.png';
-import hideVIdeoIcon from './chevronDown.png';
+import HideVIdeoIcon from './chevronDown.svg';
 import kadryVideoImg from './kadryvideo.png';
 import addMediaIcon from './add_media.png';
 import deleteMediaIcon from './delete_media.png';
 import { VideoItemCard } from "../VideoItemCard/VideoItemCard";
 import { AudioItemCard } from "../AudioItemCard/AudioItemCard";
 
+import { getProjectById } from "@/api/server/projects";
 
-export const Editor = ({params, className, ...props }: EditorProps ): JSX.Element => {
+// Remotion videl player
+import { Track, Item } from "@/types/videoEditor..types";
+import { AbsoluteFill, useCurrentFrame, Video, Sequence, OffthreadVideo } from "remotion";
+import { Player } from "@remotion/player";
+import { ProjectForm } from "../ProjectForm/ProjectForm";
 
+import { MyComposition } from "../MyComposition/MyComposition";
+
+
+export const Editor = ({project, className, ...props }: EditorProps ): JSX.Element => {
+
+   console.log("Project: ")
+   console.log(project)
+
+   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+
+  // const frame = useCurrentFrame();
+
+  //  const [project, setProject] = useState(project);
+
+ 
 
 //    delete media file form state 
 function deleteMediaFile(url: any) {
@@ -107,7 +127,8 @@ const fileInputField: any = useRef(null);
 
 
         useEffect(() => {
-            setProjectName('ПРоект 1 / Viduchi');
+            setProjectName(project.title);
+            setVideoUrl("https://api-dev.viduchi.ru/files/viduchi-docker/6a16fed5-ac15-431a-ba5e-6eb07753c87a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20241230%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241230T153520Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ad70d628cc981fa2f84ee4d05f37b7d788dc5adeb0fa22a6b07e98cdcadb76cd");
         }, [])
 
 
@@ -120,7 +141,7 @@ const fileInputField: any = useRef(null);
 <nav>
     <ul>
         <li onClick={() => setIsUploadMediaOpen(!isUploadMediaOpen)}>
-            <Image src={folderIcon} alt="folder" />
+            <FolderIcon />
            <p>Медиа</p>
         </li>
     </ul>
@@ -159,11 +180,28 @@ VIDUCHI
         {/* VIdeo editor */}
 <div className={styles.videoEditorWindow}>
 
-
+{/* <ProjectForm project={project} /> */}
    
     <div className={styles.videoPlayer}>
+
+    {videoUrl === null ? null : (
+        <Player
+        style={{
+            width: '100%',
+            height: '100%'
+        }}
+          component={MyComposition}
+          durationInFrames={120}
+          compositionWidth={1920}
+          compositionHeight={1080}
+          fps={30}
+          inputProps={{videoURL: videoUrl}}
+          controls
+        />
+      )}
     
 </div>
+
 <div className={styles.videoTopMenu}>
         <Image src={cubeIcon} alt="cube icon" />
         <CropIcon />
@@ -204,7 +242,7 @@ VIDUCHI
 <nav>
     <ul>
         <li>
-          <Image src={subtitlesIcon} alt="Subtitles" />
+          <SubtitlesIcon />
         <p>Субтитры</p>
         </li>
     </ul>
@@ -286,7 +324,10 @@ className={styles.dragMedia}>
 <div
 onClick={() => setIsUploadMediaOpen(false)}
 className={styles.closeMediaMenu}>
-<Image src={chevronClose} alt="close" />
+<div className={styles.closeMediaMenuDiv}>
+<ChevronCloseIcon />
+</div>
+
 </div>
 
 </div>
@@ -306,10 +347,22 @@ onDrop = {(e: any) => onDropHandler(e)}
 </div>
 
 
+<div className={styles.hideVideoButton} onClick={() => setIsBottomMenuUploadVideoOpen(!isBottomMenuUploadVideoOpen)}>
+    <div className={styles.hideVideoButtonDiv}>
+    <HideVIdeoIcon />
+    </div>
 
-<Image 
+
+</div>
+
+
+
+{/* <Image 
 onClick={() => setIsBottomMenuUploadVideoOpen(!isBottomMenuUploadVideoOpen)}
-className={styles.hideVideoButton} src={hideVIdeoIcon} alt="Hide ideo upload menu"/></>
+className={styles.hideVideoButton} src={hideVIdeoIcon} alt="Hide ideo upload menu"/> */}
+
+
+</>
 }
 
         </>

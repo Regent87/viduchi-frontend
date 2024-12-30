@@ -35,7 +35,7 @@ export default function ProjectList({ className }: ProjectListProps)  {
 					<ProjectCard 
 					key={project.id}
 					projectModel={project} />
-				// </Link>
+				//  </Link>
 			))}
 		</div>
 	);

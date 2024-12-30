@@ -41,12 +41,21 @@
 
 .leftMenu p {
    cursor: pointer;
-   color: var(--white);
+   color: gray;
 }
 
-.leftMenu img {
+.leftMenu svg {
    cursor: pointer;
 }
+
+.leftMenu svg path {
+    stroke: gray;
+ }
+
+ .leftMenu svg path:hover {
+    stroke: var(--white);
+ }
+
 
 .header {
     display: flex;
@@ -152,6 +161,24 @@
     margin-top: -40vh;
 } 
 
+.closeMediaMenuDiv {
+    background-color: #383A47;
+    margin-right: -16px;
+    height: 7vh;
+    /* width: 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeMediaMenu svg {
+    /* height: 5vh; */
+    /* margin-right: -16px; */
+    /* background-color: #383A47; */
+   
+
+}
+
 .uploadFile p {
     color: var(--white);
     text-align: left;
@@ -236,6 +263,17 @@
    /* margin-top: 20vh; */
 }
 
+.innerPlayer {
+    background: white !important;
+    width: 100%;
+    height: 100%;
+    /* width: 55%;
+    height: 50vh;
+ margin-top: -80vh;
+ margin-left: 10%;
+    border-radius: 10px; */
+}
+
 .videoTopMenu {
     display: flex;
     justify-content: center;
@@ -307,6 +345,24 @@
     text-align: center;
 }
 
+.navRight svg {
+    cursor: pointer;
+}
+
+.navRight svg path {
+    fill: gray;
+}
+
+.navRight svg path:hover {
+   
+   
+        fill: var(--white);
+   
+    
+    
+}
+
+
 .navRight nav ul { 
     list-style: none;
     margin-top: 10px;
@@ -341,11 +397,30 @@
 }
 
 .hideVideoButton {
-    position: absolute;
-margin-left: 70vw;
-margin-top: -135px;
+
+margin-top: -23vh;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-left: 40vw;
 cursor: pointer;
+height: 3vh;
+text-align: center;
+    /* position: absolute;
+margin-left: 70vw;
+margin-top: -140px;
+cursor: pointer; */
+
 } 
+
+.hideVideoButtonDiv {
+    background-color: #383A47;
+   width: 5vw;
+    /* padding-right: 2vw; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 /* add video item icon */
