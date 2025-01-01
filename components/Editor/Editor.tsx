@@ -40,6 +40,11 @@ import { Player } from "@remotion/player";
 import { ProjectForm } from "../ProjectForm/ProjectForm";
 
 import { MyComposition } from "../MyComposition/MyComposition";
+import { MyAudio } from "../MyAudio/MyAudio";
+import { AudioComposition } from "../AudioComposition/AudioComposition";
+
+import { Composition } from "remotion";
+import { RemotionRoot } from "../remotion/Root";
 
 
 export const Editor = ({project, className, ...props }: EditorProps ): JSX.Element => {
@@ -184,7 +189,9 @@ VIDUCHI
    
     <div className={styles.videoPlayer}>
 
-    {videoUrl === null ? null : (
+<RemotionRoot />
+
+    {/* {videoUrl === null ? null : (
         <Player
         style={{
             width: '100%',
@@ -198,9 +205,12 @@ VIDUCHI
           inputProps={{videoURL: videoUrl}}
           controls
         />
-      )}
+      )} */}
     
+   
 </div>
+
+
 
 <div className={styles.videoTopMenu}>
         <Image src={cubeIcon} alt="cube icon" />
@@ -357,6 +367,8 @@ onDrop = {(e: any) => onDropHandler(e)}
 
 
 
+
+
 {/* <Image 
 onClick={() => setIsBottomMenuUploadVideoOpen(!isBottomMenuUploadVideoOpen)}
 className={styles.hideVideoButton} src={hideVIdeoIcon} alt="Hide ideo upload menu"/> */}
@@ -365,6 +377,15 @@ className={styles.hideVideoButton} src={hideVIdeoIcon} alt="Hide ideo upload men
 </>
 }
 
+
+<Composition
+      id="MyComposition"
+      durationInFrames={150}
+      fps={30}
+      width={1000}
+      height={15}
+      component={AudioComposition}
+    />
         </>
 
 

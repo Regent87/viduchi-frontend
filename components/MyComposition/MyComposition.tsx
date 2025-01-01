@@ -1,4 +1,5 @@
 import {AbsoluteFill, Video} from 'remotion';
+import { MyAudio } from '../MyAudio/MyAudio';
  
 type VideoProps = {
   videoURL: string;
@@ -6,8 +7,9 @@ type VideoProps = {
  
 export const MyComposition: React.FC<VideoProps> = ({videoURL}) => {
   return (
-    <AbsoluteFill>
+
+     <AbsoluteFill>
       <Video src={videoURL} />
-    </AbsoluteFill>
+     </AbsoluteFill>
   );
 };
