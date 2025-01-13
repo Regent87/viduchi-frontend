@@ -1,0 +1,24 @@
+.header {
+	display: grid;
+	grid-template-columns: auto 400px auto 400px;
+	align-items: center;
+
+	height: 60px;
+	gap: 10px;
+	grid-template-areas:
+		". search . profile"
+}
+
+.search {
+	grid-area: search;
+}
+
+.profile {
+	grid-area: profile;
+}
+
+.profile {
+	display: flex;
+	align-items: center;
+	gap: 32px;
+}

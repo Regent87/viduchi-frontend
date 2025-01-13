@@ -1,0 +1,47 @@
+.timeline {
+  width: calc(100% - 90px);
+  height: 25vh;
+  /* overflow: hidden; */
+  /* overflow-y: auto; */
+  overflow-x: visible;
+  background-color: black;
+}
+
+.playheadWrapper {
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.beforeZero {
+  position: relative;
+  width: 40px;
+  flex: 0 0 auto;
+}
+
+.afterZeroWrapper {
+  position: relative;
+  height: 100%;
+  flex: 1;
+}
+
+.canvasWrapper {
+  color: white;
+  font-size: 0.875rem;
+  height: 240px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.scrollArea1 {
+  pointer-events: none;
+  height: 10px;
+}
+
+.scrollArea2 {
+  pointer-events: none;
+  width: 10px;
+}

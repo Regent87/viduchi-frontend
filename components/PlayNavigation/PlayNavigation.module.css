@@ -1,0 +1,51 @@
+.videoBottomMenu {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    /* width: 700px; */
+    width: 100%;
+    padding-top: 2%;
+    /* margin-top: 55vh; */
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    width: 151px;
+    margin-top: -30vh; */
+    background-color: transparent;
+ /* margin-left: 300px; */
+ gap: 10px;
+}
+
+.videoBottomMenu .maximise {
+    gap: 50px
+}
+
+.videoBottomMenu img {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+ .maximise {
+    /* display: inline; */
+    /* margin-left: 15vw; */
+    /* margin-left: 40%; */
+    /* margin-left: 100px; */
+    cursor: pointer;
+  
+    
+}
+
+.videoBottomMenu {
+    /* margin-left: 27vw; */
+}
+
+.icons svg {
+    cursor: pointer;
+    /* width: 30px;
+    height: 30px; */
+}

@@ -1,0 +1,14 @@
+.stick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-30%);
+  width: 2px;
+  height: 20%;
+  background-color: #ffffff;
+}
+
+.icon {
+  position: absolute;
+  transform: translateX(-50%);
+  fill: #ffffff;
+}

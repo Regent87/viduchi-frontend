@@ -1,0 +1,10 @@
+<svg width="0" height="0" class="hidden">
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="add_media">
+    <rect width="24" height="24" rx="8" fill="#8BD198"></rect>
+    <path d="M17 12H7M12 17V7" stroke="white" stroke-width="2" stroke-linecap="square"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="remove_media">
+    <rect width="24" height="24" rx="8" fill="#F78282"></rect>
+    <path d="M19 6H5M14 5H10M6 10V20C6 20.6667 6.33333 21 7 21C7.66667 21 11 21 17 21C17.6667 21 18 20.6667 18 20C18 19.3333 18 16 18 10" stroke="white" stroke-width="2" stroke-linecap="square"></path>
+  </symbol>
+</svg>

@@ -1,0 +1,41 @@
+.videoItem {
+  position: relative;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: #33333f;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.title {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: calc(100% - 20px);
+  text-align: left;
+}
+
+.videoItem video {
+  z-index: -1;
+  border-radius: 25px;
+}
+
+.addVideo {
+  position: absolute;
+  z-index: 22222;
+  cursor: pointer;
+  bottom: 0;
+  right: 0;
+  height: 24px;
+}
+
+.deleteVideo {
+  position: absolute;
+  z-index: 2222;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  height: 24px;
+}

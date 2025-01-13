@@ -1,0 +1,49 @@
+.audioItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: #33333f;
+  color: var(--white);
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  min-height: 60px;
+}
+
+.title {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: calc(100% - 70px);
+  text-align: left;
+}
+
+.audioItem .audoiIcon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.addAudio {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  bottom: 0;
+  right: 0;
+  height: 24px;
+}
+
+.deleteAudio {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  height: 24px;
+}
