@@ -179,7 +179,7 @@ const Ruler = (props: RulerProps) => {
         position: "relative",
         width: "100%",
         height: `${canvasSize.height}px`,
-        backgroundColor: "transparent",
+        backgroundColor: "black",
         borderTop: "1px solid white",
       }}
     >
@@ -187,6 +187,7 @@ const Ruler = (props: RulerProps) => {
         onClick={handleClick}
         ref={canvasRef}
         height={canvasSize.height}
+        // height={140}
       />
     </div>
   );

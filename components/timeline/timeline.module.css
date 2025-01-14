@@ -1,10 +1,13 @@
 .timeline {
   width: calc(100% - 90px);
+  padding-top: 0 !important;
   height: 25vh;
+  
   /* overflow: hidden; */
   /* overflow-y: auto; */
   overflow-x: visible;
-  background-color: black;
+  background-color: transparent;
+  /* z-index: -1; */
 }
 
 .playheadWrapper {
@@ -30,7 +33,7 @@
 .canvasWrapper {
   color: white;
   font-size: 0.875rem;
-  height: 240px;
+  height: 140px !important;
   position: absolute;
   top: 0;
   width: 100%;

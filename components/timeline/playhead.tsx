@@ -65,7 +65,8 @@ const Playhead = ({ scrollLeft }: { scrollLeft: number }) => {
   }, [isDragging]);
 
   return (
-    <div
+    <div 
+    className={styles.playhead}
       ref={playheadRef}
       onMouseDown={(e) => handleMouseDown(e)}
       onTouchStart={(e) => handleMouseDown(e)}
@@ -75,7 +76,7 @@ const Playhead = ({ scrollLeft }: { scrollLeft: number }) => {
         top: -3,
         width: 1,
         // height: "calc(100% - 80px)",
-        height: "20vh",
+        height: "40vh",
         background: "#d4d4d8",
         zIndex: 10,
         cursor: "pointer",

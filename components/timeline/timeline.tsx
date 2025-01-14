@@ -205,7 +205,7 @@ const Timeline = () => {
             type="always"
             style={{
               position: "absolute",
-              height: "240px",
+              height: "140px",
               width: "10px",
             }}
             className="ScrollAreaRootV"

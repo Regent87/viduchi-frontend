@@ -12,3 +12,8 @@
   transform: translateX(-50%);
   fill: #ffffff;
 }
+
+.playhead {
+  /* height: 40vh; */
+  /* background-color: #000 !important; */
+}
