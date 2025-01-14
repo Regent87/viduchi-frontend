@@ -160,11 +160,14 @@ const Timeline = () => {
   return (
     <div className={styles.timeline}>
       <Header />
-      <div className={styles.playheadWrapper}>
+      <div id="playhead" className={styles.playheadWrapper}>
         <Playhead scrollLeft={scrollLeft} />
       </div>
+      <div id="ruler">
       <Ruler onClick={onClickRuler} scrollLeft={scrollLeft} />
-      <div className={styles.wrapper}>
+      </div>
+      
+      <div id="wrapper" className={styles.wrapper}>
         <div className={styles.beforeZero} />
         <div className={styles.afterZeroWrapper}>
           <div ref={containerRef} className={styles.canvasWrapper}>
@@ -205,7 +208,7 @@ const Timeline = () => {
             type="always"
             style={{
               position: "absolute",
-              height: "140px",
+              height: "240px",
               width: "10px",
             }}
             className="ScrollAreaRootV"

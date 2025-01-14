@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import {
   ACTIVE_CLONE,
@@ -22,6 +23,8 @@ import styles from "./header.module.css";
 import { IconButton } from "../ui/iconButton";
 
 const Header = () => {
+
+
   const { duration, fps, scale, playerRef, activeIds } = useStore();
   const currentFrame = useCurrentPlayerFrame(playerRef!);
 
@@ -43,6 +46,27 @@ const Header = () => {
       },
     });
   };
+
+
+  const playhead = document.getElementById("playhead");
+  const ruler = document.getElementById("ruler");
+  const wrapper = document.getElementById("wrapper");
+
+  const hideTimeLine = () => {
+   
+
+    if ( playhead!.style.display === "none") {
+      playhead!.style.display = 'block';
+    ruler!.style.display = 'block';
+    wrapper!.style.display = 'block';
+    } else {
+      playhead!.style.display = 'none';
+    ruler!.style.display = 'none';
+    wrapper!.style.display = 'none';
+    }
+
+  }
+
 
   const doActiveClone = () => {
     dispatch(ACTIVE_CLONE);
@@ -120,7 +144,7 @@ const Header = () => {
             <IconButton onClick={onZoomInClick}>
               <ZoomIn size={20} color="rgba(244, 244, 244, 0.55)" />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={hideTimeLine}>
               <Maximize2 size={20} color="rgba(244, 244, 244, 0.55)" />
             </IconButton>
           </div>

@@ -131,7 +131,7 @@
 .uploadMedia {
   /* width: 218px; */
   width: 18%;
-  height: 60vh;
+  height: 55vh;
   background-color: #383a47;
   position: relative;
   margin-top: -85vh;
@@ -163,7 +163,7 @@
 }
 
 .dragMedia {
-  height: 55vh;
+  height: 50vh;
   border: 3px dotted #f4f4f440;
   margin: 10px 20px;
   display: flex;

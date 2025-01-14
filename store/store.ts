@@ -38,11 +38,11 @@ interface ITimelineStore {
 const useStore = create<ITimelineStore>((set) => ({
   playerControls: false,
   timeline: null,
-  duration: 5000,
+  duration: 600000,
   fps: 30,
   scale: {
     unit: 60,
-    zoom: 1 / 90,
+    zoom: 1 / 180,
     segments: 5,
   },
   scroll: {

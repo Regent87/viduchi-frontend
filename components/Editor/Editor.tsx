@@ -38,6 +38,7 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 
 import { EditorProps } from "./Editor.props";
 
+
 export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Element => {
   //  components data
   
@@ -250,7 +251,12 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
             </div>
             {isShown && <EditorUserMenu closeDropdown={closeDropdown} />}
           </div>
+
           {playerRef && !isBottomMenuUploadVideoOpen && <Timeline />}
+
+
+
+
         </div>
       </div>
 
@@ -260,6 +266,8 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
           <Player />
 
           {playerRef && !isBottomMenuUploadVideoOpen && <PlayNavigation />}
+
+
         </div>
 
         {/* <div className={styles.videoTopMenu}>
