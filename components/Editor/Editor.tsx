@@ -228,8 +228,11 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
           <nav>
             <ul>
               <li onClick={() => setIsUploadMediaOpen(!isUploadMediaOpen)}>
+                <span className={ isUploadMediaOpen ? styles.white : styles.gray }>
                 <FolderIcon />
                 <p>Медиа</p>
+                </span>
+               
               </li>
             </ul>
           </nav>

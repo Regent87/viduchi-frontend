@@ -35,7 +35,8 @@ if (file.type == 'video/mp4') {
       },
       details: {
         src: URL.createObjectURL(file),
-        name: file.name
+        name: file.name,
+        volume: 0
       },
       metadata: {
         resourceId

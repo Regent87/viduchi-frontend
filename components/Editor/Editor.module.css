@@ -60,12 +60,29 @@
   cursor: pointer;
 }
 
-.leftMenu svg path {
+/* .leftMenu svg path {
   stroke: gray;
 }
 
 .leftMenu svg path:hover {
   stroke: var(--white);
+} */
+
+
+.white svg path {
+  stroke: var(--white);
+}
+
+.white p {
+  color: var(--white);
+}
+
+.gray svg path {
+  stroke: gray;
+}
+
+.gray p {
+  color: gray;
 }
 
 .headerWrapper {
