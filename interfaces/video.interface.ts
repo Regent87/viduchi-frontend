@@ -4,3 +4,9 @@ export interface VideoModel {
 	createdAt: string;
 	cover: string;
 }
+
+export interface IVideo {
+	id: string;
+	title: string;
+	url: string;
+}

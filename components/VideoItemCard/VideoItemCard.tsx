@@ -10,9 +10,10 @@ import RemoveFileIcon from './remove.svg';
 interface VideoItemCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   videoItem: FileWithUrl;
+  projectId: number;
 }
 
-export const VideoItemCard = ({ videoItem }: VideoItemCardProps) => {
+export const VideoItemCard = ({ videoItem, projectId }: VideoItemCardProps) => {
   const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] =
     useState(false);
 
@@ -54,7 +55,7 @@ export const VideoItemCard = ({ videoItem }: VideoItemCardProps) => {
       {isMediaFileDeleteMenuOpen && (
         <div className={styles.addVideo}>
 
-          <AddFileIcon onClick={() => handleFileUpload(videoItem)} />
+          <AddFileIcon onClick={() => handleFileUpload(videoItem, projectId)} />
 
           {/* <IconButton size={24} onClick={() => handleFileUpload(videoItem)}>
             <svg width={24} height={24}>

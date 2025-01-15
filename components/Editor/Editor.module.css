@@ -379,6 +379,8 @@ margin-left: 10%;
   float: right;
   margin-top: -80vh;
   text-align: center;
+  /* z-index: 10;
+  cursor: pointer; */
 }
 
 .navRight svg {
@@ -387,6 +389,7 @@ margin-left: 10%;
 
 .navRight svg path {
   fill: gray;
+  
 }
 
 .navRight svg path:hover {

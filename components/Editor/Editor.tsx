@@ -114,6 +114,10 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
   const { playerRef, setState } = useStore();
   useTimelineEvents();
 
+  const store = useStore();
+
+
+
   const handleFileUpload = async (files: File[]) => {
     // const resourceId = "VMJQit9N0hJaCAss";
     const resourceId = generateId();
@@ -214,6 +218,10 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     window.open(url, "_blank"); // '_blank' will open the link in a new tab
   };
 
+
+
+ 
+
   useEffect(() => {
     playerRef?.current?.isFullscreen
       ? setState({ playerControls: true })
@@ -224,7 +232,12 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     <>
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
-          <Image src={burgerButton} alt="main menu" />
+          <Image
+          onClick={() => {
+            console.log("STORE DATA: ");
+            console.log(store);
+         }}
+          src={burgerButton} alt="main menu" />
           <nav>
             <ul>
               <li onClick={() => setIsUploadMediaOpen(!isUploadMediaOpen)}>
@@ -285,7 +298,10 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
         <nav>
           <ul>
             <li>
-              <SubtitlesIcon />
+              <SubtitlesIcon onClick={() => {
+                  console.log("STORE DATA: ");
+                  console.log(store);
+               }} />
               <p>Субтитры</p>
             </li>
           </ul>
@@ -316,6 +332,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
                     <VideoItemCard
                       key={uploadedFile.url}
                       videoItem={uploadedFile}
+                      projectId={project.id}
                     />
                   );
                 }
@@ -345,11 +362,13 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
           }
 
           <div
+          id="dragmedia"
             onDragStart={(e) => dragStartHandler(e)}
             onDragLeave={(e) => dragLeaveHandler(e)}
             onDragOver={(e) => dragStartHandler(e)}
             onDrop={(e) => onDropHandler(e)}
             className={styles.dragMedia}
+            style={ uploadedFiles.length > 0 ? { display: 'none' } : { display: 'flex' } }
           >
             <Image src={uploadMediaPhoto} alt="upload media" />
             {drag ? (

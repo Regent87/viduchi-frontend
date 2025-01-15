@@ -9,6 +9,7 @@ export const API = {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/projects',
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/projects',
 		byId: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}`,
+		addVideo: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students'
