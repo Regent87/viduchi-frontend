@@ -313,12 +313,39 @@ margin-left: 10%;
 
 .videoTopMenu {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 4vh;
-  width: 120px;
-  margin-top: -55vh;
-  background-color: #383a47;
+
+  /* justify-content: right; */
+  /* align-items: center; */
+  /* height: 4vh; */
+  /* width: 120px; */
+  width: 100%;
+  margin-top: -52vh;
+  /* background-color: #383a47; */
+  margin-right: 10%;
+
+  justify-content: right;
+  gap: 5px;
+
+
+}
+
+.createInstruction {
+
+  cursor: pointer;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: white;
+  background-color: #169FFD;
+  border: none;
+}
+
+.editInstruction {
+  cursor: pointer;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  border: none;
 }
 
 .videoTopMenu img {
@@ -379,6 +406,8 @@ margin-left: 10%;
   float: right;
   margin-top: -80vh;
   text-align: center;
+  position: relative;
+  z-index: 5;
   /* z-index: 10;
   cursor: pointer; */
 }

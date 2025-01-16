@@ -286,12 +286,20 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 
         </div>
 
-        {/* <div className={styles.videoTopMenu}>
-       <Image src={cubeIcon} alt="cube icon" />
-       <CropIcon />
-       <EllypsisIcon />
-   </div> */}
+        <div className={styles.videoTopMenu}>
+       
+       {/* <CropIcon />
+       <EllypsisIcon /> */}
+
+       <button
+       onClick={() => console.log("Редактирвоать инструкцию")}
+       className={styles.editInstruction} >Редактировать инсnрукцию</button>
+       <button
+       onClick={() => console.log("Создать инструкцию")}
+       className={styles.createInstruction} >Создать инсрукцию</button>
+   </div>
       </div>
+      
 
       {/* right menu with subtitles */}
       <div className={styles.navRight}>
