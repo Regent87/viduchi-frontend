@@ -12,7 +12,8 @@
   /* overflow: hidden; */
   /* overflow-y: auto; */
   /* overflow-x: auto; */
-  background-color: transparent;
+  /* background-color: transparent; */
+  background-color: #2D2E33;
   /* z-index: -1; */
   /* margin-top: -30px; */
   height: 30vh;
@@ -40,7 +41,7 @@ z-index: -3; */
 
 .beforeZero {
   position: relative;
-  width: 40px;
+  width: 1px;
   flex: 0 0 auto;
  
 }
@@ -63,6 +64,7 @@ z-index: -3; */
  /* margin-top: -3px; */
  /* margin-top: -1vh; */
   width: 100vw;
+  left: 40px;
 overflow-y: auto;
 overflow-x: auto;
 z-index: 1;

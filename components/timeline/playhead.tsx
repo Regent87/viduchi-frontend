@@ -73,7 +73,7 @@ const Playhead = ({ scrollLeft }: { scrollLeft: number }) => {
       style={{
         position: "absolute",
         left: 40 + position,
-        top: -3,
+        top: -1,
         width: 1,
         height: "14vh",
         background: "#d4d4d8",

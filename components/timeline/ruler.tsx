@@ -179,8 +179,9 @@ const Ruler = (props: RulerProps) => {
         position: "relative",
         width: "100%",
         height: `${canvasSize.height}px`,
-        backgroundColor: "black",
+        backgroundColor: "#2D2E33",
         borderTop: "1px solid white",
+        
       }}
     >
       <canvas
