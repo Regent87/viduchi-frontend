@@ -385,7 +385,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
             onClick={() => setIsUploadMediaOpen(false)}
             className={styles.closeMediaMenu}
           >
-            <div className={styles.closeMediaMenuDiv}>
+            <div style={ uploadedFiles.length > 0 ? { display: 'none' } : { display: 'flex' } } className={styles.closeMediaMenuDiv}>
               <ChevronCloseIcon />
             </div>
           </div>

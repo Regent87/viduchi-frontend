@@ -1,15 +1,61 @@
 import { Video as VideoBase, VideoProps } from "@designcombo/timeline";
 
+// import { Control, Rect } from 'fabric';
+// import { IMetadata, ITrim } from '../interfaces/combo';
+
+// interface IDisplay {
+//     from: number;
+//     to: number;
+// }
+// export interface VideoProps {
+//     id: string;
+//     width: number;
+//     height?: number;
+//     tScale: number;
+//     fill: string;
+//     resourceId: string;
+//     top?: number;
+//     left?: number;
+//     display: IDisplay;
+//     trim: ITrim;
+//     metadata?: Partial<IMetadata>;
+// }
+// declare class Video extends Rect {
+//     static type: string;
+//     id: string;
+//     resourceId: string;
+//     tScale: number;
+//     isSelected: boolean;
+//     display: IDisplay;
+//     trim: ITrim;
+//     static createControls(): {
+//         controls: Record<string, Control>;
+//     };
+//     constructor(options: VideoProps);
+//     _render(ctx: CanvasRenderingContext2D): void;
+//     setSelected(selected: boolean): void;
+//     updateSelected(ctx: CanvasRenderingContext2D): void;
+// }
+
 class Video extends VideoBase {
+// class Video {
   static type = "Video";
+  static height = 25;
   constructor(props: VideoProps) {
     super(props);
-    // this.fill = "#2563eb";
+    
+  this.fill = "gray";
+//    this.height = 50;
+    // this.top = 0;
+    // this.left = 0;
+
+   // this._render 
   }
 
   public _render(ctx: CanvasRenderingContext2D) {
-    super._render(ctx);
-    this.drawTextIdentity(ctx);
+   // this._render(ctx);
+   super._render(ctx);
+   this.drawTextIdentity(ctx);
     this.updateSelected(ctx);
   }
 
@@ -21,10 +67,10 @@ class Video extends VideoBase {
     ctx.translate(-this.width / 2, -this.height / 2);
     ctx.translate(0, 14);
     ctx.font = "600 12px 'DM Sans'";
-    ctx.fillStyle = "#f4f4f5";
+  //  ctx.fillStyle = "#f4f4f5";
     ctx.textAlign = "left";
     ctx.clip();
-    ctx.fillText("Видео", 36, 10);
+    // ctx.fillText("Video", 36, 10);
 
     ctx.translate(8, 1);
 

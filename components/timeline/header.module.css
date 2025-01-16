@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  height: 50px;
+  height: 30px;
   box-shadow: inset 0 1px 0 0 #27272a;
   flex: none;
   background-color: #000;
@@ -9,12 +9,12 @@
 
 .absoluteWrapper {
   position: absolute;
-  height: 50px;
+  height: 30px;
   width: 100%;
 }
 
 .gridContainer {
-  height: 50px;
+  height: 30px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 200px 1fr;

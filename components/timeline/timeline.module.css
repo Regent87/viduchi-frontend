@@ -14,8 +14,10 @@
   background-color: transparent;
   /* z-index: -1; */
   /* margin-top: -30px; */
-  height: 20vh;
+  height: 25vh;
   /* margin-bottom: -20px; */
+
+
 
 }
 
@@ -30,14 +32,14 @@
 
 .beforeZero {
   position: relative;
-  width: 40px;
-  flex: 0 0 auto;
+  width: 0px;
+  /* flex: 0 0 auto; */
  
 }
 
 .afterZeroWrapper {
   position: relative;
-  height: 100%;
+  height: 5%;
   /* height: 10px; */
   flex: 1;
 
@@ -46,14 +48,14 @@
 .canvasWrapper {
   color: white;
   font-size: 0.875rem;
-  height: 240px;
+  height: 80px;
   position: absolute;
-  top: 0;
+  /* top: 0; */
 
   width: 100%;
 
 
-/* overflow-y: auto; */
+
 }
 
 .scrollArea1 {

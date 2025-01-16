@@ -83,7 +83,9 @@ const Timeline = () => {
     if (!canvasEl || !containerEl) return;
 
     const containerWidth = containerEl.clientWidth;
-    const containerHeight = containerEl.clientHeight;
+   const containerHeight = containerEl.clientHeight;
+
+ 
 
     const canvas = new CanvasTimeline(canvasEl, {
       width: containerWidth,
@@ -139,7 +141,8 @@ const Timeline = () => {
         if (bounding) {
           setSize({
             width: bounding.width,
-            height: bounding.height,
+           height: bounding.height,
+         // height: 25,
           });
         }
       }
@@ -208,8 +211,9 @@ const Timeline = () => {
             type="always"
             style={{
               position: "absolute",
-              height: "240px",
+              height: "100px",
               width: "10px",
+             
             }}
             className="ScrollAreaRootV"
           >

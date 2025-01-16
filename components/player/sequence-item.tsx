@@ -68,7 +68,7 @@ export const SequenceItem: Record<
         durationInFrames={durationInFrames}
         style={{
           width: item.details.width || "100%", // Default width
-          height: item.details.height || "auto", // Default height
+         height: item.details.height || "auto", // Default height
           transform: item.details?.transform || "none",
           opacity: item?.details?.opacity! / 100 || 1,
           border: item?.details?.border || "none", // Default border
@@ -97,7 +97,8 @@ export const SequenceItem: Record<
     const crop = item.details?.crop || {
       x: 0,
       y: 0,
-      width: item.details.width,
+     width: item.details.width,
+    
       height: item.details.height
     };
 

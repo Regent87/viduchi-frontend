@@ -180,7 +180,7 @@
 }
 
 .dragMedia {
-  height: 50vh;
+  height: 40vh;
   border: 3px dotted #f4f4f440;
   margin: 10px 20px;
   display: flex;
@@ -200,7 +200,7 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  margin-top: -40vh;
+  margin-top: -30vh;
 }
 
 .closeMediaMenuDiv {

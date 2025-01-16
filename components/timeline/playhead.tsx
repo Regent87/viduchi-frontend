@@ -75,9 +75,9 @@ const Playhead = ({ scrollLeft }: { scrollLeft: number }) => {
         left: 40 + position,
         top: -3,
         width: 1,
-        height: "40vh",
+        height: "14vh",
         background: "#d4d4d8",
-        // zIndex: 1,
+        zIndex: 1,
         cursor: "pointer",
       }}
     >
