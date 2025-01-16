@@ -42,7 +42,7 @@ class Audio extends AudioBase {
     ctx.fillStyle = "#f4f4f5";
     ctx.textAlign = "left";
     ctx.clip();
-    ctx.fillText("Аудио", 36, 14);
+   // ctx.fillText("Аудио", 36, 14);
 
   
 
