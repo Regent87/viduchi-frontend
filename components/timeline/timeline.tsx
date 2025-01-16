@@ -217,7 +217,7 @@ const Timeline = () => {
             type="always"
             style={{
               position: "absolute",
-              height: "240px",
+              height: "200px",
               width: "10px",
              
             }}

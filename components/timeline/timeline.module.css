@@ -15,7 +15,7 @@
   background-color: transparent;
   /* z-index: -1; */
   /* margin-top: -30px; */
-  height: 22vh;
+  height: 30vh;
   /* margin-bottom: -20px; */
 
 /* z-index: 2; */
@@ -56,11 +56,15 @@ z-index: -3; */
 .canvasWrapper {
   color: white;
   font-size: 0.875rem;
-  height: 100px;
+  height: 200px;
   position: absolute;
   top: 0;
+ /* padding-top: 50px; */
+ /* margin-top: -3px; */
+ margin-top: -1vh;
   width: 100%;
-overflow: auto;
+overflow-y: auto;
+z-index: 1;
   /* width: 100wv; */
 /* z-index: -1; */
 /* overflow-y: auto; */
