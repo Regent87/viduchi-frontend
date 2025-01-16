@@ -27,6 +27,7 @@ import { EditorUserMenu } from "@/components/EditorUserMenu/EditorUserMenu";
 import { VideoItemCard } from "@/components/VideoItemCard/VideoItemCard";
 import { AudioItemCard } from "@/components/AudioItemCard/AudioItemCard";
 
+import MenuIcon from './hamburger.svg';
 import CropIcon from "./crop.svg";
 import EllypsisIcon from "./ellypsis.svg";
 import SubtitlesIcon from "./cc.svg";
@@ -62,6 +63,9 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
   // нижнее меню загрузки видео
   const [isBottomMenuUploadVideoOpen, setIsBottomMenuUploadVideoOpen] =
     useState(true);
+
+    // окно субтитров
+    const [isSubtitlesOpen, setIsSubtitlesOpen] = useState(false)
 
   const closeDropdown = () => {
     setIsShown(false);
@@ -232,16 +236,14 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     <>
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
-          <Image
-          onClick={() => {
-            console.log("STORE DATA: ");
-            console.log(store);
-         }}
-          src={burgerButton} alt="main menu" />
+          <MenuIcon />
+        
+
           <nav>
             <ul>
               <li onClick={() => setIsUploadMediaOpen(!isUploadMediaOpen)}>
-                <span className={ isUploadMediaOpen ? styles.white : styles.gray }>
+                <span
+                className={ isUploadMediaOpen ? styles.white : styles.gray + " hovered"}>
                 <FolderIcon />
                 <p>Медиа</p>
                 </span>
@@ -314,7 +316,23 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
             </li>
           </ul>
         </nav>
+
+{ isSubtitlesOpen && (
+ <div className={styles.subtitles}>
+ <div className={styles.languages}>
+<h3>Субтитры</h3>
+<select className={styles.languageSelect}>
+ <option value="">Выбор языка</option>
+</select>
+</div>
+</div>
+) }
+       
+
+
       </div>
+
+     
 
       {isUploadMediaOpen && (
         <div className={styles.uploadMedia}>

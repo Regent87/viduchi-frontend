@@ -47,17 +47,21 @@
   padding-top: 30px;
 }
 
-.leftMenu p:hover {
+/* .leftMenu p:hover {
   color: var(--white);
-}
+} */
 
-.leftMenu p {
+/* .leftMenu p {
   cursor: pointer;
   color: gray;
-}
+} */
 
 .leftMenu svg {
   cursor: pointer;
+}
+
+.leftMenu svg:hover {
+ color: var(--white);
 }
 
 /* .leftMenu svg path {
@@ -335,8 +339,11 @@ margin-left: 10%;
   padding: 5px 20px;
   border-radius: 5px;
   color: white;
+  font-size: 12px;
   background-color: #169FFD;
   border: none;
+  width: 200px;
+  text-align: center;
 }
 
 .editInstruction {
@@ -344,8 +351,11 @@ margin-left: 10%;
   padding: 5px 20px;
   border-radius: 5px;
   color: black;
+  font-size: 12px;
   background-color: white;
   border: none;
+  width: 200px;
+  text-align: center;
 }
 
 .videoTopMenu img {
@@ -436,6 +446,42 @@ margin-left: 10%;
 
 .navRight nav ul li:hover {
   color: var(--white);
+}
+
+/* subtitles  */
+.subtitles {
+  background-color: white;
+  width: 15vw;
+  height: 30vh;
+  margin-left: -15vw;
+  margin-top: -10.5vh;
+  background-color: #383A47;
+}
+
+.subtitles h3 {
+  color: var(--white);
+  font-size: 16px;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.languages {
+  margin-left: 10px;
+}
+
+.languages select {
+  margin-left: -25px;
+}
+
+.subtitles select {
+  background-color: transparent;
+  color: gray;
+  border: 1px solid gray;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 30px;
+  margin-top: 20px;
 }
 
 /* bottom video upload menu */
