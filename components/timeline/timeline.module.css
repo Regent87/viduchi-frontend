@@ -1,6 +1,7 @@
 .timeline {
   
-  width: calc(100% - 90px);
+  /* width: calc(100wv - 12wv); */
+  width: 91%;
   /* width: 100%; */
 
   /* width: 100%; */
@@ -14,10 +15,13 @@
   background-color: transparent;
   /* z-index: -1; */
   /* margin-top: -30px; */
-  height: 25vh;
+  height: 22vh;
   /* margin-bottom: -20px; */
 
+/* z-index: 2; */
 
+position: relative;
+overflow: hidden;
 
 }
 
@@ -27,20 +31,24 @@
 
 .wrapper {
   display: flex;
+ 
+/* width: 91%; */
+/* width: 100%;
+z-index: -3; */
 
 }
 
 .beforeZero {
   position: relative;
-  width: 0px;
-  /* flex: 0 0 auto; */
+  width: 40px;
+  flex: 0 0 auto;
  
 }
 
 .afterZeroWrapper {
   position: relative;
-  height: 5%;
-  /* height: 10px; */
+  /* height: 5%; */
+  height: 100%;
   flex: 1;
 
 }
@@ -48,13 +56,14 @@
 .canvasWrapper {
   color: white;
   font-size: 0.875rem;
-  height: 80px;
+  height: 100px;
   position: absolute;
-  /* top: 0; */
-
+  top: 0;
   width: 100%;
-
-
+overflow: auto;
+  /* width: 100wv; */
+/* z-index: -1; */
+/* overflow-y: auto; */
 
 }
 

@@ -118,10 +118,10 @@ const Timeline = () => {
   }, []);
 
   const handleOnScrollH = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const scrollLeft = e.currentTarget.scrollLeft;
-    const canvas = canvasRef.current!;
-    canvas.scrollTo({ scrollLeft });
-    setScrollLeft(scrollLeft);
+    // const scrollLeft = e.currentTarget.scrollLeft;
+    // const canvas = canvasRef.current!;
+    // canvas.scrollTo({ scrollLeft });
+    // setScrollLeft(scrollLeft);
   };
 
   const handleOnScrollV = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -162,13 +162,19 @@ const Timeline = () => {
 
   return (
     <div className={styles.timeline}>
+      
       <Header />
+     
+     
       <div id="playhead" className={styles.playheadWrapper}>
         <Playhead scrollLeft={scrollLeft} />
       </div>
+     
       <div id="ruler">
       <Ruler onClick={onClickRuler} scrollLeft={scrollLeft} />
       </div>
+
+   
       
       <div id="wrapper" className={styles.wrapper}>
         <div className={styles.beforeZero} />
@@ -211,7 +217,7 @@ const Timeline = () => {
             type="always"
             style={{
               position: "absolute",
-              height: "100px",
+              height: "240px",
               width: "10px",
              
             }}
