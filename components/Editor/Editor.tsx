@@ -89,6 +89,14 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
   const setUploadedFiles = useStore((state) => state.setUploadedFiles);
   console.log("zustand", uploadedFiles);
 
+  //  subtitles
+ // const isSubtitlesShown = useStore((state) => state.isSubtitlesShown);
+  const setIsSubtitlesShown = useStore((state) => state.setIsSubtitlesShown);
+  const isSubtitlesShown = useStore((state) => state.isSubtitlesShown);
+  const [isAudioTitlesShown, setIsAudioTitlesShown] = useState(false);
+  
+  
+
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     setDrag(true);
@@ -116,6 +124,10 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     setProjectName(project.title);
     //  setVideoUrl("https://api-dev.viduchi.ru/files/viduchi-docker/5bd0a633-92f7-47a3-9a50-06526304a6b0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20250101%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250101T061141Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0fd294f20804f084e3042350a26b81b2209bad9b02af7a69765a087d9e65557b");
   }, []);
+
+  useEffect(() => {
+    setIsAudioTitlesShown(isSubtitlesShown)
+  }, [isSubtitlesShown, setIsAudioTitlesShown])
 
   // Remotion player editor data
   const { playerRef, setState } = useStore();
@@ -313,7 +325,8 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
             <li>
             <span className={ isSubtitlesOpen ? styles.white : styles.gray  }>
             <SubtitlesIcon onClick={() => {
-                setIsSubtitlesOpen(!isSubtitlesOpen)
+                setIsSubtitlesOpen(true)
+              
                   console.log("STORE DATA: ");
                   console.log(store);
                }} />
@@ -333,7 +346,22 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 </select>
 
 <div className={styles.show_subtitles}>
-<label className="switch">
+<label
+onClick={() => {
+ setIsAudioTitlesShown(!isAudioTitlesShown)
+  setIsSubtitlesShown(isAudioTitlesShown);
+  // if (isAudioTitlesShown == false) {
+  //   setIsAudioTitlesShown(true);
+  //   setIsSubtitlesShown(true);
+  // } else {
+  //   setIsAudioTitlesShown(false);
+  //   setIsSubtitlesShown(false);
+  // }
+
+  
+  
+} }
+className="switch">
   <input type="checkbox" />
   <span className="slider round"></span>
 

@@ -1,5 +1,10 @@
+
+
 import { ITrackItem } from "@designcombo/timeline";
 import { AbsoluteFill, Audio, Img, OffthreadVideo, Sequence } from "remotion";
+import { Subtitles } from "../Subtitles/Subtitles";
+
+
 
 const calculateFrames = (
   display: { from: number; to: number },
@@ -149,6 +154,9 @@ export const SequenceItem: Record<
     const { fps } = options;
     const { from, durationInFrames } = calculateFrames(item.display, fps);
     const trim = item.trim!;
+
+  
+
     return (
       <Sequence
         premountFor={30 * 5}
@@ -162,12 +170,33 @@ export const SequenceItem: Record<
         }}
       >
         <AbsoluteFill>
-          <Audio
+        <Audio
             startFrom={(trim.from / 1000) * fps}
             endAt={(trim.to / 1000) * fps}
             src={item.details.src}
             volume={item.details.volume! / 100}
           />
+
+   <Subtitles />
+
+
+
+          {/* {
+            loaded ? <>
+              <Audio
+            startFrom={(trim.from / 1000) * fps}
+            endAt={(trim.to / 1000) * fps}
+            src={item.details.src}
+            volume={item.details.volume! / 100}
+          /> { Sequences }
+            </> : <Audio
+            startFrom={(trim.from / 1000) * fps}
+            endAt={(trim.to / 1000) * fps}
+            src={item.details.src}
+            volume={item.details.volume! / 100}
+          />
+          } */}
+        
         </AbsoluteFill>
       </Sequence>
     );

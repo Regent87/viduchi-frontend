@@ -31,8 +31,12 @@ interface ITimelineStore {
 
   setState: (state: any) => Promise<void>;
   uploadedFiles: FileWithUrl[];
+
   setUploadedFiles: (uploadedFile: FileWithUrl) => void;
   deleteUploadedFile: (fileUrl: string) => void;
+
+  isSubtitlesShown: boolean;
+  setIsSubtitlesShown: (isShown: boolean) => void;
 }
 
 const useStore = create<ITimelineStore>((set) => ({
@@ -59,6 +63,12 @@ const useStore = create<ITimelineStore>((set) => ({
   transitionsMap: {},
   trackItemsMap: {},
   uploadedFiles: [],
+  isSubtitlesShown: false,
+
+  setIsSubtitlesShown: (isShown: boolean) =>
+    set((state) => ({
+      isSubtitlesShown: isShown
+    })),
 
   setUploadedFiles: (uploadedFile: FileWithUrl) =>
     set((state) => ({
