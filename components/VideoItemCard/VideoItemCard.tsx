@@ -6,6 +6,7 @@ import styles from "./VideoItemCard.module.css";
 
 import AddFileIcon from './add.svg';
 import RemoveFileIcon from './remove.svg';
+import { extractAudio } from "@/utils/extract-audio-from-video";
 
 interface VideoItemCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -55,7 +56,16 @@ export const VideoItemCard = ({ videoItem, projectId }: VideoItemCardProps) => {
       {isMediaFileDeleteMenuOpen && (
         <div className={styles.addVideo}>
 
-          <AddFileIcon onClick={() => handleFileUpload(videoItem, projectId)} />
+          <AddFileIcon 
+
+      //    onClick={ () => {
+      //     extractAudio(videoItem);
+      //     console.log("audio buffer")
+      //    // console.log(audioBuffer)
+      //  //   audioBufferToWav(audioBuffer)
+      //    } }
+         onClick={() => handleFileUpload(videoItem, projectId)}
+           />
 
           {/* <IconButton size={24} onClick={() => handleFileUpload(videoItem)}>
             <svg width={24} height={24}>
