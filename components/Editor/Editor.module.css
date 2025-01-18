@@ -452,7 +452,7 @@ margin-left: 10%;
 .subtitles {
   background-color: white;
   width: 15vw;
-  height: 30vh;
+  height: 55vh;
   margin-left: -15vw;
   margin-top: -59px;
   background-color: #383A47;
@@ -467,7 +467,7 @@ margin-left: 10%;
   text-align: left;
   margin: 0;
   padding: 0;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 .subtitles select {
@@ -478,7 +478,7 @@ margin-left: 10%;
   padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 30px;
-  margin-top: 20px;
+  
 }
 
 .show_subtitles {
@@ -488,13 +488,50 @@ margin-left: 10%;
 
 align-items: center;
 
-  /* justify-content: center; */
+  
 }
 
 .show_subtitles p {
   font-size: 12px;
   margin-left: 10px;
   text-align: left;
+}
+
+.create_subtitles {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+
+  margin: 10px 10px 10px 10px;
+
+  /* border: 2px dotted transparent;
+  border-image: linear-gradient(#169FFD, #18AAF3, #7320D8);
+  border-image-slice: 1; */
+  
+} 
+
+.create_subtitles img {
+  width: 100px;
+  height: auto;
+  text-align: center;
+}
+
+.create_subtitles p {
+  color: var(--white);
+}
+
+.create_subtitles_button {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+color: white;
+  background: linear-gradient(#169FFD, #18AAF3, #7320D8);
+  cursor: pointer;
+  border: none;
 }
 
 /* bottom video upload menu */

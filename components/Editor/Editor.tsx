@@ -19,7 +19,10 @@ import useTimelineEvents from "../../hooks/use-timeline-events";
 //  esitor data imports
 import Image from "next/image";
 import FolderIcon from "./folder.svg";
-import burgerButton from "./hamburger.png";
+
+import tryAI from './subtitlesAI.png';
+
+
 
 import { UserPanel } from "@/components/UserPanel/UserPanel";
 import { UserInfo } from "@/components/UserInfo/UserInfo";
@@ -336,6 +339,15 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 Отображать <br /> субтитры
 </p>
 
+</div>
+
+<div className={styles.create_subtitles}>
+  <p>Создайте новые субтитры с помощью ММ</p>
+<Image src={tryAI} alt="Try AI to create subtitles" />
+
+<button className={styles.create_subtitles_button}>
+  Создать
+</button>
 </div>
 
 </div>
