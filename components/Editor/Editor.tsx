@@ -325,7 +325,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
             <li>
             <span className={ isSubtitlesOpen ? styles.white : styles.gray  }>
             <SubtitlesIcon onClick={() => {
-                setIsSubtitlesOpen(true)
+                setIsSubtitlesOpen(!isSubtitlesOpen)
               
                   console.log("STORE DATA: ");
                   console.log(store);
