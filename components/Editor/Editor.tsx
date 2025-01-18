@@ -309,6 +309,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
           <ul>
             <li>
               <SubtitlesIcon onClick={() => {
+                setIsSubtitlesOpen(!isSubtitlesOpen)
                   console.log("STORE DATA: ");
                   console.log(store);
                }} />
@@ -319,12 +320,24 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 
 { isSubtitlesOpen && (
  <div className={styles.subtitles}>
- <div className={styles.languages}>
+ 
 <h3>Субтитры</h3>
 <select className={styles.languageSelect}>
  <option value="">Выбор языка</option>
 </select>
+
+<div className={styles.show_subtitles}>
+<label className="switch">
+  <input type="checkbox" />
+  <span className="slider round"></span>
+
+</label>
+<p>
+Отображать <br /> субтитры
+</p>
+
 </div>
+
 </div>
 ) }
        

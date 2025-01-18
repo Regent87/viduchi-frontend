@@ -454,23 +454,20 @@ margin-left: 10%;
   width: 15vw;
   height: 30vh;
   margin-left: -15vw;
-  margin-top: -10.5vh;
+  margin-top: -59px;
   background-color: #383A47;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .subtitles h3 {
   color: var(--white);
   font-size: 16px;
   text-align: left;
+  margin: 0;
+  padding: 0;
   padding-top: 10px;
-}
-
-.languages {
-  margin-left: 10px;
-}
-
-.languages select {
-  margin-left: -25px;
 }
 
 .subtitles select {
@@ -482,6 +479,22 @@ margin-left: 10%;
   padding-left: 5px;
   padding-right: 30px;
   margin-top: 20px;
+}
+
+.show_subtitles {
+  color: var(--white);
+  display: flex;
+  flex-direction: row;
+
+align-items: center;
+
+  /* justify-content: center; */
+}
+
+.show_subtitles p {
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: left;
 }
 
 /* bottom video upload menu */
