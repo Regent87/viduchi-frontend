@@ -311,12 +311,15 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
         <nav>
           <ul>
             <li>
-              <SubtitlesIcon onClick={() => {
+            <span className={ isSubtitlesOpen ? styles.white : styles.gray  }>
+            <SubtitlesIcon onClick={() => {
                 setIsSubtitlesOpen(!isSubtitlesOpen)
                   console.log("STORE DATA: ");
                   console.log(store);
                }} />
               <p>Субтитры</p>
+            </span>
+             
             </li>
           </ul>
         </nav>
