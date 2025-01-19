@@ -30,6 +30,7 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
     //     router.push('/editor/' + project.id)
     //    // location.reload();
     //   }
+    router.push('/subtitles/' + projectId );
 
       setIsLoading(false);
 
@@ -63,6 +64,7 @@ type="text" required /> */}
 onClick={onClose}
 className={styles.reset}>Импортировать аудио</button>
 <button
+type='submit'
 // disabled={isLoading || !projectName.trim()}
 className={styles.apply}>Генерировать субтитры</button>
 </div>
