@@ -42,7 +42,7 @@ const Player = () => {
       style={{ width: "100%", height: "100%", background: 'transparent' }}
       inputProps={{}}
       fps={fps}
-      controls={controlsVar}
+      controls={false}
     />
 
 </>
