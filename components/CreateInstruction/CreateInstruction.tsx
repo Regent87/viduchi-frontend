@@ -4,6 +4,7 @@ import styles from './CreateInstruction.module.css';
 import { CreateInstructionProps } from './CreateInstruction.props';
 import useStore from '@/store/store';
 import { EmptyPlayerModal } from '../EmptyPlayerModal/EmptyPlayerModal';
+import { GenerateSubtitlesModal } from '../GenerateSubtitlesModal/GenerateSubtitlesModal';
 
 
 export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
@@ -13,6 +14,9 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
 
     // данные для показа модальных окон
     const [ isEmptyPlayerModalOpen, setIsEmptyPlayerModalOpen ] = useState(false);
+    const [ isGenerateSubtitlesModalOpen , setIsGenerateSubtitlesModalOpen ] = useState(false);
+
+
 
     const closeDropdown = () => {
         setIsEmptyPlayerModalOpen(false);
@@ -25,6 +29,8 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
             console.log("Создать инструкцию номер проекта: " + projectId );
             if (tracks.length < 1) {
                 setIsEmptyPlayerModalOpen(true)
+            } else {
+                setIsGenerateSubtitlesModalOpen(true)
             }
         }} 
         className={styles.createInstruction} 
@@ -35,6 +41,13 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
 <EmptyPlayerModal isOpen={isEmptyPlayerModalOpen} onClose={() => {
     closeDropdown();
     setIsEmptyPlayerModalOpen(false);
+    console.log("refresh");
+  //  router.replace('/projects');
+  }} />
+
+<GenerateSubtitlesModal projectId={projectId} isOpen={isGenerateSubtitlesModalOpen} onClose={() => {
+  //  closeDropdown();
+    setIsGenerateSubtitlesModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
   }} />
