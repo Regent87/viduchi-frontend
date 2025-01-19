@@ -222,3 +222,20 @@ margin-left: 10%;
   cursor: pointer;
   font-size: 14px;
 }
+
+.subtitles {
+  float: right;
+  width: 25%;
+  height: 85vh;
+  margin-top: -85vh;
+  background-color: #383a47;
+  color: var(--white);
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 14px;
+}
+
+.subtitles p {
+  padding-bottom: 5px;
+}

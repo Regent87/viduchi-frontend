@@ -122,6 +122,14 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
             </div>
     
 </div>
+
+
+<div className={styles.subtitles}>
+<p>Тут первый субтитл этого видео</p>
+<p>Тут второй субтитл этого видео</p>
+<p>Тут третий субтитл этого видео</p>
+<p>Тут четвертый субтитл этого видео</p>
+</div>
      
         </>
       );
