@@ -11,6 +11,7 @@ import Timeline from "../../components/timeline";
 import { generateId } from "@designcombo/timeline";
 import { DEFAULT_FONT } from "../../constants/font";
 import Player from "../../components/player/player";
+import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import useStore from "../../store/store";
 import useTimelineEvents from "../../hooks/use-timeline-events";
 
@@ -26,6 +27,14 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       const closeDropdown = () => {
         setIsShown(false);
       };
+
+      const { playerRef, setState } = useStore();
+      useTimelineEvents();
+
+
+    useEffect(() => {
+        setProjectName(project.title);
+    }, [])
 
 
     return (
@@ -44,7 +53,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
                     // className={ isUploadMediaOpen ? styles.white : styles.gray + " hovered"}
                     >
                      <FolderIcon /> 
-                    <p>Медиа</p>
+                    <p>Видео</p>
                     </span>
                    
                   </li>
@@ -82,9 +91,11 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
               {/* <Scene stateManager={stateManager} /> */}
               <Player />
     
-              {/* {playerRef && !isBottomMenuUploadVideoOpen && <PlayNavigation />} */}
-    
-    
+             {playerRef && <PlayNavigation />}
+    <div style={{ display: 'none' }}>
+    <Timeline  />
+    </div>
+   
             </div>
     
           
@@ -92,18 +103,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
           
     
   
-   
-    
- 
-           
-    
-    
-    
-         
-    
-      
-         
-    
+
      
         </>
       );
