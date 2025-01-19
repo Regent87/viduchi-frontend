@@ -97,10 +97,14 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
             <div className={styles.videoPlayer}>
               {/* <Scene stateManager={stateManager} /> */}
               <Player />
-    
-             {playerRef && <PlayNavigation />}
+    <div className={styles.player_buttons}>
+    {playerRef && <PlayNavigation />}
+    </div>
+          
    
-   
+   <div className={styles.gen_subtitles}>
+   <button className={styles.generate_button} >Опубликовать инструкцию</button>
+   </div>
     
 
             </div>

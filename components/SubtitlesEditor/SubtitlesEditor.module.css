@@ -239,3 +239,16 @@ margin-left: 10%;
 .subtitles p {
   padding-bottom: 5px;
 }
+
+.gen_subtitles {
+  padding-top: 10%;
+}
+
+.gen_subtitles button {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.player_buttons {
+  padding-top: 10px;
+}
