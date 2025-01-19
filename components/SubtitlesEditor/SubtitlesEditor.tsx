@@ -101,18 +101,27 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
              {playerRef && <PlayNavigation />}
    
    
-    {/* <div style={{ display: 'none' }}>
-    <Timeline  />
-    </div> */}
-   
+    
+
             </div>
     
+
+
+   
+       
           
           </div>
           
     
   
-
+          <div className={styles.steps}>
+            <div id="create_steps" className={styles.create_steps}>
+                <p>Доюавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
+                <button className={styles.add_button} >Добавить шаги</button>
+                <button className={styles.generate_button}>Сгенерировать шаги</button>
+            </div>
+    
+</div>
      
         </>
       );
