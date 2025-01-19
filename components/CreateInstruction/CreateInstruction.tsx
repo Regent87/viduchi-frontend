@@ -26,7 +26,7 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
      <>
         <button
         onClick={() => {
-            console.log("Создать инструкцию номер проекта: " + projectId );
+          //  console.log("Создать инструкцию номер проекта: " + projectId );
             if (tracks.length < 1) {
                 setIsEmptyPlayerModalOpen(true)
             } else {

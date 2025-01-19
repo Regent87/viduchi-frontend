@@ -53,7 +53,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 //     title: "Сварка",
 //   };
 
-  console.log(useStore.getState());
+ // console.log(useStore.getState());
 
   // const handleUploadedFileChange = (newFiles: File[]) => {
   //   console.log("Нажади на загрузку файла в проигрыватель")
