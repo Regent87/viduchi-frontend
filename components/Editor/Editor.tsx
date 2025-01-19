@@ -41,6 +41,7 @@ import ChevronCloseIcon from "./chevron.svg";
 import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 
 import { EditorProps } from "./Editor.props";
+import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 
 
 export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Element => {
@@ -311,9 +312,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
        <button
        onClick={() => console.log("Редактирвоать инструкцию")}
        className={styles.editInstruction} >Редактировать инсnрукцию</button>
-       <button
-       onClick={() => console.log("Создать инструкцию")}
-       className={styles.createInstruction} >Создать инсрукцию</button>
+      <CreateInstruction projectId={project.id} />
    </div>
       </div>
       
