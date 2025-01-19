@@ -40,6 +40,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
     return (
         <>
           <div className={styles.editor}>
+        
             <aside className={styles.leftMenu}>
               <MenuIcon />
             
@@ -60,6 +61,9 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
                 </ul>
               </nav>
             </aside>
+
+           
+
             <div className={styles.headerWrapper}>
               <div className={styles.header}>
                 <span className={styles.logo}>VIDUCHI</span>
@@ -75,26 +79,31 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
                   <UserPanel />
                   <UserInfo onClick={() => setIsShown(!isShown)} />
                 </div>
+
+
                 {isShown && <EditorUserMenu closeDropdown={closeDropdown} />}
               </div>
-{/*     
-              {playerRef && !isBottomMenuUploadVideoOpen && <Timeline />}
-     */}
+
     
     
     
             </div>
           </div>
     
+
+
+
           <div className={styles.videoEditorWindow}>
             <div className={styles.videoPlayer}>
               {/* <Scene stateManager={stateManager} /> */}
               <Player />
     
              {playerRef && <PlayNavigation />}
-    <div style={{ display: 'none' }}>
+   
+   
+    {/* <div style={{ display: 'none' }}>
     <Timeline  />
-    </div>
+    </div> */}
    
             </div>
     
