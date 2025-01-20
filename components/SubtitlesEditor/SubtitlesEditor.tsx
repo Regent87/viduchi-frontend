@@ -19,6 +19,7 @@ import MenuIcon from './hamburger.svg';
 import FolderIcon from './folder.svg';
 import { Router } from "next/router";
 import { AddStepModal } from "../AddStepModal/AddStepModal";
+import { P } from "../P/P";
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
@@ -31,6 +32,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       // субтитлы и шаги
       const [subtitles, setSubtitles] = useState<string[]>([]);
       const [steps, setSteps] = useState([]);
+      const [toggle, setToggle] = useState(false);
 
       useEffect(() => {
         setSubtitles([
@@ -158,13 +160,17 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
 
 <div className={styles.subtitles}>
-  <form>
+  
   {
     subtitles.map((subtitle: string, idx) => (
-      <input type="text" value={subtitle} key={idx} />
+      <div >
+ { toggle ? <p onDoubleClick={() => setToggle(false)} className={styles.subtitle} key={idx}>{subtitle}</p> : <input type="text" value={subtitle} key={idx} />  }
+
+      </div>
+     
     ))
   }
-  </form>
+ 
  
 
 
