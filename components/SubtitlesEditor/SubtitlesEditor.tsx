@@ -28,6 +28,19 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
       const [isAddStepShown, setIsAddStepShown] = useState(false);
 
+      // субтитлы и шаги
+      const [subtitles, setSubtitles] = useState<string[]>([]);
+      const [steps, setSteps] = useState([]);
+
+      useEffect(() => {
+        setSubtitles([
+          'Тут первый субтитл по видосу',
+          'Второй субтитл по видосу новый',
+          'Третий субтитл по видосу',
+          'Четвертый субтитл по видосу'
+        ])
+      }, [])
+
       const closeDropdown = () => {
         setIsShown(false);
         setIsAddStepShown(false);
@@ -145,10 +158,16 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
 
 <div className={styles.subtitles}>
-<p>Тут первый субтитл этого видео</p>
-<p>Тут второй субтитл этого видео</p>
-<p>Тут третий субтитл этого видео</p>
-<p>Тут четвертый субтитл этого видео</p>
+  <form>
+  {
+    subtitles.map((subtitle: string, idx) => (
+      <input type="text" value={subtitle} key={idx} />
+    ))
+  }
+  </form>
+ 
+
+
 </div>
 
 
