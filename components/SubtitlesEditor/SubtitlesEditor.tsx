@@ -19,7 +19,7 @@ import MenuIcon from './hamburger.svg';
 import FolderIcon from './folder.svg';
 import { Router } from "next/router";
 import { AddStepModal } from "../AddStepModal/AddStepModal";
-import { P } from "../P/P";
+import { useRouter } from 'next/navigation';
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
@@ -28,6 +28,12 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       const [isShown, setIsShown] = useState(false);
 
       const [isAddStepShown, setIsAddStepShown] = useState(false);
+
+      const router = useRouter();
+
+      const goToVideoEditor = () => {
+		router.push('/editor/' + project.id);
+	};
 
       // субтитлы и шаги
       const [subtitles, setSubtitles] = useState<string[]>([]);
@@ -90,7 +96,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
     
   <label>
     <span
-    onClick={() => console.log("back to project")}
+    onClick={goToVideoEditor}
     className={styles.projectname}>
     { project.title }
     </span> &nbsp;
