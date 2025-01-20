@@ -1,0 +1,142 @@
+
+.white svg path {
+    stroke: var(--white);
+  }
+  
+  .white p {
+    color: var(--white);
+  }
+  
+  .gray svg path {
+    stroke: gray;
+  }
+  
+  .gray p {
+    color: gray;
+  }
+  
+/* Right menu */
+.navRight {
+    width: 8%;
+    height: 80vh;
+    background-color: #383a47;
+    float: right;
+    margin-top: -80vh;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    /* z-index: 10;
+    cursor: pointer; */
+  }
+  
+  .navRight svg {
+    cursor: pointer;
+  }
+  
+  .navRight svg path {
+    fill: gray;
+    
+  }
+  
+  .navRight svg path:hover {
+    fill: var(--white);
+  }
+  
+  .navRight nav ul {
+    list-style: none;
+    margin-top: 10px;
+  }
+  
+  .navRight nav ul li {
+    cursor: pointer;
+  }
+  
+  .navRight nav ul li:hover {
+    color: var(--white);
+  }
+  
+  /* subtitles  */
+  .subtitles {
+    background-color: white;
+    width: 15vw;
+    height: 55vh;
+    margin-left: -15vw;
+    margin-top: -59px;
+    background-color: #383A47;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .subtitles h3 {
+    color: var(--white);
+    font-size: 16px;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+  }
+  
+  .subtitles select {
+    background-color: transparent;
+    color: gray;
+    border: 1px solid gray;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 30px;
+    
+  }
+  
+  .show_subtitles {
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+  
+  align-items: center;
+  
+    
+  }
+  
+  .show_subtitles p {
+    font-size: 12px;
+    margin-left: 10px;
+    text-align: left;
+  }
+  
+  .create_subtitles {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  
+    margin: 10px 10px 10px 10px;
+  
+    /* border: 2px dotted transparent;
+    border-image: linear-gradient(#169FFD, #18AAF3, #7320D8);
+    border-image-slice: 1; */
+    
+  } 
+  
+  .create_subtitles img {
+    width: 100px;
+    height: auto;
+    text-align: center;
+  }
+  
+  .create_subtitles p {
+    color: var(--white);
+  }
+  
+  .create_subtitles_button {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+  color: white;
+    background: linear-gradient(#169FFD, #18AAF3, #7320D8);
+    cursor: pointer;
+    border: none;
+  }

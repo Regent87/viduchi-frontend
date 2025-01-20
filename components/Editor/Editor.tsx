@@ -20,7 +20,6 @@ import useTimelineEvents from "../../hooks/use-timeline-events";
 import Image from "next/image";
 import FolderIcon from "./folder.svg";
 
-import tryAI from './subtitlesAI.png';
 
 
 
@@ -42,6 +41,7 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
+import { RightMenu } from "./RightMenu/RightMenu";
 
 
 export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Element => {
@@ -317,75 +317,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
       </div>
       
 
-      {/* right menu with subtitles */}
-      <div className={styles.navRight}>
-        <nav>
-          <ul>
-            <li>
-            <span className={ isSubtitlesOpen ? styles.white : styles.gray  }>
-            <SubtitlesIcon onClick={() => {
-                setIsSubtitlesOpen(!isSubtitlesOpen)
-              
-                  console.log("STORE DATA: ");
-                  console.log(store);
-               }} />
-              <p>Субтитры</p>
-            </span>
-             
-            </li>
-          </ul>
-        </nav>
-
-{ isSubtitlesOpen && (
- <div className={styles.subtitles}>
- 
-<h3>Субтитры</h3>
-<select className={styles.languageSelect}>
- <option value="">Выбор языка</option>
-</select>
-
-<div className={styles.show_subtitles}>
-<label
-onClick={() => {
- setIsAudioTitlesShown(!isAudioTitlesShown)
-  setIsSubtitlesShown(isAudioTitlesShown);
-  // if (isAudioTitlesShown == false) {
-  //   setIsAudioTitlesShown(true);
-  //   setIsSubtitlesShown(true);
-  // } else {
-  //   setIsAudioTitlesShown(false);
-  //   setIsSubtitlesShown(false);
-  // }
-
-  
-  
-} }
-className="switch">
-  <input type="checkbox" />
-  <span className="slider round"></span>
-
-</label>
-<p>
-Отображать <br /> субтитры
-</p>
-
-</div>
-
-<div className={styles.create_subtitles}>
-  <p>Создайте новые субтитры с помощью ММ</p>
-<Image src={tryAI} alt="Try AI to create subtitles" />
-
-<button className={styles.create_subtitles_button}>
-  Создать
-</button>
-</div>
-
-</div>
-) }
-       
-
-
-      </div>
+     <RightMenu />
 
      
 
