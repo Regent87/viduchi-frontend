@@ -176,3 +176,24 @@
   .loud svg path {
     fill: var(--white);
   }
+
+  .loud input[type="range"] {
+    width: 80%;
+  }
+
+  .getSoundButton {
+    display: flex;
+    justify-content: left;
+    gap: 15px;
+    font-size: 16px;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid gray;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: gray; 
+    cursor: pointer;
+  }

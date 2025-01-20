@@ -5,6 +5,7 @@ import styles from './RightMenu.module.css';
 import SubtitlesIcon from '../cc.svg';
 import VolumeIcon from "./volume-loud.svg";
 import SmallVolumeIcon from "./volume_small.svg";
+import SoundIcon from "./sound.svg";
 import tryAI from '../subtitlesAI.png';
 
 import useStore from '@/store/store';
@@ -29,6 +30,9 @@ playerRef?.current?.setVolume(data / 100);
   }
 
   
+  useEffect(() => {
+    setIsAudioTitlesShown(isSubtitlesShown)
+  }, [isSubtitlesShown, setIsAudioTitlesShown])
 
     return (
         <div className={styles.navRight}>
@@ -121,6 +125,10 @@ className="switch">
     onChange={(e: any) => setSoundVolume(e.target.value)}
     type="range" min="0" max="100" />
 </div>
+
+
+<button className={styles.getSoundButton}><SoundIcon /> Отделить звук</button>
+
         </div>
     )
 }

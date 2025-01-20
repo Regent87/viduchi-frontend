@@ -126,9 +126,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     //  setVideoUrl("https://api-dev.viduchi.ru/files/viduchi-docker/5bd0a633-92f7-47a3-9a50-06526304a6b0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20250101%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250101T061141Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0fd294f20804f084e3042350a26b81b2209bad9b02af7a69765a087d9e65557b");
   }, []);
 
-  useEffect(() => {
-    setIsAudioTitlesShown(isSubtitlesShown)
-  }, [isSubtitlesShown, setIsAudioTitlesShown])
+  
 
   // Remotion player editor data
   const { playerRef, setState } = useStore();
@@ -136,7 +134,9 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 
   const store = useStore();
 
-
+  useEffect(() => {
+    setIsAudioTitlesShown(isSubtitlesShown)
+  }, [isSubtitlesShown, setIsAudioTitlesShown])
 
   const handleFileUpload = async (files: File[]) => {
     // const resourceId = "VMJQit9N0hJaCAss";
