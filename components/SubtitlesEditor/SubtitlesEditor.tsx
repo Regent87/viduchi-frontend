@@ -17,6 +17,8 @@ import useTimelineEvents from "../../hooks/use-timeline-events";
 
 import MenuIcon from './hamburger.svg';
 import FolderIcon from './folder.svg';
+import { Router } from "next/router";
+import { AddStepModal } from "../AddStepModal/AddStepModal";
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
@@ -24,8 +26,11 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
       const [isShown, setIsShown] = useState(false);
 
+      const [isAddStepShown, setIsAddStepShown] = useState(false);
+
       const closeDropdown = () => {
         setIsShown(false);
+        setIsAddStepShown(false);
       };
 
       const { playerRef, setState } = useStore();
@@ -68,12 +73,21 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
               <div className={styles.header}>
                 <span className={styles.logo}>VIDUCHI</span>
     
-                <input
+  <label>
+    <span
+    onClick={() => console.log("back to project")}
+    className={styles.projectname}>
+    { project.title }
+    </span> &nbsp;
+     /&nbsp; Инструкция 1
+  {/* <input
                   onChange={(e) => setProjectName(e.target.value)}
                   type="text"
                   value={projectName}
                   className={styles.name}
-                />
+                /> */}
+  </label>
+               
     
                 <div className={styles.profile}>
                   <UserPanel />
@@ -120,8 +134,10 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
   
           <div className={styles.steps}>
             <div id="create_steps" className={styles.create_steps}>
-                <p>Доюавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
-                <button className={styles.add_button} >Добавить шаги</button>
+                <p>Добавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
+                <button
+                onClick={() => setIsAddStepShown(true)}
+                className={styles.add_button} >Добавить шаги</button>
                 <button className={styles.generate_button}>Сгенерировать шаги</button>
             </div>
     
@@ -134,6 +150,12 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 <p>Тут третий субтитл этого видео</p>
 <p>Тут четвертый субтитл этого видео</p>
 </div>
+
+
+
+{
+  isAddStepShown && <AddStepModal isOpen={isAddStepShown} onClose={closeDropdown} />
+}
      
         </>
       );

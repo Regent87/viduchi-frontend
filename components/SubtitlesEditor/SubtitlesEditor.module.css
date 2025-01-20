@@ -108,7 +108,15 @@
   color: var(--white);
   border: none;
   font-size: 16px;
+  
+}
+.header label {
   text-align: center;
+  color: var(--white);
+}
+
+.header .projectname {
+  cursor: pointer;
 }
 
 .header input[type="text"]:active,

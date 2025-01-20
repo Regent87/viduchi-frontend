@@ -19,6 +19,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@remotion/media-utils": "4.0.210",
     "@remotion/player": "4.0.210",
+    "@remotion/renderer": "4.0.210",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
