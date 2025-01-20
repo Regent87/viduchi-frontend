@@ -14,7 +14,7 @@
   .gray p {
     color: gray;
   }
-  
+
 /* Right menu */
 .navRight {
     width: 8%;
@@ -28,6 +28,10 @@
     /* z-index: 10;
     cursor: pointer; */
   }
+
+  .navRight ul li {
+    padding-bottom: 5px;
+  }
   
   .navRight svg {
     cursor: pointer;
@@ -38,9 +42,7 @@
     
   }
   
-  .navRight svg path:hover {
-    fill: var(--white);
-  }
+ 
   
   .navRight nav ul {
     list-style: none;
@@ -60,8 +62,9 @@
     background-color: white;
     width: 15vw;
     height: 55vh;
+   
     margin-left: -15vw;
-    margin-top: -59px;
+    margin-top: -20vh;
     background-color: #383A47;
     display: flex;
     flex-direction: column;
@@ -139,4 +142,37 @@
     background: linear-gradient(#169FFD, #18AAF3, #7320D8);
     cursor: pointer;
     border: none;
+  }
+
+  /* volume */
+  .volume {
+    width: 15vw;
+    height: 55vh;
+   
+    margin-left: -15vw;
+    margin-top: -20vh;
+    background-color: #383A47;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--white);
+  }
+
+  .volume h3 {
+    color: var(--white);
+    font-size: 16px;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+  }
+
+  .loud {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .loud svg path {
+    fill: var(--white);
   }
