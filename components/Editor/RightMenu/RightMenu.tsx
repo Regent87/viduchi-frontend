@@ -75,7 +75,7 @@ setIsVolumeShown(!isVolumeShown);
 <label
 onClick={() => {
  setIsAudioTitlesShown(!isAudioTitlesShown)
-  setIsSubtitlesShown(isAudioTitlesShown);
+//   setIsSubtitlesShown(isAudioTitlesShown);
   // if (isAudioTitlesShown == false) {
   //   setIsAudioTitlesShown(true);
   //   setIsSubtitlesShown(true);
@@ -88,7 +88,10 @@ onClick={() => {
   
 } }
 className="switch">
-  <input type="checkbox" />
+  <input
+  checked={isSubtitlesShown}
+  onChange={() => setIsSubtitlesShown(isAudioTitlesShown)}
+  type="checkbox" />
   <span className="slider round"></span>
 
 </label>

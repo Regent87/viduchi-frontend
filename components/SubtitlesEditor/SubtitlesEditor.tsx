@@ -20,6 +20,13 @@ import FolderIcon from './folder.svg';
 import { Router } from "next/router";
 import { AddStepModal } from "../AddStepModal/AddStepModal";
 import { useRouter } from 'next/navigation';
+import EditIcon from "./edit.svg";
+import DeleteIcon from "./delete.svg";
+
+interface Istep {
+  title: string;
+  subtitles: string[];
+}
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
@@ -29,6 +36,25 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
       const [isAddStepShown, setIsAddStepShown] = useState(false);
 
+      const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
+
+
+   
+
+      // получаем данные из двух нажатых субтитров
+      const getDataFromSelectedSubtitles = (index: string) => {
+        if (selectedIndexes.length < 2) {
+          selectedIndexes.push(Number(index));
+        const bkg: any = document.getElementById(String(index));
+        
+        if (bkg) {
+          bkg.style.background = "blue";
+          bkg.style.color = "#fff";
+        }
+      
+        }
+      }
+ 
       const router = useRouter();
 
       const goToVideoEditor = () => {
@@ -37,15 +63,32 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
       // субтитлы и шаги
       const [subtitles, setSubtitles] = useState<string[]>([]);
-      const [steps, setSteps] = useState([]);
-      const [toggle, setToggle] = useState(false);
+      const [steps, setSteps] = useState<Istep[]>([]);
+      const [toggle, setToggle] = useState(true);
+
+      const addStep = () => {
+        // достать данные ндексов
+        let sortedIndexes = selectedIndexes.sort(function(a, b) {
+          return a - b;
+        });
+
+        const selectedSubtitles = subtitles.slice(sortedIndexes[0], sortedIndexes[1] + 1);
+        const newStep: Istep = {
+          title: "Назване шага",
+          subtitles: selectedSubtitles
+        };
+
+        setSteps([...steps, newStep])
+
+        console.log("steps: ", steps )
+      }
 
       useEffect(() => {
         setSubtitles([
-          'Тут первый субтитл по видосу',
-          'Второй субтитл по видосу новый',
-          'Третий субтитл по видосу',
-          'Четвертый субтитл по видосу'
+          'Тут первый субтитл по видосу больше текста еще тут немного',
+          'Второй субтитл по видосу новый еще текста боьше и круче',
+          'Третий субтитл по видосу тут еще норм текста',
+          'Четвертый субтитл по видосу  еще текста побольше'
         ])
       }, [])
 
@@ -154,10 +197,32 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
     
   
           <div className={styles.steps}>
+            
             <div id="create_steps" className={styles.create_steps}>
-                <p>Добавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
+             { 
+             steps.length < 1 && (<div>
+             <p>Добавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
+             </div>) 
+            }
+
+
+             
+{
+steps && steps.map((step: any, idx: any) => (
+<div key={idx} className={styles.singleStep}>
+   <span>{idx + 1}. {step.title}</span>
+    <span> <EditIcon /> <DeleteIcon /> </span>  
+    </div>
+                ))
+              }
                 <button
-                onClick={() => setIsAddStepShown(true)}
+                onClick={() => {
+                  if( selectedIndexes.length != 2 ) {
+                    setIsAddStepShown(true);
+                  } else {
+                    addStep()
+                  }
+                } }
                 className={styles.add_button} >Добавить шаги</button>
                 <button className={styles.generate_button}>Сгенерировать шаги</button>
             </div>
@@ -168,9 +233,11 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 <div className={styles.subtitles}>
   
   {
-    subtitles.map((subtitle: string, idx) => (
-      <div >
- { toggle ? <p onDoubleClick={() => setToggle(false)} className={styles.subtitle} key={idx}>{subtitle}</p> : <input type="text" value={subtitle} key={idx} />  }
+    subtitles.map((subtitle: string, idx: number) => (
+      <div key={idx}>
+ { toggle ? <p
+ onClick={() => getDataFromSelectedSubtitles(String(idx))}
+ onDoubleClick={() => setToggle(false)} id={String(idx)} className={styles.subtitle} key={idx}>{subtitle}</p> : <input type="text" value={subtitle} key={idx} />  }
 
       </div>
      

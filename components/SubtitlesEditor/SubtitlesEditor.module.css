@@ -190,11 +190,12 @@ margin-left: 10%;
 .steps {
   display: flex;
   background-color: #383a47;
-  width: 30%;
+  width: 35%;
   height: 85vh;
   padding-left: 100px;
   margin-top: -85vh;
-
+margin-right: 0 !important;
+padding-right: 0 !important;
   color: var(--white);
 }
 
@@ -202,10 +203,12 @@ margin-left: 10%;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 30px;
+  /* margin-left: 15%;
+  margin-right: 15%; */
   padding-top: 10px;
-  text-align: center;
+  /* text-align: center; */
+
 
 }
 
@@ -287,4 +290,27 @@ margin-left: 10%;
 
 .subtitles input[type="text"]:hover {
 color: var(--white);
+}
+
+
+.stepsList {
+  display: flex;
+  color: var(--white);
+}
+
+.singleStep {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.singleStep svg {
+  cursor: pointer;
+}
+
+.singleStep svg path {
+  stroke: var(--white);
 }
