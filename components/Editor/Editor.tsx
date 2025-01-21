@@ -66,10 +66,10 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
   const [isShown, setIsShown] = useState(false);
   // нижнее меню загрузки видео
   const [isBottomMenuUploadVideoOpen, setIsBottomMenuUploadVideoOpen] =
-    useState(true);
+    useState(false);
 
     // окно субтитров
-    const [isSubtitlesOpen, setIsSubtitlesOpen] = useState(false)
+    const [isSubtitlesOpen, setIsSubtitlesOpen] = useState(true)
 
   const closeDropdown = () => {
     setIsShown(false);

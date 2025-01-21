@@ -129,6 +129,8 @@ className="switch">
 
 <button className={styles.getSoundButton}><SoundIcon /> Отделить звук</button>
 
+<button className={styles.textToSpeech}>Преобразование <br /> текста в речь</button>
+
         </div>
     )
 }
