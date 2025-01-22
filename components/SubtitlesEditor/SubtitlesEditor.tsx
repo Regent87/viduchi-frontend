@@ -24,6 +24,7 @@ import EditIcon from "./edit.svg";
 import DeleteIcon from "./delete.svg";
 
 interface Istep {
+  id: string;
   title: string;
   subtitles: string[];
 }
@@ -66,6 +67,11 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       const [steps, setSteps] = useState<Istep[]>([]);
       const [toggle, setToggle] = useState(true);
 
+
+      const deleteStep = (step: any) => {
+        setSteps(steps.filter(s => s.id !== step.id));
+      };
+
       const addStep = () => {
         // достать данные ндексов
         let sortedIndexes = selectedIndexes.sort(function(a, b) {
@@ -74,6 +80,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
         const selectedSubtitles = subtitles.slice(sortedIndexes[0], sortedIndexes[1] + 1);
         const newStep: Istep = {
+          id: generateId(),
           title: "Назване шага",
           subtitles: selectedSubtitles
         };
@@ -215,7 +222,10 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 steps && steps.map((step: any, idx: any) => (
 <div key={idx} className={styles.singleStep}>
    <span>{idx + 1}. {step.title}</span>
-    <span> <EditIcon /> <DeleteIcon /> </span>  
+    <span> <EditIcon /> <DeleteIcon 
+   
+    // onClick={deleteStep(step)}
+     /> </span>  
     </div>
                 ))
               }

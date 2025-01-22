@@ -200,6 +200,10 @@ padding-right: 0 !important;
   text-align: center;
 }
 
+.steps h3 {
+  text-align: left;
+}
+
 .create_steps {
   display: flex;
   flex-direction: column;
