@@ -74,3 +74,8 @@ export const deleteProject = async (id: number): Promise<any> => {
 
     return {message: "Project deleted"};
 };
+
+
+export const saveProjectTimeline = () => {
+
+}

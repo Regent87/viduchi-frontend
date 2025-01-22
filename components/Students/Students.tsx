@@ -25,6 +25,7 @@ export const Students = () => {
     return (
         <>
         <table className={styles.students}>
+          <thead>
   <tr>
     <th></th>
     <th>Ученик</th>
@@ -34,6 +35,10 @@ export const Students = () => {
     <th>Назначенные проекты</th>
     <th></th>
   </tr>
+  </thead>
+  <tbody>
+
+ 
   <tr>
     <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
     <td> Александр Изотов</td>
@@ -67,6 +72,7 @@ export const Students = () => {
       )
     }
   </tr>
+  </tbody>
 </table>
 
 

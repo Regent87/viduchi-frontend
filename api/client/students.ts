@@ -17,4 +17,24 @@ export const createStudent = async (email: string, first_name: string, last_name
     }
 
     return await response.json();
-}
+};
+
+
+export const getAllStudents = async () => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.students.list, {
+          method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get students');
+    }
+
+    return await response.json();
+};
+

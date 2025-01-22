@@ -3,11 +3,12 @@
 import { CreateStudentModalProps } from "./CreateStudentModal.props"
 import { Modal } from '@/components/site/ModalForm/ModalForm';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CreateStudentModal.module.css';
 import { createStudent } from "@/api/client/students";
+import { getAllPositions } from "@/api/client/positions";
 
-export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps): JSX.Element => { 
+export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps) => { 
 
 
     const [name, setName] = useState('');
@@ -20,6 +21,24 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
+    // get all positions
+    const [positions, setPositions] = useState([]);
+
+    useEffect(() => {
+
+        const fetchPositions = async () => {
+                    setIsLoading(true);
+        
+                    const positions = await getAllPositions();
+                    setPositions(positions);
+        
+                    setIsLoading(false);
+                };
+                fetchPositions();
+               
+
+    }, [])
+   
 
     const reset = () => {
         setName('');
@@ -91,10 +110,23 @@ setIsLoading(false)
 
 
 <div>
-<label htmlFor="name">Должность
-    <div> <input onChange={(e: any) => setPosition(e.target.value)}
+<label htmlFor="position">Должность
+    <div> 
+    <select name="position" id="">
+          
+      
+        {
+            positions && positions.map((pos: any) => (
+                <option value={pos.id}>{pos.title}</option>
+            ))
+        }
+          </select>
+
+        {/* <input onChange={(e: any) => setPosition(e.target.value)}
     value={position}
-     type="text" required /></div>
+     type="text" required /> */}
+     
+     </div>
 </label>
 </div>
 <div>

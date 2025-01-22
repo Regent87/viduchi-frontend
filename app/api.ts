@@ -13,6 +13,10 @@ export const API = {
 		addVideo: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`
 	},
 	students: {
-		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students'
+		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/students'
+	},
+	positions: {
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/positions'
 	}
 };
