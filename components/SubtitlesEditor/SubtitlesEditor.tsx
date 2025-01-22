@@ -223,7 +223,7 @@ steps && steps.map((step: any, idx: any) => (
                     addStep()
                   }
                 } }
-                className={styles.add_button} >Добавить шаги</button>
+                className={styles.add_button} >Добавить шаг</button>
                 <button className={styles.generate_button}>Сгенерировать шаги</button>
             </div>
     

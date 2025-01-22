@@ -188,7 +188,7 @@ margin-left: 10%;
 
 
 .steps {
-  display: flex;
+  /* display: flex; */
   background-color: #383a47;
   width: 35%;
   height: 85vh;
@@ -197,6 +197,7 @@ margin-left: 10%;
 margin-right: 0 !important;
 padding-right: 0 !important;
   color: var(--white);
+  text-align: center;
 }
 
 .create_steps {
@@ -219,6 +220,8 @@ padding-right: 0 !important;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
   cursor: pointer;
   font-size: 14px;
 }
@@ -230,6 +233,8 @@ padding-right: 0 !important;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
   cursor: pointer;
   font-size: 14px;
 }
