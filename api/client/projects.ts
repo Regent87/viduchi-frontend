@@ -53,4 +53,24 @@ export const addProjectVideo = async (id: number, file: File): Promise<IVideo> =
 
     return await response.json();
 
-}
+};
+
+export const deleteProject = async (id: number): Promise<any> => {
+
+    const token = localStorage.getItem('jwt_token');
+
+    const response = await fetch(API.projects.delete(id), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        console.log("response");
+        console.log(response);
+        throw new Error('Failed to delete project');
+    }
+
+    return {message: "Project deleted"};
+};

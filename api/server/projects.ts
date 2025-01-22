@@ -21,3 +21,5 @@ export const getProjectById = async (id: number): Promise<ProjectModel> => {
 
     return await response.json();
 };
+
+
