@@ -205,6 +205,10 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
              </div>) 
             }
 
+{ 
+             steps.length >= 1 && (<h3>Шаги:</h3>) 
+            }
+
 
              
 {

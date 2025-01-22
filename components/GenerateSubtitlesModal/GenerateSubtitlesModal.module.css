@@ -25,12 +25,14 @@
     padding-left: 20%;
     padding-right: 20%;
     text-align: center;
+    margin: 0 !important;
    
   }
 
-  .addProject h2 {
-    font-size: 20px;
-    padding-bottom: 10px;
+  .addProject p {
+    color: #000;
+    font-size: 16px;
+    padding-bottom: 20px;
   }
 
 
