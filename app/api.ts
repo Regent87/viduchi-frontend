@@ -5,6 +5,9 @@ export const API = {
 		me: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/me',
 		logout: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/logout',
 	},
+	admins: {
+		me: process.env.NEXT_PUBLIC_API_URL + '/v1/admins/me',
+	},
 	projects: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/projects',
 		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}`,

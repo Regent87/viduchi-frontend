@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import styles from './AdminInfo.module.css'
 import Image from 'next/image';
 import avatar from '../../public/user_avatar.png';
@@ -9,12 +10,12 @@ import rectAdminImg from './rectadmin.png';
 import Link from 'next/link';
 import { AdminInfoProps } from './AdminInfo.props';
 import { EditAdminModal } from '../EditAdminModal/EditAdminModal';
-import { useState } from 'react';
 import { DeleteProfileModal } from '../DeleteProfileModal/DeleteProfileModal';
+import { getMyProfile } from '@/api/client/admins';
 
 
 
-export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element => {
+export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -26,6 +27,27 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element 
     const closeDeleteDropdown = () => {
         setIsDeleteModalOpen(false);
     }
+
+     // get all positions
+     const [isLoading, setIsLoading] = useState(false);
+        const [myInfo, setMyInfo] = useState<any>({});
+    
+        useEffect(() => {
+    
+            const fetchPositions = async () => {
+                        setIsLoading(true);
+            
+                        const profile = await getMyProfile();
+                        setMyInfo(profile);
+            
+                        setIsLoading(false);
+                    };
+                    fetchPositions();
+                   
+    
+        }, [])
+
+
 
     return (
         <>
@@ -41,7 +63,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element 
         </div>
         <div className={styles.rectangle}>
             <Image src={rectAdminImg} alt='rectangle'/>
-            <p className={styles.userRole}>Super Admin</p>
+            <p className={styles.userRole}>{myInfo.role}</p>
         </div>
         </div>
 
@@ -57,7 +79,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps): JSX.Element 
             </div>
             <div className={styles.profileItem}>
             <p>Корпоративная почта</p>
-            <p className={styles.white}>izotov@gmail.com</p>
+            <p className={styles.white}>{myInfo.email}</p>
             </div>
             <div className={styles.profileItem}>
             <p>Должность</p>
