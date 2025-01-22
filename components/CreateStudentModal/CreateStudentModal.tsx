@@ -112,7 +112,7 @@ setIsLoading(false)
 <div>
 <label htmlFor="position">Должность
     <div> 
-    <select name="position" id="">
+    <select  onChange={(e: any) => setPosition(e.target.value)}>
           
       
         {
