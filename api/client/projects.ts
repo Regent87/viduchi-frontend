@@ -114,6 +114,26 @@ export const getAllVideos = async (id: number) => {
 }
 
 
+export const deleteVideoFromProject = async (id: number, videoId: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.deleteVideo(id, videoId), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete video');
+    }
+
+    return {message: "Video file was deleted"};
+
+}
+
+
+
 export const saveProjectTimeline = () => {
 
 }

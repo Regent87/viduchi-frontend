@@ -16,7 +16,8 @@ export const API = {
 		addVideo: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`,
 		addAudio: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
 		audios: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
-		videos: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`
+		videos: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`,
+		deleteVideo: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}`
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',

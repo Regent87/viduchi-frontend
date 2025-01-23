@@ -1,12 +1,13 @@
 import { DetailedHTMLProps, HTMLAttributes, useState } from "react";
 import useStore from "@/store/store";
 import { IconButton } from "../ui/iconButton";
-import { handleFileUpload } from "@/utils/upload";
+import { handelAddVideoFromServer, handleFileUpload } from "@/utils/upload";
 import styles from "./VideoItemCardFromServer.module.css";
 
 import AddFileIcon from './add.svg';
 import RemoveFileIcon from './remove.svg';
 import { extractAudio } from "@/utils/extract-audio-from-video";
+import { deleteVideoFromProject } from "@/api/client/projects";
 
 
 
@@ -33,6 +34,11 @@ export const VideoItemCardFromServer = ({ videoItem, projectId }: VideoItemCardP
     // }, 1000);
   }
 
+//   delete video from server 
+const handleDeleteVideoFromServer = async (id: number, videoId: number) => {
+await deleteVideoFromProject(id, videoId);
+}
+
   return (
     <div
       onMouseEnter={handleShowAddDeleteMediaFile}
@@ -42,7 +48,10 @@ export const VideoItemCardFromServer = ({ videoItem, projectId }: VideoItemCardP
       
       {isMediaFileDeleteMenuOpen && (
         <div className={styles.deleteVideo}>
-          <RemoveFileIcon  onClick={() => deleteUploadedFile(videoItem.url)} />
+          <RemoveFileIcon 
+          onClick={() => handleDeleteVideoFromServer(projectId, videoItem.id) }
+          // onClick={() => deleteUploadedFile(videoItem.url)}
+            />
 
           
 
@@ -53,8 +62,8 @@ export const VideoItemCardFromServer = ({ videoItem, projectId }: VideoItemCardP
 
           <AddFileIcon 
 
-     
-         onClick={() => handleFileUpload(videoItem, projectId)}
+          onClick={() => handelAddVideoFromServer(videoItem.video_url)}
+       //  onClick={() => handleFileUpload(videoItem, projectId)}
            />
 
         
