@@ -76,6 +76,44 @@ export const deleteProject = async (id: number): Promise<any> => {
 };
 
 
+export const getAllAudios = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.audios(id), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get audios');
+    }
+
+    return await response.json();
+
+}
+
+
+export const getAllVideos = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.videos(id), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get audios');
+    }
+
+    return await response.json();
+
+}
+
+
 export const saveProjectTimeline = () => {
 
 }

@@ -13,7 +13,10 @@ export const API = {
 		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}`,
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/projects',
 		byId: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}`,
-		addVideo: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`
+		addVideo: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`,
+		addAudio: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
+		audios: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
+		videos: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',

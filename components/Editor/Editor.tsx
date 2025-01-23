@@ -42,24 +42,98 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
+import { getAllAudios, getAllVideos } from "@/api/client/projects";
+import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
+import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 
 
-export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Element => {
-  //  components data
+export const Editor =  ({project, className, ...props }: EditorProps)=> {
+
+
+// загружаем аудиофайлы с сервера
+const [ isAudioLoading, setIsAudioLoading ] = useState(false);
+const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
+const[ audios, setAudios ] = useState<any>([]);
+
+ useEffect(() => {
+
+        const fetchAudios = async () => {
+          setIsAudioLoading(true);
+        
+                    const audios = await getAllAudios(project.id);
+                    setAudios(audios);
+        
+                    setIsAudioLoading(false);
+                };
+                fetchAudios();
+               console.log("AUDIOS: ", audios)
+                if (audios.length > 0) {
+                  audios.map((audio: any) => {
+                    handleAddAudioFromServer(audio.audio_url);
+                  })
+                }
+            
+    }, [])
+
+
+    // Загружаем видеофайлы с сервера
+    const [ isVideoLoading, setIsVideoLoading ] = useState(false);
+const [ videosFromServer, setVideosromServer ] = useState<any>([]);
+const[ videos, setVideos ] = useState<any>([]);
+
+    useEffect(() => {
+
+      const fetchVideos = async () => {
+        setIsVideoLoading(true);
+      
+                  const videos = await getAllVideos(project.id);
+                  setVideos(videos);
+      
+                  setIsVideoLoading(false);
+              };
+              fetchVideos();
+           
+           
+
+  }, [])
+
+
+ 
+
+
+  console.log("VIDEOS: ", videos)
+  // if (videos.length) {
+  //   handelAddVideoFromServer(videos[0].video_url);
+  //   // videos.map((video: any) => {
+  //   //   handelAddVideoFromServer(video.video_url);
+  //   // })
+  // }
+
+    // если есть аудиофайлы на сервере, то добавляем их в плеер
+    const addAud = () => {
+  //   await handleAddAudioFromServer("https://api-dev.viduchi.ru/files/viduchi-docker/a7b5bb02-c65f-4c00-a727-06a8426186bd?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20250122%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250122T160501Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=799a8339128d270f9b1de6fca54b904de9bc10302570d3bf7710fe258d7c484b")
+
+  // handelAddVideoFromServer("https://api-dev.viduchi.ru/files/viduchi-docker/9c7a217c-ed04-49cd-aedc-bc64bfdb6184?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20250122%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250122T175516Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=78b8e46305eddc887975d41fda93c79e9c4f34f6c668b979a5dec584e1e2861b")
+    }
+
+  //  addAud();
+    // if (audios.length == 1) {
+    // addAud();
+    // }
+
   
 
-// const project = {
-//     id: 3,
-//     title: "Сварка",
-//   };
+  //  console.log("AUDIOS FROM SERVR:", audios)
 
- // console.log(useStore.getState());
+   // handleAddAudioFromServer(audios[0].audio_url)
+    
 
-  // const handleUploadedFileChange = (newFiles: File[]) => {
-  //   console.log("Нажади на загрузку файла в проигрыватель")
-  //   console.log(newFiles)
-  //   handleFileUpload(newFiles);
-  // };
+    // if (audios.length > 0 ) {
+    // audios.map((audio: any) => {
+    //    handleAddAudioFromServer(audio.audio_url);
+    // })
+    // }
+
 
   const [projectName, setProjectName] = useState("");
   const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
@@ -75,20 +149,14 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
     setIsShown(false);
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file: any = event.target.files?.[0];
-  //   if (!file) return;
-  //   file.url = URL.createObjectURL(file);
-  //   setUploadedFiles([...uploadedFiles, file]);
-  // //  store.addVideoResource(URL.createObjectURL(file));
-  // };
+
 
   // загрузка файлов перетаксиванием
   const [drag, setDrag] = useState(false);
 
   const uploadedFiles = useStore((state) => state.uploadedFiles);
   const setUploadedFiles = useStore((state) => state.setUploadedFiles);
-  console.log("zustand", uploadedFiles);
+ // console.log("zustand", uploadedFiles);
 
   //  subtitles
  // const isSubtitlesShown = useStore((state) => state.isSubtitlesShown);
@@ -311,7 +379,7 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
 
        <button
        onClick={() => console.log("Редактирвоать инструкцию")}
-       className={styles.editInstruction} >Редактировать инсnрукцию</button>
+       className={styles.editInstruction} >Редактировать инструкцию</button>
       <CreateInstruction projectId={project.id} />
    </div>
       </div>
@@ -337,9 +405,19 @@ export const Editor =  ({project, className, ...props }: EditorProps ): JSX.Elem
               Импорт медиа
             </label>
 
+            {/* здесь сделать иэп по коипонентам видео и аудио с сервера */}
+
+            {
+              videos.length > 0 && 
+              videos.map((video: any) => (
+                <VideoItemCardFromServer videoItem={video} projectId={project.id} />
+               
+              ))
+            }
+
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {
-                console.log(uploadedFile);
+              //  console.log(uploadedFile);
                 if (uploadedFile.type === "video/mp4") {
                   return (
                     <VideoItemCard

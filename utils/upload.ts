@@ -9,6 +9,44 @@ import {
   } from "@designcombo/events";
   import { generateId } from "@designcombo/timeline";
 
+
+  // добавить видео с сервера в плеер
+  export const handelAddVideoFromServer = async (url: string) => {
+    dispatch(ADD_VIDEO, {
+      payload: {
+        id: generateId(),
+        display: {
+          from: 2000,
+          to: 7000
+        },
+        details: {
+           src: url,
+        //  src: uploadedFile.url,
+        //  name: uploadedFile.title,
+        // name: file.name,
+          volume: 0
+        },
+        metadata: {
+          url
+        }
+      }
+    });
+  }
+
+  // добавить аудио в плеер с сервера
+  export const handleAddAudioFromServer = async (url: string) => {
+    dispatch(ADD_AUDIO, {
+      payload: {
+        id: generateId(),
+        details: {
+          src: url,
+          volume: 100
+        }
+      }
+    })
+  }
+
+
 export const handleAddAudio = async (file: File) => {
     dispatch(ADD_AUDIO, {
       payload: {
