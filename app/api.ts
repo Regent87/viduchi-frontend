@@ -18,7 +18,11 @@ export const API = {
 		audios: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
 		videos: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`,
 		deleteVideo: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}`,
-		deleteAudio: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios/${videoId}`
+		deleteAudio: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios/${videoId}`,
+		saveTimeline: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/save`,
+		getSteps: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/steps`,
+		generateSteps: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/steps/generate`,
+		transcribeVideo: (id: number, videoId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}/transcribe`,
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',

@@ -132,6 +132,62 @@ export const deleteVideoFromProject = async (id: number, videoId: number) => {
 
 }
 
+export const getAllSteps = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.getSteps(id), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get steps of project');
+    }
+
+    return await response.json();
+
+}
+
+
+
+export const generateSteps = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.generateSteps(id), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to generate steps of project');
+    }
+
+    return await response.json();
+
+}
+
+
+export const transcribeVideo = async (id: number, videoId: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.transcribeVideo(id, videoId), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to transcribe video of project');
+    }
+
+    return await response.json();
+
+}
 
 
 export const saveProjectTimeline = () => {
