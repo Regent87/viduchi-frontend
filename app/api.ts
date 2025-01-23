@@ -30,7 +30,12 @@ export const API = {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/positions'
 	},
 	instructions: {
-		list: process.env.NEXT_PUBLIC_API_URL + '/v1/instructions'
+		create: process.env.NEXT_PUBLIC_API_URL + '/v1/instructions',
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/instructions',
+		byId: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}`,
+		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}`,
+		editTitle: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/title`,
+		
 	},
 	mentors: {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/mentors',
