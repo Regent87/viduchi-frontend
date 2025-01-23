@@ -459,7 +459,7 @@ const[ videos, setVideos ] = useState<any>([]);
             onDragOver={(e) => dragStartHandler(e)}
             onDrop={(e) => onDropHandler(e)}
             className={styles.dragMedia}
-            style={ uploadedFiles.length > 0 ? { display: 'none' } : { display: 'flex' } }
+            style={ uploadedFiles.length > 0 || audios.length > 0 ? { display: 'none' } : { display: 'flex' } }
           >
             <Image src={uploadMediaPhoto} alt="upload media" />
             {drag ? (
