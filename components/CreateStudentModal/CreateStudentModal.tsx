@@ -65,7 +65,7 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
         onClose();
         if (student) {
             console.log("studetns refresh")
-            router.push("/admin/students");
+            router.push("/admin/profile");
         }
 setIsLoading(false)
     }
@@ -118,7 +118,7 @@ setIsLoading(false)
       
         {
             positions && positions.map((pos: any) => (
-                <option value={pos.id}>{pos.title}</option>
+                <option key={pos.id} value={pos.id}>{pos.title}</option>
             ))
         }
           </select>

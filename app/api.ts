@@ -17,16 +17,25 @@ export const API = {
 		addAudio: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
 		audios: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios`,
 		videos: (id: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos`,
-		deleteVideo: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}`
+		deleteVideo: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}`,
+		deleteAudio: (id: any, videoId: any) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/audios/${videoId}`
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',
-		list: process.env.NEXT_PUBLIC_API_URL + '/v1/students'
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/students',
+		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/students/${id}`,
+		update: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/students/${id}`
 	},
 	positions: {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/positions'
 	},
 	instructions: {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/instructions'
+	},
+	mentors: {
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/mentors',
+		create: process.env.NEXT_PUBLIC_API_URL + '/v1/mentors',
+		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/mentors/${id}`,
+		update: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/mentors/${id}`,
 	}
 };

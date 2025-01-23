@@ -3,7 +3,7 @@ import { EditStudentModal } from '../EditStudentModal/EditStudentModal';
 import styles from './EditMenu.module.css';
 import { DeleteStudentModal } from '../DeleteStudentModal/DeleteStudentModal';
 
-export const EditMenu = ({closeDropdown}: any) => {
+export const EditMenu = ({closeDropdown, student}: any) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -41,7 +41,9 @@ export const EditMenu = ({closeDropdown}: any) => {
     setIsModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
-  }} />
+  }}
+  student={student}
+  />
 
   <DeleteStudentModal
   isOpen={isDeleteModalOpen} onClose={() => {
@@ -49,7 +51,9 @@ export const EditMenu = ({closeDropdown}: any) => {
     setIsDeleteModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
-}} />
+}}
+id={student.id}
+/>
  </>
     )
 }

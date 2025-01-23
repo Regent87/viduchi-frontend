@@ -29,7 +29,7 @@ export const StudentCard = (student: any) => {
         className={styles.addStudent} src={DotsIcon} alt='add student' /></td>
         {
           isEditOpen && (
-          <EditMenu closeDropdown={closeDropdown} />
+          <EditMenu key={student.id} closeDropdown={closeDropdown} student={student} />
           )
         }
         

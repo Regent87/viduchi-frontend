@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './EditStudentModal.module.css';
 import { useRouter } from 'next/navigation';
 
-export const EditStudentModal = ({isOpen, onClose}: EditStudentModalProps): JSX.Element => {
+export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalProps) => {
 
     const [name, setName] = useState('Александр');
     const [surname, setSurname] = useState('Изотов');

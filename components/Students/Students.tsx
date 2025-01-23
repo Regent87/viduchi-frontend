@@ -48,8 +48,9 @@ export const Students = () => {
 
     return (
         <>
+        <div className={styles.list}>
         <table className={styles.students}>
-          <thead>
+          <thead  >
 
   <tr>
     <th></th>
@@ -61,52 +62,20 @@ export const Students = () => {
     <th></th>
   </tr>
   </thead>
-  <tbody>
+  <tbody className={styles.list}>
 
   {
   students.length > 0 && students.map((student: any) => (
 <StudentCard key={student.id} student={student} />
   )) 
 }
- 
-  {/* <tr>
-    <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
-    <td> Александр Изотов</td>
-    <td>Электрик</td>
-    <td>+37529788888</td>
-    <td>izotov@gmail.com</td>
-    <td>Проект 1, Мой проект</td>
-    <td><Image
-    onClick={() => setIsEditOpen(!isEditOpen)}
-    className={styles.addStudent} src={DotsIcon} alt='add student' /></td>
-    {
-      isEditOpen && (
-      <EditMenu closeDropdown={closeDropdown} />
-      )
-    }
-    
-  </tr>
-  <tr>
-  <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
-    <td>Антон Осипов</td>
-    <td>Электрик</td>
-    <td>+37529788888</td>
-    <td>osipov@gmail.com</td>
-    <td>Мой проект</td>
-    <td><Image onClick={() => setIsEdit2Open(!isEdit2Open)}
-    className={styles.addStudent}
-    src={DotsIcon} alt='add student' /></td>
-    {
-      isEdit2Open && (
-      <EditMenu closeDropdown={closeDropdown2} />
-      )
-    }
-  </tr> */}
+
+
 
 
   </tbody>
 </table>
-
+</div>
 
 <button
 onClick={() => setIsModalOpen(true)}
