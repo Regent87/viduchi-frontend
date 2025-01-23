@@ -35,6 +35,9 @@ export const API = {
 		byId: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}`,
 		delete: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}`,
 		editTitle: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/title`,
+		deletePosition: (id: number, positionId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions/${positionId}`,
+		addPosition: (id: number, positionId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions/${positionId}`,
+		positions: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions`,
 		
 	},
 	mentors: {

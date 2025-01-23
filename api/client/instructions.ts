@@ -90,3 +90,60 @@ export const updateInstructionTitle = async (id: number, title: string) => {
 
     return await response.json();
 };
+
+
+export const deletePositionOfInstruction = async (id: number, positionId: number) => {
+
+    const token = localStorage.getItem('jwt_token');
+
+    const response = await fetch(API.instructions.deletePosition(id, positionId), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        console.log("response");
+        console.log(response);
+        throw new Error('Failed to delete position of instruction');
+    }
+
+    return {message: "Instruction deleted"};
+};
+
+
+export const addPositionOfInstruction = async (id: number, positionId: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.instructions.addPosition(id, positionId), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+       
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to add position to instruction');
+    }
+
+    return await response.json();
+};
+
+
+export const getallPositionsOfInstruction = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.instructions.positions(id), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get positions of instruction');
+    }
+
+    return await response.json();
+};
