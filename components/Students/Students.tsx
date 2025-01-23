@@ -4,11 +4,35 @@ import styles from './Students.module.css';
 import avatar from '../../public/user_avatar.png';
 import Image from 'next/image';
 import DotsIcon from './dots_icon.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CreateStudentModal } from '../CreateStudentModal/CreateStudentModal';
 import { EditMenu } from '../EditMenu/EditMenu';
+import { getAllStudents } from '@/api/client/students';
+import { StudentCard } from './StudentCard/StudentCard';
 
 export const Students = () => {
+
+  // get studens from erver 
+  const [students, setStudents] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<any>([]);
+
+  useEffect(() => {
+
+        const fetchSrudents = async () => {
+                    setIsLoading(true);
+        
+                    const students = await getAllStudents();
+                    setStudents(students);
+        
+                    setIsLoading(false);
+                };
+                fetchSrudents();
+               
+
+    }, [])
+
+
+    console.log("Students: ", students)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
@@ -26,6 +50,7 @@ export const Students = () => {
         <>
         <table className={styles.students}>
           <thead>
+
   <tr>
     <th></th>
     <th>Ученик</th>
@@ -38,8 +63,13 @@ export const Students = () => {
   </thead>
   <tbody>
 
+  {
+  students.length > 0 && students.map((student: any) => (
+<StudentCard key={student.id} student={student} />
+  )) 
+}
  
-  <tr>
+  {/* <tr>
     <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
     <td> Александр Изотов</td>
     <td>Электрик</td>
@@ -71,7 +101,9 @@ export const Students = () => {
       <EditMenu closeDropdown={closeDropdown2} />
       )
     }
-  </tr>
+  </tr> */}
+
+
   </tbody>
 </table>
 

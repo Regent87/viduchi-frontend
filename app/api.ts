@@ -25,5 +25,8 @@ export const API = {
 	},
 	positions: {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/positions'
+	},
+	instructions: {
+		list: process.env.NEXT_PUBLIC_API_URL + '/v1/instructions'
 	}
 };
