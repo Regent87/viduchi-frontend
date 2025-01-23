@@ -15,7 +15,7 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
     const [surname, setSurname] = useState('');
     const [fatherName, setFatherName] = useState('');
     const [phone, setPhone] = useState('+7');
-    const [position, setPosition] = useState('');
+    const [positionId, setPositionId] = useState(0);
     const [email, setEmail] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +46,7 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
         setSurname('');
         setFatherName('');
         setPhone('+7');
-        setPosition('');
+        setPositionId(0);
     };
 
     const handleSubmit = async () => {
@@ -54,17 +54,18 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
         console.log('Имя - ', name)
         console.log('Afvbkbz - ', surname)
         console.log('Отчество - ', fatherName)
-        console.log('Должность - ', position)
+        console.log('Position id - ', positionId)
+      
         console.log('Телефон - ', phone)
         console.log('Почта - ', email)
-        const student = await createStudent(email, name, fatherName, surname);
+        const student = await createStudent(email, name, fatherName, surname, positionId);
         console.log('new student')
         console.log(student)
         reset()
         onClose();
         if (student) {
             console.log("studetns refresh")
-            router.replace("/admin/students");
+            router.push("/admin/students");
         }
 setIsLoading(false)
     }
@@ -112,7 +113,7 @@ setIsLoading(false)
 <div>
 <label htmlFor="position">Должность
     <div> 
-    <select  onChange={(e: any) => setPosition(e.target.value)}>
+    <select  onChange={(e: any) => setPositionId(Number(e.target.value))}>
           
       
         {
@@ -146,7 +147,12 @@ setIsLoading(false)
 onClick={reset}
 className={styles.reset}>Сброс</button>
 <button
-disabled={isLoading || !name.trim() || !surname.trim() || !fatherName.trim() || !position.trim() || !email.trim()}
+type="submit"
+// onClick={(e: any) => {
+// e.preventDefault();
+// handleSubmit();
+// }}
+disabled={!name.trim() || !surname.trim() || !fatherName.trim() || !email.trim()}
 className={styles.apply}>Добавить</button>
 </div>
 
