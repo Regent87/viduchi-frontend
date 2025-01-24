@@ -14,7 +14,18 @@ export const Students = () => {
 
   // get studens from erver 
   const [students, setStudents] = useState<any>([]);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState<any>([]);
+
+  // event handler for page change on click
+  const handlePageChange = (pageNumber:number) => {
+    if (
+      pageNumber > 0 &&
+      pageNumber <= students.length / 3 &&
+      pageNumber !== page
+    )
+      setPage(pageNumber);    
+  };
 
   useEffect(() => {
 
@@ -65,7 +76,7 @@ export const Students = () => {
   <tbody className={styles.list}>
 
   {
-  students.length > 0 && students.map((student: any) => (
+  students.length > 0 && students.slice(page * 3 - 3, page * 3).map((student: any) => (
 <StudentCard key={student.id} student={student} />
   )) 
 }
@@ -76,6 +87,41 @@ export const Students = () => {
   </tbody>
 </table>
 </div>
+
+
+{students.length > 0 && (
+        <section className="pagination">
+          <span
+            onClick={() => handlePageChange(page - 1)}
+            className={`arrow ${page === 1 ? "pagination__disabled" : ""}`}
+          >
+            ⬅
+          </span>
+          {[...Array(Math.floor(students.length / 3))].map((_, i) => (
+            <span
+              className={`page__number ${
+                page === i + 1 ? "selected__page__number" : ""
+              }`}
+              key={i + 1}
+              onClick={() => handlePageChange(i + 1)}
+            >
+              {i + 1}
+            </span>
+          ))}
+          <span
+            onClick={() => handlePageChange(page + 1)}
+            className={`arrow ${
+              page === Math.floor(students.length / 3)
+                ? "pagination__disabled"
+                : ""
+            }`}
+          >
+            ➡
+          </span>
+        </section>
+      )}
+
+
 
 <button
 onClick={() => setIsModalOpen(true)}

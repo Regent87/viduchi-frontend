@@ -116,3 +116,28 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+/* pagination */
+.pagination {
+  color: var(--white);
+  text-align: center;
+  padding-top: 15px;
+}
+
+.page__number {
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.selected__page__number {
+  color: lightblue;
+  font-weight: bold;
+}
+
+.arrow {
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
