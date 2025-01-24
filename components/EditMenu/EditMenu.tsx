@@ -16,6 +16,9 @@ export const EditMenu = ({closeDropdown, student}: any) => {
         setIsDeleteModalOpen(true);
     }
 
+    // работает
+   // console.log("edit menu student: ", student)
+
     return (
         <>
        

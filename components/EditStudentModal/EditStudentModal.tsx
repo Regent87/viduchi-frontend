@@ -8,12 +8,14 @@ import { useRouter } from 'next/navigation';
 
 export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalProps) => {
 
-    const [name, setName] = useState('Александр');
-    const [surname, setSurname] = useState('Изотов');
-    const [fatherName, setFatherName] = useState('');
+    console.log(" ОКНО СТУДЕНТА ", student)
+
+    const [name, setName] = useState(student.student.first_name);
+    const [surname, setSurname] = useState(student.student.surname);
+    const [fatherName, setFatherName] = useState(student.student.last_name);
     const [phone, setPhone] = useState('+737529788888');
     const [position, setPosition] = useState('Электрик');
-    const [email, setEmail] = useState('izotov@gmail.com');
+    const [email, setEmail] = useState(student.stident.email);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -94,7 +96,7 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
 onClick={reset}
 className={styles.reset}>Сброс</button>
 <button
-disabled={isLoading || !name.trim() || !surname.trim() || !fatherName.trim() || !position.trim() || !email.trim()}
+disabled={false}
 className={styles.apply}>Сохранить</button>
 </div>
 
