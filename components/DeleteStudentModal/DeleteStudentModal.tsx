@@ -29,7 +29,7 @@ export const DeleteStudentModal = ({ isOpen, onClose, id }: DeleteStudentModalPr
             }}
             >
             <div className={styles.buttons}>
-                <h1>{id}</h1>
+                
             <button
 className={styles.reset}>Да</button>
  <button

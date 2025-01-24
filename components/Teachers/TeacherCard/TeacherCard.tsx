@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from 'next/image';
 import avatar from '../../../public/user_avatar.png';
-import styles from './StudentCard.module.css';
+import styles from './TeacherCard.module.css';
 import { EditMenu } from '../../EditMenu/EditMenu';
 import DotsIcon from '../dots_icon.png';
 

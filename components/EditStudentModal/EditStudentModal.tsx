@@ -15,7 +15,7 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
     const [fatherName, setFatherName] = useState(student.student.last_name);
     const [phone, setPhone] = useState('+737529788888');
     const [position, setPosition] = useState('Электрик');
-    const [email, setEmail] = useState(student.stident.email);
+    const [email, setEmail] = useState(student.student.email);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();

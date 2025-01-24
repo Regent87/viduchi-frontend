@@ -75,7 +75,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
         <div>
             <div className={styles.profileItem}>
             <p>Имя</p>
-            <p className={styles.white}>Александр</p>
+            <p className={styles.white}>{myInfo.first_name}</p>
             </div>
             <div className={styles.profileItem}>
             <p>Корпоративная почта</p>

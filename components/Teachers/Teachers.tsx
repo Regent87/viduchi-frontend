@@ -4,9 +4,11 @@ import styles from './Teachers.module.css';
 import avatar from '../../public/user_avatar.png';
 import Image from 'next/image';
 import DotsIcon from './dots_icon.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EditTeacherMenu } from '../EditTeacherMenu/EditTeacherMenu';
 import { CreateTeacherModal } from '../CreateTeacherModal/CreateTeacherModal';
+import { getAllMentors } from '@/api/client/mentors';
+import { TeacherCard } from './TeacherCard/TeacherCard';
 
 export const Teachers = () => {
 
@@ -22,10 +24,46 @@ export const Teachers = () => {
     setIsEdit2Open(false);
 };
 
+
+ // get studens from erver 
+  const [teachers, setTeachers] = useState<any>([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState<any>([]);
+
+  // event handler for page change on click
+  const handlePageChange = (pageNumber:number) => {
+    if (
+      pageNumber > 0 &&
+      pageNumber <= teachers.length / 3 &&
+      pageNumber !== page
+    )
+      setPage(pageNumber);    
+  };
+
+  useEffect(() => {
+
+        const fetchTeachers = async () => {
+                    setIsLoading(true);
+        
+                    const teachers = await getAllMentors();
+                    setTeachers(teachers);
+        
+                    setIsLoading(false);
+                };
+                fetchTeachers();
+               
+
+    }, [])
+
+
+    console.log("teachers: ", teachers)
+
+
     return (
         <>
         <table className={styles.students}>
-  <tr>
+          <thead>
+          <tr>
     <th></th>
     <th>Наставник</th>
     <th>Должность</th>
@@ -34,40 +72,50 @@ export const Teachers = () => {
     <th>Назначенные проекты</th>
     <th></th>
   </tr>
-  <tr>
-    <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
-    <td> Александр Изотов</td>
-    <td>Электрик</td>
-    <td>+37529788888</td>
-    <td>izotov@gmail.com</td>
-    <td>Проект 1, Мой проект</td>
-    <td><Image
-    onClick={() => setIsEditOpen(!isEditOpen)}
-    className={styles.addStudent} src={DotsIcon} alt='add student' /></td>
-    {
-      isEditOpen && (
-      <EditTeacherMenu closeDropdown={closeDropdown} />
-      )
-    }
-    
-  </tr>
-  <tr>
-  <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
-    <td>Антон Осипов</td>
-    <td>Электрик</td>
-    <td>+37529788888</td>
-    <td>osipov@gmail.com</td>
-    <td>Мой проект</td>
-    <td><Image onClick={() => setIsEdit2Open(!isEdit2Open)}
-    className={styles.addStudent}
-    src={DotsIcon} alt='add student' /></td>
-    {
-      isEdit2Open && (
-      <EditTeacherMenu closeDropdown={closeDropdown2} />
-      )
-    }
-  </tr>
+          </thead>
+ <tbody>
+ {
+  teachers.length > 0 && teachers.slice(page * 3 - 3, page * 3).map((teacher: any) => (
+<TeacherCard key={teacher.id} teacher={teacher} />
+  )) 
+}
+ </tbody>
+ 
+
 </table>
+
+
+{teachers.length > 0 && (
+        <section className="pagination">
+          <span
+            onClick={() => handlePageChange(page - 1)}
+            className={`arrow ${page === 1 ? "pagination__disabled" : ""}`}
+          >
+            ⬅
+          </span>
+          {[...Array(Math.floor(teachers.length / 3))].map((_, i) => (
+            <span
+              className={`page__number ${
+                page === i + 1 ? "selected__page__number" : ""
+              }`}
+              key={i + 1}
+              onClick={() => handlePageChange(i + 1)}
+            >
+              {i + 1}
+            </span>
+          ))}
+          <span
+            onClick={() => handlePageChange(page + 1)}
+            className={`arrow ${
+              page === Math.floor(teachers.length / 3)
+                ? "pagination__disabled"
+                : ""
+            }`}
+          >
+            ➡
+          </span>
+        </section>
+      )}
 
 
 <button

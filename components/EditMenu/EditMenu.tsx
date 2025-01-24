@@ -22,7 +22,7 @@ export const EditMenu = ({closeDropdown, student}: any) => {
     return (
         <>
        
-        <div className={styles.edit}>
+        <td className={styles.edit}>
             <nav>
                 <ul>
                     <li>
@@ -37,7 +37,7 @@ export const EditMenu = ({closeDropdown, student}: any) => {
                     </li>
                 </ul>
             </nav>
-        </div>
+        </td>
 
 <EditStudentModal isOpen={isModalOpen} onClose={() => {
     closeDropdown();
@@ -55,7 +55,7 @@ export const EditMenu = ({closeDropdown, student}: any) => {
     console.log("refresh");
   //  router.replace('/projects');
 }}
-id={student.id}
+id={student.student.id}
 />
  </>
     )

@@ -58,7 +58,7 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
       
         console.log('Телефон - ', phone)
         console.log('Почта - ', email)
-        const student = await createStudent(email, name, fatherName, surname, positionId);
+        const student = await createStudent(email, name, fatherName, surname, positionId, phone);
         console.log('new student')
         console.log(student)
         reset()
