@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import styles from './CreateTeacherModal.module.css';
 import { getAllPositions } from '@/api/client/positions';
+import { createMentor } from '@/api/client/mentors';
 // import { createStudent } from "@/api/client/students";
 
 export const CreateTeacherModal = ({ isOpen, onClose }: CreateTeacherModalProps) => { 
@@ -59,6 +60,7 @@ export const CreateTeacherModal = ({ isOpen, onClose }: CreateTeacherModalProps)
         console.log('Телефон - ', phone)
         console.log('Почта - ', email)
      //   const student = await createStudent(email, name, fatherName, surname);
+     const teacher = await createMentor(email, name, fatherName, surname, phone)
         console.log('new teacher')
      //   console.log(student)
         reset()
@@ -111,6 +113,7 @@ setIsLoading(false)
 
 
 <div>
+    
 <label htmlFor="name">Должность
     <div> 
     <select 
@@ -129,6 +132,7 @@ setIsLoading(false)
      
      </div>
 </label>
+
 </div>
 <div>
 <label htmlFor="phone">E-mail

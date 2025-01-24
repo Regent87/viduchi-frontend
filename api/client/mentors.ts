@@ -1,6 +1,6 @@
 import { API } from "@/app/api";
 
-export const createMentor = async (email: string, first_name: string, last_name: string, surname: string, position_id: number) => {
+export const createMentor = async (email: string, first_name: string, last_name: string, surname: string, phone_number: string) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.mentors.create, {
           method: 'POST',
@@ -8,7 +8,7 @@ export const createMentor = async (email: string, first_name: string, last_name:
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, first_name, last_name, surname }),
+        body: JSON.stringify({ email, first_name, last_name, surname, phone_number }),
     });
 
     if (!response.ok) {
@@ -56,7 +56,7 @@ export const deleteMentor = async (id: number) => {
 };
 
 
-export const updateMentor = async (email: string, first_name: string, last_name: string, surname: string, position_id: number) => {
+export const updateMentor = async (email: string, first_name: string, last_name: string, surname: string, phone_number: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.students.create, {
           method: 'PATCH',
@@ -64,7 +64,7 @@ export const updateMentor = async (email: string, first_name: string, last_name:
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, first_name, last_name, surname }),
+        body: JSON.stringify({ email, first_name, last_name, surname, phone_number }),
     });
 
     if (!response.ok) {
