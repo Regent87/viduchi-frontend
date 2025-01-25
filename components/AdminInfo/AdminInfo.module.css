@@ -4,6 +4,10 @@
     position: absolute;
 }
 
+.link {
+    cursor: pointer;
+}
+
 .profilePic {
     width: 216px;
     height: 216px;

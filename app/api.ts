@@ -7,6 +7,7 @@ export const API = {
 	},
 	admins: {
 		me: process.env.NEXT_PUBLIC_API_URL + '/v1/admins/me',
+		avatar: process.env.NEXT_PUBLIC_API_URL + '/v1/admins/avatar',
 	},
 	projects: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/projects',

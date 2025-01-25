@@ -27,6 +27,13 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
         setIsDeleteModalOpen(false);
     }
 
+    // handle file for avatar
+    const handleFileChange = (newFiles: File[]) => {
+        const file = newFiles[0];
+        if (!file) return;
+    
+      }; 
+
      // get all positions
      const [isLoading, setIsLoading] = useState(false);
         const [myInfo, setMyInfo] = useState<any>({});
@@ -56,9 +63,18 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
           
         <div className={styles.profilePic}>
         <div className={styles.avatar}><Image src={avatar} alt="avatar" /></div>
-        <Link href="/admin/uploadphoto" className={styles.link}>
+        <input
+              style={{ display: "none" }}
+              id="file-upload-handle"
+              accept="image/*"
+              type="file"
+              onChange={(e) =>
+                handleFileChange(Array.from(e.target.files || []))
+              }
+            />
+        <label htmlFor="file-upload-handle" className={styles.link}>
 				<Image className={styles.edit} src={EditIcon} alt='Edit profile' title='Загрузить фото' />
-			</Link>
+			</label>
         </div>
         <div className={styles.rectangle}>
             <Image src={rectAdminImg} alt='rectangle'/>
