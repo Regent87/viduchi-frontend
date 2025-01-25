@@ -24,7 +24,7 @@ import {
         //  src: uploadedFile.url,
         //  name: uploadedFile.title,
         // name: file.name,
-          volume: 0
+          volume: 100
         },
         metadata: {
           url
