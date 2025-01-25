@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { AdminInfoProps } from './AdminInfo.props';
 import { EditAdminModal } from '../EditAdminModal/EditAdminModal';
 import { DeleteProfileModal } from '../DeleteProfileModal/DeleteProfileModal';
-import { getMyProfile } from '@/api/client/admins';
+import { getMyProfile, uploadAdminAvatar } from '@/api/client/admins';
 
 
 export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
@@ -28,9 +28,19 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
     }
 
     // handle file for avatar
-    const handleFileChange = (newFiles: File[]) => {
+    const handleFileChange = async (newFiles: File[]) => {
         const file = newFiles[0];
         if (!file) return;
+
+        const formData = new FormData();
+        formData.append('avatar_file', file);
+
+        const message = await uploadAdminAvatar(formData);
+
+        // if (message) {
+        //     const updatedProfile = await getMyProfile();
+        //     setMyInfo(updatedProfile);
+        // }
     
       }; 
 
@@ -62,7 +72,9 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
 
           
         <div className={styles.profilePic}>
-        <div className={styles.avatar}><Image src={avatar} alt="avatar" /></div>
+        <div className={styles.avatar}><Image
+        src={avatar}
+      alt="avatar" /></div>
         <input
               style={{ display: "none" }}
               id="file-upload-handle"
@@ -73,7 +85,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
               }
             />
         <label htmlFor="file-upload-handle" className={styles.link}>
-				<Image className={styles.edit} src={EditIcon} alt='Edit profile' title='Загрузить фото' />
+				<Image width={50} style={{ width: "50px" }} className={styles.edit} src={EditIcon} alt='Edit profile' title='Загрузить фото' />
 			</label>
         </div>
         <div className={styles.rectangle}>
