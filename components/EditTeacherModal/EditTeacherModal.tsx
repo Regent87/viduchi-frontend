@@ -70,21 +70,22 @@ export const EditTeacherModal = ({isOpen, onClose, teacher}: EditTeacherModalPro
 </div>
 
 
-<div>
+{/* <div>
 <label htmlFor="name">Должность
     <div> <input onChange={(e: any) => setPosition(e.target.value)}
     value={position}
      type="text" required /></div>
 </label>
-</div>
-<div>
+</div> */}
+
+{/* <div>
 <label htmlFor="phone">E-mail
     <div> <input
     onChange={(e: any) => setEmail(e.target.value)}
     value={email}
      type="email" required /></div>
 </label>
-</div>
+</div> */}
 
 
 </div>

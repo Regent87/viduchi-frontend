@@ -34,7 +34,7 @@ export const Teachers = () => {
   const handlePageChange = (pageNumber:number) => {
     if (
       pageNumber > 0 &&
-      pageNumber <= teachers.length / 3 &&
+      pageNumber <= teachers.length / 2 &&
       pageNumber !== page
     )
       setPage(pageNumber);    
@@ -76,7 +76,7 @@ export const Teachers = () => {
           </thead>
  <tbody>
  {
-  teachers.length > 0 && teachers.slice(page * 3 - 3, page * 3).map((teacher: any) => (
+  teachers.length > 0 && teachers.slice(page * 2 - 2, page * 2).map((teacher: any) => (
 <TeacherCard key={teacher.id} teacher={teacher} />
   )) 
 }
@@ -93,7 +93,7 @@ export const Teachers = () => {
           >
             ⬅
           </span>
-          {[...Array(Math.floor(teachers.length / 3))].map((_, i) => (
+          {[...Array(Math.floor(teachers.length / 2))].map((_, i) => (
             <span
               className={`page__number ${
                 page === i + 1 ? "selected__page__number" : ""
@@ -107,7 +107,7 @@ export const Teachers = () => {
           <span
             onClick={() => handlePageChange(page + 1)}
             className={`arrow ${
-              page === Math.floor(teachers.length / 3)
+              page === Math.floor(teachers.length / 2)
                 ? "pagination__disabled"
                 : ""
             }`}
