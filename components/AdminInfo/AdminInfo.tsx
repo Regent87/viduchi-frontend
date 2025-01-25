@@ -83,7 +83,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
             </div>
             <div className={styles.profileItem}>
             <p>Должность</p>
-            <p className={styles.white}>...</p>
+            <p className={styles.white}>{myInfo.role}.</p>
             </div>
            
             
@@ -92,11 +92,11 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
         <div>
         <div className={styles.profileItem}>
             <p>Фамилия</p>
-            <p className={styles.white}>Изотов</p>
+            <p className={styles.white}>{myInfo.surname}</p>
             </div>
             <div className={styles.profileItem}>
             <p>Номер телефона</p>
-            <p className={styles.white}>+795........</p>
+            <p className={styles.white}>{myInfo.phone_number}</p>
             </div>
 
 <div className={styles.change}>

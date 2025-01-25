@@ -91,7 +91,7 @@ export const Teachers = () => {
             onClick={() => handlePageChange(page - 1)}
             className={`arrow ${page === 1 ? "pagination__disabled" : ""}`}
           >
-            {/* ⬅ */}
+            ⬅
           </span>
           {[...Array(Math.floor(teachers.length / 3))].map((_, i) => (
             <span
@@ -112,7 +112,7 @@ export const Teachers = () => {
                 : ""
             }`}
           >
-            {/* ➡ */}
+            ➡
           </span>
         </section>
       )}
