@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SubtitleSequence from "../../utils/subtitle-sequence";
 import { SubtitlesCaption } from "../SubtitlesCaption/SubtitlesCaption";
-import { Audio } from "remotion";
+import { Audio, Video } from "remotion";
 import { useVideoConfig, staticFile } from "remotion";
 
 import useStore from "@/store/store";
@@ -25,7 +25,9 @@ export const Subtitles = () => {
       <>
         {loaded && isSubtitlesShown ? (
           <>
-            <Audio src={staticFile("tuyo.mp3")} /> {Sequences}
+           <Audio src={staticFile("tuyo.mp3")} /> {Sequences}
+
+            {/* <Audio src={staticFile("tuyo.mp3")} /> {Sequences} */}
           </>
         ) : <><div></div></>}
       </>

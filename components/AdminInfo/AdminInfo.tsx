@@ -14,7 +14,6 @@ import { DeleteProfileModal } from '../DeleteProfileModal/DeleteProfileModal';
 import { getMyProfile } from '@/api/client/admins';
 
 
-
 export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
