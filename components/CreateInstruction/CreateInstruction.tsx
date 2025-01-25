@@ -11,6 +11,7 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
 
 // достаем треки из плеера
     const tracks = useStore((state) => state.trackItemIds);
+  
 
     // данные для показа модальных окон
     const [ isEmptyPlayerModalOpen, setIsEmptyPlayerModalOpen ] = useState(false);
@@ -27,6 +28,7 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
         <button
         onClick={() => {
           //  console.log("Создать инструкцию номер проекта: " + projectId );
+         
             if (tracks.length < 1) {
                 setIsEmptyPlayerModalOpen(true)
             } else {

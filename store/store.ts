@@ -42,7 +42,7 @@ interface ITimelineStore {
 const useStore = create<ITimelineStore>((set) => ({
   playerControls: false,
   timeline: null,
-  duration: 600000,
+  duration: 0,
   fps: 30,
   scale: {
     unit: 60,

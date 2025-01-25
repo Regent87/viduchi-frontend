@@ -201,6 +201,13 @@ const[ videos, setVideos ] = useState<any>([]);
   useTimelineEvents();
 
   const store = useStore();
+  const tracks = useStore((state) => state.tracks);
+  
+useEffect(() => {
+  console.log("ZUSTAND STORE TRACKS: ");
+  console.log(tracks);
+}, [])
+
 
   useEffect(() => {
     setIsAudioTitlesShown(isSubtitlesShown)
