@@ -2,8 +2,8 @@ import { useState } from "react";
 import Image from 'next/image';
 import avatar from '../../../public/user_avatar.png';
 import styles from './TeacherCard.module.css';
-import { EditMenu } from '../../EditMenu/EditMenu';
 import DotsIcon from '../dots_icon.png';
+import { EditTeacherMenu } from "@/components/EditTeacherMenu/EditTeacherMenu";
 
 export const TeacherCard = (teacher: any) => {
 
@@ -16,11 +16,11 @@ export const TeacherCard = (teacher: any) => {
     console.log("ONE teacher: ", teacher)
 
     return (
-
+<>
         <tr>
         <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
         <td>{teacher.teacher.first_name} {teacher.teacher.surname}</td>
-        <td>{teacher.teacher.position.title}</td>
+        <td>{"Менеджеры"}</td>
         <td>+37529788888</td>
         <td>{teacher.teacher.email}</td>
         <td>Проект 1, Мой проект</td>
@@ -29,10 +29,12 @@ export const TeacherCard = (teacher: any) => {
         className={styles.addStudent} src={DotsIcon} alt='add student' /></td>
         {
           isEditOpen && (
-          <EditMenu key={teacher.id} closeDropdown={closeDropdown} teacher={teacher} />
+          <EditTeacherMenu key={teacher.id} closeDropdown={closeDropdown} teacher={teacher} />
           )
         }
         
       </tr>
+
+      </>
     )
 }

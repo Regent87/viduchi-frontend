@@ -3,6 +3,16 @@
     color: #33333FBF;
 }
 
+.white select {
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #33333F26;
+    border-radius: 25px;
+    background-color: var(--white);
+    width: 100%;
+}
+
 .white svg {
     stroke: #33333F;
 }

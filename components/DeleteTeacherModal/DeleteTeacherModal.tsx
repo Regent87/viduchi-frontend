@@ -3,8 +3,21 @@
 import { DeleteTeacherModalProps } from './DeleteTeacherModal.props';
 import styles from './DeleteTeacherModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
+import { useRouter } from "next/navigation";
+import { deleteMentor } from '@/api/client/mentors';
 
-export const DeleteTeacherModal = ({ isOpen, onClose }: DeleteTeacherModalProps): JSX.Element => {
+export const DeleteTeacherModal = ({ isOpen, onClose, id }: DeleteTeacherModalProps)=> {
+
+    const router = useRouter();
+
+        const handleDelete = async () => {
+          
+            const deletedMessage = await deleteMentor(Number(id));
+            onClose();
+            if (deletedMessage) {
+                router.push('/admin/students');       
+            }
+        }
 
     return (
         <Modal className={styles.white}

@@ -56,9 +56,9 @@ export const deleteStudent = async (id: number) => {
 };
 
 
-export const updateStudent = async (email: string, first_name: string, last_name: string, surname: string, position_id: number, phone_number: string) => {
+export const updateStudent = async (id: number, email: string, first_name: string, last_name: string, surname: string, position_id: number, phone_number: string) => {
     const token = localStorage.getItem('jwt_token');
-    const response = await fetch(API.students.create, {
+    const response = await fetch(API.students.update(id), {
           method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

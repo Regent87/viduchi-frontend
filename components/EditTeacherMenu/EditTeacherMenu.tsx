@@ -3,7 +3,7 @@ import styles from './EditTeacherMenu.module.css';
 import { EditTeacherModal } from '../EditTeacherModal/EditTeacherModal';
 import { DeleteTeacherModal } from '../DeleteTeacherModal/DeleteTeacherModal';
 
-export const EditTeacherMenu = ({closeDropdown}: any) => {
+export const EditTeacherMenu = ({closeDropdown, teacher}: any) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -19,7 +19,7 @@ export const EditTeacherMenu = ({closeDropdown}: any) => {
     return (
         <>
        
-        <div className={styles.edit}>
+        <td className={styles.edit}>
             <nav>
                 <ul>
                     <li>
@@ -34,14 +34,17 @@ export const EditTeacherMenu = ({closeDropdown}: any) => {
                     </li>
                 </ul>
             </nav>
-        </div>
+        </td>
 
 <EditTeacherModal isOpen={isModalOpen} onClose={() => {
     closeDropdown();
     setIsModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
-  }} />
+ 
+  }} 
+  teacher={teacher}
+  />
 
   <DeleteTeacherModal
   isOpen={isDeleteModalOpen} onClose={() => {
@@ -49,7 +52,10 @@ export const EditTeacherMenu = ({closeDropdown}: any) => {
     setIsDeleteModalOpen(false);
     console.log("refresh");
   //  router.replace('/projects');
-}} />
+  
+}}
+id={teacher.teacher.id}
+/>
  </>
     )
 }

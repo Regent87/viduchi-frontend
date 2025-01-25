@@ -2,23 +2,49 @@
 
 import { Modal } from "../site/ModalForm/ModalForm";
 import { EditStudentModalProps } from "./EditStudentModal.props";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './EditStudentModal.module.css';
 import { useRouter } from 'next/navigation';
+import { updateStudent } from "@/api/client/students";
+import { getAllPositions } from "@/api/client/positions";
 
 export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalProps) => {
 
-    console.log(" ОКНО СТУДЕНТА ", student)
+   // console.log(" ОКНО СТУДЕНТА ", student)
 
+
+
+    const [studentId, setStudentId] = useState(student.student.id);
     const [name, setName] = useState(student.student.first_name);
     const [surname, setSurname] = useState(student.student.surname);
     const [fatherName, setFatherName] = useState(student.student.last_name);
     const [phone, setPhone] = useState('+737529788888');
     const [position, setPosition] = useState('Электрик');
+    const [positionId, setPositionId] = useState(0);
     const [email, setEmail] = useState(student.student.email);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+
+    console.log(" ID СТУДЕНТА ", studentId)
+
+     // get all positions
+        const [positions, setPositions] = useState([]);
+    
+        useEffect(() => {
+    
+            const fetchPositions = async () => {
+                        setIsLoading(true);
+            
+                        const positions = await getAllPositions();
+                        setPositions(positions);
+            
+                        setIsLoading(false);
+                    };
+                    fetchPositions();
+                   
+    
+        }, [])
 
     const reset = () => {
          setName('');
@@ -30,7 +56,16 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
      };
 
      const handleSubmit = async () => {
-
+        setIsLoading(true)
+          const student = await updateStudent(studentId, email, name, fatherName, surname, positionId, phone);
+                console.log('гupdated student')
+                console.log(student)
+                reset()
+                onClose();
+                if (student) {
+                    console.log("studetns refresh")
+                    router.push("/admin/profile");
+                }
      }
 
     return (
@@ -73,10 +108,23 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
 
 
 <div>
-<label htmlFor="name">Должность
-    <div> <input onChange={(e: any) => setPosition(e.target.value)}
+<label htmlFor="position">Должность
+    <div> 
+    <select  onChange={(e: any) => setPositionId(Number(e.target.value))}>
+          
+      
+        {
+            positions && positions.map((pos: any) => (
+                <option key={pos.id} value={pos.id}>{pos.title}</option>
+            ))
+        }
+          </select>
+
+        {/* <input onChange={(e: any) => setPosition(e.target.value)}
     value={position}
-     type="text" required /></div>
+     type="text" required /> */}
+     
+     </div>
 </label>
 </div>
 <div>

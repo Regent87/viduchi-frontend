@@ -6,14 +6,14 @@ import { useState } from 'react';
 import styles from './EditTeacherModal.module.css';
 import { useRouter } from 'next/navigation';
 
-export const EditTeacherModal = ({isOpen, onClose}: EditTeacherModalProps): JSX.Element => {
+export const EditTeacherModal = ({isOpen, onClose, teacher}: EditTeacherModalProps) => {
 
-    const [name, setName] = useState('Александр');
-    const [surname, setSurname] = useState('Изотов');
-    const [fatherName, setFatherName] = useState('');
-    const [phone, setPhone] = useState('+737529788888');
-    const [position, setPosition] = useState('Электрик');
-    const [email, setEmail] = useState('izotov@gmail.com');
+    const [name, setName] = useState(teacher.teacher.first_name);
+    const [surname, setSurname] = useState(teacher.teacher.surname);
+    const [fatherName, setFatherName] = useState(teacher.teacher.last_name);
+    const [phone, setPhone] = useState(teacher.teacher.phone_number);
+    const [position, setPosition] = useState('Менеджеры');
+    const [email, setEmail] = useState(teacher.teacher.email);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();

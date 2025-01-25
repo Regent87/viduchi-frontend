@@ -116,7 +116,11 @@ setIsLoading(false)
     
 <label htmlFor="name">Должность
     <div> 
-    <select 
+        <select name="" id="">
+            <option value="0">Менеджеры</option>
+            <option value="1">Сварщики</option>
+        </select>
+    {/* <select 
     onChange={(e: any) => setPosition(e.target.value)}>
           
       
@@ -125,7 +129,7 @@ setIsLoading(false)
                   <option value={pos.id}>{pos.title}</option>
               ))
           }
-            </select>
+            </select> */}
         {/* <input onChange={(e: any) => setPosition(e.target.value)}
     value={position}
      type="text" required /> */}
@@ -151,7 +155,7 @@ setIsLoading(false)
 onClick={reset}
 className={styles.reset}>Сброс</button>
 <button
-disabled={isLoading || !name.trim() || !surname.trim() || !fatherName.trim() || !position.trim() || !email.trim()}
+disabled={false}
 className={styles.apply}>Добавить</button>
 </div>
 
