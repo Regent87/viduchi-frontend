@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateInstructionModal } from '@/components/CreateInstructionModal/CreateInstructionModal';
 import InstructionList from '@/components/InstructionList/InstructionList';
+import { CreateProjectModal } from '@/components/CreateProjectModal/CreateProjectModal';
 
 export const Instructions = ({ className, ...props }: InstructionsProps): JSX.Element => {
 
@@ -27,7 +28,7 @@ export const Instructions = ({ className, ...props }: InstructionsProps): JSX.El
 			
 		</div>
 
-		  <CreateInstructionModal isOpen={isModalOpen} onClose={() => {
+		  <CreateProjectModal isOpen={isModalOpen} onClose={() => {
 			setIsModalOpen(false);
 			console.log("refresh");
 		//	router.replace('/projects');
