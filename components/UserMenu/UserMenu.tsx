@@ -5,6 +5,7 @@ import styles from './UserMenu.module.css'
 
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation';
+import { siteLogout } from '@/utils/logout';
 
 export const UserMenu = ({closeDropdown}: any) => {
 
@@ -15,6 +16,11 @@ export const UserMenu = ({closeDropdown}: any) => {
         closeDropdown();
 		router.push('/admin/profile');
 	};
+
+     const exitSite = () => {
+            siteLogout();
+            location.reload();
+        }
 
     return (
         <div
@@ -28,7 +34,7 @@ export const UserMenu = ({closeDropdown}: any) => {
                 </li>
                 <li>
                     <span
-                    onClick={logout}
+                    onClick={exitSite}
                   > ВЫХОД</span>
                 </li>      
             </ul>

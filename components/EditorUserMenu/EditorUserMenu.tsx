@@ -19,7 +19,6 @@ export const EditorUserMenu = ({closeDropdown}: any) => {
 
     const exitSite = () => {
         siteLogout();
-        // router.push('/login');
         location.reload();
     }
 
