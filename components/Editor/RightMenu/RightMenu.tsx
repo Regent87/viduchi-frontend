@@ -38,6 +38,10 @@ const canvas: any = document.getElementsByTagName("video")[0];
 console.log("Canvas video: ", canvas) 
     const stream = canvas!.captureStream(30)
 
+// get first audio file from site
+const first_audio = document.getElementsByTagName("audio")[0];
+console.log("First audio: ", first_audio);
+
  //   stream.addTrack(tracks[0].items[0])
 
 
@@ -67,6 +71,7 @@ console.log("Canvas video: ", canvas)
     // document.body.appendChild(video);
 
     // video.play().
+    playerRef?.current?.seekTo(0);
     playerRef?.current?.play();
     
     video.play().then(() => {
