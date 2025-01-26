@@ -73,7 +73,8 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
           
         <div className={styles.profilePic}>
         <div className={styles.avatar}><Image
-        src={avatar}
+        width={150} style={{ width: "150px" }}
+        src={ avatar}
       alt="avatar" /></div>
         <input
               style={{ display: "none" }}
@@ -85,7 +86,7 @@ export const AdminInfo = ({ className, ...props }: AdminInfoProps) => {
               }
             />
         <label htmlFor="file-upload-handle" className={styles.link}>
-				<Image width={50} style={{ width: "50px" }} className={styles.edit} src={EditIcon} alt='Edit profile' title='Загрузить фото' />
+				<Image className={styles.edit} src={EditIcon} alt='Edit profile' title='Загрузить фото' />
 			</label>
         </div>
         <div className={styles.rectangle}>

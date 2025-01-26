@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.6",
+    "@ffmpeg/util": "^0.12.1",
     "@designcombo/events": "0.1.2",
     "@designcombo/timeline": "0.1.2",
     "@radix-ui/colors": "^3.0.0",

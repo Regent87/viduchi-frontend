@@ -372,7 +372,10 @@ useEffect(() => {
       <div className={styles.videoEditorWindow}>
         <div className={styles.videoPlayer}>
           {/* <Scene stateManager={stateManager} /> */}
+         
           <Player />
+          
+         
 
           {playerRef && !isBottomMenuUploadVideoOpen && <PlayNavigation />}
 

@@ -32,8 +32,9 @@ const Player = () => {
 
 
   return (
-    <>
+   
     <RemotionPlayer
+  
       ref={playerRef}
       component={Composition}
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
@@ -45,7 +46,7 @@ const Player = () => {
       controls={false}
     />
 
-</>
+
   );
 };
 
