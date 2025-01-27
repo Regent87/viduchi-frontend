@@ -1,4 +1,5 @@
 import { API } from "@/app/api";
+import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { ProjectModel } from "@/interfaces/project.interface";
 import { IVideo } from "@designcombo/timeline";
 
@@ -160,6 +161,26 @@ export const generateSteps = async (id: number) => {
             'Authorization': `Bearer ${token}`,
             'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to generate steps of project');
+    }
+
+    return await response.json();
+
+}
+
+
+export const addStepsToProject = async (id: number, steps: any) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.addSteps(id), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+        body: JSON.stringify({ steps }),
     });
 
     if (!response.ok) {
