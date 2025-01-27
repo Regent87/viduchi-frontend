@@ -192,6 +192,27 @@ export const addStepsToProject = async (id: number, steps: any) => {
 }
 
 
+
+export const updateStep = async (id: number, stepId: number, step: any) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.updateStep(id, stepId), {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+        body: JSON.stringify({ step }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to generate steps of project');
+    }
+
+    return await response.json();
+
+}
+
+
 export const transcribeVideo = async (id: number, videoId: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.transcribeVideo(id, videoId), {
