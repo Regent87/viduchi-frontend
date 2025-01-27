@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectVideo, transcribeVideo } from '@/api/client/projects';
+import { addProjectVideo, addSubtitlesToProject, transcribeVideo } from '@/api/client/projects';
 
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
   const [projectName, setProjectName] = useState('');
@@ -206,7 +206,10 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
         // const videoId: any = await addProjectVideo(projectId, uploadedFiles[0]); 
 
         // const subtitles = await transcribeVideo(projectId, videoId);
-        // setSubtitles(subtitles);
+        // setSubtitles(subtitles.subtitles);
+
+        // сохраняем субтитры в проект
+       //  await addSubtitlesToProject(projectId, subtitles.transcription)
 
         onClose();
         router.push('/subtitles/' + projectId )
