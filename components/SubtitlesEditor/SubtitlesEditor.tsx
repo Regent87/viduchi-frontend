@@ -192,7 +192,8 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
           
    
    <div className={styles.gen_subtitles}>
-   <button className={styles.generate_button} >Опубликовать инструкцию</button>
+   <button
+   className={styles.generate_button} >Опубликовать инструкцию</button>
    </div>
     
 
@@ -242,7 +243,9 @@ steps && steps.map((step: any, idx: any) => (
                   }
                 } }
                 className={styles.add_button} >Добавить шаг</button>
-                <button className={styles.generate_button}>Сгенерировать шаги</button>
+                <button
+                
+                className={styles.generate_button}>Сгенерировать шаги</button>
             </div>
     
 </div>

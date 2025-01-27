@@ -24,6 +24,7 @@ export const API = {
 		getSteps: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/steps`,
 		generateSteps: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/steps/generate`,
 		transcribeVideo: (id: number, videoId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/videos/${videoId}/transcribe`,
+		addSubtitles: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/projects/${id}/subtitles`,
 	},
 	students: {
 		create: process.env.NEXT_PUBLIC_API_URL + '/v1/students',

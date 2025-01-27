@@ -190,6 +190,26 @@ export const transcribeVideo = async (id: number, videoId: number) => {
 }
 
 
+export const addSubtitlesToProject = async (id: number, subtitles: string) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.addSubtitles(id), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+        body: JSON.stringify({ subtitles }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to generate steps of project');
+    }
+
+    return await response.json();
+
+}
+
+
 export const saveProjectTimeline = () => {
 
 }
