@@ -203,16 +203,31 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
 
       if (!videoSubtitles) {
 
-        // const videoId: any = await addProjectVideo(projectId, uploadedFiles[0]); 
+        const formData = new FormData();
+        formData.append('video_file', uploadedFiles[0]);
+         const videoId: any = await addProjectVideo(projectId, formData); 
 
-        // const subtitles = await transcribeVideo(projectId, videoId);
-        // setSubtitles(subtitles.subtitles);
+        console.log("GOT VIDEO ID: ", videoId)
 
-        // сохраняем субтитры в проект
-       //  await addSubtitlesToProject(projectId, subtitles.transcription)
+         if (videoId) {
+          const subtitles = await transcribeVideo(projectId, videoId);
+          setSubtitles(subtitles.subtitles);
+         console.log("GOT SUBTITLES: ", subtitles);
 
-        onClose();
-        router.push('/subtitles/' + projectId )
+        //  до сиз пор работает - получаем субтитпы
+        // subtitles.subtitles - это строка формата srt
+        // subtitles.transcription - это строка транскрибированного текста
+
+         // сохраняем субтитры в проект
+         await addSubtitlesToProject(projectId, subtitles.subtitles);
+         onClose();
+         router.push('/subtitles/' + projectId )
+         }
+        
+
+        
+
+       
       } else {
         onClose();
         router.push('/subtitles/' + projectId )

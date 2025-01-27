@@ -38,14 +38,14 @@ export const getProjects = async (): Promise<ProjectModel[]> => {
 };
 
 
-export const addProjectVideo = async (id: number, file: File): Promise<IVideo> => {
+export const addProjectVideo = async (id: number, formData: any) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.addVideo(id), {
         method: 'POST',
-        body: file,
         headers: {
             'Authorization': `Bearer ${token}`
         },
+        body: formData,
     });
 
     if (!response.ok) {
