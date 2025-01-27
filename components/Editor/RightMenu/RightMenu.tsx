@@ -12,6 +12,7 @@ import useStore from '@/store/store';
 
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
+import { generateId } from '@designcombo/timeline';
 
 interface HTMLMediaElementWithCaptureStream extends HTMLMediaElement{
   captureStream(): MediaStream;
@@ -21,6 +22,10 @@ export const RightMenu = () => {
 
   const {  duration, tracks } = useStore();
   const { playerRef } = useStore();
+
+  function removeDuplicates(arr: any) {
+    return [...new Set(arr)];
+  }
 
   function saveCanvasToVideoWithAudioWebmMp4() {
 
@@ -42,26 +47,85 @@ console.log("Canvas video: ", canvas)
 const first_audio = document.getElementsByTagName("audio")[0];
 console.log("First audio: ", first_audio);
 
- //   stream.addTrack(tracks[0].items[0])
+// get all audios 
+const audios = document.getElementsByTagName("audio");
+// console.log("AUDIOS: ", audios)
+// remove duplicates from audios
+
+/*
+---------------------------------------------------
+
+НУЖНО ПРОВЕРЯТЬ аудио на currentSrc 
+если первые яетыре буквы currentSrc будут blob - то добавлять аудио в стрим
+
+---------------------------------------------------
+*/
+
+const new_audios = Array.from(audios);
+
+console.log("AUDIOS FROM BROWSER: ", new_audios)
+
+new_audios.forEach((audio: any) => {
+audio.id = generateId();
+})
+
+// const audips tp add 
+const audios_to_add: any = [];
+
+new_audios.forEach((audio: any) => {
+
+  let txt = audio.currentSrc.split('').slice(0, 4).join('');
+  console.log("TXT: ", txt);
+
+ if (txt == "blob") {
+  audios_to_add.push(audio);
+ }
+  })
+
+// audios[1].id = generateId();
+// new_audios.push(audios[1]);
+// console.log("New audios: ", new_audios)
+//const new_audios = removeDuplicates(audios);
+// console.log("audios: ", audios);
+// console.log("TRACKS: ", tracks)
+// console.log("audios: ", new_audios)
+
+// const new_audios = audios[0];
+// filter all audios
+
+// generating ids for each audio 
+// new_audios.forEach((audio: any) => {
+//   console.log("Each auido: ", audio)
+  
+// } )
+
+// console.log("audios: ", new_audios)
+
 
 
  //   const audioElements = this.editorElements.filter(isEditorAudioElement)
  // console.log("Stream : ", stream)
     const audioStreams: MediaStream[] = [];
 
-    // audioElements.forEach((audio) => {
-    //   const audioElement = document.getElementById(audio.properties.elementId) as HTMLAudioElement;
-    //   let ctx = new AudioContext();
-    //   let sourceNode = ctx.createMediaElementSource(audioElement);
-    //   let dest = ctx.createMediaStreamDestination();
-    //   sourceNode.connect(dest);
-    //   sourceNode.connect(ctx.destination);
-    //   audioStreams.push(dest.stream);
-    // });
+    audios_to_add.forEach((audio: any) => {
+   //   const audioElement = document.getElementById(audio.src) as HTMLAudioElement;
+  // const audioElement = document.getElementById(audio.currentSrc) as HTMLAudioElement;
+   const audioElement: any = document.getElementById(audio.id);
+      let ctx = new AudioContext();
+      let sourceNode = ctx.createMediaElementSource(audioElement);
+      let dest = ctx.createMediaStreamDestination();
+      
+      
+        sourceNode.connect(dest);
+        sourceNode.connect(ctx.destination);
+        audioStreams.push(dest.stream);
+  
+     
+    });
 
-    // audioStreams.forEach((audioStream) => {
-    //   stream.addTrack(audioStream.getAudioTracks()[0]);
-    // });
+    audioStreams.forEach((audioStream) => {
+      stream.addTrack(audioStream.getAudioTracks()[0]);
+    });
 
     const video = document.createElement("video");
     video.srcObject = stream;
