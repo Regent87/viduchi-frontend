@@ -200,11 +200,14 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
       // сюда поставить загруженные файлы
       console.log("uploadedfiles : ", uploadedFiles);
 
-      if (!videoSubtitles) {
-        const videoId: any = await addProjectVideo(projectId, uploadedFiles[0]); 
 
-        const subtitles = await transcribeVideo(projectId, videoId);
-        setSubtitles(subtitles);
+      if (!videoSubtitles) {
+
+        // const videoId: any = await addProjectVideo(projectId, uploadedFiles[0]); 
+
+        // const subtitles = await transcribeVideo(projectId, videoId);
+        // setSubtitles(subtitles);
+
         onClose();
         router.push('/subtitles/' + projectId )
       } else {

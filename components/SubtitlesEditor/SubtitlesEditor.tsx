@@ -12,7 +12,6 @@ import { generateId } from "@designcombo/timeline";
 import { DEFAULT_FONT } from "../../constants/font";
 import Player from "../../components/player/player";
 import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
-import useStore from "../../store/store";
 import useTimelineEvents from "../../hooks/use-timeline-events";
 
 import MenuIcon from './hamburger.svg';
@@ -23,13 +22,18 @@ import { useRouter } from 'next/navigation';
 import EditIcon from "./edit.svg";
 import DeleteIcon from "./delete.svg";
 
-interface Istep {
+import useStore from '@/store/store';
+
+export interface Istep {
   id: string;
   title: string;
   subtitles: string[];
 }
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
+
+  const storeSubtitles = useStore((state) => state.subtitles);
+  const setStoreSubtitles = useStore((state) => state.setSubtitles);
 
     const [projectName, setProjectName] = useState("");
       const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
