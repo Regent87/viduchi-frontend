@@ -417,13 +417,13 @@ useEffect(() => {
 
             {/* здесь сделать иэп по коипонентам видео и аудио с сервера */}
 
-            {
+            {/* {
               videos.length > 0 && 
               videos.map((video: any) => (
-                <VideoItemCardFromServer videoItem={video} projectId={project.id} />
+                <VideoItemCardFromServer key={video.video_url}  videoItem={video} projectId={project.id} />
                
               ))
-            }
+            } */}
 
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {
