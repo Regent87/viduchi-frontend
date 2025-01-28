@@ -21,6 +21,8 @@ export const createProject = async (title: string) => {
     return await response.json();
 };
 
+
+
 export const getProjects = async (): Promise<ProjectModel[]> => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.list, {
@@ -251,6 +253,22 @@ export const addSubtitlesToProject = async (id: number, subtitles: string) => {
 
 }
 
+
+export const getProjectById = async (id: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.byId(id), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get project');
+    }
+
+    return await response.json();
+};
 
 export const saveProjectTimeline = () => {
 

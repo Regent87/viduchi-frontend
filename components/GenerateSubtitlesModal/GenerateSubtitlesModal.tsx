@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './GenerateSubtitlesModal.module.css';
 import { Modal } from '@/components/site/ModalForm/ModalForm';
 import { GenerateSubtitlesModalProps } from './GenerateSubtitlesModal.props';
@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectVideo, addSubtitlesToProject, transcribeVideo } from '@/api/client/projects';
+import { addProjectVideo, addSubtitlesToProject, getProjectById, transcribeVideo } from '@/api/client/projects';
 
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
   const [projectName, setProjectName] = useState('');
@@ -26,6 +26,22 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
   const setSubtitles = useStore((state) => state.setSubtitles);
 
   const { playerRef, duration } = useStore();
+
+  const [project, setProject] = useState<any>({});
+
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      const project: any = await getProjectById(projectId);
+    setProject(project);
+     
+    }
+
+    fetchProject();
+    
+  }, [])
+
+
 
     function saveCanvasToVideoWithAudioWebmMp4() {
   
@@ -199,35 +215,33 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
 
       // сюда поставить загруженные файлы
       console.log("uploadedfiles : ", uploadedFiles);
-
+ 
+      console.log("CUrrent project: ", project)
+      console.log("subtitles from the state: ", project.subtitles);
+      console.log("SUbtitles from STORE: ", videoSubtitles)
 
       if (!videoSubtitles) {
 
-        const formData = new FormData();
-        formData.append('video_file', uploadedFiles[0]);
-         const videoId: any = await addProjectVideo(projectId, formData); 
+      //  const formData = new FormData();
+       // formData.append('video_file', uploadedFiles[0]);
+       //  const videoId: any = await addProjectVideo(projectId, formData); 
 
-        console.log("GOT VIDEO ID: ", videoId)
+       // console.log("GOT VIDEO ID: ", videoId)
 
-         if (videoId) {
-          const subtitles = await transcribeVideo(projectId, videoId);
-          setSubtitles(subtitles.subtitles);
-         console.log("GOT SUBTITLES: ", subtitles);
+        // if (videoId) {
+        //  const subtitles = await transcribeVideo(projectId, videoId);
+         // setSubtitles(subtitles.subtitles);
+        // console.log("GOT SUBTITLES: ", subtitles);
 
         //  до сиз пор работает - получаем субтитпы
         // subtitles.subtitles - это строка формата srt
         // subtitles.transcription - это строка транскрибированного текста
 
-         // сохраняем субтитры в проект
-         await addSubtitlesToProject(projectId, subtitles.subtitles);
+        // НА СЕРВЕРЕ РАБОТАЕТ, А НА КЛИЕНТЕ НЕ РАБОТАЕТ!!!
+         // сохраняем субтитры в проект - НЕ РАБОТАЕТ У МЕНЯ!!!!
+       //  await addSubtitlesToProject(projectId, subtitles.subtitles);
          onClose();
          router.push('/subtitles/' + projectId )
-         }
-        
-
-        
-
-       
       } else {
         onClose();
         router.push('/subtitles/' + projectId )
