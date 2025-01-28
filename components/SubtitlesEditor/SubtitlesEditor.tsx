@@ -40,6 +40,10 @@ export interface Isubtitle {
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
+
+  const subtitles_zustand = useStore((state) => state.subtitles);
+  const setSubtitlesZustand = useStore((state) => state.setSubtitles);
+
   const [inputtedSubtitles, setInputtedSubtitles] = useState([
     { text: '' }
   ])
@@ -67,8 +71,15 @@ const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Exampl
 
 const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
 
-console.log("SUbtitles: ", jsonSubtitles);
+// set subtitles to Zustand 
+// for (let i = 0; i <= jsonSubtitles.length - 1; i++) {
+//   setStoreSubtitles(jsonSubtitles[i]);
+// }
 
+// setStoreSubtitles(jsonSubtitles[0]);
+
+console.log("SUbtitles: ", jsonSubtitles);
+console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
 // const subtitlesFromServer = parseSubtitlesToJson()
 
       // получаем данные из двух нажатых субтитров
@@ -111,7 +122,7 @@ console.log("SUbtitles: ", jsonSubtitles);
         });
 
         const selectedSubtitles = subtitles.slice(sortedIndexes[0], sortedIndexes[1] + 1);
-        const newStep: Istep = {
+        const newStep = {
           id: generateId(),
           title: "Название шага",
           subtitles: selectedSubtitles
@@ -160,6 +171,10 @@ console.log("SUbtitles: ", jsonSubtitles);
         if( project.subtitles) {
         let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
         setSubtitles(subtitlesFromServer);
+
+        for (let i = 0; i <= subtitlesFromServer.length - 1; i++) {
+          setStoreSubtitles(subtitlesFromServer[i]);
+        }
      
         }
     }, [])
