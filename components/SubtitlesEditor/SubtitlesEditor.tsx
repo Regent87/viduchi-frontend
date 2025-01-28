@@ -25,6 +25,7 @@ import DeleteIcon from "./delete.svg";
 import useStore from '@/store/store';
 import { parseSubtitlesToJson } from "@/utils/subtitles";
 import { getAllSteps } from "@/api/client/projects";
+import { StepItem } from "./StepItem/StepItem";
 
 export interface Istep {
   id: number;
@@ -306,16 +307,7 @@ console.log("STEPS FROM ZUSTAND: ", steps_zustand)
 
 {
 steps_zustand && steps_zustand.map((step: any) => (
-    <div key={step.id} className={styles.singleStep}>
-<span style={{ cursor:"pointer" }}
-onClick={() => {
-  playerRef?.current?.seekTo(step.start * 10 )
-}}
->{step.text}</span>
-<span> <EditIcon /> <DeleteIcon
-
-/> </span>
-    </div>
+   <StepItem step={step} />
 
   ))
 }
