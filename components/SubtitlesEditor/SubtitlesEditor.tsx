@@ -301,12 +301,12 @@ console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
             }
 
 
-{/* {
- rawSteps.steps.map((step: any) => (
+{
+ !!rawSteps.steps && rawSteps.steps.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
 <span style={{ cursor:"pointer" }}
 onClick={() => {
- // playerRef?.current?.seekTo(step.time)
+  playerRef?.current?.seekTo(step.start * 10 )
 }}
 >{step.text}</span>
 <span> <EditIcon /> <DeleteIcon
@@ -315,7 +315,7 @@ onClick={() => {
     </div>
 
   ))
-} */}
+}
 
 {/*              
 {
@@ -351,7 +351,7 @@ steps.length > 0 && steps.map((step: any, idx: any) => (
 <div className={styles.subtitles}>
   
   {
-    subtitles.map((subtitle: any) => (
+subtitles.map((subtitle: any) => (
       <div key={subtitle.id}>
  { toggle ? <p
  onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
