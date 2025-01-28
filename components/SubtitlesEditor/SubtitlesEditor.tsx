@@ -42,7 +42,16 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
 
   const subtitles_zustand = useStore((state) => state.subtitles);
-  const setSubtitlesZustand = useStore((state) => state.setSubtitles);
+  const setAllSubtitles = useStore((state) => state.setAllSubtitles);
+
+/*
+TODO:
+- в useEffect взять с сервера и записать в стор zustand шаги и субтитлы
+- вывести каждый субтитл и шаг в отдальный компонент и там его редактировать и удалять через zustand
+- добавить на кнопку генерации шагов 
+
+*/
+
 
   const [inputtedSubtitles, setInputtedSubtitles] = useState([
     { text: '' }
@@ -173,9 +182,18 @@ console.log("New steps array: ", newSteps);
         let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
         setSubtitles(subtitlesFromServer);
 
-        for (let i = 0; i <= subtitlesFromServer.length - 1; i++) {
-          setStoreSubtitles(subtitlesFromServer[i]);
-        }
+      
+       /*
+--------------------------------------------------------
+ДОБАВЛЯЕМ СУБТИТЛЫ В ZUSTAND
+
+       */
+ // setSubtitlesZustand(subtitlesFromServer);
+        // for (let i = 0; i <= subtitlesFromServer.length - 1; i++) {
+        //   setStoreSubtitles(subtitlesFromServer[i]);
+        // }
+
+        setAllSubtitles(subtitlesFromServer);
      
         }
     }, [])
@@ -299,11 +317,11 @@ console.log("New steps array: ", newSteps);
             }
 
 { 
-             rawSteps.steps && (<h3>Шаги:</h3>) 
+             steps && (<h3>Шаги:</h3>) 
             }
 
 
-{
+{/* {
  !!rawSteps && rawSteps.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
 <span style={{ cursor:"pointer" }}
@@ -317,7 +335,7 @@ onClick={() => {
     </div>
 
   ))
-}
+} */}
 
 {/*              
 {
@@ -353,7 +371,7 @@ steps.length > 0 && steps.map((step: any, idx: any) => (
 <div className={styles.subtitles}>
   
   {
-subtitles.map((subtitle: any) => (
+subtitles_zustand && subtitles_zustand.map((subtitle: any) => (
       <div key={subtitle.id}>
  { toggle ? <p
  onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
