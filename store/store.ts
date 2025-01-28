@@ -41,7 +41,7 @@ interface ITimelineStore {
 
   steps: Istep[];
   setSteps: (step: Istep) => void;
-  deleteStep: (step: Istep) => void;
+  deleteStep: (stepId: number) => void;
 
   isSubtitlesShown: boolean;
   setIsSubtitlesShown: (isShown: boolean) => void;
@@ -81,9 +81,9 @@ const useStore = create<ITimelineStore>((set) => ({
       steps: [...state.steps, step],
     })),
 
-    deleteStep: (step: Istep) =>
+    deleteStep: (stepId: number) =>
       set((state) => ({
-        steps: state.steps.filter((item) => item.id !== step.id),
+        steps: state.steps.filter((item) => item.id !== stepId),
       })),
 
   setSubtitles: (text: string) =>

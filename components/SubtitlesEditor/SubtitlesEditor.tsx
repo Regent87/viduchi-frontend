@@ -27,9 +27,9 @@ import { parseSubtitlesToJson } from "@/utils/subtitles";
 import { getAllSteps } from "@/api/client/projects";
 
 export interface Istep {
-  id: string;
-  title: string;
-  subtitles: string[];
+  id: number;
+  start: number;
+  text: string;
 }
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
@@ -94,6 +94,8 @@ console.log("SUbtitles: ", jsonSubtitles);
 
       const deleteStep = (stepId: any) => {
         setSteps(steps.filter((s: any) => s.id !== stepId));
+
+        setRawSteps(rawSteps.steps.filter((s: any) => s.id !== stepId))
       };
 
       const addStep = () => {
@@ -168,7 +170,9 @@ console.log("SUbtitles: ", jsonSubtitles);
     }, [])
 
 
-    console.log("STEPS IN STATE: ", rawSteps.steps[0].text)
+    console.log("STEPS IN STATE: ", rawSteps)
+
+    console.log(subtitles);
 
 
     return (
@@ -276,7 +280,7 @@ console.log("SUbtitles: ", jsonSubtitles);
             }
 
 
-{
+{/* {
  rawSteps.steps.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
 <span style={{ cursor:"pointer" }}
@@ -290,7 +294,7 @@ onClick={() => {
     </div>
 
   ))
-}
+} */}
 
 {/*              
 {
