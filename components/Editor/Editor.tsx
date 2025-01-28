@@ -81,21 +81,23 @@ const[ audios, setAudios ] = useState<any>([]);
 const [ videosFromServer, setVideosromServer ] = useState<any>([]);
 const[ videos, setVideos ] = useState<any>([]);
 
-    useEffect(() => {
 
-      const fetchVideos = async () => {
-        setIsVideoLoading(true);
+
+  //   useEffect(() => {
+
+  //     const fetchVideos = async () => {
+  //       setIsVideoLoading(true);
       
-                  const videos = await getAllVideos(project.id);
-                  setVideos(videos);
+  //                 const videos = await getAllVideos(project.id);
+  //                 setVideos(videos);
       
-                  setIsVideoLoading(false);
-              };
-              fetchVideos();
+  //                 setIsVideoLoading(false);
+  //             };
+  //             fetchVideos();
            
            
 
-  }, [])
+  // }, [])
 
 
  

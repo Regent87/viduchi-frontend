@@ -24,6 +24,7 @@ import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
 import { parseSubtitlesToJson } from "@/utils/subtitles";
+import { getAllSteps } from "@/api/client/projects";
 
 export interface Istep {
   id: string;
@@ -86,12 +87,12 @@ console.log("SUbtitles: ", jsonSubtitles);
 
       // субтитлы и шаги
       const [subtitles, setSubtitles] = useState<any>([]);
-      const [steps, setSteps] = useState<Istep[]>([]);
+      const [steps, setSteps] = useState<any>([]);
       const [toggle, setToggle] = useState(true);
 
 
       const deleteStep = (stepId: any) => {
-        setSteps(steps.filter(s => s.id === stepId));
+        setSteps(steps.filter((s: any) => s.id === stepId));
       };
 
       const addStep = () => {
@@ -125,13 +126,43 @@ console.log("SUbtitles: ", jsonSubtitles);
       useTimelineEvents();
 
 
+      // useEffect(() => {
+      //   // get steps from database
+      //  //  if (project.subtitles) {
+      //    const fetchSteps = async () => {
+      //     const stepsFromServer = await getAllSteps(project.id);
+      //     console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
+      //     setSteps(stepsFromServer);
+      //  // }
+
+      
+
+      //    console.log("Steps from server:", steps)
+      //   }
+
+      //   fetchSteps();
+      // }, [])
+
+     
+
+
     useEffect(() => {
         setProjectName(project.title);
         if( project.subtitles) {
         let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
         setSubtitles(subtitlesFromServer);
+     
         }
     }, [])
+
+    useEffect(() => {
+           const fetchSteps = async () => {
+          const stepsFromServer = await getAllSteps(project.id);
+          console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
+          setSteps(stepsFromServer.steps);
+        }
+         fetchSteps();
+    })
 
 
     return (
@@ -240,10 +271,10 @@ console.log("SUbtitles: ", jsonSubtitles);
 
 
              
-{
-steps && steps.map((step: any, idx: any) => (
+{/* {
+steps.length > 0 && steps.map((step: any, idx: any) => (
 <div key={step.id} className={styles.singleStep}>
-   <span>{idx + 1}. {step.title}</span>
+   <span>{step.text}</span>
     <span> <EditIcon /> <DeleteIcon 
    
     onClick={deleteStep(step.id)}
@@ -251,6 +282,7 @@ steps && steps.map((step: any, idx: any) => (
     </div>
                 ))
               }
+               */}
                 <button
                 onClick={() => {
                   if( selectedIndexes.length != 2 ) {

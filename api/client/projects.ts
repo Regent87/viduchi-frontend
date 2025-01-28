@@ -149,7 +149,7 @@ export const getAllSteps = async (id: number) => {
         throw new Error('Failed to get steps of project');
     }
 
-    return await response.json();
+    return response.json();
 
 }
 
