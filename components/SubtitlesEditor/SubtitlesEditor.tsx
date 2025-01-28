@@ -289,7 +289,9 @@ console.log("STEPS FROM ZUSTAND: ", steps_zustand)
 
 {
 steps_zustand && steps_zustand.map((step: any) => (
-   <StepItem step={step} />
+   <StepItem
+   key={step.id}
+   step={step} />
 
   ))
 }
@@ -318,7 +320,9 @@ steps_zustand && steps_zustand.map((step: any) => (
   
   {
 subtitles_zustand && subtitles_zustand.map((subtitle: any) => (
-      <SubtitleItem subtitle={subtitle} />
+      <SubtitleItem
+      key={subtitle.id}
+      subtitle={subtitle} />
      
     ))
   }

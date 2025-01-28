@@ -11,6 +11,8 @@ export const SubtitleItem = ({ subtitle }: any) => {
 
     return (
         <div key={subtitle.id}>
+
+
         { toggle ? <p
        // onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
         onDoubleClick={() => setToggle(false)} id={subtitle.id} className={styles.subtitle} key={subtitle.id}>{subtitle.text}</p> : <input type="text" value={currentSubtitleText}
