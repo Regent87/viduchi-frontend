@@ -28,9 +28,10 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 				<PlayIcon />
 			</div>
 			<div className={styles.dateAndTitle}>
-			<span className={styles.projectCreated}>{instructionModel.date.substring(0, 10) }
+			 <span className={styles.projectCreated}>
+				{ instructionModel.title }
 		
-			</span>
+			 </span>
 			<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
 			
 		

@@ -38,6 +38,7 @@ interface ITimelineStore {
 
   subtitles: Isubtitle[];
   setSubtitles: (subtitle: Isubtitle) => void;
+  updateSubtitles: (id: number, text: string) => void;
 
   steps: Istep[];
   setSteps: (step: Istep) => void;
@@ -90,6 +91,16 @@ const useStore = create<ITimelineStore>((set) => ({
     set((state) => ({
       subtitles: [...state.subtitles, subtitle],
     })),
+
+    updateSubtitles: (id: number, text: string) => {
+      set((state) => {
+        const obj = state.subtitles.find((item) => Number(item.id) == id);
+        if (obj) {
+          obj.text = text; 
+        }
+        return { subtitles: [...state.subtitles] };
+      });
+    },
 
   setIsSubtitlesShown: (isShown: boolean) =>
     set((state) => ({

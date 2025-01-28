@@ -1,3 +1,4 @@
+import { Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
 
 export const parseSubtitlesToJson = (subtitles: string) => {
 
@@ -19,4 +20,11 @@ for (let i = 0; i <= subtitlesArray.length - 1; i++) {
 
 // console.log(subtitlesItems);
 return subtitlesItems;
+}
+
+
+export function convertToSubtitles(segments: Isubtitle[]) {
+   return segments
+       .map((segment: Isubtitle) => `${segment.id}\n${segment.timeline}\n${segment.text}`)
+       .join('\n\n');
 }

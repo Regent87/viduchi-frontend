@@ -110,9 +110,10 @@ console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
 
 
       const deleteStep = (stepId: any) => {
-        setSteps(steps.filter((s: any) => s.id !== stepId));
-
-        setRawSteps(rawSteps.steps.filter((s: any) => s.id !== stepId))
+      //  setSteps(steps.filter((s: any) => s.id !== stepId));
+const newSteps = rawSteps.steps.filter((s: any) => s.id !== stepId)
+console.log("New steps array: ", newSteps);
+        setRawSteps(newSteps);
       };
 
       const addStep = () => {
@@ -128,7 +129,7 @@ console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
           subtitles: selectedSubtitles
         };
 
-        setSteps([...steps, newStep])
+        setRawSteps([...rawSteps.steps, newStep])
 
         console.log("steps: ", steps )
       }
@@ -183,7 +184,8 @@ console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
            const fetchSteps = async () => {
           const stepsFromServer = await getAllSteps(project.id);
           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-          setRawSteps(stepsFromServer);
+          const { steps } = stepsFromServer;
+          setRawSteps(steps);
          // setSteps(rawSteps.steps)
         }
          fetchSteps();
@@ -302,7 +304,7 @@ console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
 
 
 {
- !!rawSteps.steps && rawSteps.steps.map((step: any) => (
+ !!rawSteps && rawSteps.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
 <span style={{ cursor:"pointer" }}
 onClick={() => {
@@ -310,7 +312,7 @@ onClick={() => {
 }}
 >{step.text}</span>
 <span> <EditIcon /> <DeleteIcon
-// onclick={deleteStep(step.id)}
+// onDoubleClick={deleteStep(step.id)}
 /> </span>
     </div>
 
