@@ -88,11 +88,12 @@ console.log("SUbtitles: ", jsonSubtitles);
       // субтитлы и шаги
       const [subtitles, setSubtitles] = useState<any>([]);
       const [steps, setSteps] = useState<any>([]);
+      const [rawSteps, setRawSteps] = useState<any>({});
       const [toggle, setToggle] = useState(true);
 
 
       const deleteStep = (stepId: any) => {
-        setSteps(steps.filter((s: any) => s.id === stepId));
+        setSteps(steps.filter((s: any) => s.id !== stepId));
       };
 
       const addStep = () => {
@@ -159,10 +160,15 @@ console.log("SUbtitles: ", jsonSubtitles);
            const fetchSteps = async () => {
           const stepsFromServer = await getAllSteps(project.id);
           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-          setSteps(stepsFromServer.steps);
+          setRawSteps(stepsFromServer);
+         // setSteps(rawSteps.steps)
         }
          fetchSteps();
-    })
+        
+    }, [])
+
+
+    console.log("STEPS IN STATE: ", rawSteps.steps[0].text)
 
 
     return (
@@ -266,15 +272,21 @@ console.log("SUbtitles: ", jsonSubtitles);
             }
 
 { 
-             steps.length >= 1 && (<h3>Шаги:</h3>) 
+             rawSteps.steps && (<h3>Шаги:</h3>) 
             }
 
 
 {
-  steps.map((step: any) => (
+ rawSteps.steps.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
-<span>{step.text}</span>
-<span> <EditIcon /> <DeleteIcon /> </span>
+<span style={{ cursor:"pointer" }}
+onClick={() => {
+ // playerRef?.current?.seekTo(step.time)
+}}
+>{step.text}</span>
+<span> <EditIcon /> <DeleteIcon
+// onclick={deleteStep(step.id)}
+/> </span>
     </div>
 
   ))
