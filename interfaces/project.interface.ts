@@ -4,4 +4,5 @@ export interface ProjectModel {
 	createdAt?: string;
 	coverUrl?: string;
 	date: string;
+	subtitles?: string; 
 }

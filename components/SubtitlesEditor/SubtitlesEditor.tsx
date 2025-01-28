@@ -33,6 +33,10 @@ export interface Istep {
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
+  const [inputtedSubtitles, setInputtedSubtitles] = useState([
+    { text: '' }
+  ])
+
   const storeSubtitles = useStore((state) => state.subtitles);
   const setStoreSubtitles = useStore((state) => state.setSubtitles);
 
@@ -44,7 +48,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
       const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
-
+const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
 
       /*
 МОКОВЫЕ ДАЕЕЫЕ СУБТИТРОВ
@@ -57,6 +61,8 @@ const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Exampl
 const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
 
 console.log("SUbtitles: ", jsonSubtitles);
+
+// const subtitlesFromServer = parseSubtitlesToJson()
 
       // получаем данные из двух нажатых субтитров
       const getDataFromSelectedSubtitles = (index: string) => {
@@ -84,8 +90,8 @@ console.log("SUbtitles: ", jsonSubtitles);
       const [toggle, setToggle] = useState(true);
 
 
-      const deleteStep = (step: any) => {
-        setSteps(steps.filter(s => s.id !== step.id));
+      const deleteStep = (stepId: any) => {
+        setSteps(steps.filter(s => s.id === stepId));
       };
 
       const addStep = () => {
@@ -97,7 +103,7 @@ console.log("SUbtitles: ", jsonSubtitles);
         const selectedSubtitles = subtitles.slice(sortedIndexes[0], sortedIndexes[1] + 1);
         const newStep: Istep = {
           id: generateId(),
-          title: "Назване шага",
+          title: "Название шага",
           subtitles: selectedSubtitles
         };
 
@@ -107,7 +113,7 @@ console.log("SUbtitles: ", jsonSubtitles);
       }
 
       useEffect(() => {
-        setSubtitles(jsonSubtitles)
+      //  setSubtitles((state) => state.subtitles)
       }, [])
 
       const closeDropdown = () => {
@@ -121,6 +127,10 @@ console.log("SUbtitles: ", jsonSubtitles);
 
     useEffect(() => {
         setProjectName(project.title);
+        if( project.subtitles) {
+        let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
+        setSubtitles(subtitlesFromServer);
+        }
     }, [])
 
 
@@ -232,11 +242,11 @@ console.log("SUbtitles: ", jsonSubtitles);
              
 {
 steps && steps.map((step: any, idx: any) => (
-<div key={idx} className={styles.singleStep}>
+<div key={step.id} className={styles.singleStep}>
    <span>{idx + 1}. {step.title}</span>
     <span> <EditIcon /> <DeleteIcon 
    
-    // onClick={deleteStep(step)}
+    onClick={deleteStep(step.id)}
      /> </span>  
     </div>
                 ))
@@ -265,7 +275,9 @@ steps && steps.map((step: any, idx: any) => (
       <div key={subtitle.id}>
  { toggle ? <p
  onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
- onDoubleClick={() => setToggle(false)} id={subtitle.id} className={styles.subtitle} key={subtitle.id}>{subtitle.text}</p> : <input type="text" value={subtitle} key={subtitle.id} />  }
+ onDoubleClick={() => setToggle(false)} id={subtitle.id} className={styles.subtitle} key={subtitle.id}>{subtitle.text}</p> : <input type="text"
+ onChange={(e) => setCurrentSubtitleText(e.target.value)}
+ value={subtitle} key={subtitle.id} />  }
 
       </div>
      
