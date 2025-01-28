@@ -61,7 +61,7 @@ export const AddStudentToInstructionModal = ({ isOpen, instruction, onClose }: A
 
     <Modal
     className={styles.white}
-    isOpen={isOpen} onClose={onClose} title="+ Изменить инструкцию">
+    isOpen={isOpen} onClose={onClose} title="+ Назначить должности к инструкции">
 <form onSubmit={(e) => {
     e.preventDefault();
     handleSubmit();
@@ -94,7 +94,7 @@ onClick={onClose}
 className={styles.reset}>Отмена</button>
 <button
 disabled={isLoading || !projectName.trim()}
-className={styles.apply}>Сохранить</button>
+className={styles.apply}>Назначить</button>
 </div>
 
 

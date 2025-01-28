@@ -3,10 +3,12 @@ import styles from './EditInstructionMenu.module.css';
 import { useRouter } from 'next/navigation';
 import { RenameInstructionModal } from '../RenameInstructionModal/RenameInstructionModal';
 import { DeleteInstructionModal } from '../DeleteInstructionModal/DeleteInstructionModal';
+import { AddStudentToInstructionModal } from '../AddStudentToInstructionModal/AddStudentToInstructionModal';
 
 export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const router = useRouter();
@@ -23,6 +25,11 @@ export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
         setIsDeleteModalOpen(true);
     }
 
+
+    const openAddHandler = () => {
+        setIsAddModalOpen(true);
+    }
+
    // console.log("Project in menu: ", project)
 
     return (
@@ -33,7 +40,7 @@ export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
                 <ul>
                 <li>
                     <span
-                    onClick={editProjectHandler}
+                    onClick={openAddHandler}
                         >Назначить ученика</span>
                     </li>
                 <li>
@@ -69,6 +76,14 @@ export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
     console.log("refresh");
   //  router.replace('/projects');
 }} />
+
+<AddStudentToInstructionModal 
+  isOpen={isAddModalOpen} instruction={instruction} onClose={() => {
+    closeDropdown();
+    setIsAddModalOpen(false);
+    console.log("refresh");
+}} />
+
  </>
     )
 }
