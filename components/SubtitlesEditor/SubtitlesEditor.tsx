@@ -294,18 +294,18 @@ console.log("STEPS FROM ZUSTAND: ", steps_zustand)
             
             <div id="create_steps" className={styles.create_steps}>
              { 
-             steps.length < 1 && (<div>
+             steps_zustand.length < 1 && (<div>
              <p>Добавьте шаги инструкции <br /> вручную <br /> или <br /> ИИ сгенерирует их </p>
              </div>) 
             }
 
 { 
-             steps && (<h3>Шаги:</h3>) 
+             steps_zustand && (<h3>Шаги:</h3>) 
             }
 
 
-{/* {
- !!rawSteps && rawSteps.map((step: any) => (
+{
+steps_zustand && steps_zustand.map((step: any) => (
     <div key={step.id} className={styles.singleStep}>
 <span style={{ cursor:"pointer" }}
 onClick={() => {
@@ -313,12 +313,12 @@ onClick={() => {
 }}
 >{step.text}</span>
 <span> <EditIcon /> <DeleteIcon
-// onDoubleClick={deleteStep(step.id)}
+
 /> </span>
     </div>
 
   ))
-} */}
+}
 
 {/*              
 {
