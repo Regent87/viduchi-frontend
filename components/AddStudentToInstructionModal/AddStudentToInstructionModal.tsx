@@ -93,7 +93,7 @@ type="text" required /> */}
 onClick={onClose}
 className={styles.reset}>Отмена</button>
 <button
-disabled={isLoading || !projectName.trim()}
+disabled={isLoading}
 className={styles.apply}>Назначить</button>
 </div>
 

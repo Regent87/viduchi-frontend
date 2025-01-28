@@ -36,9 +36,9 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 			
 		
 			</div>
-			<span className={styles.title}>
-			{instructionModel.title}
-			</span>
+			 <span className={styles.title}>
+			{/* {instructionModel.title} */}
+			</span> 
 
 		
 			
