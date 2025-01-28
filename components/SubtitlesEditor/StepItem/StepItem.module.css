@@ -301,6 +301,15 @@ padding-right: 0 !important;
 color: var(--white);
 }
 
+.singleStep input[type="text"] {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: transparent;
+  font-size: 16px;
+  padding-bottom: 3px;
+  
+}
+
 
 .stepsList {
   display: flex;

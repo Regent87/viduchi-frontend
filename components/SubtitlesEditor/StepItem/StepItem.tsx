@@ -22,11 +22,19 @@ export const StepItem = ({step}: any) => {
     return (
 
         <div className={styles.singleStep}>
-        <span style={{ cursor:"pointer" }}
+          {
+            !toggle ? <span style={{ cursor:"pointer" }}
             onClick={() => {
               playerRef?.current?.seekTo(step.start * 10 )
             }}
-            >{step.text}</span> 
+            >{step.text}</span> : <input type="text" value={currentStepText}
+            onChange={(e) => {
+              setCurrentStepText(e.target.value)
+              updateSteps(step.id, e.target.value)
+            }}
+            />
+          }
+        
           
 
 <span> <EditIcon 
