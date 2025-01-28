@@ -43,6 +43,7 @@ interface ITimelineStore {
   steps: Istep[];
   setSteps: (step: Istep) => void;
   deleteStep: (stepId: number) => void;
+  updateSteps: (id: number, text: string) => void;
 
   isSubtitlesShown: boolean;
   setIsSubtitlesShown: (isShown: boolean) => void;
@@ -99,6 +100,16 @@ const useStore = create<ITimelineStore>((set) => ({
           obj.text = text; 
         }
         return { subtitles: [...state.subtitles] };
+      });
+    },
+
+    updateSteps: (id: number, text: string) => {
+      set((state) => {
+        const obj = state.steps.find((item) => Number(item.id) == id);
+        if (obj) {
+          obj.text = text; 
+        }
+        return { steps: [...state.steps] };
       });
     },
 
