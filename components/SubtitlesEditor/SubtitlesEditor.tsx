@@ -270,19 +270,30 @@ console.log("SUbtitles: ", jsonSubtitles);
             }
 
 
-             
-{/* {
+{
+  steps.map((step: any) => (
+    <div key={step.id} className={styles.singleStep}>
+<span>{step.text}</span>
+<span> <EditIcon /> <DeleteIcon /> </span>
+    </div>
+
+  ))
+}
+
+{/*              
+{
 steps.length > 0 && steps.map((step: any, idx: any) => (
-<div key={step.id} className={styles.singleStep}>
+<div key={idx} className={styles.singleStep}>
    <span>{step.text}</span>
     <span> <EditIcon /> <DeleteIcon 
    
-    onClick={deleteStep(step.id)}
+  //  onClick={deleteStep(step.id)}
      /> </span>  
     </div>
                 ))
-              }
-               */}
+              } */}
+              
+
                 <button
                 onClick={() => {
                   if( selectedIndexes.length != 2 ) {
