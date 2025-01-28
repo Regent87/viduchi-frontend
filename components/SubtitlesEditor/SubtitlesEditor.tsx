@@ -23,6 +23,7 @@ import EditIcon from "./edit.svg";
 import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
+import { parseSubtitlesToJson } from "@/utils/subtitles";
 
 export interface Istep {
   id: string;
@@ -44,7 +45,18 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
 
-   
+
+      /*
+МОКОВЫЕ ДАЕЕЫЕ СУБТИТРОВ
+
+      */
+
+const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Example Subtitle File!\n\n2\n00:00:03,000 --> 00:00:06,000\nThis is a demonstration of SRT subtitles.\n\n3\n00:00:07,000 --> 00:00:10,500\nYou can use SRT files to add subtitles to your videos.\n\n4\n00:00:12,000 --> 00:00:15,000\nEach subtitle entry consists of a number, a timecode, and the subtitle text.";
+
+
+const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
+
+console.log("SUbtitles: ", jsonSubtitles);
 
       // получаем данные из двух нажатых субтитров
       const getDataFromSelectedSubtitles = (index: string) => {
@@ -67,7 +79,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 	};
 
       // субтитлы и шаги
-      const [subtitles, setSubtitles] = useState<string[]>([]);
+      const [subtitles, setSubtitles] = useState<any>([]);
       const [steps, setSteps] = useState<Istep[]>([]);
       const [toggle, setToggle] = useState(true);
 
@@ -95,12 +107,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
       }
 
       useEffect(() => {
-        setSubtitles([
-          'Тут первый субтитл по видосу больше текста еще тут немного',
-          'Второй субтитл по видосу новый еще текста боьше и круче',
-          'Третий субтитл по видосу тут еще норм текста',
-          'Четвертый субтитл по видосу  еще текста побольше'
-        ])
+        setSubtitles(jsonSubtitles)
       }, [])
 
       const closeDropdown = () => {
@@ -254,11 +261,11 @@ steps && steps.map((step: any, idx: any) => (
 <div className={styles.subtitles}>
   
   {
-    subtitles.map((subtitle: string, idx: number) => (
-      <div key={idx}>
+    subtitles.map((subtitle: any) => (
+      <div key={subtitle.id}>
  { toggle ? <p
- onClick={() => getDataFromSelectedSubtitles(String(idx))}
- onDoubleClick={() => setToggle(false)} id={String(idx)} className={styles.subtitle} key={idx}>{subtitle}</p> : <input type="text" value={subtitle} key={idx} />  }
+ onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
+ onDoubleClick={() => setToggle(false)} id={subtitle.id} className={styles.subtitle} key={subtitle.id}>{subtitle.text}</p> : <input type="text" value={subtitle} key={subtitle.id} />  }
 
       </div>
      
