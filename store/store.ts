@@ -43,6 +43,7 @@ interface ITimelineStore {
 
   steps: Istep[];
   setSteps: (step: Istep) => void;
+  setAllSteps: (new_steps: Istep[]) => void;
   deleteStep: (stepId: number) => void;
   updateSteps: (id: number, text: string) => void;
 
@@ -83,6 +84,11 @@ const useStore = create<ITimelineStore>((set) => ({
     set((state) => ({
       steps: [...state.steps, step],
     })),
+
+    setAllSteps: (new_steps: Istep[]) =>
+      set((state) => ({
+        steps: new_steps,
+      })),
 
     deleteStep: (stepId: number) =>
       set((state) => ({

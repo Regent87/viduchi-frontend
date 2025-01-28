@@ -41,8 +41,14 @@ export interface Isubtitle {
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
 
-  const subtitles_zustand = useStore((state) => state.subtitles);
-  const setAllSubtitles = useStore((state) => state.setAllSubtitles);
+  // Zustand store
+  const subtitles_zustand =useStore((state) => state.subtitles);
+  const setAllSubtitles = useStore((state) => state.setAllSubtitles); 
+
+  const steps_zustand =useStore((state) => state.steps);
+  const setAllSteps = useStore((state) => state.setAllSteps); 
+
+
 
 /*
 TODO:
@@ -52,10 +58,6 @@ TODO:
 
 */
 
-
-  const [inputtedSubtitles, setInputtedSubtitles] = useState([
-    { text: '' }
-  ])
 
   const storeSubtitles = useStore((state) => state.subtitles);
   const setStoreSubtitles = useStore((state) => state.setSubtitles);
@@ -80,16 +82,7 @@ const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Exampl
 
 const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
 
-// set subtitles to Zustand 
-// for (let i = 0; i <= jsonSubtitles.length - 1; i++) {
-//   setStoreSubtitles(jsonSubtitles[i]);
-// }
 
-// setStoreSubtitles(jsonSubtitles[0]);
-
-console.log("SUbtitles: ", jsonSubtitles);
-console.log("SUBTITLES from ZUSTAND: ", subtitles_zustand)
-// const subtitlesFromServer = parseSubtitlesToJson()
 
       // получаем данные из двух нажатых субтитров
       const getDataFromSelectedSubtitles = (index: string) => {
@@ -180,21 +173,12 @@ console.log("New steps array: ", newSteps);
         setProjectName(project.title);
         if( project.subtitles) {
         let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
-        setSubtitles(subtitlesFromServer);
-
-      
+      //  setSubtitles(subtitlesFromServer);      
        /*
 --------------------------------------------------------
 ДОБАВЛЯЕМ СУБТИТЛЫ В ZUSTAND
-
        */
- // setSubtitlesZustand(subtitlesFromServer);
-        // for (let i = 0; i <= subtitlesFromServer.length - 1; i++) {
-        //   setStoreSubtitles(subtitlesFromServer[i]);
-        // }
-
         setAllSubtitles(subtitlesFromServer);
-     
         }
     }, [])
 
@@ -202,8 +186,8 @@ console.log("New steps array: ", newSteps);
            const fetchSteps = async () => {
           const stepsFromServer = await getAllSteps(project.id);
           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-          const { steps } = stepsFromServer;
-          setRawSteps(steps);
+          // const steps = stepsFromServer;
+          setAllSteps(stepsFromServer);
          // setSteps(rawSteps.steps)
         }
          fetchSteps();
@@ -211,9 +195,8 @@ console.log("New steps array: ", newSteps);
     }, [])
 
 
-    console.log("STEPS IN STATE: ", rawSteps)
+console.log("STEPS FROM ZUSTAND: ", steps_zustand)
 
-    console.log(subtitles);
 
 
     return (
