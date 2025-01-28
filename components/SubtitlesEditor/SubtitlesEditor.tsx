@@ -26,6 +26,7 @@ import useStore from '@/store/store';
 import { parseSubtitlesToJson } from "@/utils/subtitles";
 import { getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
+import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
 
 export interface Istep {
   id: number;
@@ -149,25 +150,6 @@ console.log("New steps array: ", newSteps);
       const { playerRef, setState } = useStore();
       useTimelineEvents();
 
-
-      // useEffect(() => {
-      //   // get steps from database
-      //  //  if (project.subtitles) {
-      //    const fetchSteps = async () => {
-      //     const stepsFromServer = await getAllSteps(project.id);
-      //     console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-      //     setSteps(stepsFromServer);
-      //  // }
-
-      
-
-      //    console.log("Steps from server:", steps)
-      //   }
-
-      //   fetchSteps();
-      // }, [])
-
-     
 
 
     useEffect(() => {
@@ -312,18 +294,7 @@ steps_zustand && steps_zustand.map((step: any) => (
   ))
 }
 
-{/*              
-{
-steps.length > 0 && steps.map((step: any, idx: any) => (
-<div key={idx} className={styles.singleStep}>
-   <span>{step.text}</span>
-    <span> <EditIcon /> <DeleteIcon 
-   
-  //  onClick={deleteStep(step.id)}
-     /> </span>  
-    </div>
-                ))
-              } */}
+
               
 
                 <button
@@ -347,14 +318,7 @@ steps.length > 0 && steps.map((step: any, idx: any) => (
   
   {
 subtitles_zustand && subtitles_zustand.map((subtitle: any) => (
-      <div key={subtitle.id}>
- { toggle ? <p
- onClick={() => getDataFromSelectedSubtitles(subtitle.id)}
- onDoubleClick={() => setToggle(false)} id={subtitle.id} className={styles.subtitle} key={subtitle.id}>{subtitle.text}</p> : <input type="text"
- onChange={(e) => setCurrentSubtitleText(e.target.value)}
- value={subtitle} key={subtitle.id} />  }
-
-      </div>
+      <SubtitleItem subtitle={subtitle} />
      
     ))
   }
