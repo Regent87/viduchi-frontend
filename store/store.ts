@@ -1,4 +1,4 @@
-import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
+import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import CanvasTimeline, {
   ITimelineScaleState,
   ITimelineScrollState,
@@ -36,8 +36,8 @@ interface ITimelineStore {
   setUploadedFiles: (uploadedFile: FileWithUrl) => void;
   deleteUploadedFile: (fileUrl: string) => void;
 
-  subtitles: string;
-  setSubtitles: (text: string) => void;
+  subtitles: Isubtitle[];
+  setSubtitles: (subtitle: Isubtitle) => void;
 
   steps: Istep[];
   setSteps: (step: Istep) => void;
@@ -72,7 +72,7 @@ const useStore = create<ITimelineStore>((set) => ({
   trackItemsMap: {},
   uploadedFiles: [],
   isSubtitlesShown: false,
-  subtitles: "",
+  subtitles: [],
   steps: [],
 
 
@@ -86,9 +86,9 @@ const useStore = create<ITimelineStore>((set) => ({
         steps: state.steps.filter((item) => item.id !== stepId),
       })),
 
-  setSubtitles: (text: string) =>
+  setSubtitles: (subtitle: Isubtitle) =>
     set((state) => ({
-      subtitles: text,
+      subtitles: [...state.subtitles, subtitle],
     })),
 
   setIsSubtitlesShown: (isShown: boolean) =>

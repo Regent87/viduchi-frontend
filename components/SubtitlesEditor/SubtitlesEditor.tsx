@@ -32,6 +32,12 @@ export interface Istep {
   text: string;
 }
 
+export interface Isubtitle {
+  id: string;
+  text: string;
+  timeline: string;
+}
+
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
   const [inputtedSubtitles, setInputtedSubtitles] = useState([
