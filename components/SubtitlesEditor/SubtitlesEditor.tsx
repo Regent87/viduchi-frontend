@@ -24,7 +24,7 @@ import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
 import { parseSubtitlesToJson } from "@/utils/subtitles";
-import { getAllSteps } from "@/api/client/projects";
+import { generateSteps, getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
 import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
 
@@ -49,6 +49,20 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
   const steps_zustand =useStore((state) => state.steps);
   const setAllSteps = useStore((state) => state.setAllSteps); 
+
+const [ instructionName, setInstructionName ] = useState("Инструкция 1")
+
+  // генерация шагов
+  const createNewSteps = async () => {
+    // генерируем шаги и получаем ответ сервера
+const generatedStepsResponse = await generateSteps(project.id); 
+    // получаем шаги с сервера
+  const gotSteps = await getAllSteps(project.id);
+  console.log("GENERATED STEPS: ", gotSteps)
+    // ставим шаги в zustand
+    setAllSteps(gotSteps);
+    console.log("NEW GENERATED STEPS FROM ZUSTAND", steps_zustand)
+  }
 
 
 
@@ -178,7 +192,7 @@ console.log("New steps array: ", newSteps);
     }, [])
 
 
-console.log("STEPS FROM ZUSTAND: ", steps_zustand)
+// console.log("STEPS FROM ZUSTAND: ", steps_zustand)
 
 
 
@@ -219,7 +233,7 @@ console.log("STEPS FROM ZUSTAND: ", steps_zustand)
     className={styles.projectname}>
     { project.title }
     </span> &nbsp;
-     /&nbsp; Инструкция 1
+     /&nbsp; <input type="text" value={instructionName} onChange={(e) => setInstructionName(e.target.value)} />
   {/* <input
                   onChange={(e) => setProjectName(e.target.value)}
                   type="text"
@@ -309,7 +323,7 @@ steps_zustand && steps_zustand.map((step: any) => (
                 } }
                 className={styles.add_button} >Добавить шаг</button>
                 <button
-                
+                onClick={createNewSteps}
                 className={styles.generate_button}>Сгенерировать шаги</button>
             </div>
     
