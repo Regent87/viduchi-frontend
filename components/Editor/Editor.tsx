@@ -19,9 +19,7 @@ import useTimelineEvents from "../../hooks/use-timeline-events";
 //  esitor data imports
 import Image from "next/image";
 import FolderIcon from "./folder.svg";
-
-
-
+import { useRouter } from "next/navigation";
 
 import { UserPanel } from "@/components/UserPanel/UserPanel";
 import { UserInfo } from "@/components/UserInfo/UserInfo";
@@ -50,7 +48,10 @@ import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCar
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
 
-// загружаем аудиофайлы с сервера
+  const router = useRouter();
+
+
+  // загружаем аудиофайлы с сервера
 const [ isAudioLoading, setIsAudioLoading ] = useState(false);
 const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
 const[ audios, setAudios ] = useState<any>([]);
@@ -390,7 +391,9 @@ useEffect(() => {
        <EllypsisIcon /> */}
 
        <button
-       onClick={() => console.log("Редактирвоать инструкцию")}
+       onClick={() => {
+        router.push('/subtitles/' + project.id )
+       }}
        className={styles.editInstruction} >Редактировать инструкцию</button>
       <CreateInstruction projectId={project.id} />
    </div>

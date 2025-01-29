@@ -49,6 +49,9 @@ interface ITimelineStore {
 
   isSubtitlesShown: boolean;
   setIsSubtitlesShown: (isShown: boolean) => void;
+
+  videoIdForInstruction: number;
+  setVideoIdForInstruction: (id: number) => void;
 }
 
 const useStore = create<ITimelineStore>((set) => ({
@@ -78,7 +81,12 @@ const useStore = create<ITimelineStore>((set) => ({
   isSubtitlesShown: false,
   subtitles: [],
   steps: [],
+  videoIdForInstruction: 0,
 
+  setVideoIdForInstruction: (id: number) =>
+    set((state) => ({
+      videoIdForInstruction: id,
+    })),
 
   setSteps: (step: Istep) =>
     set((state) => ({

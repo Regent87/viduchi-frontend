@@ -13,7 +13,12 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
 import { addProjectVideo, addSubtitlesToProject, getProjectById, transcribeVideo } from '@/api/client/projects';
 
+
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
+
+const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruction);
+
+
   const [projectName, setProjectName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -213,23 +218,33 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
   const handleSubmit = async () => {
       setIsLoading(true);
 
+      if (project.subtitles) {
+           onClose();
+        router.push('/subtitles/' + projectId )
+      }
+
       // сюда поставить загруженные файлы
       console.log("uploadedfiles : ", uploadedFiles);
  
       console.log("CUrrent project: ", project)
-      console.log("subtitles from the state: ", project.subtitles);
-      console.log("SUbtitles from STORE: ", videoSubtitles)
+    //  console.log("subtitles from the state: ", project.subtitles);
+     // console.log("SUbtitles from STORE: ", videoSubtitles)
 
-      if (!videoSubtitles) {
+    //  if (!videoSubtitles) {
 
-      //  const formData = new FormData();
-       // formData.append('video_file', uploadedFiles[0]);
-       //  const videoId: any = await addProjectVideo(projectId, formData); 
+        const formData = new FormData();
+        formData.append('video_file', uploadedFiles[0]);
+         const videoId: any = await addProjectVideo(projectId, formData); 
 
-       // console.log("GOT VIDEO ID: ", videoId)
+        //  saving to zustand
+      
+        console.log("GOT VIDEO ID: ", videoId)
+        setVideoIdForInstruction(videoId);
 
         // if (videoId) {
-        //  const subtitles = await transcribeVideo(projectId, videoId);
+         const data = await transcribeVideo(projectId, videoId);
+         const { subtitles } = data;
+         console.log("Subtitles got: ", subtitles)
          // setSubtitles(subtitles.subtitles);
         // console.log("GOT SUBTITLES: ", subtitles);
 
@@ -239,12 +254,13 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
 
         // НА СЕРВЕРЕ РАБОТАЕТ, А НА КЛИЕНТЕ НЕ РАБОТАЕТ!!!
          // сохраняем субтитры в проект - НЕ РАБОТАЕТ У МЕНЯ!!!!
-       //  await addSubtitlesToProject(projectId, subtitles.subtitles);
+         await addSubtitlesToProject(projectId, subtitles);
          onClose();
-         router.push('/subtitles/' + projectId )
-      } else {
-        onClose();
-        router.push('/subtitles/' + projectId )
+         setIsLoading(false);
+        // router.push('/subtitles/' + projectId )
+  //    } else {
+     //   onClose();
+       // router.push('/subtitles/' + projectId )
       }
 
      
@@ -260,22 +276,22 @@ export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateS
             
               // 2. транскрибировать видоео по его id и id проекта и получить субтитлы ответом. Сохранить субтитлы в сторе subtitles 
 
-      setProjectName('');
+  //     setProjectName('');
 
-      onClose();
+  //     onClose();
 
-    //   if (project) {
-    //     console.log("project refresh");
-    //     router.replace("/projects");
-    //     router.push('/editor/' + project.id)
-    //    // location.reload();
-    //   }
+  //   //   if (project) {
+  //   //     console.log("project refresh");
+  //   //     router.replace("/projects");
+  //   //     router.push('/editor/' + project.id)
+  //   //    // location.reload();
+  //   //   }
 
-  //  router.push('/subtitles/' + projectId );
+  // //  router.push('/subtitles/' + projectId );
 
-      setIsLoading(false);
+  //     setIsLoading(false);
 
-  };
+  // };
 
   return (
 

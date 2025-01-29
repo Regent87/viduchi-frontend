@@ -23,10 +23,11 @@ import EditIcon from "./edit.svg";
 import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
-import { parseSubtitlesToJson } from "@/utils/subtitles";
+import { convertToSubtitles, parseSubtitlesToJson } from "@/utils/subtitles";
 import { generateSteps, getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
 import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
+import { createInstruction } from "@/api/client/instructions";
 
 export interface Istep {
   id: number;
@@ -50,7 +51,33 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
   const steps_zustand =useStore((state) => state.steps);
   const setAllSteps = useStore((state) => state.setAllSteps); 
 
+  const videoIdoForInstruction =useStore((state) => state.videoIdForInstruction);
+
 const [ instructionName, setInstructionName ] = useState("Инструкция 1")
+
+console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
+
+
+// создание инструкции
+const handleNewInstruction = async () => {
+  console.log("STEPS FROM ZUSTAND: ", steps_zustand);
+  console.log("SUBTITLES_FROM_ZUSTAND: ", subtitles_zustand);
+  console.log("VIDEO ID TO UPLOAD FROM ZUSTAND: ", videoIdoForInstruction);
+  console.log("INSTRICTION NAME: ", instructionName)
+
+ 
+  // 1. Привести субтитлы в строку с помощью функции 
+  const subtitles_to_upload = convertToSubtitles(subtitles_zustand)
+  console.log("Subtitles in string: ", subtitles_to_upload)
+//2 сделать запрос на создание инструкции
+const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+// 3. перебросить в раздел /instructions
+ 
+  router.push('/instructions');
+
+
+}
+
 
   // генерация шагов
   const createNewSteps = async () => {
@@ -272,6 +299,7 @@ console.log("New steps array: ", newSteps);
    
    <div className={styles.gen_subtitles}>
    <button
+   onClick={handleNewInstruction}
    className={styles.generate_button} >Опубликовать инструкцию</button>
    </div>
     
