@@ -195,15 +195,12 @@ console.log("New steps array: ", newSteps);
 
     useEffect(() => {
         setProjectName(project.title);
-        if( project.subtitles) {
-        let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles);
-      //  setSubtitles(subtitlesFromServer);      
-       /*
---------------------------------------------------------
-ДОБАВЛЯЕМ СУБТИТЛЫ В ZUSTAND
-       */
+        // првоеряем есть ли субтитлы в сторе и если есть, то ничего не делаем
+        // если субтитлов в сторе нет, тогда добавляем их из проекта.
+       if ( subtitles_zustand.length < 1) {
+        let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles!);
         setAllSubtitles(subtitlesFromServer);
-        }
+       }
     }, [])
 
     useEffect(() => {
