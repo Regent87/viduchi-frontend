@@ -22,7 +22,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
 
   const [projectName, setProjectName] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
@@ -256,6 +256,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
         const data = await transcribeVideo(projectId, videoId);
         const { subtitles } = data;
         if (!subtitles) {
+          setIsLoading(false);
           setIsError(true);
         } else {
           
@@ -266,7 +267,9 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
           // обновляем данные в проекте
           const newProject = await getProjectById(projectId);
           if (!newProject.subtitles) {
+            setIsLoading(false);
             setIsError(true);
+           
           } else {
             // закрывем окно и переходим на редактирование
             onClose();
