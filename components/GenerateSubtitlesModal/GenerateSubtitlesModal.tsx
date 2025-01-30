@@ -13,6 +13,7 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
 import { addProjectVideo, addSubtitlesToProject, getProjectById, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
+import { parseSubtitlesToJson } from '@/utils/subtitles';
 
 
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
@@ -25,12 +26,13 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
+  // zustand store
   const uploadedFiles = useStore((state) => state.uploadedFiles);
-
   const setUploadedFiles = useStore((state) => state.setUploadedFiles);
-
   const videoSubtitles = useStore((state) => state.subtitles);
   const setSubtitles = useStore((state) => state.setSubtitles);
+
+  const setAllSubtitles = useStore((state) => state.setAllSubtitles);
 
   const { playerRef, duration } = useStore();
 
@@ -222,6 +224,11 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
       // если субтитлы уже есть
       if (project.subtitles) {
+        // корвртируем субтитлы из строки в массив json
+        const subtitles_json = parseSubtitlesToJson(project.subtitles);
+        // добавляем субтитлы в стор
+        setAllSubtitles(subtitles_json);
+
            onClose();
            setIsLoading(false);
         router.push('/subtitles/' + projectId )
