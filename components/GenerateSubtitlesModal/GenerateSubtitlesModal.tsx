@@ -22,7 +22,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
 
   const [projectName, setProjectName] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
@@ -337,8 +337,9 @@ isError && (
 
 
 
+{
+  !isLoading && (
 <div className={styles.buttons}>
-
 <button
 onClick={onClose}
 className={styles.reset}>Импортировать аудио</button>
@@ -347,6 +348,10 @@ type='submit'
  disabled={isLoading}
 className={styles.apply}>Генерировать субтитры</button>
 </div>
+  )
+}
+
+
 
 
 
