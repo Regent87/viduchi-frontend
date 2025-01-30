@@ -344,7 +344,7 @@ onClick={onClose}
 className={styles.reset}>Импортировать аудио</button>
 <button
 type='submit'
-// disabled={isLoading || !projectName.trim()}
+ disabled={isLoading}
 className={styles.apply}>Генерировать субтитры</button>
 </div>
 
