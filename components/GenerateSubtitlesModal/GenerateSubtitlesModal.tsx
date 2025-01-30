@@ -254,10 +254,15 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
         // НА СЕРВЕРЕ РАБОТАЕТ, А НА КЛИЕНТЕ НЕ РАБОТАЕТ!!!
          // сохраняем субтитры в проект - НЕ РАБОТАЕТ У МЕНЯ!!!!
-         await addSubtitlesToProject(projectId, subtitles);
+         try {
+          await addSubtitlesToProject(projectId, String(subtitles));
+         } catch(error) {
+          console.log(error);
+         }
+        
          onClose();
          setIsLoading(false);
-        // router.push('/subtitles/' + projectId )
+         router.push('/subtitles/' + projectId )
   //    } else {
      //   onClose();
        // router.push('/subtitles/' + projectId )
