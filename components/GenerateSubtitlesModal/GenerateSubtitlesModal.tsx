@@ -12,6 +12,7 @@ import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
 import { addProjectVideo, addSubtitlesToProject, getProjectById, transcribeVideo } from '@/api/client/projects';
+import { P } from '../P/P';
 
 
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
@@ -21,6 +22,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
   const [projectName, setProjectName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
 
   const uploadedFiles = useStore((state) => state.uploadedFiles);
@@ -315,10 +317,32 @@ value={projectName}
 placeholder='Введите название проекта'
 type="text" required /> */}
 
+{ 
+isLoading && !isError && (
+  <p>Пожалуйста, подождите. Идет траскрибация</p>
+)
+}
 
-<p>ИИ выделит аудио дорожку из видео и преобразует ее в субтитры и вы перейдете на страницу редактирования интсрукции</p>
+{ 
+!isLoading && !isError && (
+  <>
+  <p>ИИ выделит аудио дорожку из видео и преобразует <br />  ее в субтитры и вы перейдете <br /> на страницу редактирования интсрукции</p>
 
 <p>В противном случае необходимо импортировать аудио</p>
+
+</>
+)
+}
+
+
+
+{ 
+isError && (
+  <p className='red'>Произошла ошибка при транскрибации. Пожалуйста, повторите запрос</p>
+)
+}
+
+
 
 
 </div>
