@@ -258,12 +258,13 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
         if (!subtitles) {
           setIsError(true);
         } else {
+          
          // получаем субтитлы
           console.log("Subtitles got: ", subtitles);
           // добавляем субтитлы в проект
-          await addSubtitlesToProject(projectId, String(subtitles));
+      
           // обновляем данные в проекте
-          const newProject = await getProjectById(project.id);
+          const newProject = await getProjectById(projectId);
           if (!newProject.subtitles) {
             setIsError(true);
           } else {
