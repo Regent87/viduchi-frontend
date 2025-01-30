@@ -220,85 +220,65 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
   const handleSubmit = async () => {
       setIsLoading(true);
 
+      // если субтитлы уже есть
       if (project.subtitles) {
            onClose();
+           setIsLoading(false);
         router.push('/subtitles/' + projectId )
       }
 
-      // сюда поставить загруженные файлы
-      console.log("uploadedfiles : ", uploadedFiles);
+      // если субтитлов нет
+      if (!project.subtitles) {
+        setIsLoading(true);
+  // загружаем видеофайл  - заглушка
+  console.log("uploadedfiles : ", uploadedFiles);
+  const formData = new FormData();
+  formData.append('video_file', uploadedFiles[0]);
+  // загруажем видеофайл на сервер
+  const videoId: any = await addProjectVideo(projectId, formData); 
+  if (!videoId) {
+    setIsError(true);
+  } else {
+
+    console.log("GOT VIDEO ID: ", videoId)
+    // добавляем id загруженного видео в стор
+    setVideoIdForInstruction(videoId);
+
+    // делаем транскрибацию
  
-      console.log("CUrrent project: ", project)
-    //  console.log("subtitles from the state: ", project.subtitles);
-     // console.log("SUbtitles from STORE: ", videoSubtitles)
-
-    //  if (!videoSubtitles) {
-
-        const formData = new FormData();
-        formData.append('video_file', uploadedFiles[0]);
-         const videoId: any = await addProjectVideo(projectId, formData); 
-
-        //  saving to zustand
-      
-        console.log("GOT VIDEO ID: ", videoId)
-        setVideoIdForInstruction(videoId);
-
-        // if (videoId) {
-         const data = await transcribeVideo(projectId, videoId);
-         const { subtitles } = data;
-         console.log("Subtitles got: ", subtitles)
-         // setSubtitles(subtitles.subtitles);
-        // console.log("GOT SUBTITLES: ", subtitles);
-
-        //  до сиз пор работает - получаем субтитпы
-        // subtitles.subtitles - это строка формата srt
-        // subtitles.transcription - это строка транскрибированного текста
-
-        // НА СЕРВЕРЕ РАБОТАЕТ, А НА КЛИЕНТЕ НЕ РАБОТАЕТ!!!
-         // сохраняем субтитры в проект - НЕ РАБОТАЕТ У МЕНЯ!!!!
-         try {
+        const data = await transcribeVideo(projectId, videoId);
+        const { subtitles } = data;
+        if (!subtitles) {
+          setIsError(true);
+        } else {
+         // получаем субтитлы
+          console.log("Subtitles got: ", subtitles);
+          // добавляем субтитлы в проект
           await addSubtitlesToProject(projectId, String(subtitles));
-         } catch(error) {
-          console.log(error);
-         }
-        
-         onClose();
-         setIsLoading(false);
-         router.push('/subtitles/' + projectId )
-  //    } else {
-     //   onClose();
-       // router.push('/subtitles/' + projectId )
+          // обновляем данные в проекте
+          const newProject = await getProjectById(project.id);
+          if (!newProject.subtitles) {
+            setIsError(true);
+          } else {
+            // закрывем окно и переходим на редактирование
+            onClose();
+            setIsLoading(false);
+            router.push('/subtitles/' + projectId )
+          }
+
+        }
+     
+
+  }
+ 
+
+
+      }
+
       }
 
      
       
-
-
-    
-
-  // рендерим видос и делаем субтитры
-// saveCanvasToVideoWithAudioWebmMp4();
-       // TODO
-              // 1. Отправить видео на сервак, сохранить его и получить id 
-            
-              // 2. транскрибировать видоео по его id и id проекта и получить субтитлы ответом. Сохранить субтитлы в сторе subtitles 
-
-  //     setProjectName('');
-
-  //     onClose();
-
-  //   //   if (project) {
-  //   //     console.log("project refresh");
-  //   //     router.replace("/projects");
-  //   //     router.push('/editor/' + project.id)
-  //   //    // location.reload();
-  //   //   }
-
-  // //  router.push('/subtitles/' + projectId );
-
-  //     setIsLoading(false);
-
-  // };
 
   return (
 
@@ -326,7 +306,7 @@ isLoading && !isError && (
 { 
 !isLoading && !isError && (
   <>
-  <p>ИИ выделит аудио дорожку из видео и преобразует <br />  ее в субтитры и вы перейдете <br /> на страницу редактирования интсрукции</p>
+  <p>ИИ выделит аудио дорожку из видео и преобразует <br />  ее в субтитры и вы перейдете <br /> на страницу редактирования инструкции</p>
 
 <p>В противном случае необходимо импортировать аудио</p>
 
