@@ -158,12 +158,7 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
       const [toggle, setToggle] = useState(true);
 
 
-      const deleteStep = (stepId: any) => {
-      //  setSteps(steps.filter((s: any) => s.id !== stepId));
-const newSteps = rawSteps.steps.filter((s: any) => s.id !== stepId)
-console.log("New steps array: ", newSteps);
-        setRawSteps(newSteps);
-      };
+     
 
 
       // добавляем новый шаг вручную
@@ -178,6 +173,7 @@ console.log("New steps array: ", newSteps);
         };
         // добавляем шаг в стор
         setStepsToStore(newStep);
+        console.log("NES STEPS IN STORE: ", steps_zustand);
 
        
       }
