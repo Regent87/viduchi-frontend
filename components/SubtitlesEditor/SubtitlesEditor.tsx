@@ -321,7 +321,7 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
              steps_zustand.length > 0 && (<h3>Шаги:</h3>) 
             }
 
-
+<div className={styles.stepList}>
 {
 steps_zustand && steps_zustand.map((step: any) => (
    <StepItem
@@ -330,6 +330,7 @@ steps_zustand && steps_zustand.map((step: any) => (
 
   ))
 }
+</div>
 
 
  {

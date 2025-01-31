@@ -198,6 +198,18 @@ margin-right: 0 !important;
 padding-right: 0 !important;
   color: var(--white);
   text-align: center;
+ 
+}
+
+.stepList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  
+  height: 40vh;
+  overflow-y: scroll;
 }
 
 .steps h3 {
