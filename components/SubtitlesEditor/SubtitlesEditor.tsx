@@ -43,6 +43,8 @@ export interface Isubtitle {
 
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(true);
 
   // Zustand store
   const subtitles_zustand =useStore((state) => state.subtitles);
@@ -88,14 +90,23 @@ const new_instr = await createInstruction(instructionName, steps_zustand, videoI
 
   // генерация шагов
   const createNewSteps = async () => {
+    setIsLoading(true);
     // генерируем шаги и получаем ответ сервера
 const generatedStepsResponse = await generateSteps(project.id); 
+console.log("GOT RESPONSE FROM SERVER STEPS: ", generatedStepsResponse)
     // получаем шаги с сервера
   const gotSteps = await getAllSteps(project.id);
-  console.log("GENERATED STEPS: ", gotSteps)
-    // ставим шаги в zustand
-    setAllSteps(gotSteps);
-    console.log("NEW GENERATED STEPS FROM ZUSTAND", steps_zustand)
+  console.log("GENERATED STEPS: ", gotSteps);
+  if (gotSteps.length > 0) {
+ // ставим шаги в zustand
+ setAllSteps(gotSteps);
+ console.log("NEW GENERATED STEPS FROM ZUSTAND", steps_zustand)
+ setIsLoading(false);
+  } else {
+    setIsLoading(false);
+   // setIsError(true);
+  }
+   
   }
 
 
@@ -321,9 +332,25 @@ steps_zustand && steps_zustand.map((step: any) => (
 }
 
 
+ {
+  isLoading && (
+    <p>Пожалуйста, подождите. Идет генерация шагов.</p>
+  )
+ }
+
+{
+  isError && (
+    <p className="red">Произошла ошибка во время генерации шагов. Пожалуйста, повторите еще.</p>
+  )
+ }
               
 
-                <button
+               
+               
+               {
+    !isLoading && (
+      <>
+       <button
                 onClick={() => {
                   if( selectedSubtitles.length != 2 ) {
                     setIsAddStepShown(true);
@@ -332,9 +359,16 @@ steps_zustand && steps_zustand.map((step: any) => (
                   }
                 } }
                 className={styles.add_button} >Добавить шаг</button>
-                <button
-                onClick={createNewSteps}
-                className={styles.generate_button}>Сгенерировать шаги</button>
+
+<button
+      onClick={createNewSteps}
+      className={styles.generate_button}>Сгенерировать шаги</button>
+      </>
+    
+    )
+  }
+
+
             </div>
     
 </div>
