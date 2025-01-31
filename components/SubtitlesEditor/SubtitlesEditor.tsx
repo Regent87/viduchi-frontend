@@ -97,14 +97,6 @@ const generatedStepsResponse = await generateSteps(project.id);
 
 
 
-/*
-TODO:
-- в useEffect взять с сервера и записать в стор zustand шаги и субтитлы
-- вывести каждый субтитл и шаг в отдальный компонент и там его редактировать и удалять через zustand
-- добавить на кнопку генерации шагов 
-
-*/
-
 
   const storeSubtitles = useStore((state) => state.subtitles);
   const setStoreSubtitles = useStore((state) => state.setSubtitles);
@@ -129,21 +121,6 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
 
 // const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
 
-
-
-      // получаем данные из двух нажатых субтитров
-      // const getDataFromSelectedSubtitles = (index: string) => {
-      //   if (selectedIndexes.length < 2) {
-      //     selectedIndexes.push(Number(index));
-      //   const bkg: any = document.getElementById(String(index));
-        
-      //   if (bkg) {
-      //     bkg.style.background = "blue";
-      //     bkg.style.color = "#fff";
-      //   }
-      
-      //   }
-      // }
  
       const router = useRouter();
 
@@ -321,7 +298,7 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
             }
 
 { 
-             steps_zustand && (<h3>Шаги:</h3>) 
+             steps_zustand.length > 0 && (<h3>Шаги:</h3>) 
             }
 
 

@@ -10,7 +10,7 @@ export const AddStepModal = ({ isOpen, onClose }: AddStepModalProps) => {
         <Modal className={styles.white}
         isOpen={isOpen} onClose={onClose} title="">
             <form>
-                <h2>Для добавления шага выберите начальный и конечный субтитр</h2>
+                <p>Для добавления шага выберите начальный и конечный субтитр</p>
             <div className={styles.buttons}>
            
  <button
