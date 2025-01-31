@@ -259,6 +259,8 @@ padding-right: 0 !important;
   position: relative;
   float: right;
   z-index: 10;
+  overflow-y: scroll;
+
 }
 
 .subtitles p {
@@ -323,6 +325,7 @@ color: var(--white);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  text-align: left;
   gap: 10px;
 }
 
