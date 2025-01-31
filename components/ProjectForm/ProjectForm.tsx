@@ -125,7 +125,7 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
             const url = URL.createObjectURL(file);
 
             const getMetadata = () => new Promise<number>((resolve, reject) => {
-                const player = document.createElement('video');
+                const player: HTMLVideoElement = document.createElement('video');
                 player.onloadedmetadata = () => {
                     resolve(player.duration);
                 };
@@ -136,7 +136,6 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
             });
 
             const videoDuration = await getMetadata();
-            console.log('Video duration:', videoDuration);
 
             const newTrack: Track = {
                 id: Date.now().toString(),
@@ -148,36 +147,14 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
                 volume: 1
             };
 
-            console.log('Adding new track:', newTrack);
             setTracks(prev => [...prev, newTrack]);
             setDuration(prevDuration => Math.max(prevDuration, currentTime + videoDuration));
 
         } catch (err) {
-            console.error('Error in handleVideoAdd:', err);
             setError(err instanceof Error ? err.message : 'Произошла ошибка при загрузке видео');
         } finally {
             setIsLoading(false);
         }
-    }, [currentTime]);
-
-    const handleAudioAdd = useCallback(async (file: File) => {
-        const url = URL.createObjectURL(file);
-        const audio = new Audio(url);
-
-        audio.addEventListener('loadedmetadata', () => {
-            const newTrack: Track = {
-                id: Date.now().toString(),
-                type: 'audio',
-                url,
-                startTime: currentTime,
-                endTime: currentTime + audio.duration,
-                name: file.name,
-                volume: 1
-            };
-
-            setTracks(prev => [...prev, newTrack]);
-            setDuration(prevDuration => Math.max(prevDuration, currentTime + audio.duration));
-        });
     }, [currentTime]);
 
     const handleSplitTrack = useCallback((trackId: string) => {
@@ -244,13 +221,7 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
                     compositionHeight={1080}
                     fps={30}
                     durationInFrames={Math.ceil(duration * 30)}
-                    playing={playing}
-                    componentProps={{
-                        tracks,
-                        onTimeUpdate: handleTimelineUpdate
-                    }}
-                    onPlay={() => setPlaying(true)}
-                    onPause={() => setPlaying(false)}
+                    autoPlay={playing}
                 />
             </div>
 
@@ -277,7 +248,6 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
                 <input
                     type="file"
                     accept="audio/*"
-                    onChange={(e) => e.target.files?.[0] && handleAudioAdd(e.target.files[0])}
                 />
                 {selectedTrack && (
                     <button onClick={() => handleSplitTrack(selectedTrack)}>
@@ -285,7 +255,7 @@ export const ProjectForm = ({ project, className, ...props }: ProjectFormProps):
                     </button>
                 )}
                 <button onClick={() => setPlaying(!playing)}>
-                    {playing ? 'Пауза' : 'Воспроизвести'}
+                    {playing ? 'Па��за' : 'Воспроизвести'}
                 </button>
                 {isLoading && <div className={styles.loading}>Загрузка...</div>}
                 {error && <div className={styles.error}>{error}</div>}

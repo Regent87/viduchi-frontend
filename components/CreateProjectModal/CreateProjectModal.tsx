@@ -18,15 +18,12 @@ export const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps)
       setIsLoading(true);
 
       const project = await createProject(projectName);
-      console.log("project");
-      console.log(project);
 
       setProjectName('');
 
       onClose();
 
       if (project) {
-        console.log("project refresh");
         router.replace("/projects");
         router.push('/editor/' + project.id)
        // location.reload();
