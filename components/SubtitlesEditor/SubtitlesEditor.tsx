@@ -23,7 +23,7 @@ import EditIcon from "./edit.svg";
 import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
-import { convertToSubtitles, parseSubtitlesToJson } from "@/utils/subtitles";
+import { convertTimeToStep, convertToSubtitles, parseSubtitlesToJson } from "@/utils/subtitles";
 import { generateSteps, getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
 import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
@@ -50,6 +50,10 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
   const steps_zustand =useStore((state) => state.steps);
   const setAllSteps = useStore((state) => state.setAllSteps); 
+  const setStepsToStore = useStore((state) => state.setSteps); 
+
+  const selectedSubtitles = useStore((state) => state.selectedSubtitles); 
+  
 
   const videoIdoForInstruction =useStore((state) => state.videoIdForInstruction);
 
@@ -120,26 +124,26 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
 
       */
 
-const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Example Subtitle File!\n\n2\n00:00:03,000 --> 00:00:06,000\nThis is a demonstration of SRT subtitles.\n\n3\n00:00:07,000 --> 00:00:10,500\nYou can use SRT files to add subtitles to your videos.\n\n4\n00:00:12,000 --> 00:00:15,000\nEach subtitle entry consists of a number, a timecode, and the subtitle text.";
+// const subtitlesString = "1\n00:00:00,000 --> 00:00:02,500\nWelcome to the Example Subtitle File!\n\n2\n00:00:03,000 --> 00:00:06,000\nThis is a demonstration of SRT subtitles.\n\n3\n00:00:07,000 --> 00:00:10,500\nYou can use SRT files to add subtitles to your videos.\n\n4\n00:00:12,000 --> 00:00:15,000\nEach subtitle entry consists of a number, a timecode, and the subtitle text.";
 
 
-const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
+// const jsonSubtitles = parseSubtitlesToJson(subtitlesString);
 
 
 
       // получаем данные из двух нажатых субтитров
-      const getDataFromSelectedSubtitles = (index: string) => {
-        if (selectedIndexes.length < 2) {
-          selectedIndexes.push(Number(index));
-        const bkg: any = document.getElementById(String(index));
+      // const getDataFromSelectedSubtitles = (index: string) => {
+      //   if (selectedIndexes.length < 2) {
+      //     selectedIndexes.push(Number(index));
+      //   const bkg: any = document.getElementById(String(index));
         
-        if (bkg) {
-          bkg.style.background = "blue";
-          bkg.style.color = "#fff";
-        }
+      //   if (bkg) {
+      //     bkg.style.background = "blue";
+      //     bkg.style.color = "#fff";
+      //   }
       
-        }
-      }
+      //   }
+      // }
  
       const router = useRouter();
 
@@ -161,22 +165,21 @@ console.log("New steps array: ", newSteps);
         setRawSteps(newSteps);
       };
 
+
+      // добавляем новый шаг вручную
       const addStep = () => {
-        // достать данные ндексов
-        let sortedIndexes = selectedIndexes.sort(function(a, b) {
-          return a - b;
-        });
-
-        const selectedSubtitles = subtitles.slice(sortedIndexes[0], sortedIndexes[1] + 1);
-        const newStep = {
-          id: generateId(),
-          title: "Название шага",
-          subtitles: selectedSubtitles
+        // вытаскиваем и трансформируем даныне из первого отмеченного субтитла
+        const newStepStart: number = convertTimeToStep(selectedSubtitles[0].timeline);
+       
+        const newStep: Istep = {
+          id: Math.random(),
+          start: newStepStart,
+          text: "Новый шаг"
         };
+        // добавляем шаг в стор
+        setStepsToStore(newStep);
 
-        setRawSteps([...rawSteps.steps, newStep])
-
-        console.log("steps: ", steps )
+       
       }
 
       useEffect(() => {
@@ -340,7 +343,7 @@ steps_zustand && steps_zustand.map((step: any) => (
 
                 <button
                 onClick={() => {
-                  if( selectedIndexes.length != 2 ) {
+                  if( selectedSubtitles.length != 2 ) {
                     setIsAddStepShown(true);
                   } else {
                     addStep()

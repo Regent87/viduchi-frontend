@@ -25,7 +25,7 @@ export const StepItem = ({step}: any) => {
           {
             !toggle ? <span style={{ cursor:"pointer" }}
             onClick={() => {
-              playerRef?.current?.seekTo(step.start * 60 )
+              playerRef?.current?.seekTo(step.start )
             }}
             >{step.text}</span> : <input type="text" value={currentStepText}
             onChange={(e) => {
