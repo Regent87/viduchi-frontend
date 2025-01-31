@@ -53,9 +53,12 @@ interface ITimelineStore {
   videoIdForInstruction: number;
   setVideoIdForInstruction: (id: number) => void;
 
-  selectedSUbtitles: Isubtitle[];
+  selectedSubtitles: Isubtitle[];
   setSelectedSubtitles: (subtitle: Isubtitle) => void;
+
+  removeAllSelectedSubtitles: () => void;
 }
+
 
 const useStore = create<ITimelineStore>((set) => ({
   playerControls: false,
@@ -85,7 +88,7 @@ const useStore = create<ITimelineStore>((set) => ({
   subtitles: [],
   steps: [],
   videoIdForInstruction: 0,
-  selectedSUbtitles: [],
+  selectedSubtitles: [],
 
   setVideoIdForInstruction: (id: number) =>
     set((state) => ({
@@ -114,7 +117,7 @@ const useStore = create<ITimelineStore>((set) => ({
 
     setSelectedSubtitles: (subtitle: Isubtitle) =>
       set((state) => ({
-        subtitles: [...state.subtitles, subtitle],
+        selectedSubtitles: [...state.selectedSubtitles, subtitle],
       })),
 
   setAllSubtitles: (new_subtitles: Isubtitle[]) =>
@@ -124,7 +127,7 @@ const useStore = create<ITimelineStore>((set) => ({
 
   removeAllSelectedSubtitles: () =>
       set((state) => ({
-        selectedSUbtitles: [],
+        selectedSubtitles: [],
       })),
 
     updateSubtitles: (id: number, text: string) => {
