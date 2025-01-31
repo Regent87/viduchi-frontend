@@ -1,4 +1,5 @@
 import { getProjectById } from '@/api/server/projects';
+import { Editor } from '@/components/Editor/Editor';
 import { ProjectForm } from "@/components/ProjectForm/ProjectForm";
 import { redirect } from 'next/navigation';
 
@@ -18,4 +19,7 @@ export default async function EditProjectPage({ params }: Props) {
     }
 
     return <ProjectForm project={project} />;
+    // return <Editor project={project} />;
+  //  return <Editor />;
+ // return;
 }

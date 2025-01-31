@@ -1,0 +1,39 @@
+.security {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.whisecurityte input[type="text"], .security input[type="password"] {
+    background: transparent;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #169FFD;
+    border-radius: 25px;
+    color: var(--white);
+}
+
+.changePassword {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    /* gap: 15px; */
+}
+
+.changePassword label {
+color: var(--white);
+font-size: 18px;
+text-align: left;
+}
+
+.apply {
+    cursor: pointer;
+    background-color: #169FFD;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 100%;
+} 

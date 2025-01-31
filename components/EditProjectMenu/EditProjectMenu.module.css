@@ -1,0 +1,48 @@
+
+    .edit {
+        position: absolute;
+    }
+    
+    .edit nav {
+    position: relative;
+    background-color: rgba(56, 58, 71, 1);;
+    border: 1px solid gray;
+    color: var(--white);
+    
+    /* width: 200px; */
+    
+    width: 15vw; 
+    
+    margin: 10px 20px;
+    
+    /* margin-left: 140px;
+    margin-top: 105px; */
+    
+    margin-left: 13vw;
+    margin-top: 21vh;
+    
+    /* margin-left: -180px;  */
+     /* margin-top: 220px;
+    margin-left: 80px; */
+    z-index: 1;
+    }
+    
+    .edit nav ul {
+    list-style: none;
+    margin-bottom: 10px;
+    }
+    
+    .edit nav ul li {
+        padding: 10px 20px;
+      font-size: 12px;
+        }
+    
+        .edit nav ul li span {
+            cursor: pointer;
+            color: gray;
+        }
+    
+        .edit nav ul li span:hover {
+            cursor: pointer;
+            color: var(--white);
+        }

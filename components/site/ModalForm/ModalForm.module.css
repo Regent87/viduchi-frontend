@@ -12,7 +12,7 @@
 }
 
 .modal {
-  background: #383A47;
+  background: var(--white);
   border-radius: 8px;
   padding: 20px;
   min-width: 400px;

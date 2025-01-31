@@ -1,0 +1,48 @@
+.white {
+    background-color: var(--white);
+    color: #33333FBF;
+}
+
+.white h2 {
+    color: #33333FBF;
+}
+
+.white svg {
+    stroke: #33333F;
+}
+
+.white form {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.reset {
+    cursor: pointer;
+    background-color: var(--white);
+    color: #33333FBF;
+    font-size: 18px;
+    border: 1px solid #33333F26;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 50%;
+}
+
+.apply {
+    cursor: pointer;
+    background-color: #169FFD;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 50%;
+}

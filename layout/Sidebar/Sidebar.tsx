@@ -49,11 +49,11 @@ export const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         <div className={styles.dividerContainer}>
           <Divider />
         </div>
-        {isProjectsPage && (
+        {/* {isProjectsPage && (
           <div className={styles.actionContainer}>
             <Button appearance='primary' onClick={() => setIsModalOpen(true)}>Создать проект</Button>
           </div>
-        )}
+        )} */}
       </aside>
       <CreateProjectModal isOpen={isModalOpen} onClose={() => {
         setIsModalOpen(false);

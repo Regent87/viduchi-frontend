@@ -1,0 +1,30 @@
+.userMenu {
+    position: absolute;
+    right: 0;
+/* float: right; */
+width: 250px;
+margin-right: 35px;
+border: 0.1px solid gray;
+border-radius: 10px;
+}
+
+.userMenu ul li {
+    padding-left: 20px;
+}
+
+.userMenu ul {
+    list-style: none;
+}
+
+.userMenu ul li{
+    color: white !important;
+    /* font-weight: bold; */
+    text-decoration: none;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.userMenu ul li span {
+    cursor: pointer;
+}
