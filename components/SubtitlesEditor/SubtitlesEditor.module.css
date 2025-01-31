@@ -194,8 +194,8 @@ margin-left: 10%;
   height: 85vh;
   padding-left: 100px;
   margin-top: -85vh;
-margin-right: 0 !important;
-padding-right: 0 !important;
+/* margin-right: 0 !important;
+padding-right: 0 !important; */
   color: var(--white);
   text-align: center;
  
@@ -204,9 +204,9 @@ padding-right: 0 !important;
 .stepList {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  gap: 7px;
+  gap: 3px;
   
   height: 40vh;
   overflow-y: scroll;

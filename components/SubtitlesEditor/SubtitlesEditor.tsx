@@ -172,6 +172,11 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
         // удаляем выбранные субтитлы из стора
         removeAllSelectedSubtitles();
 
+    
+// Get the div element
+let divElement = document.getElementById('steplist');
+// Scroll to the bottom of the div
+divElement!.scrollIntoView(false);
        
       }
 
@@ -321,7 +326,7 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
              steps_zustand.length > 0 && (<h3>Шаги:</h3>) 
             }
 
-<div className={styles.stepList}>
+<div id="steplist" className={styles.stepList}>
 {
 steps_zustand && steps_zustand.map((step: any) => (
    <StepItem

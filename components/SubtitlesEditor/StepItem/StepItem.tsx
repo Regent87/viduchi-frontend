@@ -20,7 +20,7 @@ export const StepItem = ({step}: any) => {
 
     const { playerRef } = useStore();
 
-    console.log("Step inside stepItem: ", step)
+ //   console.log("Step inside stepItem: ", step)
 
     const onClose = () => {
       setIsDeleteModalOpen(false);

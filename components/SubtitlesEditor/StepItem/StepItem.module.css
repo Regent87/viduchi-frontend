@@ -326,7 +326,8 @@ color: var(--white);
   justify-content: space-between;
   align-items: center;
   text-align: left;
-  gap: 10px;
+  /* gap: 5px; */
+ 
   
 }
 
@@ -339,6 +340,6 @@ color: var(--white);
 }
 
 .theIcons {
-  width: 50px;
+  width: 70px;
   text-align: right;
 }
