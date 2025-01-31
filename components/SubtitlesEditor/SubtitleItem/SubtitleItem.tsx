@@ -10,6 +10,8 @@ export const SubtitleItem = ({ subtitle }: any) => {
     const setSelectedSubtitle = useStore((state) => state.setSelectedSubtitles);
     const removeAllSelectedSubtitles = useStore((state) => state.removeAllSelectedSubtitles);
 
+    const last_checked_subtitles = useStore((state) => state.lastCheckedSubtitles);
+
     const [toggle, setToggle] = useState(true);
     const [currentSubtitleText, setCurrentSubtitleText] = useState(subtitle.text);
 
@@ -26,6 +28,21 @@ export const SubtitleItem = ({ subtitle }: any) => {
             elementBackgroundColor = "#2162cc"
         }
     }
+
+    // если субтитл был ранее определен и добавлен в шаг, помечаем его серым цветом
+
+    if (last_checked_subtitles[0]) {
+        if (  subtitle.id === last_checked_subtitles[0].id) {
+            elementBackgroundColor = "gray"
+        }
+    }
+
+    if (last_checked_subtitles[1]) {
+        if (  subtitle.id === last_checked_subtitles[1].id) {
+            elementBackgroundColor = "gray"
+        }
+    }
+
     
 
     return (

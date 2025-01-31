@@ -56,6 +56,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
   const removeAllSelectedSubtitles = useStore((state) => state.removeAllSelectedSubtitles); 
   
+  const setAllLastCheckedSubtitles = useStore((state) => state.setAllLastCheckedSubtitles); 
 
   const videoIdoForInstruction =useStore((state) => state.videoIdForInstruction);
 
@@ -153,6 +154,9 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
         // добавляем шаг в стор
         setStepsToStore(newStep);
         console.log("NES STEPS IN STORE: ", steps_zustand);
+
+        // добавляем субтитлы как ранее добавленные для отражения в UI серым цветом
+        setAllLastCheckedSubtitles(selectedSubtitles);
 
         // удаляем выбранные субтитлы из стора
         removeAllSelectedSubtitles();
