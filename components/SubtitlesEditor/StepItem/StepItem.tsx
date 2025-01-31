@@ -37,7 +37,7 @@ export const StepItem = ({step}: any) => {
         
           
 
-<span> <EditIcon 
+<span className={styles.theIcons}> <EditIcon 
 onClick={() => setToggle(!toggle)}
 /> <DeleteIcon
 onClick={() => deleteStep(step.id)}

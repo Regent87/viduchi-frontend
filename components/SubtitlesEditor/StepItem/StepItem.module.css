@@ -332,3 +332,7 @@ color: var(--white);
 .singleStep svg path {
   stroke: var(--white);
 }
+
+.theIcons {
+  width: 20px;
+}

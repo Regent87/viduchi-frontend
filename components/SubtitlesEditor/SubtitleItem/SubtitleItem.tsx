@@ -17,13 +17,13 @@ export const SubtitleItem = ({ subtitle }: any) => {
     // проверяем еявляется ли элемент выделенным. если выделен то деааем бэкграунд синим
     if (selected_subtitles[0]) {
         if (  subtitle.id === selected_subtitles[0].id) {
-            elementBackgroundColor = "darkblue"
+            elementBackgroundColor = "#2162cc"
         }
     }
 
     if (selected_subtitles[1]) {
         if (  subtitle.id === selected_subtitles[1].id) {
-            elementBackgroundColor = "darkblue"
+            elementBackgroundColor = "#2162cc"
         }
     }
     
