@@ -4,23 +4,31 @@ import DeleteIcon from "../delete.svg";
 import styles from "./StepItem.module.css";
 import useStore from '@/store/store';
 import { useState } from "react";
+import { DeleteStepModal } from "@/components/DeleteStepModal/DeleteStepModal";
 
 
 export const StepItem = ({step}: any) => {
 
   const updateSteps = useStore((state) => state.updateSteps);
-  const deleteStep = useStore((state) => state.deleteStep);
+  
 
   const [toggle, setToggle] = useState(false);
   const [currentStepText, setCurrentStepText] = useState(step.text);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 
     const { playerRef } = useStore();
 
     console.log("Step inside stepItem: ", step)
 
-    return (
+    const onClose = () => {
+      setIsDeleteModalOpen(false);
+    }
 
+
+    return (
+<>
         <div className={styles.singleStep}>
           {
             !toggle ? <span style={{ cursor:"pointer" }}
@@ -40,9 +48,22 @@ export const StepItem = ({step}: any) => {
 <span className={styles.theIcons}> <EditIcon 
 onClick={() => setToggle(!toggle)}
 /> <DeleteIcon
-onClick={() => deleteStep(step.id)}
+// onClick={() => deleteStep(step.id)}
+onClick={() => setIsDeleteModalOpen(true) }
 /> </span>
     </div>
+
+{  
+  isDeleteModalOpen && (
+    <DeleteStepModal
+    isOpen={isDeleteModalOpen}
+    onClose={onClose}
+    stepId={step.id}
+    />
+  )
+}
+
+    </>
 
     );
 }

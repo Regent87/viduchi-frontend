@@ -44,7 +44,7 @@ export interface Isubtitle {
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   // Zustand store
   const subtitles_zustand =useStore((state) => state.subtitles);
