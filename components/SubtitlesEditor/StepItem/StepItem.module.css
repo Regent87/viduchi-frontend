@@ -327,6 +327,7 @@ color: var(--white);
   align-items: center;
   text-align: left;
   gap: 10px;
+  
 }
 
 .singleStep svg {
@@ -339,5 +340,5 @@ color: var(--white);
 
 .theIcons {
   width: 50px;
-  text-align: center;
+  text-align: right;
 }
