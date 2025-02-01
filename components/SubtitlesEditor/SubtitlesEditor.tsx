@@ -44,6 +44,7 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
   const [isLoading, setIsLoading] = useState(false);
   const [isInstructionLoading, setIsInstructionLoading] = useState(false);
+  const [isInstructionError, setIsInstructionError] = useState(false);
   const [isError, setIsError] = useState(false);
 
   // Zustand store
@@ -60,7 +61,13 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
   
   const setAllLastCheckedSubtitles = useStore((state) => state.setAllLastCheckedSubtitles); 
 
-  const videoIdoForInstruction =useStore((state) => state.videoIdForInstruction);
+  const videoIdoForInstruction = useStore((state) => state.videoIdForInstruction);
+
+  const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruction);
+
+  const removeAllTracks = useStore((state) => state.removeAllTracks);
+
+
 
 const [ instructionName, setInstructionName ] = useState("Инструкция 1")
 
@@ -69,20 +76,47 @@ console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
 
 // создание инструкции
 const handleNewInstruction = async () => {
+
+  setIsInstructionLoading(true);
+
+ 
+
+  // если айди видео из зустанда равно нулю, то выводим ошибку
+ if (videoIdoForInstruction === 0) {
+  setIsInstructionError(true);
+ } else {
   console.log("STEPS FROM ZUSTAND: ", steps_zustand);
   console.log("SUBTITLES_FROM_ZUSTAND: ", subtitles_zustand);
   console.log("VIDEO ID TO UPLOAD FROM ZUSTAND: ", videoIdoForInstruction);
-  console.log("INSTRICTION NAME: ", instructionName)
-
- 
+  console.log("INSTRICTION NAME: ", instructionName);
   // 1. Привести субтитлы в строку с помощью функции 
   const subtitles_to_upload = convertToSubtitles(subtitles_zustand)
-  console.log("Subtitles in string: ", subtitles_to_upload)
+  console.log("Subtitles in string: ", subtitles_to_upload);
 //2 сделать запрос на создание инструкции
-// const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+
+// если у нас не создана интсрукция, то выбрасываем ошибку
+if (!new_instr) {
+  setIsInstructionError(true);
+} else {
+  console.log("НОВАЯ ИНСТРУКЦИЯ: ", new_instr)
+// удалить номер видоса для инструкции и стора
+setVideoIdForInstruction(0);
+
+// сохранить все треки из редактора на сервер
+
+// очистить все треки из редактора проекта
+removeAllTracks();
 // 3. перебросить в раздел /instructions
- 
- // router.push('/instructions');
+setIsInstructionLoading(false);
+router.push('/instructions');
+}
+
+
+ }
+
+  
+
 
 
 }
@@ -350,8 +384,20 @@ steps_zustand && steps_zustand.map((step: any, idx: number) => (
  }
 
 {
+  isInstructionLoading && (
+    <p>Пожалуйста, подождите. Идет создание инструкции.</p>
+  )
+ }
+
+{
   isError && (
     <p className="red">Произошла ошибка во время генерации шагов. Пожалуйста, повторите еще.</p>
+  )
+ }
+
+{
+  isInstructionError && (
+    <p className="red">Произошла ошибка во время добавления инструкции.</p>
   )
  }
               
@@ -359,7 +405,7 @@ steps_zustand && steps_zustand.map((step: any, idx: number) => (
                
                
                {
-    !isLoading && (
+    !isLoading && !isInstructionLoading && (
       <>
        <button
                 onClick={() => {
