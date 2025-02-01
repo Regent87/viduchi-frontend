@@ -30,7 +30,6 @@ import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
 import { createInstruction } from "@/api/client/instructions";
 
 export interface Istep {
-  id: number;
   start: number;
   text: string;
 }
@@ -79,10 +78,10 @@ const handleNewInstruction = async () => {
   const subtitles_to_upload = convertToSubtitles(subtitles_zustand)
   console.log("Subtitles in string: ", subtitles_to_upload)
 //2 сделать запрос на создание инструкции
-const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+// const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
 // 3. перебросить в раздел /instructions
  
-  router.push('/instructions');
+ // router.push('/instructions');
 
 
 }
@@ -158,7 +157,6 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
         const newStepStart: number = convertTimeToStep(selectedSubtitles[0].timeline);
        
         const newStep: Istep = {
-          id: Math.random(),
           start: newStepStart,
           text: "Новый шаг"
         };
@@ -328,9 +326,10 @@ divElement!.scrollIntoView(false);
 
 <div id="steplist" className={styles.stepList}>
 {
-steps_zustand && steps_zustand.map((step: any) => (
+steps_zustand && steps_zustand.map((step: any, idx: number) => (
    <StepItem
-   key={step.id}
+   key={idx}
+   id={step.start}
    step={step} />
 
   ))

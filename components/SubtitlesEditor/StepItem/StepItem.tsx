@@ -7,7 +7,7 @@ import { useState } from "react";
 import { DeleteStepModal } from "@/components/DeleteStepModal/DeleteStepModal";
 
 
-export const StepItem = ({step}: any) => {
+export const StepItem = ({step, id}: any) => {
 
   const updateSteps = useStore((state) => state.updateSteps);
   
@@ -38,7 +38,7 @@ export const StepItem = ({step}: any) => {
             >{step.text}</span> : <input type="text" value={currentStepText}
             onChange={(e) => {
               setCurrentStepText(e.target.value)
-              updateSteps(step.id, e.target.value)
+              updateSteps(id, e.target.value)
             }}
             />
           }
@@ -58,7 +58,7 @@ onClick={() => setIsDeleteModalOpen(true) }
     <DeleteStepModal
     isOpen={isDeleteModalOpen}
     onClose={onClose}
-    stepId={step.id}
+    stepId={id}
     />
   )
 }

@@ -113,7 +113,7 @@ const useStore = create<ITimelineStore>((set) => ({
 
     deleteStep: (stepId: number) =>
       set((state) => ({
-        steps: state.steps.filter((item) => item.id !== stepId),
+        steps: state.steps.filter((item) => item.start !== stepId),
       })),
 
   setSubtitles: (subtitle: Isubtitle) =>
@@ -158,7 +158,7 @@ const useStore = create<ITimelineStore>((set) => ({
 
     updateSteps: (id: number, text: string) => {
       set((state) => {
-        const obj = state.steps.find((item) => Number(item.id) == id);
+        const obj = state.steps.find((item) => Number(item.start) == id);
         if (obj) {
           obj.text = text; 
         }
