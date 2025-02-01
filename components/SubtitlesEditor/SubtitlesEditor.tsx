@@ -67,6 +67,20 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
 
   const removeAllTracks = useStore((state) => state.removeAllTracks);
 
+  const storeSubtitles = useStore((state) => state.subtitles);
+  const setStoreSubtitles = useStore((state) => state.setSubtitles);
+
+    const [projectName, setProjectName] = useState("");
+      const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
+      const [isShown, setIsShown] = useState(false);
+
+      const [isAddStepShown, setIsAddStepShown] = useState(false);
+
+      const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
+
+const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
+
+// -------------------------store ends
 
 
 const [ instructionName, setInstructionName ] = useState("Инструкция 1")
@@ -78,9 +92,6 @@ console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
 const handleNewInstruction = async () => {
 
   setIsInstructionLoading(true);
-
- 
-
   // если айди видео из зустанда равно нулю, то выводим ошибку
  if (videoIdoForInstruction === 0) {
   setIsInstructionError(true);
@@ -146,18 +157,7 @@ console.log("GOT RESPONSE FROM SERVER STEPS: ", generatedStepsResponse)
 
 
 
-  const storeSubtitles = useStore((state) => state.subtitles);
-  const setStoreSubtitles = useStore((state) => state.setSubtitles);
 
-    const [projectName, setProjectName] = useState("");
-      const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
-      const [isShown, setIsShown] = useState(false);
-
-      const [isAddStepShown, setIsAddStepShown] = useState(false);
-
-      const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
-
-const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
 
       /*
 МОКОВЫЕ ДАЕЕЫЕ СУБТИТРОВ
