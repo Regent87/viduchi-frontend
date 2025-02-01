@@ -43,6 +43,7 @@ export interface Isubtitle {
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isInstructionLoading, setIsInstructionLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   // Zustand store
@@ -207,7 +208,12 @@ divElement!.scrollIntoView(false);
           const stepsFromServer = await getAllSteps(project.id);
           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
           // const steps = stepsFromServer;
-          setAllSteps(stepsFromServer);
+
+          // если шаги в сторе пустые, то загружаем шаги из базы данных
+if (steps_zustand.length < 1) {
+  setAllSteps(stepsFromServer);
+}
+         
          // setSteps(rawSteps.steps)
         }
          fetchSteps();
