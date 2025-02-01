@@ -118,6 +118,8 @@ setVideoIdForInstruction(0);
 
 // очистить все треки из редактора проекта
 removeAllTracks();
+// очистить все шаги и субтитлы
+
 // 3. перебросить в раздел /instructions
 setIsInstructionLoading(false);
 router.push('/instructions');
@@ -334,9 +336,20 @@ if (steps_zustand.length < 1) {
           
    
    <div className={styles.gen_subtitles}>
-   <button
-   onClick={handleNewInstruction}
-   className={styles.generate_button} >Опубликовать инструкцию</button>
+    {
+      !isInstructionLoading && (
+        <button
+        onClick={handleNewInstruction}
+        className={styles.generate_button} >Опубликовать инструкцию</button>
+      )
+    }
+
+{
+  isInstructionLoading && (
+    <p>Пожалуйста, подождите. Идет создание инструкции.</p>
+  )
+ }
+  
    </div>
     
 
@@ -383,11 +396,7 @@ steps_zustand && steps_zustand.map((step: any, idx: number) => (
   )
  }
 
-{
-  isInstructionLoading && (
-    <p>Пожалуйста, подождите. Идет создание инструкции.</p>
-  )
- }
+
 
 {
   isError && (
