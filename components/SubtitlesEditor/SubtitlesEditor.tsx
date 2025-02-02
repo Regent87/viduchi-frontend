@@ -124,7 +124,7 @@ setVideoIdForInstruction(0);
 // очистить все треки из редактора проекта
 removeAllTracks();
 // сохранить измененные субтитры в project
-const new_subtitles = await addSubtitlesToProject( project.id, subtitles_to_upload);
+const new_subtitles = await addSubtitlesToProject( project.id, String(subtitles_to_upload));
 // сохранить измененные шаги в project
 const new_steps = await addStepsToProject(project.id, steps_zustand);
 
