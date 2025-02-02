@@ -24,7 +24,7 @@ import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
 import { convertTimeToStep, convertToSubtitles, parseSubtitlesToJson } from "@/utils/subtitles";
-import { generateSteps, getAllSteps } from "@/api/client/projects";
+import { addStepsToProject, addSubtitlesToProject, generateSteps, getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
 import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
 import { createInstruction } from "@/api/client/instructions";
@@ -58,6 +58,10 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
   const selectedSubtitles = useStore((state) => state.selectedSubtitles); 
 
   const removeAllSelectedSubtitles = useStore((state) => state.removeAllSelectedSubtitles); 
+
+  const removeAllSubtitles = useStore((state) => state.removeAllSubtitles); 
+
+  const removeAllSteps = useStore((state) => state.removeAllSteps); 
   
   const setAllLastCheckedSubtitles = useStore((state) => state.setAllLastCheckedSubtitles); 
 
@@ -109,6 +113,7 @@ const new_instr = await createInstruction(instructionName, steps_zustand, videoI
 // если у нас не создана интсрукция, то выбрасываем ошибку
 if (!new_instr) {
   setIsInstructionError(true);
+  setIsInstructionLoading(false);
 } else {
   console.log("НОВАЯ ИНСТРУКЦИЯ: ", new_instr)
 // удалить номер видоса для инструкции и стора
@@ -118,11 +123,23 @@ setVideoIdForInstruction(0);
 
 // очистить все треки из редактора проекта
 removeAllTracks();
+// сохранить измененные субтитры в project
+const new_subtitles = await addSubtitlesToProject( project.id, subtitles_to_upload);
+// сохранить измененные шаги в project
+const new_steps = await addStepsToProject(project.id, steps_zustand);
+
+// сохрфнить изменненый timeline в project
+
 // очистить все шаги и субтитлы
+removeAllSubtitles();
+removeAllSteps();
 
 // 3. перебросить в раздел /instructions
 setIsInstructionLoading(false);
 router.push('/instructions');
+
+
+
 }
 
 
