@@ -241,9 +241,9 @@ export const addSubtitlesToProject = async (id: number, subtitles: string) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
-        body: JSON.stringify({ subtitles: subtitles }),
+        body: JSON.stringify({ subtitles }),
     });
 
     if (!response.ok) {
