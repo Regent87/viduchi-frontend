@@ -73,6 +73,7 @@ interface ITimelineStore {
   setAllStudents: (new_students: Istudent[]) => void;
   setStudents: (student: Istudent) => void;
   deleteStudent: (studentId: number) => void;
+  updateStudent: (id: number, new_student: Istudent) => void;
 }
 
 
@@ -124,6 +125,24 @@ const useStore = create<ITimelineStore>((set) => ({
       set((state) => ({
         students: state.students.filter((item) => item.id !== studentId),
       })),
+
+      updateStudent: (id: number, new_student: Istudent) => {
+        set((state) => {
+          const obj = state.students.find((item) => Number(item.id) == id);
+          if (obj) {
+            obj.first_name = new_student.first_name; 
+            obj.last_name = new_student.last_name; 
+            obj.surname = new_student.surname; 
+            obj.phone_number = new_student.phone_number; 
+            obj.email = new_student.email; 
+            obj.position.id = new_student.position.id; 
+            obj.position.title = new_student.position.title; 
+
+
+          }
+          return { students: [...state.students] };
+        });
+      },
 
   setTracks: (new_tracks: ITrack[]) => 
     set((state) => ({

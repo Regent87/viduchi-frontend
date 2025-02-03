@@ -20,7 +20,7 @@ export interface Istudent {
     id: number;
     email: string;
     first_name: string;
-    last_anme: string;
+    last_name: string;
     surname: string;
     position: Iposition;
     avatar_url: string;
