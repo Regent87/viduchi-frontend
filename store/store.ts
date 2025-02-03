@@ -1,4 +1,5 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
+import { Istudent } from "@/interfaces/student.interface";
 import CanvasTimeline, {
   ITimelineScaleState,
   ITimelineScrollState,
@@ -67,6 +68,11 @@ interface ITimelineStore {
 
   setAllLastCheckedSubtitles: (subtitles: Isubtitle[]) => void;
   removeAllLastCheckedSubtitles: () => void;
+
+  students: Istudent[];
+  setAllStudents: (new_students: Istudent[]) => void;
+  setStudents: (student: Istudent) => void;
+  deleteStudent: (studentId: number) => void;
 }
 
 
@@ -100,7 +106,24 @@ const useStore = create<ITimelineStore>((set) => ({
   videoIdForInstruction: 0,
   selectedSubtitles: [],
   lastCheckedSubtitles: [],
+  students: [],
 
+
+
+  setAllStudents: (new_students: Istudent[]) => 
+    set((state) => ({
+      students: new_students,
+    })),
+
+    setStudents: (student: Istudent) =>
+      set((state) => ({
+        students: [...state.students, student],
+      })),
+
+    deleteStudent: (studentId: number) =>
+      set((state) => ({
+        students: state.students.filter((item) => item.id !== studentId),
+      })),
 
   setTracks: (new_tracks: ITrack[]) => 
     set((state) => ({
