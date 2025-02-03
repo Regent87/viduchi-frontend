@@ -7,9 +7,12 @@ import { useEffect, useState } from 'react';
 import styles from './CreateStudentModal.module.css';
 import { createStudent } from "@/api/client/students";
 import { getAllPositions } from "@/api/client/positions";
+import useStore from "@/store/store";
 
 export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps) => { 
 
+    // zustand store
+    const setStudent = useStore((state) => state.setStudents);
 
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -60,12 +63,14 @@ export const CreateStudentModal = ({ isOpen, onClose }: CreateStudentModalProps)
         console.log('Почта - ', email)
         const student = await createStudent(email, name, fatherName, surname, positionId, phone);
         console.log('new student')
-        console.log(student)
+        console.log(student);
+       
         reset()
         onClose();
         if (student) {
+            setStudent(student);
             console.log("studetns refresh")
-            router.push("/admin/profile");
+            router.push("/admin/students");
         }
 setIsLoading(false)
     }

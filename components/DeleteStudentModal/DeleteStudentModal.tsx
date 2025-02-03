@@ -5,8 +5,12 @@ import styles from './DeleteStudentModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
 import { deleteStudent } from "@/api/client/students";
 import { useRouter } from "next/navigation";
+import useStore from "@/store/store";
 
 export const DeleteStudentModal = ({ isOpen, onClose, id }: DeleteStudentModalProps) => {
+
+    // zustand store
+    const deleteStudentFromStore = useStore((state) => state.deleteStudent);
 
     const router = useRouter();
 
@@ -15,6 +19,7 @@ export const DeleteStudentModal = ({ isOpen, onClose, id }: DeleteStudentModalPr
         const deletedMessage = await deleteStudent(Number(id));
         onClose();
         if (deletedMessage) {
+            deleteStudentFromStore(Number(id));
             router.push('/admin/students');       
         }
     }
