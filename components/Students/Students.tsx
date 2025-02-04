@@ -82,7 +82,7 @@ export const Students = () => {
   <tbody className={styles.list}>
 
   {
-  students.length > 0 && students.slice(page * 2 - 2, page * 2).map((student: any) => (
+  students.length > 0 && students.slice(page * 3 - 3, page * 3).map((student: any) => (
 <StudentCard key={student.id} student={student} />
   )) 
 }
@@ -103,7 +103,7 @@ export const Students = () => {
           >
             ⬅
           </span>
-          {[...Array(Math.floor(students.length / 2))].map((_, i) => (
+          {[...Array(Math.floor(students.length / 3))].map((_, i) => (
             <span
               className={`page__number ${
                 page === i + 1 ? "selected__page__number" : ""
@@ -117,7 +117,7 @@ export const Students = () => {
           <span
             onClick={() => handlePageChange(page + 1)}
             className={`arrow ${
-              page === Math.floor(students.length / 2)
+              page === Math.floor(students.length / 3)
                 ? "pagination__disabled"
                 : ""
             }`}

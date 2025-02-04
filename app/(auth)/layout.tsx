@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
 	// Показываем загрузку
 	if (loading) {
-		return <div>Загрузка1111...</div>;
+		return <div>Загрузка...</div>;
 	}
 
 	// Если пользователь не авторизован, показываем страницу авторизации
