@@ -2,6 +2,7 @@ import { API } from "@/app/api";
 import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { ProjectModel } from "@/interfaces/project.interface";
 import { IVideo } from "@designcombo/timeline";
+import { json } from "stream/consumers";
 
 export const createProject = async (title: string) => {
     const token = localStorage.getItem('jwt_token');
@@ -240,7 +241,7 @@ export const addSubtitlesToProject = async (id: number, subtitles: string) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ subtitles }),
     });

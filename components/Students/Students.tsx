@@ -9,11 +9,17 @@ import { CreateStudentModal } from '../CreateStudentModal/CreateStudentModal';
 import { EditMenu } from '../EditMenu/EditMenu';
 import { getAllStudents } from '@/api/client/students';
 import { StudentCard } from './StudentCard/StudentCard';
+import useStore from '@/store/store';
 
 export const Students = () => {
 
+
+  // zustand store
+  const students = useStore((state) => state.students);
+  const setAllStudents = useStore((state) => state.setAllStudents);
+
   // get studens from erver 
-  const [students, setStudents] = useState<any>([]);
+ // const [students, setStudents] = useState<any>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState<any>([]);
 
@@ -33,7 +39,7 @@ export const Students = () => {
                     setIsLoading(true);
         
                     const students = await getAllStudents();
-                    setStudents(students);
+                    setAllStudents(students);
         
                     setIsLoading(false);
                 };
@@ -43,7 +49,7 @@ export const Students = () => {
     }, [])
 
 
-    console.log("Students: ", students)
+    console.log("Students from store: ", students)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);

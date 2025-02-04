@@ -24,13 +24,12 @@ import DeleteIcon from "./delete.svg";
 
 import useStore from '@/store/store';
 import { convertTimeToStep, convertToSubtitles, parseSubtitlesToJson } from "@/utils/subtitles";
-import { generateSteps, getAllSteps } from "@/api/client/projects";
+import { addStepsToProject, addSubtitlesToProject, generateSteps, getAllSteps } from "@/api/client/projects";
 import { StepItem } from "./StepItem/StepItem";
 import { SubtitleItem } from "./SubtitleItem/SubtitleItem";
 import { createInstruction } from "@/api/client/instructions";
 
 export interface Istep {
-  id: number;
   start: number;
   text: string;
 }
@@ -44,6 +43,8 @@ export interface Isubtitle {
 export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEditorProps ) => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isInstructionLoading, setIsInstructionLoading] = useState(false);
+  const [isInstructionError, setIsInstructionError] = useState(false);
   const [isError, setIsError] = useState(false);
 
   // Zustand store
@@ -57,10 +58,34 @@ export const SubtitlesEditor =  ({project, className, ...props }: SubtitlesEdito
   const selectedSubtitles = useStore((state) => state.selectedSubtitles); 
 
   const removeAllSelectedSubtitles = useStore((state) => state.removeAllSelectedSubtitles); 
+
+  const removeAllSubtitles = useStore((state) => state.removeAllSubtitles); 
+
+  const removeAllSteps = useStore((state) => state.removeAllSteps); 
   
   const setAllLastCheckedSubtitles = useStore((state) => state.setAllLastCheckedSubtitles); 
 
-  const videoIdoForInstruction =useStore((state) => state.videoIdForInstruction);
+  const videoIdoForInstruction = useStore((state) => state.videoIdForInstruction);
+
+  const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruction);
+
+  const removeAllTracks = useStore((state) => state.removeAllTracks);
+
+  const storeSubtitles = useStore((state) => state.subtitles);
+  const setStoreSubtitles = useStore((state) => state.setSubtitles);
+
+    const [projectName, setProjectName] = useState("");
+      const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
+      const [isShown, setIsShown] = useState(false);
+
+      const [isAddStepShown, setIsAddStepShown] = useState(false);
+
+      const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
+
+const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
+
+// -------------------------store ends
+
 
 const [ instructionName, setInstructionName ] = useState("Инструкция 1")
 
@@ -69,20 +94,59 @@ console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
 
 // создание инструкции
 const handleNewInstruction = async () => {
+
+  setIsInstructionLoading(true);
+  // если айди видео из зустанда равно нулю, то выводим ошибку
+ if (videoIdoForInstruction === 0) {
+  setIsInstructionError(true);
+ } else {
   console.log("STEPS FROM ZUSTAND: ", steps_zustand);
   console.log("SUBTITLES_FROM_ZUSTAND: ", subtitles_zustand);
   console.log("VIDEO ID TO UPLOAD FROM ZUSTAND: ", videoIdoForInstruction);
-  console.log("INSTRICTION NAME: ", instructionName)
-
- 
+  console.log("INSTRICTION NAME: ", instructionName);
   // 1. Привести субтитлы в строку с помощью функции 
   const subtitles_to_upload = convertToSubtitles(subtitles_zustand)
-  console.log("Subtitles in string: ", subtitles_to_upload)
+  console.log("Subtitles in string: ", subtitles_to_upload);
 //2 сделать запрос на создание инструкции
 const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+
+// если у нас не создана интсрукция, то выбрасываем ошибку
+if (!new_instr) {
+  setIsInstructionError(true);
+  setIsInstructionLoading(false);
+} else {
+  console.log("НОВАЯ ИНСТРУКЦИЯ: ", new_instr)
+// удалить номер видоса для инструкции и стора
+setVideoIdForInstruction(0);
+
+// сохранить все треки из редактора на сервер
+
+// очистить все треки из редактора проекта
+removeAllTracks();
+// сохранить измененные субтитры в project
+// const new_subtitles = await addSubtitlesToProject( project.id, String(subtitles_to_upload));
+// сохранить измененные шаги в project
+// const new_steps = await addStepsToProject(project.id, steps_zustand);
+
+// сохрфнить изменненый timeline в project
+
+// очистить все шаги и субтитлы
+removeAllSubtitles();
+removeAllSteps();
+
 // 3. перебросить в раздел /instructions
- 
-  router.push('/instructions');
+setIsInstructionLoading(false);
+router.push('/instructions');
+
+
+
+}
+
+
+ }
+
+  
+
 
 
 }
@@ -112,18 +176,7 @@ console.log("GOT RESPONSE FROM SERVER STEPS: ", generatedStepsResponse)
 
 
 
-  const storeSubtitles = useStore((state) => state.subtitles);
-  const setStoreSubtitles = useStore((state) => state.setSubtitles);
 
-    const [projectName, setProjectName] = useState("");
-      const [isUploadMediaOpen, setIsUploadMediaOpen] = useState(true);
-      const [isShown, setIsShown] = useState(false);
-
-      const [isAddStepShown, setIsAddStepShown] = useState(false);
-
-      const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
-
-const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
 
       /*
 МОКОВЫЕ ДАЕЕЫЕ СУБТИТРОВ
@@ -158,7 +211,6 @@ const [currentSubtitleText, setCurrentSubtitleText ] = useState("");
         const newStepStart: number = convertTimeToStep(selectedSubtitles[0].timeline);
        
         const newStep: Istep = {
-          id: Math.random(),
           start: newStepStart,
           text: "Новый шаг"
         };
@@ -209,7 +261,12 @@ divElement!.scrollIntoView(false);
           const stepsFromServer = await getAllSteps(project.id);
           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
           // const steps = stepsFromServer;
-          setAllSteps(stepsFromServer);
+
+          // если шаги в сторе пустые, то загружаем шаги из базы данных
+if (steps_zustand.length < 1) {
+  setAllSteps(stepsFromServer);
+}
+         
          // setSteps(rawSteps.steps)
         }
          fetchSteps();
@@ -296,9 +353,20 @@ divElement!.scrollIntoView(false);
           
    
    <div className={styles.gen_subtitles}>
-   <button
-   onClick={handleNewInstruction}
-   className={styles.generate_button} >Опубликовать инструкцию</button>
+    {
+      !isInstructionLoading && (
+        <button
+        onClick={handleNewInstruction}
+        className={styles.generate_button} >Опубликовать инструкцию</button>
+      )
+    }
+
+{
+  isInstructionLoading && (
+    <p>Пожалуйста, подождите. Идет создание инструкции.</p>
+  )
+ }
+  
    </div>
     
 
@@ -328,9 +396,10 @@ divElement!.scrollIntoView(false);
 
 <div id="steplist" className={styles.stepList}>
 {
-steps_zustand && steps_zustand.map((step: any) => (
+steps_zustand && steps_zustand.map((step: any, idx: number) => (
    <StepItem
-   key={step.id}
+   key={idx}
+   id={step.start}
    step={step} />
 
   ))
@@ -344,9 +413,17 @@ steps_zustand && steps_zustand.map((step: any) => (
   )
  }
 
+
+
 {
   isError && (
     <p className="red">Произошла ошибка во время генерации шагов. Пожалуйста, повторите еще.</p>
+  )
+ }
+
+{
+  isInstructionError && (
+    <p className="red">Произошла ошибка во время добавления инструкции.</p>
   )
  }
               
@@ -354,7 +431,7 @@ steps_zustand && steps_zustand.map((step: any) => (
                
                
                {
-    !isLoading && (
+    !isLoading && !isInstructionLoading && (
       <>
        <button
                 onClick={() => {

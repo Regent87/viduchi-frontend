@@ -7,18 +7,21 @@ import styles from './EditStudentModal.module.css';
 import { useRouter } from 'next/navigation';
 import { updateStudent } from "@/api/client/students";
 import { getAllPositions } from "@/api/client/positions";
+import useStore from "@/store/store";
 
 export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalProps) => {
 
    // console.log(" ОКНО СТУДЕНТА ", student)
 
+   // zustand store
+   const updateStudentInStore = useStore((state) => state.updateStudent);
 
 
     const [studentId, setStudentId] = useState(student.student.id);
     const [name, setName] = useState(student.student.first_name);
     const [surname, setSurname] = useState(student.student.surname);
     const [fatherName, setFatherName] = useState(student.student.last_name);
-    const [phone, setPhone] = useState('+737529788888');
+    const [phone, setPhone] = useState(student.student.phone_number);
     const [position, setPosition] = useState('Электрик');
     const [positionId, setPositionId] = useState(0);
     const [email, setEmail] = useState(student.student.email);
@@ -63,8 +66,10 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
                 reset()
                 onClose();
                 if (student) {
+                    console.log("UPDATED STUDENT: ", student)
+                   // updateStudentInStore(studentId, student);
                     console.log("studetns refresh")
-                    router.push("/admin/profile");
+                    router.push("/admin/students");
                 }
      }
 
