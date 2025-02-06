@@ -49,6 +49,9 @@ export default function InstructionList({ className }: InstructionListProps)  {
     const [instructions, setInstructions] = useState<InstructionModel[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
+
+   /// console.log("INSTRUCTION LIST: ", instructions)
+
     useEffect(() => {
 
         const fetchInstructions = async () => {
