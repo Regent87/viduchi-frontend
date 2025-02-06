@@ -74,6 +74,7 @@ export const deleteInstruction = async (id: number) => {
 
 
 export const updateInstructionTitle = async (id: number, title: string) => {
+   
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.instructions.editTitle(id), {
         method: 'PATCH',
@@ -82,6 +83,7 @@ export const updateInstructionTitle = async (id: number, title: string) => {
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ title }),
+      
     });
 
     if (!response.ok) {

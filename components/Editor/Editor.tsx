@@ -390,11 +390,12 @@ useEffect(() => {
        {/* <CropIcon />
        <EllypsisIcon /> */}
 
-       <button
+       {/* <button
        onClick={() => {
         router.push('/subtitles/' + project.id )
        }}
-       className={styles.editInstruction} >Редактировать инструкцию</button>
+       className={styles.editInstruction} >Редактировать инструкцию</button> */}
+
       <CreateInstruction projectId={project.id} />
    </div>
       </div>

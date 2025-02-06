@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "render": "node renderer/render.mjs"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.6",
@@ -21,6 +22,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@remotion/media-utils": "4.0.210",
     "@remotion/player": "4.0.210",
+    "@remotion/bundler": "4.0.210",
     "@remotion/renderer": "4.0.210",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
