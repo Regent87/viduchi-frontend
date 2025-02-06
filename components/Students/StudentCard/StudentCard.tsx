@@ -18,7 +18,7 @@ export const StudentCard = (student: any) => {
     return (
 <>
         <tr>
-        <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
+        <td><Image className={styles.userImage} src={avatar} alt='avatar' /> </td>
         <td>{student.student.first_name} {student.student.surname}</td>
         <td>{student.student.position.title}</td>
         <td>{student.student.phone_number}</td>

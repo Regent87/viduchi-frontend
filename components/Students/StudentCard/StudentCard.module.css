@@ -1,3 +1,8 @@
 .addStudent {
     cursor: pointer;
   }
+
+  .userImage {
+    width: 50px;
+    height: auto;
+  }
