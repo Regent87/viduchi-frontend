@@ -1,6 +1,7 @@
 import { continueRender, delayRender, registerRoot } from "remotion";
-import Composition from "./composition";
+import { RemotionRoot } from "./RemotionRoot";
+
 
  
 
-  registerRoot(Composition);
+  registerRoot(RemotionRoot);

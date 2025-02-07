@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react";
-import Composition from "./composition";
+import CompositionVideos from "./composition";
 import { Player as RemotionPlayer, PlayerRef } from "@remotion/player";
 import useStore from "../../store/store";
+import { RemotionRoot } from "./RemotionRoot";
 
 const Player = () => {
   const playerRef: any = useRef<PlayerRef>(null);
@@ -34,9 +35,8 @@ const Player = () => {
   return (
    
     <RemotionPlayer
-  
       ref={playerRef}
-      component={Composition}
+      component={CompositionVideos}
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
       compositionWidth={1100}
       compositionHeight={750}

@@ -1,20 +1,21 @@
 import useStore from "../../store/store";
 import { SequenceItem } from "./sequence-item";
 
+
 type ItemType = "text" | "image" | "video" | "audio";
 
-const Composition = () => {
+const CompositionVideos = () => {
   const { trackItemIds, trackItemsMap, fps } = useStore();
   return (
-    <div id='myComp'>
+    <>
       {trackItemIds.map((id) => {
         const item = trackItemsMap[id];
         return SequenceItem[item.type as ItemType](item, {
           fps
         });
       })}
-    </div>
+    </>
   );
 };
 
-export default Composition;
+export default CompositionVideos;

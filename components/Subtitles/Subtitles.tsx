@@ -4,7 +4,7 @@ import { SubtitlesCaption } from "../SubtitlesCaption/SubtitlesCaption";
 import { Audio, Video } from "remotion";
 import { useVideoConfig, staticFile } from "remotion";
 
-import useStore from "@/store/store";
+import useStore from "../../store/store";
 
 
 
