@@ -10,10 +10,10 @@ console.log("PAth: ", path.join(process.cwd(), './components/player/root.ts'))
 // You only have to create a bundle once, and you may reuse it
 // for multiple renders that you can parametrize using input props.
 const bundleLocation = await bundle({
-// ignoreRegisterRootWarning: true,
+ ignoreRegisterRootWarning: true,
   entryPoint: path.join(process.cwd(), './components/player/root.ts'),
   // If you have a webpack override in remotion.config.ts, pass it here as well.
- // webpackOverride: (config) => config,
+  // webpackOverride: (config) => config,
 });
 
 
@@ -42,12 +42,12 @@ console.log("Composition: ", composition)
 // if your video is parametrized with data.
 
 
-// await renderMedia({
-//   composition,
-//   serveUrl: bundleLocation,
-//   codec: 'h264',
-//   outputLocation: `out/${compositionId}.mp4`,
-//   inputProps,
-// });
+await renderMedia({
+  composition,
+  serveUrl: bundleLocation,
+  codec: 'h264',
+  outputLocation: `out/${compositionId}.mp4`,
+  inputProps,
+});
  
 console.log('Render done!');

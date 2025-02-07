@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import CompositionVideos from "./composition";
 import { Player as RemotionPlayer, PlayerRef } from "@remotion/player";
 import useStore from "../../store/store";
-import { RemotionRoot } from "./RemotionRoot";
+
 
 const Player = () => {
   const playerRef: any = useRef<PlayerRef>(null);
