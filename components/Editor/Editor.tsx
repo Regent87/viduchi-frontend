@@ -277,11 +277,14 @@ if (file.type === "video/mp4") {
 
 }
     // если аудио то загрузить аудио
+    if (file.type == 'audio/mpeg') {
+      
+    }
 
-    const fileWithUrl = file as FileWithUrl;
-    fileWithUrl.url = URL.createObjectURL(file);
+  //  const fileWithUrl = file as FileWithUrl;
+  //  fileWithUrl.url = URL.createObjectURL(file);
 
-    setUploadedFiles(fileWithUrl);
+  //  setUploadedFiles(fileWithUrl);
     setIsBottomMenuUploadVideoOpen(false);
   };
 
