@@ -271,6 +271,20 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = () => {
+export const saveProjectTimeline = async (id: number, tracks: any, trackItemIds: any, trackItemsMap: any, fps: any) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.saveTimeline(id), {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps }),
+    });
 
+    if (!response.ok) {
+        throw new Error('Failed to save data of project');
+    }
+
+    return await response.json();
 }

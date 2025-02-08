@@ -37,6 +37,7 @@ const Player = () => {
     <RemotionPlayer
       ref={playerRef}
       component={CompositionVideos}
+    
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
       compositionWidth={1100}
       compositionHeight={750}

@@ -38,6 +38,12 @@ interface ITimelineStore {
   setTracks: (new_tracks: ITrack[]) => void;
   removeAllTracks: () => void;
 
+  setTrackItemIds: (new_trackItemIds: string[]) => void;
+
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => void;
+
+  setFps: (new_fps: number) => void;
+
   setUploadedFiles: (uploadedFile: FileWithUrl) => void;
   deleteUploadedFile: (fileUrl: string) => void;
 
@@ -118,7 +124,20 @@ const useStore = create<ITimelineStore>((set) => ({
   videosFromServer: [],
 
 
+  setFps: (new_fps: number) => 
+    set((state) => ({
+      fps: new_fps,
+    })),
 
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => 
+    set((state) => ({
+      trackItemsMap: new_trackItemsMap,
+    })),
+
+  setTrackItemIds: (new_trackItemIds: string[]) => 
+    set((state) => ({
+      trackItemIds: new_trackItemIds,
+    })),
 
   setAllVideosFromServer: (new_videos: IvideoFromServer[]) => 
     set((state) => ({

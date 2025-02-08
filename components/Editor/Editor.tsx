@@ -40,9 +40,10 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectVideo, getAllAudios, getAllVideos } from "@/api/client/projects";
+import { addProjectVideo, getAllAudios, getAllVideos, saveProjectTimeline } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
+import { saveProjectData } from "@/utils/save_editor";
 
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
@@ -51,6 +52,20 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   // zustand store
   const videosFromServer = useStore((state) => state.videosFromServer);
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
+
+  const tracks = useStore((state) => state.tracks);
+  const trackItemIds = useStore((state) => state.trackItemIds);
+  const trackItemsMap = useStore((state) => state.trackItemsMap);
+  const fps = useStore((state) => state.fps);
+
+
+  const handleSaveProjectData = async () => {
+    const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps);
+    if (savedData) {
+      console.log("DATA WAS SAVED TO DB FROM EDITOR");
+    }
+  }
+
 
   const router = useRouter();
 
@@ -207,8 +222,8 @@ const[ videos, setVideos ] = useState<any>([]);
   const { playerRef, setState } = useStore();
   useTimelineEvents();
 
-  const store = useStore();
-  const tracks = useStore((state) => state.tracks);
+ // const store = useStore();
+  
   
 useEffect(() => {
   console.log("ZUSTAND STORE TRACKS: ");
@@ -362,7 +377,9 @@ if (file.type === "video/mp4") {
     <>
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
-          <MenuIcon />
+          <MenuIcon
+          onClick={handleSaveProjectData}
+          />
         
 
           <nav>
