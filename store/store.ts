@@ -1,5 +1,6 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { Istudent } from "@/interfaces/student.interface";
+import { IvideoFromServer } from "@/interfaces/video.interface";
 import CanvasTimeline, {
   ITimelineScaleState,
   ITimelineScrollState,
@@ -74,6 +75,12 @@ interface ITimelineStore {
   setStudents: (student: Istudent) => void;
   deleteStudent: (studentId: number) => void;
   updateStudent: (id: number, new_student: Istudent) => void;
+
+  videosFromServer: IvideoFromServer[];
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => void;
+
+
+
 }
 
 
@@ -108,8 +115,15 @@ const useStore = create<ITimelineStore>((set) => ({
   selectedSubtitles: [],
   lastCheckedSubtitles: [],
   students: [],
+  videosFromServer: [],
 
 
+
+
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => 
+    set((state) => ({
+      videosFromServer: new_videos,
+    })),
 
   setAllStudents: (new_students: Istudent[]) => 
     set((state) => ({

@@ -40,13 +40,17 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { getAllAudios, getAllVideos } from "@/api/client/projects";
+import { addProjectVideo, getAllAudios, getAllVideos } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
+
+  // zustand store
+  const videosFromServer = useStore((state) => state.videosFromServer);
+  const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
 
   const router = useRouter();
 
@@ -79,26 +83,26 @@ const[ audios, setAudios ] = useState<any>([]);
 
     // Загружаем видеофайлы с сервера
     const [ isVideoLoading, setIsVideoLoading ] = useState(false);
-const [ videosFromServer, setVideosromServer ] = useState<any>([]);
+// const [ videosFromServer, setVideosromServer ] = useState<any>([]);
 const[ videos, setVideos ] = useState<any>([]);
 
 
 
-  //   useEffect(() => {
+    useEffect(() => {
 
-  //     const fetchVideos = async () => {
-  //       setIsVideoLoading(true);
+      const fetchVideos = async () => {
+        setIsVideoLoading(true);
       
-  //                 const videos = await getAllVideos(project.id);
-  //                 setVideos(videos);
+                  const videos = await getAllVideos(project.id);
+                  setVideosFromServer(videos);
       
-  //                 setIsVideoLoading(false);
-  //             };
-  //             fetchVideos();
+                  setIsVideoLoading(false);
+              };
+              fetchVideos();
            
            
 
-  // }, [])
+  }, [])
 
 
  
@@ -245,9 +249,34 @@ useEffect(() => {
     }
   };
 
-  const handleFileChange = (newFiles: File[]) => {
+  const handleFileChange = async (newFiles: File[]) => {
     const file = newFiles[0];
     if (!file) return;
+
+    // загрузка файла на сервер
+    // првоерить если тип файла видео то загрузить на сервер видео
+if (file.type === "video/mp4") {
+  // загрузить файл на сайт
+  let formData = new FormData();
+  formData.append("video_file", file);
+ 
+  const uploadedFile: any = await addProjectVideo(project.id, formData);
+
+  // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
+  if (uploadedFile) {
+    const fetchVideos = async () => {
+      setIsVideoLoading(true);
+    
+                const videos = await getAllVideos(project.id);
+                setVideosFromServer(videos);
+    
+                setIsVideoLoading(false);
+            };
+            fetchVideos();
+  }
+
+}
+    // если аудио то загрузить аудио
 
     const fileWithUrl = file as FileWithUrl;
     fileWithUrl.url = URL.createObjectURL(file);
@@ -288,7 +317,7 @@ useEffect(() => {
         id: generateId(),
         details: {
           src: URL.createObjectURL(files[0]),
-          volume: 50,
+          volume: 100,
         },
       },
     });
@@ -423,13 +452,13 @@ useEffect(() => {
 
             {/* здесь сделать иэп по коипонентам видео и аудио с сервера */}
 
-            {/* {
-              videos.length > 0 && 
-              videos.map((video: any) => (
+            {
+              videosFromServer.length > 0 && 
+              videosFromServer.map((video: any) => (
                 <VideoItemCardFromServer key={video.video_url}  videoItem={video} projectId={project.id} />
                
               ))
-            } */}
+            }
 
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {
