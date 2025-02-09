@@ -1,4 +1,4 @@
-import { API } from "@/app/api";
+import { API } from "../../app/api";
 import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { ProjectModel } from "@/interfaces/project.interface";
 import { ITrack, ITrackItem, IVideo } from "@designcombo/timeline";
@@ -289,3 +289,26 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
 
     return await response.json();
 }
+
+
+
+/*
+FOR SERVER NODEJS RENDERING
+
+*/
+
+export const getProjectByIdForRendering = async (id: number, jwt_token: string) => {
+    const token = jwt_token;
+    const response = await fetch(`https://api-dev.viduchi.ru/admin-api/v1/projects/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get project');
+    }
+
+    return await response.json();
+};

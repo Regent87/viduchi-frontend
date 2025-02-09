@@ -1,7 +1,9 @@
 import {bundle} from '@remotion/bundler';
 import {renderMedia, selectComposition, getCompositions} from '@remotion/renderer';
 import path from 'path';
- 
+
+
+
 // The composition you want to render
 const compositionId = 'myComp';
 

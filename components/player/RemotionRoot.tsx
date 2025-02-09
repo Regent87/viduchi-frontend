@@ -15,8 +15,8 @@ export const RemotionRoot: React.FC = () => {
         // component={CompositionVideos}
          durationInFrames={150}
          fps={30}
-        width={1920}
-        height={1080}
+        // width={1920}
+        // height={1080}
         // width={1080}
         // height={1080}
         // fps={30}
@@ -24,16 +24,16 @@ export const RemotionRoot: React.FC = () => {
         // defaultProps={{}}
 id="myComp"
      //   ref={playerRef}
-        component={HelloWorld}
-        defaultProps={{
-          titleText: "Welcome to Remotion",
-          titleColor: "#000000",
-          logoColor1: "#91EAE4",
-          logoColor2: "#86A8E7",
-        }}
+        component={CompositionVideos}
+        // defaultProps={{
+        //   titleText: "Welcome to Remotion",
+        //   titleColor: "#000000",
+        //   logoColor1: "#91EAE4",
+        //   logoColor2: "#86A8E7",
+        // }}
      //   durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
-        // width={1100}
-        // height={750}
+        width={1100}
+        height={750}
         // style={{ width: "100%", height: "100%", background: 'transparent' }}
        // inputProps={{}}
        // fps={fps}
