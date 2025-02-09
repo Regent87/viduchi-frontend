@@ -26,12 +26,14 @@ export const RemotionRoot: React.FC = () => {
    // console.log("PROJECT FROM SERBER timeline: ", project.timeline)
   const duration = project.timeline?.duration;
   const fps = project.timeline?.fps;
+  console.log("DURATION FROM SERVER IN ROOT: ", duration)
+  console.log("FPS FROM SERVER IN ROOT: ", fps)
 
   return (
     <>
       <Composition
         // component={CompositionVideos}
-         durationInFrames={1692}
+         durationInFrames={846}
          fps={30}
         // width={1920}
         // height={1080}

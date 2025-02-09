@@ -59,6 +59,25 @@ export const addProjectVideo = async (id: number, formData: any) => {
 
 };
 
+
+export const addProjectAudio = async (id: number, formData: any) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.addAudio(id), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to add audio');
+    }
+
+    return await response.json();
+
+};
+
 export const deleteProject = async (id: number): Promise<any> => {
 
     const token = localStorage.getItem('jwt_token');
@@ -133,6 +152,24 @@ export const deleteVideoFromProject = async (id: number, videoId: number) => {
     }
 
     return {message: "Video file was deleted"};
+
+}
+
+export const deleteAudioFromProject = async (id: number, audioId: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.deleteAudio(id, audioId), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete audio');
+    }
+
+    return {message: "Audio file was deleted"};
 
 }
 

@@ -17,3 +17,10 @@ export interface IvideoFromServer {
 	video_url: string;
 	cover_url: string;
 }
+
+
+export interface IaudioFromServer {
+	id: number;
+	project_id: number;
+	audio_url: string;
+}

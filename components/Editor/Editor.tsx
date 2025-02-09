@@ -40,10 +40,12 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectVideo, getAllAudios, getAllVideos, saveProjectTimeline } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, saveProjectTimeline } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 import { saveProjectData } from "@/utils/save_editor";
+import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
+import { IaudioFromServer } from "@/interfaces/video.interface";
 
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
@@ -51,7 +53,9 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // zustand store
   const videosFromServer = useStore((state) => state.videosFromServer);
+ 
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
+
 
   const tracks = useStore((state) => state.tracks);
   const trackItemIds = useStore((state) => state.trackItemIds);
@@ -81,6 +85,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   // загружаем аудиофайлы с сервера
 const [ isAudioLoading, setIsAudioLoading ] = useState(false);
 const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
+const setAudiosFromVerver = useStore((state) => state.setAllAudiosFromServer);
 const[ audios, setAudios ] = useState<any>([]);
 
  useEffect(() => {
@@ -89,17 +94,17 @@ const[ audios, setAudios ] = useState<any>([]);
           setIsAudioLoading(true);
         
                     const audios = await getAllAudios(project.id);
-                    setAudios(audios);
+                    setAudiosFromServer(audios);
         
                     setIsAudioLoading(false);
                 };
                 fetchAudios();
-               console.log("AUDIOS: ", audios)
-                if (audios.length > 0) {
-                  audios.map((audio: any) => {
-                    handleAddAudioFromServer(audio.audio_url);
-                  })
-                }
+               console.log("AUDIOS FROM SERVER: ", audiosFromServer)
+                // if (audios.length > 0) {
+                //   audios.map((audio: any) => {
+                //     handleAddAudioFromServer(audio.audio_url);
+                //   })
+                // }
             
     }, [])
 
@@ -131,7 +136,7 @@ const[ videos, setVideos ] = useState<any>([]);
  
 
 
-  console.log("VIDEOS: ", videos)
+
   // if (videos.length) {
   //   handelAddVideoFromServer(videos[0].video_url);
   //   // videos.map((video: any) => {
@@ -171,6 +176,15 @@ const[ videos, setVideos ] = useState<any>([]);
   // нижнее меню загрузки видео
   const [isBottomMenuUploadVideoOpen, setIsBottomMenuUploadVideoOpen] =
     useState(false);
+
+
+  console.log("VIDEOS: ", videos)
+
+
+
+  
+
+
 
     // окно субтитров
     const [isSubtitlesOpen, setIsSubtitlesOpen] = useState(true)
@@ -301,6 +315,22 @@ if (file.type === "video/mp4") {
 }
     // если аудио то загрузить аудио
     if (file.type == 'audio/mpeg') {
+// загрузить файл на сайт
+let formData = new FormData();
+formData.append("audio_file", file);
+
+const uploadedFile: any = await addProjectAudio(project.id, formData);
+if (uploadedFile) {
+  const fetchAudios = async () => {
+    setIsVideoLoading(true);
+  
+              const audios = await getAllAudios(project.id);
+              setAudiosFromServer(audios);
+  
+              setIsVideoLoading(false);
+          };
+          fetchAudios();
+}
       
     }
 
@@ -488,6 +518,16 @@ if (file.type === "video/mp4") {
               ))
             }
 
+            {
+              audiosFromServer.length > 0 && 
+              audiosFromServer.map((audio: IaudioFromServer) => (
+                <AudioItemCardFromServer key={audio.audio_url}  audioItem={audio} projectId={project.id} />
+               
+              ))
+            }
+
+            
+
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {
               //  console.log(uploadedFile);
@@ -532,7 +572,7 @@ if (file.type === "video/mp4") {
             onDragOver={(e) => dragStartHandler(e)}
             onDrop={(e) => onDropHandler(e)}
             className={styles.dragMedia}
-            style={ uploadedFiles.length > 0 || audios.length > 0 ? { display: 'none' } : { display: 'flex' } }
+            style={ videosFromServer.length > 0 || audios.length > 0 ? { display: 'none' } : { display: 'flex' } }
           >
             <Image src={uploadMediaPhoto} alt="upload media" />
             {drag ? (
