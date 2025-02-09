@@ -271,7 +271,7 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number) => {
+export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.saveTimeline(id), {
         method: 'PATCH',
@@ -280,7 +280,7 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
             'Content-Type': 'application/json',
             // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
-        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps }),
+        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration }),
     });
 
     if (!response.ok) {

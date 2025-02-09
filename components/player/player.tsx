@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import CompositionVideos from "./composition";
 import { Player as RemotionPlayer, PlayerRef } from "@remotion/player";
 import useStore from "../../store/store";
+import CompositionVideosForClient from "./compositionForClient";
 
 
 const Player = () => {
@@ -36,7 +37,7 @@ const Player = () => {
    
     <RemotionPlayer
       ref={playerRef}
-      component={CompositionVideos}
+      component={CompositionVideosForClient}
     
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
       compositionWidth={1100}

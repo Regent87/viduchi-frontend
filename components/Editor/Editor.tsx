@@ -57,6 +57,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const trackItemIds = useStore((state) => state.trackItemIds);
   const trackItemsMap = useStore((state) => state.trackItemsMap);
   const fps = useStore((state) => state.fps);
+  const duration = useStore((state) => state.duration);
 
 
   const handleSaveProjectData = async () => {
@@ -65,7 +66,8 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
     console.log("TRACKS ITEMS IDS: ", trackItemIds);
     console.log("TRACKS ITEMS MAP: ", trackItemsMap);
     console.log("FPS: ", fps);
-     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps);
+    console.log("DURATION: ", duration);
+     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
     if (savedData) {
       console.log("DATA WAS SAVED TO DB FROM EDITOR");
     }
