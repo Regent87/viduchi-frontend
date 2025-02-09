@@ -1,7 +1,7 @@
 import { API } from "@/app/api";
 import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { ProjectModel } from "@/interfaces/project.interface";
-import { IVideo } from "@designcombo/timeline";
+import { ITrack, ITrackItem, IVideo } from "@designcombo/timeline";
 import { json } from "stream/consumers";
 
 export const createProject = async (title: string) => {
@@ -271,12 +271,13 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = async (id: number, tracks: any, trackItemIds: any, trackItemsMap: any, fps: any) => {
+export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.saveTimeline(id), {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
             // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps }),
