@@ -66,6 +66,20 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const duration = useStore((state) => state.duration);
 
 
+  // render video on nodejs server
+  const handleRenderVideoOnServer = async () => {
+    const response = await fetch('http://localhost:4000/api/rendervideo', {
+      method: 'GET',
+  });
+
+  if (!response.ok) {
+      throw new Error('Failed to render video');
+  }
+
+  return await response.json();
+}
+  
+
   // save project to JSON server
   const handleGetAndSendProjectToServer = async () => {
     // fetch project by id to get updated data
@@ -449,7 +463,8 @@ if (uploadedFile) {
         <aside className={styles.leftMenu}>
           <MenuIcon
         //  onClick={handleSaveProjectData}
-          onClick={handleGetAndSendProjectToServer}
+        //  onClick={handleGetAndSendProjectToServer}
+        onClick={handleRenderVideoOnServer}
           />
         
 
