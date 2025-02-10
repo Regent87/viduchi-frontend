@@ -93,17 +93,35 @@ console.log("Composition: ", composition)
 // Render the video. Pass the same `inputProps` again
 // if your video is parametrized with data.
 
+const finalOutput = `out/${compositionId}.mp4`;
 
 await renderMedia({
   composition,
   serveUrl: bundleLocation,
   codec: 'h264',
-  outputLocation: `out/${compositionId}.mp4`,
+  outputLocation: finalOutput,
   inputProps,
 });
- 
+
 console.log('Render done!');
-res.status(200).json({ message: "Render done" });
+
+const options = {
+  root:  path.join(process.cwd(), './out/')
+};
+
+const fileName =`${compositionId}.mp4`;
+res.sendFile(fileName, options, function (err) {
+  if (err) {
+      console.error('Error sending file:', err);
+  } else {
+      console.log('Sent:', fileName);
+  }
+});
+
+ // return res.sendFile( path.join(process.cwd(), './' + finalOutput));
+ 
+
+// res.status(200).json({ message: "Render done" });
 
 })
 

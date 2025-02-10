@@ -47,6 +47,7 @@ import { saveProjectData } from "@/utils/save_editor";
 import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
 import { IaudioFromServer } from "@/interfaces/video.interface";
 
+// import renderedVideo from "../../out/myComp.mp4";
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
@@ -76,10 +77,14 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
       throw new Error('Failed to render video');
   }
 
-  return await response.json();
+  console.log("RESPONSE FROM RENDERED FILE: ", response)
+
+  return response;
 }
   
 
+
+// console.log("RENDERED VIDEO: ", renderedVideo)
   // save project to JSON server
   const handleGetAndSendProjectToServer = async () => {
     // fetch project by id to get updated data
