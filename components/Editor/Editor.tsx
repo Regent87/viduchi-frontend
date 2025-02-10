@@ -40,7 +40,7 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, saveProjectTimeline } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 import { saveProjectData } from "@/utils/save_editor";
@@ -50,6 +50,8 @@ import { IaudioFromServer } from "@/interfaces/video.interface";
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
+  // updated project to send to server
+  const [updatedProject, setUpdatedProject] = useState({});
 
   // zustand store
   const videosFromServer = useStore((state) => state.videosFromServer);
@@ -62,6 +64,36 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const trackItemsMap = useStore((state) => state.trackItemsMap);
   const fps = useStore((state) => state.fps);
   const duration = useStore((state) => state.duration);
+
+
+  // save project to JSON server
+  const handleGetAndSendProjectToServer = async () => {
+    // fetch project by id to get updated data
+    const fetchNewProject = async () => {
+      const newProject = await getProjectById(project.id);
+      if (newProject) {
+        setUpdatedProject(newProject);
+      }
+    }
+
+    fetchNewProject();
+
+    // send updated project to server
+       const response = await fetch('http://localhost:4000/api/sendproject', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({ updatedProject }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to send project');
+        }
+    
+        return await response.json();
+  }
 
 
   const handleSaveProjectData = async () => {
@@ -416,7 +448,8 @@ if (uploadedFile) {
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
           <MenuIcon
-          onClick={handleSaveProjectData}
+        //  onClick={handleSaveProjectData}
+          onClick={handleGetAndSendProjectToServer}
           />
         
 

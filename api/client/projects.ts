@@ -24,6 +24,9 @@ export const createProject = async (title: string) => {
 
 
 
+
+
+
 export const getProjects = async (): Promise<ProjectModel[]> => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.list, {
@@ -218,6 +221,7 @@ export const addStepsToProject = async (id: number, steps: any) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ steps }),
@@ -239,6 +243,7 @@ export const updateStep = async (id: number, stepId: number, step: any) => {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ step }),
