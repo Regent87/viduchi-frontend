@@ -11,4 +11,5 @@ services:
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-    command: npm run dev
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
