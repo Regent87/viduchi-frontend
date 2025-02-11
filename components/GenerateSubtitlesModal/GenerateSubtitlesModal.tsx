@@ -128,7 +128,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     }).then(r => r.blob());
 
     console.log("BLOB FROM SERVER: ", blob)
-    let fileOfBlob = new File([blob], 'rendered.mp4');
+    let fileOfBlob = new File([blob], 'rendered.mp4', { type: 'video/mp4' });
     console.log("FILE FROM BLOB: ", fileOfBlob)
 
     return fileOfBlob;
