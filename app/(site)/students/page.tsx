@@ -1,12 +1,11 @@
-import { AdminMenu } from "@/components/AdminMenu/AdminMenu";
 import { Students } from "@/components/Students/Students";
-
+import { StudentsMenu } from "@/components/StudentsMenu/StudentsMenu";
 
 export default function StudentsPage() {
 
     return (
-        <main className={'admin'}>
-          <AdminMenu />
+        <main className={'students'}>
+          <StudentsMenu />
           <Students />
         </main>
     )

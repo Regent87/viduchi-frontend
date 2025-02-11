@@ -1,10 +1,23 @@
+export interface PositionModel {
+	id: number;
+	title: string;
+}
+
 export interface StudentModel {
-	account_id: number;
+	id: number;
 	email: string;
-	role: string;
-	user_id: number;
     first_name: string;
     last_name: string;
     surname: string;
-    phone: string;
+    phone_number: string;
+    position: PositionModel;
+}
+
+export interface TeacherModel {
+	id: number;
+	email: string;
+    first_name: string;
+    last_name: string;
+    surname: string;
+    phone_number: string;
 }

@@ -1,4 +1,4 @@
-.input, .inputWhite {
+.select {
 	padding: 7px 15px;
 
 	color: var(--white);
@@ -16,15 +16,11 @@
 	background: #383A47;
 }
 
-.input::placeholder {
-	color: var(--foreground);
-}
-
 .error {
 	border: 1px solid var(--red);
 }
 
-.inputWrapper {
+.selectWrapper {
 	position: relative;
 }
 

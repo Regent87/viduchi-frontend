@@ -4,37 +4,34 @@ import { DeleteStudentModalProps } from "./DeleteStudentModal.props";
 import styles from './DeleteStudentModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
 import { deleteStudent } from "@/api/client/students";
-import { useRouter } from "next/navigation";
+import { Button } from "../Button/Button";
 
 export const DeleteStudentModal = ({ isOpen, onClose, id }: DeleteStudentModalProps) => {
-
-    const router = useRouter();
-
     const handleDelete = async () => {
-      
-        const deletedMessage = await deleteStudent(Number(id));
+        await deleteStudent(Number(id));
         onClose();
-        if (deletedMessage) {
-            router.push('/admin/students');       
-        }
     }
 
     return (
-        <Modal className={styles.white}
-        isOpen={isOpen} onClose={onClose} title="+ Точно удалить ученика?" >
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleDelete();
-            }}
-            >
-            <div className={styles.buttons}>
-                
-            <button
-className={styles.reset}>Да</button>
- <button
- onClick={() => onClose()}
-className={styles.apply}>Нет</button>
+        <Modal
+            className={styles.white}
+            isOpen={isOpen}
+            onClose={onClose}
+            title="+ Точно удалить ученика?" >
+            <form>
+                <div className={styles.buttons}>
+                    <Button
+                        onClick={() => onClose()}
+                        className={styles.apply}
+                        appearance="ghost">
+                            Нет
+                    </Button>
+                    <Button
+                        onClick={() => handleDelete()}
+                        className={styles.reset}
+                        appearance="primary">
+                            Да
+                    </Button>
                 </div>
             </form>
 
