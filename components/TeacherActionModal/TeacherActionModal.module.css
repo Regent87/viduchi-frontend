@@ -1,0 +1,17 @@
+.white {
+    color: var(--white);
+}
+
+.white svg {
+    stroke: #ffffff;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.element {
+    width: 100%;
+}

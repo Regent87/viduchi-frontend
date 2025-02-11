@@ -9,7 +9,7 @@ export const createStudent = async (email: string, first_name: string, last_name
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, first_name, last_name, surname, position_id, phone_number }),
+        body: JSON.stringify({ email, first_name, surname, last_name, position_id, phone_number }),
     });
 
     if (!response.ok) {
@@ -28,24 +28,24 @@ export const getAllStudents = async () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        
+
     });
 
     if (!response.ok) {
         throw new Error('Failed to get students');
     }
 
-    return await response.json();
+    return await response.json() as StudentModel[];
 };
 
 export const deleteStudent = async (id: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.students.delete(id), {
-          method: 'DELETE',
+        method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
         },
-       
+
     });
 
     if (!response.ok) {
@@ -64,7 +64,7 @@ export const updateStudent = async (id: number, email: string, first_name: strin
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, first_name, last_name, surname, position_id, phone_number }),
+        body: JSON.stringify({ email, first_name, surname, last_name, position_id, phone_number }),
     });
 
     if (!response.ok) {

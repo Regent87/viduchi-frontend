@@ -10,3 +10,17 @@ export interface IVideo {
 	title: string;
 	url: string;
 }
+
+export interface IvideoFromServer {
+	id: number;
+	project_id: number;
+	video_url: string;
+	cover_url: string;
+}
+
+
+export interface IaudioFromServer {
+	id: number;
+	project_id: number;
+	audio_url: string;
+}

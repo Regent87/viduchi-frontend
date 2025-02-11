@@ -1,62 +1,55 @@
 import { useState } from 'react';
-import { EditStudentModal } from '../EditStudentModal/EditStudentModal';
 import styles from './EditMenu.module.css';
 import { DeleteStudentModal } from '../DeleteStudentModal/DeleteStudentModal';
+import { StudentModel } from '../../interfaces/student.interface';
+import { StudentActionModal } from '../StudentActionModal/StudentActionModal';
 
-export const EditMenu = ({closeDropdown, student}: any) => {
+export const EditMenu = ({closeDropdown, student}: {closeDropdown: () => void, student: StudentModel}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const openHandler = () => {
+    const onEditClickHandler = () => {
         setIsModalOpen(true);
     }
 
-    const openDeleteHandler = () => {
+    const onDeleteClickHandler = () => {
         setIsDeleteModalOpen(true);
     }
 
-    // работает
-   // console.log("edit menu student: ", student)
-
     return (
         <>
-       
-        <td className={styles.edit}>
-            <nav>
-                <ul>
-                    <li>
-                        <span
-                        onClick={openHandler}
-                        >Редактирвать</span>
-                    </li>
-                    <li>
-                        <span
-                        onClick={openDeleteHandler}
-                        >Удалить</span>
-                    </li>
-                </ul>
-            </nav>
-        </td>
+            <div className={styles.edit}>
+                <nav>
+                    <ul>
+                        <li>
+                            <span onClick={onEditClickHandler}>Редактировать</span>
+                        </li>
+                        <li>
+                            <span onClick={onDeleteClickHandler}>Удалить</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
-<EditStudentModal isOpen={isModalOpen} onClose={() => {
-    closeDropdown();
-    setIsModalOpen(false);
-    console.log("refresh");
-  //  router.replace('/projects');
-  }}
-  student={student}
-  />
+            <StudentActionModal
+                mode="edit"
+                isOpen={isModalOpen}
+                onClose={() => {
+                    closeDropdown();
+                    setIsModalOpen(false);
+                }}
+                student={student}
+            />
 
-  <DeleteStudentModal
-  isOpen={isDeleteModalOpen} onClose={() => {
-    closeDropdown();
-    setIsDeleteModalOpen(false);
-    console.log("refresh");
-  //  router.replace('/projects');
-}}
-id={student.student.id}
-/>
- </>
+            <DeleteStudentModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    closeDropdown();
+                    setIsDeleteModalOpen(false);
+                }}
+                id={student.id}
+            />
+        </>
     )
 }

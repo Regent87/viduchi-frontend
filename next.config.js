@@ -14,7 +14,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's3-alpha-sig.figma.com',
+        hostname: 'api-dev.viduchi.ru',
       },
     ],
   },

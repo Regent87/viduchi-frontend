@@ -7,8 +7,7 @@ import styles from "./VideoItemCardFromServer.module.css";
 import AddFileIcon from './add.svg';
 import RemoveFileIcon from './remove.svg';
 import { extractAudio } from "@/utils/extract-audio-from-video";
-import { deleteVideoFromProject } from "@/api/client/projects";
-
+import { deleteVideoFromProject, getAllVideos } from "@/api/client/projects";
 
 
 interface VideoItemCardProps
@@ -18,6 +17,13 @@ interface VideoItemCardProps
 }
 
 export const VideoItemCardFromServer = ({ videoItem, projectId }: VideoItemCardProps) => {
+
+  // zustand store
+  const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
+
+
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
+
   const [isMediaFileDeleteMenuOpen, setIsMediaFileDeleteMenuOpen] =
     useState(false);
 
@@ -37,6 +43,15 @@ export const VideoItemCardFromServer = ({ videoItem, projectId }: VideoItemCardP
 //   delete video from server 
 const handleDeleteVideoFromServer = async (id: number, videoId: number) => {
 await deleteVideoFromProject(id, videoId);
+const fetchVideos = async () => {
+      setIsVideoLoading(true);
+    
+                const videos = await getAllVideos(projectId);
+                setVideosFromServer(videos);
+    
+                setIsVideoLoading(false);
+            };
+            fetchVideos();
 }
 
   return (

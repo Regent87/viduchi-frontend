@@ -40,12 +40,110 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { getAllAudios, getAllVideos } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
+import { saveProjectData } from "@/utils/save_editor";
+import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
+import { IaudioFromServer } from "@/interfaces/video.interface";
 
+// import renderedVideo from "../../out/myComp.mp4";
 
 export const Editor =  ({project, className, ...props }: EditorProps)=> {
+
+  // updated project to send to server
+  const [updatedProject, setUpdatedProject] = useState({});
+
+  // zustand store
+  const videosFromServer = useStore((state) => state.videosFromServer);
+ 
+  const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
+
+
+  const tracks = useStore((state) => state.tracks);
+  const trackItemIds = useStore((state) => state.trackItemIds);
+  const trackItemsMap = useStore((state) => state.trackItemsMap);
+  const fps = useStore((state) => state.fps);
+  const duration = useStore((state) => state.duration);
+
+
+  // render video on nodejs server
+  const handleRenderVideoOnServer = async () => {
+
+  //   const response = await fetch('http://localhost:4000/api/rendervideo', {
+  //     method: 'GET',
+  // });
+
+  // if (!response.ok) {
+  //     throw new Error('Failed to render video');
+  // }
+
+  // console.log("RESPONSE FROM RENDERED FILE: ", response)
+
+  // return response;
+
+  fetch("http://localhost:4000/api/rendervideo", {
+    method: "GET",
+    // body: JSON.stringify({ selectedDoc }),
+     headers: { "content-type": "application/json" },
+  })
+    .then((res) => (res.ok ? res.blob() : Promise.reject(res)))
+    .then((blob) => {
+      const blobUrl = URL.createObjectURL(blob);
+      // now do something with the URL
+      console.log("BLOB: ", blob);
+      console.log(" BLOB URL: ", blobUrl);
+    });
+
+
+}
+  
+
+
+// console.log("RENDERED VIDEO: ", renderedVideo)
+  // save project to JSON server
+  const handleGetAndSendProjectToServer = async () => {
+    // fetch project by id to get updated data
+    const fetchNewProject = async () => {
+      const newProject = await getProjectById(project.id);
+      if (newProject) {
+        setUpdatedProject(newProject);
+      }
+    }
+
+    fetchNewProject();
+
+    // send updated project to server
+       const response = await fetch('http://localhost:4000/api/sendproject', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({ updatedProject }),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to send project');
+        }
+    
+        return await response.json();
+  }
+
+
+  const handleSaveProjectData = async () => {
+ 
+    console.log("TRACKS IN STORE: ", tracks);
+    console.log("TRACKS ITEMS IDS: ", trackItemIds);
+    console.log("TRACKS ITEMS MAP: ", trackItemsMap);
+    console.log("FPS: ", fps);
+    console.log("DURATION: ", duration);
+     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
+    if (savedData) {
+      console.log("DATA WAS SAVED TO DB FROM EDITOR");
+    }
+
+  }
 
 
   const router = useRouter();
@@ -54,6 +152,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   // загружаем аудиофайлы с сервера
 const [ isAudioLoading, setIsAudioLoading ] = useState(false);
 const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
+const setAudiosFromVerver = useStore((state) => state.setAllAudiosFromServer);
 const[ audios, setAudios ] = useState<any>([]);
 
  useEffect(() => {
@@ -62,49 +161,49 @@ const[ audios, setAudios ] = useState<any>([]);
           setIsAudioLoading(true);
         
                     const audios = await getAllAudios(project.id);
-                    setAudios(audios);
+                    setAudiosFromServer(audios);
         
                     setIsAudioLoading(false);
                 };
                 fetchAudios();
-               console.log("AUDIOS: ", audios)
-                if (audios.length > 0) {
-                  audios.map((audio: any) => {
-                    handleAddAudioFromServer(audio.audio_url);
-                  })
-                }
+               console.log("AUDIOS FROM SERVER: ", audiosFromServer)
+                // if (audios.length > 0) {
+                //   audios.map((audio: any) => {
+                //     handleAddAudioFromServer(audio.audio_url);
+                //   })
+                // }
             
     }, [])
 
 
     // Загружаем видеофайлы с сервера
     const [ isVideoLoading, setIsVideoLoading ] = useState(false);
-const [ videosFromServer, setVideosromServer ] = useState<any>([]);
+// const [ videosFromServer, setVideosromServer ] = useState<any>([]);
 const[ videos, setVideos ] = useState<any>([]);
 
 
 
-  //   useEffect(() => {
+    useEffect(() => {
 
-  //     const fetchVideos = async () => {
-  //       setIsVideoLoading(true);
+      const fetchVideos = async () => {
+        setIsVideoLoading(true);
       
-  //                 const videos = await getAllVideos(project.id);
-  //                 setVideos(videos);
+                  const videos = await getAllVideos(project.id);
+                  setVideosFromServer(videos);
       
-  //                 setIsVideoLoading(false);
-  //             };
-  //             fetchVideos();
+                  setIsVideoLoading(false);
+              };
+              fetchVideos();
            
            
 
-  // }, [])
+  }, [])
 
 
  
 
 
-  console.log("VIDEOS: ", videos)
+
   // if (videos.length) {
   //   handelAddVideoFromServer(videos[0].video_url);
   //   // videos.map((video: any) => {
@@ -144,6 +243,15 @@ const[ videos, setVideos ] = useState<any>([]);
   // нижнее меню загрузки видео
   const [isBottomMenuUploadVideoOpen, setIsBottomMenuUploadVideoOpen] =
     useState(false);
+
+
+  console.log("VIDEOS: ", videos)
+
+
+
+  
+
+
 
     // окно субтитров
     const [isSubtitlesOpen, setIsSubtitlesOpen] = useState(true)
@@ -203,8 +311,8 @@ const[ videos, setVideos ] = useState<any>([]);
   const { playerRef, setState } = useStore();
   useTimelineEvents();
 
-  const store = useStore();
-  const tracks = useStore((state) => state.tracks);
+ // const store = useStore();
+  
   
 useEffect(() => {
   console.log("ZUSTAND STORE TRACKS: ");
@@ -245,14 +353,58 @@ useEffect(() => {
     }
   };
 
-  const handleFileChange = (newFiles: File[]) => {
+  const handleFileChange = async (newFiles: File[]) => {
     const file = newFiles[0];
     if (!file) return;
 
-    const fileWithUrl = file as FileWithUrl;
-    fileWithUrl.url = URL.createObjectURL(file);
+    // загрузка файла на сервер
+    // првоерить если тип файла видео то загрузить на сервер видео
+if (file.type === "video/mp4") {
+  // загрузить файл на сайт
+  let formData = new FormData();
+  formData.append("video_file", file);
+ 
+  const uploadedFile: any = await addProjectVideo(project.id, formData);
 
-    setUploadedFiles(fileWithUrl);
+  // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
+  if (uploadedFile) {
+    const fetchVideos = async () => {
+      setIsVideoLoading(true);
+    
+                const videos = await getAllVideos(project.id);
+                setVideosFromServer(videos);
+    
+                setIsVideoLoading(false);
+            };
+            fetchVideos();
+  }
+
+}
+    // если аудио то загрузить аудио
+    if (file.type == 'audio/mpeg') {
+// загрузить файл на сайт
+let formData = new FormData();
+formData.append("audio_file", file);
+
+const uploadedFile: any = await addProjectAudio(project.id, formData);
+if (uploadedFile) {
+  const fetchAudios = async () => {
+    setIsVideoLoading(true);
+  
+              const audios = await getAllAudios(project.id);
+              setAudiosFromServer(audios);
+  
+              setIsVideoLoading(false);
+          };
+          fetchAudios();
+}
+      
+    }
+
+  //  const fileWithUrl = file as FileWithUrl;
+  //  fileWithUrl.url = URL.createObjectURL(file);
+
+  //  setUploadedFiles(fileWithUrl);
     setIsBottomMenuUploadVideoOpen(false);
   };
 
@@ -288,7 +440,7 @@ useEffect(() => {
         id: generateId(),
         details: {
           src: URL.createObjectURL(files[0]),
-          volume: 50,
+          volume: 100,
         },
       },
     });
@@ -330,7 +482,16 @@ useEffect(() => {
     <>
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
-          <MenuIcon />
+          <MenuIcon
+          onClick={() => {
+            handleSaveProjectData();
+            handleGetAndSendProjectToServer();
+            handleRenderVideoOnServer();
+          }}
+         // onClick={handleSaveProjectData}
+       //   onClick={handleGetAndSendProjectToServer}
+       // onClick={handleRenderVideoOnServer}
+          />
         
 
           <nav>
@@ -390,11 +551,12 @@ useEffect(() => {
        {/* <CropIcon />
        <EllypsisIcon /> */}
 
-       <button
+       {/* <button
        onClick={() => {
         router.push('/subtitles/' + project.id )
        }}
-       className={styles.editInstruction} >Редактировать инструкцию</button>
+       className={styles.editInstruction} >Редактировать инструкцию</button> */}
+
       <CreateInstruction projectId={project.id} />
    </div>
       </div>
@@ -422,13 +584,23 @@ useEffect(() => {
 
             {/* здесь сделать иэп по коипонентам видео и аудио с сервера */}
 
-            {/* {
-              videos.length > 0 && 
-              videos.map((video: any) => (
+            {
+              videosFromServer.length > 0 && 
+              videosFromServer.map((video: any) => (
                 <VideoItemCardFromServer key={video.video_url}  videoItem={video} projectId={project.id} />
                
               ))
-            } */}
+            }
+
+            {
+              audiosFromServer.length > 0 && 
+              audiosFromServer.map((audio: IaudioFromServer) => (
+                <AudioItemCardFromServer key={audio.audio_url}  audioItem={audio} projectId={project.id} />
+               
+              ))
+            }
+
+            
 
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {
@@ -474,7 +646,7 @@ useEffect(() => {
             onDragOver={(e) => dragStartHandler(e)}
             onDrop={(e) => onDropHandler(e)}
             className={styles.dragMedia}
-            style={ uploadedFiles.length > 0 || audios.length > 0 ? { display: 'none' } : { display: 'flex' } }
+            style={ videosFromServer.length > 0 || audios.length > 0 ? { display: 'none' } : { display: 'flex' } }
           >
             <Image src={uploadMediaPhoto} alt="upload media" />
             {drag ? (

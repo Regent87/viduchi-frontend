@@ -23,7 +23,7 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 		<>
 		<div className={cn(styles.project, className)} {...props}>
 			<div className={styles.projectCover}>
-				<Image src={cover} alt="cover" width={220} height={150} />
+				<Image src={instructionModel.cover_url ? instructionModel.cover_url : cover } alt="cover" width={220} height={150} />
 					
 				<PlayIcon />
 			</div>

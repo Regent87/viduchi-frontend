@@ -7,8 +7,6 @@ import styles from './AdminMenu.module.css'
 
 const menuItems = [
     { title: 'Профиль', href: '/admin/profile' },
-    { title: 'Ученики', href: '/admin/students' },
-    { title: 'Наставники', href: '/admin/teachers' },
     { title: 'Вход и безопасность', href: '/admin/security' },
   ];
 
@@ -28,7 +26,7 @@ export const AdminMenu = () => {
                   [styles.active]: isActive
                 })}
               >
-                
+
                 {item.title}
               </Link>
             );

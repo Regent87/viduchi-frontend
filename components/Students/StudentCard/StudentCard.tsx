@@ -1,40 +1,42 @@
 import { useState } from "react";
 import Image from 'next/image';
-import avatar from '../../../public/user_avatar.png';
 import styles from './StudentCard.module.css';
 import { EditMenu } from '../../EditMenu/EditMenu';
 import DotsIcon from '../dots_icon.png';
+import { StudentModel } from '../../../interfaces/student.interface';
 
-export const StudentCard = (student: any) => {
+interface StudentProps {
+    student: StudentModel;
+}
 
+export const StudentCard = ({ student }: StudentProps) => {
     const [isEditOpen, setIsEditOpen] = useState(false);
 
     const closeDropdown = () => {
         setIsEditOpen(false);
     };
 
-    console.log("ONE STUDENT: ", student)
-
     return (
-<>
-        <tr>
-        <td className={styles.userImage}><Image src={avatar} alt='avatar' /> </td>
-        <td>{student.student.first_name} {student.student.surname}</td>
-        <td>{student.student.position.title}</td>
-        <td>{student.student.phone_number}</td>
-        <td>{student.student.email}</td>
-        <td>Проект 1, Мой проект</td>
-        <td><Image
-        onClick={() => setIsEditOpen(!isEditOpen)}
-        className={styles.addStudent} src={DotsIcon} alt='add student' /></td>
-      
-      {
-          isEditOpen && (
-          <EditMenu key={student.id} closeDropdown={closeDropdown} student={student} />
-          )
-        }
-      </tr>
-      
-        </>
+      <>
+          <div className={styles.row} key={student.id}>
+            <div>{student.first_name} {student.last_name}</div>
+            <div>{student.position?.title || 'Нет должности'}</div>
+            <div>{student.phone_number}</div>
+            <div>{student.email}</div>
+            <div>
+              <Image
+                onClick={() => setIsEditOpen(!isEditOpen)}
+                className={styles.menu}
+                src={DotsIcon}
+                alt="Add student" />
+
+              {
+                isEditOpen && (
+                  <EditMenu key={student.id} closeDropdown={closeDropdown} student={student} />
+                )
+              }
+            </div>
+          </div>
+      </>
     )
 }

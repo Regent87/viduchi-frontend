@@ -7,7 +7,7 @@ import styles from './EditStudentModal.module.css';
 import { useRouter } from 'next/navigation';
 import { updateStudent } from "@/api/client/students";
 import { getAllPositions } from "@/api/client/positions";
-import useStore from "@/store/store";
+import { StudentModel } from "@/interfaces/student.interface";
 
 export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalProps) => {
 
@@ -17,14 +17,14 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
    const updateStudentInStore = useStore((state) => state.updateStudent);
 
 
-    const [studentId, setStudentId] = useState(student.student.id);
-    const [name, setName] = useState(student.student.first_name);
-    const [surname, setSurname] = useState(student.student.surname);
-    const [fatherName, setFatherName] = useState(student.student.last_name);
-    const [phone, setPhone] = useState(student.student.phone_number);
+    const [studentId, setStudentId] = useState(student.id);
+    const [name, setName] = useState(student.first_name);
+    const [surname, setSurname] = useState(student.surname);
+    const [fatherName, setFatherName] = useState(student.last_name);
+    const [phone, setPhone] = useState('+737529788888');
     const [position, setPosition] = useState('Электрик');
     const [positionId, setPositionId] = useState(0);
-    const [email, setEmail] = useState(student.student.email);
+    const [email, setEmail] = useState(student.email);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -33,20 +33,20 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
 
      // get all positions
         const [positions, setPositions] = useState([]);
-    
+
         useEffect(() => {
-    
+
             const fetchPositions = async () => {
                         setIsLoading(true);
-            
+
                         const positions = await getAllPositions();
                         setPositions(positions);
-            
+
                         setIsLoading(false);
                     };
                     fetchPositions();
-                   
-    
+
+
         }, [])
 
     const reset = () => {
@@ -89,7 +89,7 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
     type="text" required /></div>
 </label>
 <label htmlFor="fatehrname">Отчество
-    <div> <input 
+    <div> <input
     onChange={(e: any) => setFatherName(e.target.value)}
     value={fatherName}
     type="text" required /></div>
@@ -114,10 +114,10 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
 
 <div>
 <label htmlFor="position">Должность
-    <div> 
+    <div>
     <select  onChange={(e: any) => setPositionId(Number(e.target.value))}>
-          
-      
+
+
         {
             positions && positions.map((pos: any) => (
                 <option key={pos.id} value={pos.id}>{pos.title}</option>
@@ -128,7 +128,7 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
         {/* <input onChange={(e: any) => setPosition(e.target.value)}
     value={position}
      type="text" required /> */}
-     
+
      </div>
 </label>
 </div>
