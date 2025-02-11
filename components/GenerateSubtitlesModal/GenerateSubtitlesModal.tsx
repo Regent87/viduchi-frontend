@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectVideo, addSubtitlesToProject, getProjectById, transcribeVideo } from '@/api/client/projects';
+import { addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
 import { parseSubtitlesToJson } from '@/utils/subtitles';
 
@@ -26,7 +26,20 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
+
+  const [updatedProject, setUpdatedProject] = useState({});
+
   // zustand store
+  const tracks = useStore((state) => state.tracks);
+  const trackItemIds = useStore((state) => state.trackItemIds);
+  const trackItemsMap = useStore((state) => state.trackItemsMap);
+  const fps = useStore((state) => state.fps);
+
+  const renderedVIdeoFiles = useStore((state) => state.renderedVideoFiles);
+  const setRenderedVIdeoFiles = useStore((state) => state.setRenderedVideoFiles);
+
+ 
+
   const uploadedFiles = useStore((state) => state.uploadedFiles);
   const setUploadedFiles = useStore((state) => state.setUploadedFiles);
   const videoSubtitles = useStore((state) => state.subtitles);
@@ -49,6 +62,111 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     fetchProject();
     
   }, [])
+
+
+  console.log("PROJECT FROM THEDIALOG WINDOW: ", project)
+  // заносим данные проекта в БД из стора
+   const handleSaveProjectData = async () => {
+   
+      console.log("TRACKS IN STORE: ", tracks);
+      console.log("TRACKS ITEMS IDS: ", trackItemIds);
+      console.log("TRACKS ITEMS MAP: ", trackItemsMap);
+      console.log("FPS: ", fps);
+      console.log("DURATION: ", duration);
+       const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
+      if (savedData) {
+        console.log("DATA WAS SAVED TO DB FROM EDITOR");
+      }
+  
+    }
+
+
+    const handleGetAndSendProjectToServer = async () => {
+      // fetch project by id to get updated data
+      const fetchNewProject = async () => {
+        const newProject = await getProjectById(project.id);
+        console.log("GOT NEW PROJECT FROM SERVER: ", newProject)
+        if (newProject) {
+          setUpdatedProject(newProject);
+          console.log("UPDATED PROJECT FROM SERVER: ", updatedProject)
+        } else {
+          setUpdatedProject(project);
+        }
+      }
+  
+      fetchNewProject();
+  
+      // send updated project to server
+         const response = await fetch('http://localhost:4000/api/sendproject', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*'
+              },
+              body: JSON.stringify({ updatedProject }),
+          });
+      
+          if (!response.ok) {
+              throw new Error('Failed to send project');
+          }
+      
+          return await response.json();
+    }
+
+
+
+     // render video on nodejs server
+  const handleRenderVideoOnServer = async () => {
+  
+
+  let blob = await fetch("http://localhost:4000/api/rendervideo", {
+      method: "GET",
+      // body: JSON.stringify({ selectedDoc }),
+      //  headers: { "content-type": "application/json" },
+    }).then(r => r.blob());
+
+    console.log("BLOB FROM SERVER: ", blob)
+    let fileOfBlob = new File([blob], 'rendered.mp4');
+    console.log("FILE FROM BLOB: ", fileOfBlob)
+
+    return fileOfBlob;
+    // добавляем отрендеренное видео в стор
+//     setRenderedVIdeoFiles(fileOfBlob);
+
+//     console.log("RENDERED VIDEO FIELS IN STORE: ", renderedVIdeoFiles)
+
+//     const formData = new FormData();
+//     formData.append('video_file', renderedVIdeoFiles[0]);
+//  //  formData.append("blob", blob, "rendered.mp4");
+// console.log('FORMDATA FROM NODE SERVER: ', formData)
+  //  return formData;
+
+//  let blob = await fetch("http://localhost:4000/api/rendervideo", {
+//       method: "GET",
+//       // body: JSON.stringify({ selectedDoc }),
+//        headers: { "content-type": "application/json" },
+//     })
+//       .then((res) => (res.ok ? res.blob() : Promise.reject(res)))
+//       .then((blob) => {
+//         const blobUrl = URL.createObjectURL(blob);
+//         // now do something with the URL
+//         console.log("BLOB: ", blob);
+//         console.log(" BLOB URL: ", blobUrl);
+
+//         let fileOfBlob = new File([blob], 'rendered.mp4');
+//         const formData = new FormData();
+//         formData.append('video_file', fileOfBlob);
+      
+
+//         // возращаем formData
+//         return formData;
+  
+    
+        
+//       });
+  
+  
+  }
 
 
 
@@ -84,50 +202,63 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 7. если все ок, перекидывеем на страницу редактирования субтитлов
 */
 
-  // загружаем видеофайл  - заглушка
-  console.log("uploadedfiles : ", uploadedFiles);
-  const formData = new FormData();
-  formData.append('video_file', uploadedFiles[0]);
-  // загруажем видеофайл на сервер
-  const videoId: any = await addProjectVideo(projectId, formData); 
-  if (!videoId) {
-    setIsError(true);
-  } else {
+// 1. сохраняем timeline проекта на сервер
+handleSaveProjectData();
+// 2. делаем запрос на сервер json для сохранения файла проекта json в public
+handleGetAndSendProjectToServer();
 
-    console.log("GOT VIDEO ID: ", videoId)
-    // добавляем id загруженного видео в стор
-    setVideoIdForInstruction(videoId);
+// 3. делаем запрос на рендеринг видео и получам видеофайл. в этой же функции отправляем видеофайл на сохранение на сервер
+ const renderedFile = await handleRenderVideoOnServer();
+ console.log("REDNERED FILE rETURNED FROM SERVER FUNCTION: ", renderedFile)
+setIsLoading(false);
+// const formData: any = await handleRenderVideoOnServer();
+
+// console.log("FORMDATA FROM NODEJS SERVER: ", formData)
+
+  // загружаем видеофайл  - заглушка
+  // console.log("uploadedfiles : ", uploadedFiles);
+  // const formData = new FormData();
+  // formData.append('video_file', uploadedFiles[0]);
+  // загруажем видеофайл на сервер
+  // const videoId: any = await addProjectVideo(projectId, formData); 
+  // if (!videoId) {
+  //   setIsError(true);
+  // } else {
+
+  //   console.log("GOT VIDEO ID: ", videoId)
+  //   // добавляем id загруженного видео в стор
+  //   setVideoIdForInstruction(videoId);
 
     // делаем транскрибацию
  
-        const data = await transcribeVideo(projectId, videoId);
-        const { subtitles } = data;
-        if (!subtitles) {
-          setIsLoading(false);
-          setIsError(true);
-        } else {
+        // const data = await transcribeVideo(projectId, videoId);
+        // const { subtitles } = data;
+        // if (!subtitles) {
+        //   setIsLoading(false);
+        //   setIsError(true);
+        // } else {
           
-         // получаем субтитлы
-          console.log("Subtitles got: ", subtitles);
-          // добавляем субтитлы в проект
+        //  // получаем субтитлы
+        //   console.log("Subtitles got: ", subtitles);
+        //   // добавляем субтитлы в проект
       
-          // обновляем данные в проекте
-          const newProject = await getProjectById(projectId);
-          if (!newProject.subtitles) {
-            setIsLoading(false);
-            setIsError(true);
+        //   // обновляем данные в проекте
+        //   const newProject = await getProjectById(projectId);
+        //   if (!newProject.subtitles) {
+        //     setIsLoading(false);
+        //     setIsError(true);
            
-          } else {
-            // закрывем окно и переходим на редактирование
-            onClose();
-            setIsLoading(false);
-            router.push('/subtitles/' + projectId )
-          }
+        //   } else {
+        //     // закрывем окно и переходим на редактирование
+        //     onClose();
+        //     setIsLoading(false);
+        //     router.push('/subtitles/' + projectId )
+        //   }
 
-        }
+        // }
      
 
-  }
+ // }
  
 
 

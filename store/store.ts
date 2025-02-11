@@ -35,6 +35,9 @@ interface ITimelineStore {
   setState: (state: any) => Promise<void>;
   uploadedFiles: FileWithUrl[];
 
+  renderedVideoFiles: File[];
+  setRenderedVideoFiles: (new_videofile: File) => void;
+
   setTracks: (new_tracks: ITrack[]) => void;
   removeAllTracks: () => void;
 
@@ -126,8 +129,14 @@ const useStore = create<ITimelineStore>((set) => ({
   students: [],
   videosFromServer: [],
   audiosFromServer: [],
+  renderedVideoFiles: [],
 
 
+
+  setRenderedVideoFiles: (new_videofile: File) =>
+    set((state) => ({
+      renderedVideoFiles: [...state.renderedVideoFiles, new_videofile],
+    })),
 
   setAllAudiosFromServer: (new_audios: IaudioFromServer[] ) => 
     set((state) => ({
