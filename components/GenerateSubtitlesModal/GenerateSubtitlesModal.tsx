@@ -92,9 +92,10 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
         } else {
           setUpdatedProject(project);
         }
+        return newProject;
       }
   
-      fetchNewProject();
+      const newProject = await fetchNewProject();
   
       // send updated project to server
          const response = await fetch('http://localhost:4000/api/sendproject', {
@@ -103,7 +104,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*'
               },
-              body: JSON.stringify({ updatedProject }),
+              body: JSON.stringify({ updatedProject: newProject }),
           });
       
           if (!response.ok) {
@@ -217,48 +218,50 @@ setIsLoading(false);
 
   // загружаем видеофайл  - заглушка
   // console.log("uploadedfiles : ", uploadedFiles);
-  // const formData = new FormData();
-  // formData.append('video_file', uploadedFiles[0]);
+   const formData = new FormData();
+   // formData.append('video_file', uploadedFiles[0]);
+   formData.append('video_file', renderedFile);
+   
   // загруажем видеофайл на сервер
-  // const videoId: any = await addProjectVideo(projectId, formData); 
-  // if (!videoId) {
-  //   setIsError(true);
-  // } else {
+  const videoId: any = await addProjectVideo(projectId, formData); 
+  if (!videoId) {
+    setIsError(true);
+  } else {
 
-  //   console.log("GOT VIDEO ID: ", videoId)
-  //   // добавляем id загруженного видео в стор
-  //   setVideoIdForInstruction(videoId);
+    console.log("GOT VIDEO ID: ", videoId)
+    // добавляем id загруженного видео в стор
+    setVideoIdForInstruction(videoId);
 
     // делаем транскрибацию
  
-        // const data = await transcribeVideo(projectId, videoId);
-        // const { subtitles } = data;
-        // if (!subtitles) {
-        //   setIsLoading(false);
-        //   setIsError(true);
-        // } else {
+        const data = await transcribeVideo(projectId, videoId);
+        const { subtitles } = data;
+        if (!subtitles) {
+          setIsLoading(false);
+          setIsError(true);
+        } else {
           
-        //  // получаем субтитлы
-        //   console.log("Subtitles got: ", subtitles);
-        //   // добавляем субтитлы в проект
+         // получаем субтитлы
+          console.log("Subtitles got: ", subtitles);
+          // добавляем субтитлы в проект
       
-        //   // обновляем данные в проекте
-        //   const newProject = await getProjectById(projectId);
-        //   if (!newProject.subtitles) {
-        //     setIsLoading(false);
-        //     setIsError(true);
+          // обновляем данные в проекте
+          const newProject = await getProjectById(projectId);
+          if (!newProject.subtitles) {
+            setIsLoading(false);
+            setIsError(true);
            
-        //   } else {
-        //     // закрывем окно и переходим на редактирование
-        //     onClose();
-        //     setIsLoading(false);
-        //     router.push('/subtitles/' + projectId )
-        //   }
+          } else {
+            // закрывем окно и переходим на редактирование
+            onClose();
+            setIsLoading(false);
+            router.push('/subtitles/' + projectId )
+          }
 
-        // }
+         }
      
 
- // }
+  }
  
 
 
