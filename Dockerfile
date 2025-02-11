@@ -1,11 +1,15 @@
-FROM node:23-alpine
+FROM node:23-alpine AS build
 
 WORKDIR /app
 
-COPY . . 
+COPY . .
 
 RUN npm install --production
 
-EXPOSE 3000
+FROM build AS render-server
+EXPOSE 4000
+CMD ["node", "server.mjs"]
 
+FROM build AS admin-cabinet
+EXPOSE 3000
 CMD ["npm", "run", "dev"]

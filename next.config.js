@@ -29,16 +29,12 @@ const nextConfig = {
         destination: '/admin-api/:path*',
       },
       {
-        source: '/mobile-api/:path*',
-        destination: '/mobile-api/:path*',
-      },
-      {
-        source: '/file-service/:path*',
-        destination: '/file-service/:path*',
-      },
-      {
         source: '/files/:path*',
         destination: '/files/:path*',
+      },
+      {
+        source: '/render/:path*',
+        destination: '/render/:path*',
       },
     ];
   },

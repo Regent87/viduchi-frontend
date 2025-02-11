@@ -54,7 +54,7 @@ export const API = {
 		update: (id: number) => `/admin-api/v1/mentors/${id}`,
 	},
 	render: {
-		renderVideo: process.env.NEXT_RENDER_API_URL + '/api/rendervideo',
-		sendProject: process.env.NEXT_RENDER_API_URL + '/api/sendproject',
+		renderVideo: '/render/api/rendervideo',
+		sendProject: '/render/api/sendproject',
 	}
 };
