@@ -27,7 +27,7 @@ export const getAllMentors = async () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        
+
     });
 
     if (!response.ok) {
@@ -45,7 +45,7 @@ export const deleteMentor = async (id: number) => {
         headers: {
             'Authorization': `Bearer ${token}`
         },
-       
+
     });
 
     if (!response.ok) {
@@ -56,10 +56,10 @@ export const deleteMentor = async (id: number) => {
 };
 
 
-export const updateMentor = async (email: string, first_name: string, last_name: string, surname: string, phone_number: number) => {
+export const updateMentor = async (id: number, email: string, first_name: string, last_name: string, surname: string, phone_number: string) => {
     const token = localStorage.getItem('jwt_token');
-    const response = await fetch(API.students.create, {
-          method: 'PATCH',
+    const response = await fetch(API.mentors.update(id), {
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

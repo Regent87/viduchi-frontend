@@ -1,3 +1,17 @@
-.addStudent {
+.row {
+  display: contents;
+}
+
+.row > div {
+  background-color: var(--background-color);
+  padding: 18px;
+  color: var(--white);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.menu {
     cursor: pointer;
-  }
+}

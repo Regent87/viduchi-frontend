@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      const response = await fetchWithAuth(API.auth.me);
+      const response = await fetchWithAuth(API.admins.me);
 
       if (!response.ok) {
         setUser(null);

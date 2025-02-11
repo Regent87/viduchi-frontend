@@ -2,7 +2,6 @@ export const API = {
 	auth: {
 		login: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/login',
 		confirm: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/confirm',
-		me: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/me',
 		logout: process.env.NEXT_PUBLIC_API_URL + '/v1/auth/logout',
 	},
 	admins: {
@@ -46,7 +45,7 @@ export const API = {
 		deletePosition: (id: number, positionId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions/${positionId}`,
 		addPosition: (id: number, positionId: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions/${positionId}`,
 		positions: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/v1/instructions/${id}/positions`,
-		
+
 	},
 	mentors: {
 		list: process.env.NEXT_PUBLIC_API_URL + '/v1/mentors',

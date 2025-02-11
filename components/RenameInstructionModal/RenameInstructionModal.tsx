@@ -8,9 +8,10 @@ import { Modal } from '@/components/site/ModalForm/ModalForm';
 import { RenameInstructionModalProps } from './RenameInstructionModal.props'; 
 // import { createProject } from '@/api/client/projects';
 import { useRouter } from 'next/navigation';
+import { updateInstructionTitle } from '@/api/client/instructions';
 
 export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameInstructionModalProps): JSX.Element => {
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState(instruction.title);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -25,10 +26,13 @@ export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameI
 
       onClose();
 
-      if (instruction) {
+      const newInstructionTitle = await updateInstructionTitle(instruction.id, instruction.title);
+
+      if (newInstructionTitle) {
         // console.log("project refresh");
         // router.replace("/projects");
         // location.reload();
+        router.push('/instructions');
       }
 
       setIsLoading(false);
@@ -48,7 +52,7 @@ export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameI
 
 <input
 onChange={(e: any) => setProjectName(e.target.value)}
-value={instruction.title}
+value={projectName}
 placeholder='Введите название инструкции'
 type="text" required />
 

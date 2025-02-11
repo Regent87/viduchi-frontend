@@ -1,5 +1,6 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { Istudent } from "@/interfaces/student.interface";
+import { IaudioFromServer, IvideoFromServer } from "@/interfaces/video.interface";
 import CanvasTimeline, {
   ITimelineScaleState,
   ITimelineScrollState,
@@ -34,8 +35,17 @@ interface ITimelineStore {
   setState: (state: any) => Promise<void>;
   uploadedFiles: FileWithUrl[];
 
+  renderedVideoFiles: File[];
+  setRenderedVideoFiles: (new_videofile: File) => void;
+
   setTracks: (new_tracks: ITrack[]) => void;
   removeAllTracks: () => void;
+
+  setTrackItemIds: (new_trackItemIds: string[]) => void;
+
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => void;
+
+  setFps: (new_fps: number) => void;
 
   setUploadedFiles: (uploadedFile: FileWithUrl) => void;
   deleteUploadedFile: (fileUrl: string) => void;
@@ -74,6 +84,15 @@ interface ITimelineStore {
   setStudents: (student: Istudent) => void;
   deleteStudent: (studentId: number) => void;
   updateStudent: (id: number, new_student: Istudent) => void;
+
+  videosFromServer: IvideoFromServer[];
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => void;
+
+  audiosFromServer: IaudioFromServer[];
+  setAllAudiosFromServer: (new_audios: IaudioFromServer[]) => void;
+
+
+
 }
 
 
@@ -108,8 +127,42 @@ const useStore = create<ITimelineStore>((set) => ({
   selectedSubtitles: [],
   lastCheckedSubtitles: [],
   students: [],
+  videosFromServer: [],
+  audiosFromServer: [],
+  renderedVideoFiles: [],
 
 
+
+  setRenderedVideoFiles: (new_videofile: File) =>
+    set((state) => ({
+      renderedVideoFiles: [...state.renderedVideoFiles, new_videofile],
+    })),
+
+  setAllAudiosFromServer: (new_audios: IaudioFromServer[] ) => 
+    set((state) => ({
+      audiosFromServer: new_audios,
+    })),
+
+
+  setFps: (new_fps: number) => 
+    set((state) => ({
+      fps: new_fps,
+    })),
+
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => 
+    set((state) => ({
+      trackItemsMap: new_trackItemsMap,
+    })),
+
+  setTrackItemIds: (new_trackItemIds: string[]) => 
+    set((state) => ({
+      trackItemIds: new_trackItemIds,
+    })),
+
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => 
+    set((state) => ({
+      videosFromServer: new_videos,
+    })),
 
   setAllStudents: (new_students: Istudent[]) => 
     set((state) => ({

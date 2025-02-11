@@ -7,7 +7,7 @@
 	height: 250px; */
 
 	width: 15vw;
-	height: 33vh;
+	height: 25vh;
 
 	flex-shrink: 0;
 	border-radius: 10px;
@@ -35,7 +35,7 @@
 
 	width: 13vw;
 	height: 18vh;
-	margin-top: 2vh;
+	/* margin-top: 2vh; */
 }
 
 .projectCover svg {

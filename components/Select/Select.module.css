@@ -1,0 +1,33 @@
+.select {
+	padding: 7px 15px;
+
+	color: var(--white);
+	font-family: var(--font-family);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+
+	outline-color: var(--primary);
+	box-shadow: 0 4px 4px rgb(0 0 0 / 5%);
+
+	border-radius: 8px;
+	border: 1.5px solid rgba(22, 159, 253, 0.75);
+	background: #383A47;
+}
+
+.error {
+	border: 1px solid var(--red);
+}
+
+.selectWrapper {
+	position: relative;
+}
+
+.errorMessage {
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+
+	color: var(--red);
+}

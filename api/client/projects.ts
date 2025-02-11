@@ -1,7 +1,7 @@
-import { API } from "@/app/api";
+import { API } from "../../app/api";
 import { Istep } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { ProjectModel } from "@/interfaces/project.interface";
-import { IVideo } from "@designcombo/timeline";
+import { ITrack, ITrackItem, IVideo } from "@designcombo/timeline";
 import { json } from "stream/consumers";
 
 export const createProject = async (title: string) => {
@@ -21,6 +21,9 @@ export const createProject = async (title: string) => {
 
     return await response.json();
 };
+
+
+
 
 
 
@@ -53,6 +56,25 @@ export const addProjectVideo = async (id: number, formData: any) => {
 
     if (!response.ok) {
         throw new Error('Failed to get projects');
+    }
+
+    return await response.json();
+
+};
+
+
+export const addProjectAudio = async (id: number, formData: any) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.addAudio(id), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to add audio');
     }
 
     return await response.json();
@@ -136,6 +158,24 @@ export const deleteVideoFromProject = async (id: number, videoId: number) => {
 
 }
 
+export const deleteAudioFromProject = async (id: number, audioId: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.deleteAudio(id, audioId), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete audio');
+    }
+
+    return {message: "Audio file was deleted"};
+
+}
+
 export const getAllSteps = async (id: number) => {
     const token = localStorage.getItem('jwt_token');
     const response = await fetch(API.projects.getSteps(id), {
@@ -181,6 +221,7 @@ export const addStepsToProject = async (id: number, steps: any) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ steps }),
@@ -202,6 +243,7 @@ export const updateStep = async (id: number, stepId: number, step: any) => {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ step }),
@@ -271,6 +313,44 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = () => {
+export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number) => {
+    const token = localStorage.getItem('jwt_token');
+    const response = await fetch(API.projects.saveTimeline(id), {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration }),
+    });
 
+    if (!response.ok) {
+        throw new Error('Failed to save data of project');
+    }
+
+    return await response.json();
 }
+
+
+
+/*
+FOR SERVER NODEJS RENDERING
+
+*/
+
+export const getProjectByIdForRendering = async (id: number, jwt_token: string) => {
+    const token = jwt_token;
+    const response = await fetch(`https://api-dev.viduchi.ru/admin-api/v1/projects/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get project');
+    }
+
+    return await response.json();
+};

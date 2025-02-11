@@ -1,5 +1,5 @@
 import { addProjectVideo } from "@/api/client/projects";
-import { IVideo } from "@/interfaces/video.interface";
+import { IVideo, IvideoFromServer } from "@/interfaces/video.interface";
 import {
     ADD_AUDIO,
     ADD_IMAGE,
@@ -100,3 +100,25 @@ if (file.type == 'audio/mpeg') {
 
    
   };
+
+
+
+
+  export const handleVideoUploadFromServer = async (file: IvideoFromServer) => {
+    dispatch(ADD_VIDEO, {
+      payload: {
+      //  id: resourceId,
+        display: {
+          from: 2000,
+          to: 7000
+        },
+        details: {
+           src: file.video_url,
+          volume: 100
+        },
+        metadata: {
+          file
+        }
+      }
+    });
+  }
