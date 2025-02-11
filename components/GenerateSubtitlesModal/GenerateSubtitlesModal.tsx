@@ -221,7 +221,7 @@ setIsLoading(false);
    const formData = new FormData();
    // formData.append('video_file', uploadedFiles[0]);
    formData.append('video_file', renderedFile);
-   
+   console.log("FORMDATA FOR UPLOAD Rednered file: ", formData)
   // загруажем видеофайл на сервер
   const videoId: any = await addProjectVideo(projectId, formData); 
   if (!videoId) {
