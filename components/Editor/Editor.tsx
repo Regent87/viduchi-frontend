@@ -46,6 +46,7 @@ import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCar
 import { saveProjectData } from "@/utils/save_editor";
 import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
 import { IaudioFromServer } from "@/interfaces/video.interface";
+import { API } from "@/app/api";
 
 // import renderedVideo from "../../out/myComp.mp4";
 
@@ -56,7 +57,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // zustand store
   const videosFromServer = useStore((state) => state.videosFromServer);
- 
+
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
 
 
@@ -82,7 +83,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // return response;
 
-  fetch("http://localhost:4000/api/rendervideo", {
+  fetch(API.render.renderVideo, {
     method: "GET",
     // body: JSON.stringify({ selectedDoc }),
      headers: { "content-type": "application/json" },
@@ -97,7 +98,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
 
 }
-  
+
 
 
 // console.log("RENDERED VIDEO: ", renderedVideo)
@@ -114,7 +115,7 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
     fetchNewProject();
 
     // send updated project to server
-       const response = await fetch('http://localhost:4000/api/sendproject', {
+       const response = await fetch(API.render.sendProject, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -122,17 +123,17 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
             },
             body: JSON.stringify({ updatedProject }),
         });
-    
+
         if (!response.ok) {
             throw new Error('Failed to send project');
         }
-    
+
         return await response.json();
   }
 
 
   const handleSaveProjectData = async () => {
- 
+
     console.log("TRACKS IN STORE: ", tracks);
     console.log("TRACKS ITEMS IDS: ", trackItemIds);
     console.log("TRACKS ITEMS MAP: ", trackItemsMap);
@@ -159,10 +160,10 @@ const[ audios, setAudios ] = useState<any>([]);
 
         const fetchAudios = async () => {
           setIsAudioLoading(true);
-        
+
                     const audios = await getAllAudios(project.id);
                     setAudiosFromServer(audios);
-        
+
                     setIsAudioLoading(false);
                 };
                 fetchAudios();
@@ -172,7 +173,7 @@ const[ audios, setAudios ] = useState<any>([]);
                 //     handleAddAudioFromServer(audio.audio_url);
                 //   })
                 // }
-            
+
     }, [])
 
 
@@ -187,20 +188,20 @@ const[ videos, setVideos ] = useState<any>([]);
 
       const fetchVideos = async () => {
         setIsVideoLoading(true);
-      
+
                   const videos = await getAllVideos(project.id);
                   setVideosFromServer(videos);
-      
+
                   setIsVideoLoading(false);
               };
               fetchVideos();
-           
-           
+
+
 
   }, [])
 
 
- 
+
 
 
 
@@ -223,12 +224,12 @@ const[ videos, setVideos ] = useState<any>([]);
     // addAud();
     // }
 
-  
+
 
   //  console.log("AUDIOS FROM SERVR:", audios)
 
    // handleAddAudioFromServer(audios[0].audio_url)
-    
+
 
     // if (audios.length > 0 ) {
     // audios.map((audio: any) => {
@@ -249,7 +250,7 @@ const[ videos, setVideos ] = useState<any>([]);
 
 
 
-  
+
 
 
 
@@ -274,8 +275,8 @@ const[ videos, setVideos ] = useState<any>([]);
   const setIsSubtitlesShown = useStore((state) => state.setIsSubtitlesShown);
   const isSubtitlesShown = useStore((state) => state.isSubtitlesShown);
   const [isAudioTitlesShown, setIsAudioTitlesShown] = useState(false);
-  
-  
+
+
 
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -305,15 +306,15 @@ const[ videos, setVideos ] = useState<any>([]);
     //  setVideoUrl("https://api-dev.viduchi.ru/files/viduchi-docker/5bd0a633-92f7-47a3-9a50-06526304a6b0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=82PpmDyMI2KniS4DuqVB%2F20250101%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250101T061141Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0fd294f20804f084e3042350a26b81b2209bad9b02af7a69765a087d9e65557b");
   }, []);
 
-  
+
 
   // Remotion player editor data
   const { playerRef, setState } = useStore();
   useTimelineEvents();
 
  // const store = useStore();
-  
-  
+
+
 useEffect(() => {
   console.log("ZUSTAND STORE TRACKS: ");
   console.log(tracks);
@@ -363,17 +364,17 @@ if (file.type === "video/mp4") {
   // загрузить файл на сайт
   let formData = new FormData();
   formData.append("video_file", file);
- 
+
   const uploadedFile: any = await addProjectVideo(project.id, formData);
 
   // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
   if (uploadedFile) {
     const fetchVideos = async () => {
       setIsVideoLoading(true);
-    
+
                 const videos = await getAllVideos(project.id);
                 setVideosFromServer(videos);
-    
+
                 setIsVideoLoading(false);
             };
             fetchVideos();
@@ -390,15 +391,15 @@ const uploadedFile: any = await addProjectAudio(project.id, formData);
 if (uploadedFile) {
   const fetchAudios = async () => {
     setIsVideoLoading(true);
-  
+
               const audios = await getAllAudios(project.id);
               setAudiosFromServer(audios);
-  
+
               setIsVideoLoading(false);
           };
           fetchAudios();
 }
-      
+
     }
 
   //  const fileWithUrl = file as FileWithUrl;
@@ -470,7 +471,7 @@ if (uploadedFile) {
 
 
 
- 
+
 
   useEffect(() => {
     playerRef?.current?.isFullscreen
@@ -492,7 +493,7 @@ if (uploadedFile) {
        //   onClick={handleGetAndSendProjectToServer}
        // onClick={handleRenderVideoOnServer}
           />
-        
+
 
           <nav>
             <ul>
@@ -502,7 +503,7 @@ if (uploadedFile) {
                 <FolderIcon />
                 <p>Медиа</p>
                 </span>
-               
+
               </li>
             </ul>
           </nav>
@@ -536,10 +537,10 @@ if (uploadedFile) {
       <div className={styles.videoEditorWindow}>
         <div className={styles.videoPlayer}>
           {/* <Scene stateManager={stateManager} /> */}
-         
+
           <Player />
-          
-         
+
+
 
           {playerRef && !isBottomMenuUploadVideoOpen && <PlayNavigation />}
 
@@ -547,7 +548,7 @@ if (uploadedFile) {
         </div>
 
         <div className={styles.videoTopMenu}>
-       
+
        {/* <CropIcon />
        <EllypsisIcon /> */}
 
@@ -560,11 +561,11 @@ if (uploadedFile) {
       <CreateInstruction projectId={project.id} />
    </div>
       </div>
-      
+
 
      <RightMenu />
 
-     
+
 
       {isUploadMediaOpen && (
         <div className={styles.uploadMedia}>
@@ -585,22 +586,22 @@ if (uploadedFile) {
             {/* здесь сделать иэп по коипонентам видео и аудио с сервера */}
 
             {
-              videosFromServer.length > 0 && 
+              videosFromServer.length > 0 &&
               videosFromServer.map((video: any) => (
                 <VideoItemCardFromServer key={video.video_url}  videoItem={video} projectId={project.id} />
-               
+
               ))
             }
 
             {
-              audiosFromServer.length > 0 && 
+              audiosFromServer.length > 0 &&
               audiosFromServer.map((audio: IaudioFromServer) => (
                 <AudioItemCardFromServer key={audio.audio_url}  audioItem={audio} projectId={project.id} />
-               
+
               ))
             }
 
-            
+
 
             {uploadedFiles.length > 0 &&
               uploadedFiles.map((uploadedFile: FileWithUrl) => {

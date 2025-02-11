@@ -6,6 +6,7 @@ import useStore from '@/store/store';
 import { EmptyPlayerModal } from '../EmptyPlayerModal/EmptyPlayerModal';
 import { GenerateSubtitlesModal } from '../GenerateSubtitlesModal/GenerateSubtitlesModal';
 import { getProjectById, saveProjectTimeline } from '@/api/client/projects';
+import { API } from '@/app/api';
 
 export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
 
@@ -21,7 +22,7 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
 
    // заносим данные проекта в БД из стора
      const handleSaveProjectData = async () => {
-     
+
         console.log("TRACKS IN STORE: ", tracks);
         console.log("TRACKS ITEMS IDS: ", trackItemIds);
         console.log("TRACKS ITEMS MAP: ", trackItemsMap);
@@ -31,23 +32,23 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
         if (savedData) {
           console.log("DATA WAS SAVED TO DB FROM EDITOR");
         }
-    
+
       }
-  
-  
+
+
       const handleGetAndSendProjectToServer = async () => {
         // fetch project by id to get updated data
         const fetchNewProject = async () => {
           const newProject = await getProjectById(projectId);
           if (newProject) {
             setUpdatedProject(newProject);
-          } 
+          }
         }
-    
+
         fetchNewProject();
-    
+
         // send updated project to server
-           const response = await fetch('http://localhost:4000/api/sendproject', {
+           const response = await fetch(API.render.sendProject, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,16 +56,16 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
                 },
                 body: JSON.stringify({ updatedProject }),
             });
-        
+
             if (!response.ok) {
                 throw new Error('Failed to send project');
             }
-        
+
             return await response.json();
       }
 
 
-  
+
 
     // данные для показа модальных окон
     const [ isEmptyPlayerModalOpen, setIsEmptyPlayerModalOpen ] = useState(false);
@@ -81,7 +82,7 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
         <button
         onClick={() => {
           //  console.log("Создать инструкцию номер проекта: " + projectId );
-         
+
             if (tracks.length < 1) {
                 setIsEmptyPlayerModalOpen(true)
             } else {
@@ -89,8 +90,8 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
             //  handleGetAndSendProjectToServer();
                 setIsGenerateSubtitlesModalOpen(true)
             }
-        }} 
-        className={styles.createInstruction} 
+        }}
+        className={styles.createInstruction}
         >
         Создать инструкцию
         </button>
@@ -110,6 +111,6 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
   }} />
 
     </>
-        
+
     )
 }
