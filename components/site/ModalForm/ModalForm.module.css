@@ -12,7 +12,7 @@
 }
 
 .modal {
-  background: var(--white);
+  background: var(--background-secondary);
   border-radius: 8px;
   padding: 20px;
   min-width: 400px;
@@ -26,6 +26,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  color: var(--white);
 }
 
 .title {

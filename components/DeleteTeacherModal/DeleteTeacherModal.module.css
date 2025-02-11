@@ -1,17 +1,16 @@
 .white {
-    background-color: var(--white);
-    color: #33333FBF;
+    color: var(--white);
 }
 
 .white h2 {
-    color: #33333FBF;
+    color: var(--white);
 }
 
 .white svg {
-    stroke: #33333F;
+    stroke: var(--white);
 }
 
-.white form {
+.form {
     margin-left: 20px;
     margin-right: 20px;
     padding-bottom: 20px;
@@ -25,24 +24,10 @@
     gap: 15px;
 }
 
-.reset {
-    cursor: pointer;
-    background-color: var(--white);
-    color: #33333FBF;
-    font-size: 18px;
-    border: 1px solid #33333F26;
-    border-radius: 25px;
-    padding: 10px 20px;
+.apply {
     width: 50%;
 }
 
-.apply {
-    cursor: pointer;
-    background-color: #169FFD;
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
+.reset {
     width: 50%;
 }
