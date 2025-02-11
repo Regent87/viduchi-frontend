@@ -22,12 +22,36 @@ const nextConfig = {
   //   return config;
   // },
 
+  async rewrites() {
+    return [
+      {
+        source: '/admin-api/:path*',
+        destination: '/admin-api/:path*',
+      },
+      {
+        source: '/mobile-api/:path*',
+        destination: '/mobile-api/:path*',
+      },
+      {
+        source: '/file-service/:path*',
+        destination: '/file-service/:path*',
+      },
+      {
+        source: '/files/:path*',
+        destination: '/files/:path*',
+      },
+    ];
+  },
 
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api-dev.viduchi.ru',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev.viduchi.ru',
       },
     ],
   },
