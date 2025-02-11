@@ -1,4 +1,6 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
+import { Istudent } from "@/interfaces/student.interface";
+import { IaudioFromServer, IvideoFromServer } from "@/interfaces/video.interface";
 import CanvasTimeline, {
   ITimelineScaleState,
   ITimelineScrollState,
@@ -33,6 +35,18 @@ interface ITimelineStore {
   setState: (state: any) => Promise<void>;
   uploadedFiles: FileWithUrl[];
 
+  renderedVideoFiles: File[];
+  setRenderedVideoFiles: (new_videofile: File) => void;
+
+  setTracks: (new_tracks: ITrack[]) => void;
+  removeAllTracks: () => void;
+
+  setTrackItemIds: (new_trackItemIds: string[]) => void;
+
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => void;
+
+  setFps: (new_fps: number) => void;
+
   setUploadedFiles: (uploadedFile: FileWithUrl) => void;
   deleteUploadedFile: (fileUrl: string) => void;
 
@@ -40,12 +54,14 @@ interface ITimelineStore {
   setSubtitles: (subtitle: Isubtitle) => void;
   setAllSubtitles: (new_subtitles: Isubtitle[]) => void;
   updateSubtitles: (id: number, text: string) => void;
+  removeAllSubtitles: () => void;
 
   steps: Istep[];
   setSteps: (step: Istep) => void;
   setAllSteps: (new_steps: Istep[]) => void;
   deleteStep: (stepId: number) => void;
   updateSteps: (id: number, text: string) => void;
+  removeAllSteps: () => void;
 
   isSubtitlesShown: boolean;
   setIsSubtitlesShown: (isShown: boolean) => void;
@@ -62,6 +78,21 @@ interface ITimelineStore {
 
   setAllLastCheckedSubtitles: (subtitles: Isubtitle[]) => void;
   removeAllLastCheckedSubtitles: () => void;
+
+  students: Istudent[];
+  setAllStudents: (new_students: Istudent[]) => void;
+  setStudents: (student: Istudent) => void;
+  deleteStudent: (studentId: number) => void;
+  updateStudent: (id: number, new_student: Istudent) => void;
+
+  videosFromServer: IvideoFromServer[];
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => void;
+
+  audiosFromServer: IaudioFromServer[];
+  setAllAudiosFromServer: (new_audios: IaudioFromServer[]) => void;
+
+
+
 }
 
 
@@ -95,6 +126,86 @@ const useStore = create<ITimelineStore>((set) => ({
   videoIdForInstruction: 0,
   selectedSubtitles: [],
   lastCheckedSubtitles: [],
+  students: [],
+  videosFromServer: [],
+  audiosFromServer: [],
+  renderedVideoFiles: [],
+
+
+
+  setRenderedVideoFiles: (new_videofile: File) =>
+    set((state) => ({
+      renderedVideoFiles: [...state.renderedVideoFiles, new_videofile],
+    })),
+
+  setAllAudiosFromServer: (new_audios: IaudioFromServer[] ) => 
+    set((state) => ({
+      audiosFromServer: new_audios,
+    })),
+
+
+  setFps: (new_fps: number) => 
+    set((state) => ({
+      fps: new_fps,
+    })),
+
+  setTrackItemsMap: (new_trackItemsMap: Record<string, ITrackItem>) => 
+    set((state) => ({
+      trackItemsMap: new_trackItemsMap,
+    })),
+
+  setTrackItemIds: (new_trackItemIds: string[]) => 
+    set((state) => ({
+      trackItemIds: new_trackItemIds,
+    })),
+
+  setAllVideosFromServer: (new_videos: IvideoFromServer[]) => 
+    set((state) => ({
+      videosFromServer: new_videos,
+    })),
+
+  setAllStudents: (new_students: Istudent[]) => 
+    set((state) => ({
+      students: new_students,
+    })),
+
+    setStudents: (student: Istudent) =>
+      set((state) => ({
+        students: [...state.students, student],
+      })),
+
+    deleteStudent: (studentId: number) =>
+      set((state) => ({
+        students: state.students.filter((item) => item.id !== studentId),
+      })),
+
+      updateStudent: (id: number, new_student: Istudent) => {
+        set((state) => {
+          const obj = state.students.find((item) => Number(item.id) == id);
+          if (obj) {
+            obj.first_name = new_student.first_name; 
+            obj.last_name = new_student.last_name; 
+            obj.surname = new_student.surname; 
+            obj.phone_number = new_student.phone_number; 
+            obj.email = new_student.email; 
+            obj.position.id = new_student.position.id; 
+            obj.position.title = new_student.position.title; 
+
+
+          }
+          return { students: [...state.students] };
+        });
+      },
+
+  setTracks: (new_tracks: ITrack[]) => 
+    set((state) => ({
+      tracks: new_tracks,
+    })),
+
+    removeAllTracks: () => 
+      set((state) => ({
+        tracks: [],
+      })),
 
   setVideoIdForInstruction: (id: number) =>
     set((state) => ({
@@ -113,8 +224,13 @@ const useStore = create<ITimelineStore>((set) => ({
 
     deleteStep: (stepId: number) =>
       set((state) => ({
-        steps: state.steps.filter((item) => item.id !== stepId),
+        steps: state.steps.filter((item) => item.start !== stepId),
       })),
+
+      removeAllSteps: () => 
+        set((state) => ({
+          steps: [],
+        })),
 
   setSubtitles: (subtitle: Isubtitle) =>
     set((state) => ({
@@ -130,6 +246,11 @@ const useStore = create<ITimelineStore>((set) => ({
     set((state) => ({
       subtitles: new_subtitles,
     })),
+
+    removeAllSubtitles: () => 
+      set((state) => ({
+        subtitles: [],
+      })),
 
     setAllLastCheckedSubtitles: (new_subtitles: Isubtitle[]) =>
       set((state) => ({
@@ -158,7 +279,7 @@ const useStore = create<ITimelineStore>((set) => ({
 
     updateSteps: (id: number, text: string) => {
       set((state) => {
-        const obj = state.steps.find((item) => Number(item.id) == id);
+        const obj = state.steps.find((item) => Number(item.start) == id);
         if (obj) {
           obj.text = text; 
         }

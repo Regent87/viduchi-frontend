@@ -13,6 +13,8 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
 
    // console.log(" ОКНО СТУДЕНТА ", student)
 
+   // zustand store
+   const updateStudentInStore = useStore((state) => state.updateStudent);
 
 
     const [studentId, setStudentId] = useState(student.id);
@@ -64,8 +66,10 @@ export const EditStudentModal = ({isOpen, onClose, student}: EditStudentModalPro
                 reset()
                 onClose();
                 if (student) {
+                    console.log("UPDATED STUDENT: ", student)
+                   // updateStudentInStore(studentId, student);
                     console.log("studetns refresh")
-                    router.push("/admin/profile");
+                    router.push("/admin/students");
                 }
      }
 

@@ -23,7 +23,7 @@ return subtitlesItems;
 }
 
 
-export function convertToSubtitles(segments: Isubtitle[]) {
+export function convertToSubtitles(segments: Isubtitle[]): string {
    return segments
        .map((segment: Isubtitle) => `${segment.id}\n${segment.timeline}\n${segment.text}`)
        .join('\n\n');
