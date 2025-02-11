@@ -12,7 +12,7 @@ export const API = {
 		create: '/admin-api/v1/projects',
 		delete: (id: number) => `/admin-api/v1/projects/${id}`,
 		list: '/admin-api/v1/projects',
-		byId: (id: number) => `/admin-api/v1/projects/${id}`,
+		byId: (id: number) => process.env.NEXT_PUBLIC_API_URL + `/admin-api/v1/projects/${id}`,
 		addVideo: (id: any) => `/admin-api/v1/projects/${id}/videos`,
 		addAudio: (id: any) => `/admin-api/v1/projects/${id}/audios`,
 		audios: (id: any) => `/admin-api/v1/projects/${id}/audios`,
