@@ -38,7 +38,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
   const renderedVIdeoFiles = useStore((state) => state.renderedVideoFiles);
   const setRenderedVIdeoFiles = useStore((state) => state.setRenderedVideoFiles);
 
- 
+
 
   const uploadedFiles = useStore((state) => state.uploadedFiles);
   const setUploadedFiles = useStore((state) => state.setUploadedFiles);
@@ -56,18 +56,18 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     const fetchProject = async () => {
       const project: any = await getProjectById(projectId);
     setProject(project);
-     
+
     }
 
     fetchProject();
-    
+
   }, [])
 
 
   console.log("PROJECT FROM THEDIALOG WINDOW: ", project)
   // заносим данные проекта в БД из стора
    const handleSaveProjectData = async () => {
-   
+
       console.log("TRACKS IN STORE: ", tracks);
       console.log("TRACKS ITEMS IDS: ", trackItemIds);
       console.log("TRACKS ITEMS MAP: ", trackItemsMap);
@@ -77,7 +77,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
       if (savedData) {
         console.log("DATA WAS SAVED TO DB FROM EDITOR");
       }
-  
+
     }
 
 
@@ -94,9 +94,9 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
         }
         return newProject;
       }
-  
+
       const newProject = await fetchNewProject();
-  
+
       // send updated project to server
          const response = await fetch('http://localhost:4000/api/sendproject', {
               method: 'POST',
@@ -106,11 +106,11 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
               },
               body: JSON.stringify({ updatedProject: newProject }),
           });
-      
+
           if (!response.ok) {
               throw new Error('Failed to send project');
           }
-      
+
           return await response.json();
     }
 
@@ -118,7 +118,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
      // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
-  
+
 
   let blob = await fetch("http://localhost:4000/api/rendervideo", {
       method: "GET",
@@ -127,7 +127,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     }).then(r => r.blob());
 
     console.log("BLOB FROM SERVER: ", blob)
-    let fileOfBlob = new File([blob], 'rendered.mp4');
+    let fileOfBlob = new File([blob], 'rendered.mp4', { type: 'video/mp4' });
     console.log("FILE FROM BLOB: ", fileOfBlob)
 
     return fileOfBlob;
@@ -157,16 +157,16 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 //         let fileOfBlob = new File([blob], 'rendered.mp4');
 //         const formData = new FormData();
 //         formData.append('video_file', fileOfBlob);
-      
+
 
 //         // возращаем formData
 //         return formData;
-  
-    
-        
+
+
+
 //       });
-  
-  
+
+
   }
 
 
@@ -223,7 +223,7 @@ setIsLoading(false);
    formData.append('video_file', renderedFile);
    console.log("FORMDATA FOR UPLOAD Rednered file: ", formData)
   // загруажем видеофайл на сервер
-  const videoId: any = await addProjectVideo(projectId, formData); 
+  const videoId: any = await addProjectVideo(projectId, formData);
   if (!videoId) {
     setIsError(true);
   } else {
@@ -233,24 +233,24 @@ setIsLoading(false);
     setVideoIdForInstruction(videoId);
 
     // делаем транскрибацию
- 
+
         const data = await transcribeVideo(projectId, videoId);
         const { subtitles } = data;
         if (!subtitles) {
           setIsLoading(false);
           setIsError(true);
         } else {
-          
+
          // получаем субтитлы
           console.log("Subtitles got: ", subtitles);
           // добавляем субтитлы в проект
-      
+
           // обновляем данные в проекте
           const newProject = await getProjectById(projectId);
           if (!newProject.subtitles) {
             setIsLoading(false);
             setIsError(true);
-           
+
           } else {
             // закрывем окно и переходим на редактирование
             onClose();
@@ -259,18 +259,18 @@ setIsLoading(false);
           }
 
          }
-     
+
 
   }
- 
 
 
-      }
 
       }
 
-     
-      
+      }
+
+
+
 
   return (
 
@@ -289,13 +289,13 @@ value={projectName}
 placeholder='Введите название проекта'
 type="text" required /> */}
 
-{ 
+{
 isLoading && !isError && (
   <p>Пожалуйста, подождите. Идет транскрибация</p>
 )
 }
 
-{ 
+{
 !isLoading && !isError && (
   <>
   <p>ИИ выделит аудио дорожку из видео и преобразует <br />  ее в субтитры и вы перейдете <br /> на страницу редактирования инструкции</p>
@@ -308,7 +308,7 @@ isLoading && !isError && (
 
 
 
-{ 
+{
 isError && (
   <p className='red'>Произошла ошибка при транскрибации. Пожалуйста, повторите запрос</p>
 )
