@@ -69,17 +69,33 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
-    const response = await fetch('http://localhost:4000/api/rendervideo', {
-      method: 'GET',
-  });
 
-  if (!response.ok) {
-      throw new Error('Failed to render video');
-  }
+  //   const response = await fetch('http://localhost:4000/api/rendervideo', {
+  //     method: 'GET',
+  // });
 
-  console.log("RESPONSE FROM RENDERED FILE: ", response)
+  // if (!response.ok) {
+  //     throw new Error('Failed to render video');
+  // }
 
-  return response;
+  // console.log("RESPONSE FROM RENDERED FILE: ", response)
+
+  // return response;
+
+  fetch("http://localhost:4000/api/rendervideo", {
+    method: "GET",
+    // body: JSON.stringify({ selectedDoc }),
+     headers: { "content-type": "application/json" },
+  })
+    .then((res) => (res.ok ? res.blob() : Promise.reject(res)))
+    .then((blob) => {
+      const blobUrl = URL.createObjectURL(blob);
+      // now do something with the URL
+      console.log("BLOB: ", blob);
+      console.log(" BLOB URL: ", blobUrl);
+    });
+
+
 }
   
 

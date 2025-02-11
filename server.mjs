@@ -110,7 +110,7 @@ const options = {
 };
 
 const fileName =`${compositionId}.mp4`;
-res.sendFile(fileName, options, function (err) {
+return res.status(200).sendFile(fileName, options, function (err) {
   if (err) {
       console.error('Error sending file:', err);
   } else {
