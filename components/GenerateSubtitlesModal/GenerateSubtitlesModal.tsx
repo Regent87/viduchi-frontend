@@ -119,8 +119,6 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
      // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
-
-
   let blob = await fetch(API.render.renderVideo, {
       method: "GET",
       // body: JSON.stringify({ selectedDoc }),
