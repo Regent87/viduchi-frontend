@@ -126,7 +126,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     }).then(r => r.blob());
 
     console.log("BLOB FROM SERVER: ", blob)
-    let fileOfBlob = new File([blob], 'rendered.mp4', { type: 'video/mp4' });
+    let fileOfBlob = new File([blob], 'rendered.mp4', { type: "video/mp4" });
     console.log("FILE FROM BLOB: ", fileOfBlob)
 
     return fileOfBlob;
@@ -203,9 +203,9 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 */
 
 // 1. сохраняем timeline проекта на сервер
-handleSaveProjectData();
+await handleSaveProjectData();
 // 2. делаем запрос на сервер json для сохранения файла проекта json в public
-handleGetAndSendProjectToServer();
+await handleGetAndSendProjectToServer();
 
 // 3. делаем запрос на рендеринг видео и получам видеофайл. в этой же функции отправляем видеофайл на сохранение на сервер
  const renderedFile = await handleRenderVideoOnServer();
