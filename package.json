@@ -10,6 +10,7 @@
     "render": "node renderer/render.mjs"
   },
   "dependencies": {
+    "@babel/parser": "^7.26.8",
     "@designcombo/events": "0.1.2",
     "@designcombo/timeline": "0.1.2",
     "@ffmpeg/ffmpeg": "^0.12.6",

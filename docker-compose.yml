@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: admin-cabinet
     ports:
       - "3000:3000"
     volumes:
@@ -13,3 +16,11 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  render-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: render-server
+    ports:
+      - "4000:4000"

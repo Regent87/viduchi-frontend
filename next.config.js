@@ -10,11 +10,44 @@ const nextConfig = {
     });
     return config;
   },
+
+  // webpack: (config) => {
+  //   config.module.rules.push({
+  //     test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webm)$/,
+  //     type: 'asset',
+  //     generator: {
+  //       filename: 'static/chunks/[path][name].[hash][ext]'
+  //     },
+  //   });
+  //   return config;
+  // },
+
+  async rewrites() {
+    return [
+      {
+        source: '/admin-api/:path*',
+        destination: '/admin-api/:path*',
+      },
+      {
+        source: '/files/:path*',
+        destination: '/files/:path*',
+      },
+      {
+        source: '/render/:path*',
+        destination: '/render/:path*',
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api-dev.viduchi.ru',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev.viduchi.ru',
       },
     ],
   },

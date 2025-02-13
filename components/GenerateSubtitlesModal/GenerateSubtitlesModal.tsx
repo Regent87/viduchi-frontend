@@ -14,6 +14,7 @@ import { toBlobURL } from '@ffmpeg/util';
 import { addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
 import { parseSubtitlesToJson } from '@/utils/subtitles';
+import { API } from '@/app/api';
 
 
 export const GenerateSubtitlesModal = ({ projectId, isOpen, onClose }: GenerateSubtitlesModalProps) => {
@@ -98,7 +99,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
       const newProject = await fetchNewProject();
 
       // send updated project to server
-         const response = await fetch('http://localhost:4000/api/sendproject', {
+         const response = await fetch(API.render.sendProject, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -118,9 +119,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
      // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
-
-
-  let blob = await fetch("http://localhost:4000/api/rendervideo", {
+  let blob = await fetch(API.render.renderVideo, {
       method: "GET",
       // body: JSON.stringify({ selectedDoc }),
       //  headers: { "content-type": "application/json" },
