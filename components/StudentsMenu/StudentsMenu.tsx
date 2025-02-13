@@ -3,14 +3,14 @@
 import Link from 'next/link';
 import cn from 'classnames';
 import { usePathname } from 'next/navigation';
-import styles from './AdminMenu.module.css'
+import styles from './StudentsMenu.module.css'
 
 const menuItems = [
-    { title: 'Профиль', href: '/admin/profile' },
-    { title: 'Вход и безопасность', href: '/admin/security' },
+    { title: 'Студенты', href: '/students' },
+    { title: 'Наставники', href: '/teachers' },
   ];
 
-export const AdminMenu = () => {
+export const StudentsMenu = () => {
 
     const pathname = usePathname();
 

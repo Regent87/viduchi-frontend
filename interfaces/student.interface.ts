@@ -1,28 +1,23 @@
-import { StringifyOptions } from "querystring";
+export interface PositionModel {
+	id: number;
+	title: string;
+}
 
 export interface StudentModel {
-	account_id: number;
+	id: number;
 	email: string;
-	role: string;
-	user_id: number;
     first_name: string;
     last_name: string;
     surname: string;
-    phone: string;
+    phone_number: string;
+    position: PositionModel;
 }
 
-interface Iposition {
-    id: number;
-    title: string;
-}
-
-export interface Istudent {
-    id: number;
-    email: string;
+export interface TeacherModel {
+	id: number;
+	email: string;
     first_name: string;
     last_name: string;
     surname: string;
-    position: Iposition;
-    avatar_url: string;
     phone_number: string;
 }

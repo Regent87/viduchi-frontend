@@ -1,61 +1,59 @@
 import { useState } from 'react';
 import styles from './EditTeacherMenu.module.css';
-import { EditTeacherModal } from '../EditTeacherModal/EditTeacherModal';
 import { DeleteTeacherModal } from '../DeleteTeacherModal/DeleteTeacherModal';
+import { TeacherModel } from '@/interfaces/student.interface';
+import { TeacherActionModal } from '../TeacherActionModal/TeacherActionModal';
 
-export const EditTeacherMenu = ({closeDropdown, teacher}: any) => {
+export const EditTeacherMenu = ({closeDropdown, teacher}: {closeDropdown: () => void, teacher: TeacherModel}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const openHandler = () => {
+    const onEditClickHandler = () => {
         setIsModalOpen(true);
     }
 
-    const openDeleteHandler = () => {
+    const onDeleteClickHandler = () => {
         setIsDeleteModalOpen(true);
     }
 
     return (
         <>
-       
-        <td className={styles.edit}>
+        <div className={styles.edit}>
             <nav>
                 <ul>
                     <li>
                         <span
-                        onClick={openHandler}
+                        onClick={onEditClickHandler}
                         >Редактирвать</span>
                     </li>
                     <li>
                         <span
-                        onClick={openDeleteHandler}
+                        onClick={onDeleteClickHandler}
                         >Удалить</span>
                     </li>
                 </ul>
             </nav>
-        </td>
+        </div>
 
-<EditTeacherModal isOpen={isModalOpen} onClose={() => {
-    closeDropdown();
-    setIsModalOpen(false);
-    console.log("refresh");
-  //  router.replace('/projects');
- 
-  }} 
-  teacher={teacher}
-  />
+            <TeacherActionModal
+                mode="edit"
+                isOpen={isModalOpen}
+                onClose={() => {
+                    closeDropdown();
+                    setIsModalOpen(false);
+                }}
+                teacher={teacher}
+            />
 
-  <DeleteTeacherModal
-  isOpen={isDeleteModalOpen} onClose={() => {
-    closeDropdown();
-    setIsDeleteModalOpen(false);
-    console.log("refresh");
-  //  router.replace('/projects');
-  
-}}
-id={teacher.teacher.id}
-/>
- </>
+            <DeleteTeacherModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    closeDropdown();
+                    setIsDeleteModalOpen(false);
+                }}
+                id={teacher.id}
+            />
+        </>
     )
 }

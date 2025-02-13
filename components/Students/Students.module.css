@@ -1,61 +1,40 @@
+.header {
+  border-bottom-color: #f8f9fa;
+  display: contents;
+}
+
+.header > div {
+  background-color: var(--background-color);
+  padding: 18px;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
 .students {
-  /* display: flex;
-   flex-direction: column; */
-    /* border-collapse: collapse; */
-    /* width: 100%; */
-    padding-top: 10px;
-    width: 100%;
+  display: grid;
+  width: 100%;
+  overflow: auto;
+  margin-top: 20px;
+}
 
-/* height: 50vh !important;
-overflow: scroll !important; */
-  }
+.list {
+  display: grid;
+  grid-template-columns:
+    minmax(200px, 1fr)
+    minmax(150px, 1fr)
+    minmax(80px, 1fr)
+    minmax(80px, 1fr)
+    40px;
+  gap: 0px;
+  justify-content: center;
+}
 
-  .list {
-    /* height: 100vh;
-    width: 100%; */
-    
-   /* display: flex;
-   flex-direction: column;
-   width: 100%; */
-  
-  }
-
-  .students td, .students th {
-    color: var(--white);
-    font-size: 14px;
-    text-align: left;
-    padding: 13px;
-    border-bottom: 1px solid gray;
-  }
-
-  .students tr {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  .addStudent {
-    cursor: pointer;
-  }
-
-  .addStudentButton {
-    color: var(--white);
-    font-size: 16px;
-    background-color: #169FFDBF;
-    float: right;
-    margin-top: 0px;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    border: none;
-  }
-
-  @media(min-width: 1199px) {
-    .addStudentButton {
-        /* margin-top: 15px; */
-        margin-right: 30px;
-    }
-
-    .students {
-        /* padding-top: 50px; */
-    }
-  }
+.buttonArea {
+  display: grid;
+  justify-content: right;
+  margin-top: 20px;
+}

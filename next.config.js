@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
 
   webpack: (config) => {
@@ -22,12 +22,32 @@ const nextConfig: NextConfig = {
   //   return config;
   // },
 
+  async rewrites() {
+    return [
+      {
+        source: '/admin-api/:path*',
+        destination: '/admin-api/:path*',
+      },
+      {
+        source: '/files/:path*',
+        destination: '/files/:path*',
+      },
+      {
+        source: '/render/:path*',
+        destination: '/render/:path*',
+      },
+    ];
+  },
 
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api-dev.viduchi.ru',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev.viduchi.ru',
       },
     ],
   },
