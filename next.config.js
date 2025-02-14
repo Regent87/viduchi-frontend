@@ -23,20 +23,33 @@ const nextConfig = {
   // },
 
   async rewrites() {
-    return [
-      {
-        source: '/admin-api/:path*',
-        destination: '/admin-api/:path*',
-      },
-      {
-        source: '/files/:path*',
-        destination: '/files/:path*',
-      },
-      {
-        source: '/render/:path*',
-        destination: '/render/:path*',
-      },
-    ];
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'development') {
+      const ADMIN_API_URL = process.env.ADMIN_API_URL;
+      const RENDER_SERVER_URL = process.env.RENDER_SERVER_URL;
+
+      return [
+        {
+          source: '/admin-api/:path*',
+          destination: `${ADMIN_API_URL}/:path*`,
+        },
+        {
+          source: '/render/:path*',
+          destination: `${RENDER_SERVER_URL}/:path*`,
+        },
+      ];
+    } else {
+      return [
+        {
+          source: '/admin-api/:path*',
+          destination: '/admin-api/:path*',
+        },
+        {
+          source: '/render/:path*',
+          destination: '/render/:path*',
+        },
+      ];
+    }
   },
 
   images: {

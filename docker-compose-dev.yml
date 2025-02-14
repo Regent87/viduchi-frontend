@@ -1,8 +1,11 @@
-version: '3.8'
+version: '3'
 
 services:
-  web:
-    build: .
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: admin-cabinet
     ports:
       - "3000:3000"
     volumes:
@@ -10,4 +13,15 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    command: npm run dev
+      - ADMIN_API_URL=http://host.docker.internal:8081
+      - RENDER_SERVER_URL=http://render-server:4000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  render-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: render-server
+    ports:
+      - "4000:4000"

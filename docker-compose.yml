@@ -1,7 +1,7 @@
-version: '3.8'
+version: '3'
 
 services:
-  web:
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,8 +12,8 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NODE_ENV=production
+      - ADMIN_API_URL=http://localhost:8081/admin-api
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
