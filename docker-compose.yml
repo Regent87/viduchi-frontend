@@ -11,9 +11,10 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - ./out:/app/out
     environment:
-      - NODE_ENV=production
-      - ADMIN_API_URL=http://localhost:8081/admin-api
+      - NODE_ENV=staging
+      - ADMIN_API_URL=${ADMIN_API_URL}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

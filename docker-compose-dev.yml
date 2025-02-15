@@ -11,10 +11,11 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - ./out:/app/out
     environment:
       - NODE_ENV=development
-      - ADMIN_API_URL=http://host.docker.internal:8081
-      - RENDER_SERVER_URL=http://render-server:4000
+      - ADMIN_API_URL=${ADMIN_API_URL}
+      - RENDER_SERVER_URL=${RENDER_SERVER_URL}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

@@ -6,7 +6,7 @@ export const getProjectById = async (id: number): Promise<ProjectModel> => {
     const cookieStore = await cookies();
     const token = cookieStore.get('jwt_token')?.value;
 
-    const response = await fetch(API.projects.byId(id), {
+    const response = await fetch(API.server_api.projects.byId(id), {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -21,5 +21,3 @@ export const getProjectById = async (id: number): Promise<ProjectModel> => {
 
     return await response.json();
 };
-
-
