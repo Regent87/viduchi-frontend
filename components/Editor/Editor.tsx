@@ -484,10 +484,11 @@ if (uploadedFile) {
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
           <MenuIcon
-          onClick={() => {
-            handleSaveProjectData();
-            handleGetAndSendProjectToServer();
-            handleRenderVideoOnServer();
+          onClick={async () => {
+            await handleSaveProjectData();
+            router.push('/projects')
+            // handleGetAndSendProjectToServer();
+            // handleRenderVideoOnServer();
           }}
          // onClick={handleSaveProjectData}
        //   onClick={handleGetAndSendProjectToServer}
