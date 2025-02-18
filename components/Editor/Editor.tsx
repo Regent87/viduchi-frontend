@@ -486,7 +486,7 @@ if (uploadedFile) {
           <MenuIcon
           onClick={async () => {
             await handleSaveProjectData();
-            router.push('/projects')
+            router.push('/projects');
             // handleGetAndSendProjectToServer();
             // handleRenderVideoOnServer();
           }}
@@ -511,7 +511,12 @@ if (uploadedFile) {
         </aside>
         <div className={styles.headerWrapper}>
           <div className={styles.header}>
-            <span className={styles.logo}>VIDUCHI</span>
+            <span
+            onClick={ async () => {
+              await handleSaveProjectData();
+              router.push('/projects');
+            }}
+            className={styles.logo}>VIDUCHI</span>
 
             <input
               onChange={(e) => setProjectName(e.target.value)}
