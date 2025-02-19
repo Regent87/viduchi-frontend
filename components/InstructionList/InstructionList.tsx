@@ -8,45 +8,16 @@ import Link from 'next/link';
 import { InstructionModel } from '@/interfaces/instruction.interface';
 import { InstructionCard } from '../InstructionCard/InstructionCard';
 import { getAllInstructions } from '@/api/client/instructions';
-;
+import useStore from '@/store/store';
 
 export default function InstructionList({ className }: InstructionListProps)  {
 
-    // let new_instructions: InstructionModel[] = [
-    //     {
-    //         id: 1,
-    //         title: "первая длинная инструкция для замены батарейки",
-    //         date: "2024-12-17T13:24:20.980895Z",
-
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "вторая",
-    //         date: "2024-12-17T13:24:20.980895Z",
-
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "третья",
-    //         date: "2024-12-17T13:24:20.980895Z",
-
-    //     },
-    //     {
-    //         id: 4,
-    //         title: "четвертая",
-    //         date: "2024-12-17T13:24:20.980895Z",
-
-    //     },
-    //     {
-    //         id: 5,
-    //         title: "пятая",
-    //         date: "2024-12-17T13:24:20.980895Z",
-
-    //     }
-    // ]
+    // zustand store
+    const instructions = useStore((state) => state.instructions);
+    const setInstructions = useStore((state) => state.setAllInstructions);
 
 	// const [instructions, setInstructions] = useState<InstructionModel[]>([]);
-    const [instructions, setInstructions] = useState<InstructionModel[]>([]);
+   // const [instructions, setInstructions] = useState<InstructionModel[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 
