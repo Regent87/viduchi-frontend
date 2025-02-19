@@ -1,5 +1,6 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
 import { InstructionModel } from "@/interfaces/instruction.interface";
+import { ProjectModel } from "@/interfaces/project.interface";
 import { StudentModel } from "@/interfaces/student.interface";
 import { IaudioFromServer, IvideoFromServer } from "@/interfaces/video.interface";
 import CanvasTimeline, {
@@ -96,6 +97,10 @@ interface ITimelineStore {
   setAllInstructions: (new_instructions: InstructionModel[]) => void;
   updateInstruction: (id: number, new_title: string) => void;
 
+  projects: ProjectModel[];
+  setAllProjects: (new_projects: ProjectModel[]) => void;
+  updateProject: (id: number, new_title: string) => void;
+
 
 }
 
@@ -135,8 +140,23 @@ const useStore = create<ITimelineStore>((set) => ({
   audiosFromServer: [],
   renderedVideoFiles: [],
   instructions: [],
+  projects: [],
 
 
+  setAllProjects: (new_projects: ProjectModel[] ) => 
+    set((state) => ({
+      projects: new_projects,
+    })),
+
+    updateProject: (id: number, new_title: string) => {
+      set((state) => {
+        const obj = state.projects.find((item) => Number(item.id) == id);
+        if (obj) {
+          obj.title = new_title; 
+        }
+        return { projects: [...state.projects] };
+      });
+    },
 
 
   setAllInstructions: (new_instructions: InstructionModel[] ) => 
