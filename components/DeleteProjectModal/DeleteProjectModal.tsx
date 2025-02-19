@@ -4,7 +4,7 @@ import { DeleteProjectModalProps } from "./DeleteProjectModal.props";
 import styles from './DeleteProjectModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
 import { deleteProject, getProjects } from "@/api/client/projects";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 import useStore from "@/store/store";
 
 export const DeleteProjectModal = ({ isOpen, project, onClose }: DeleteProjectModalProps) => {
