@@ -3,10 +3,14 @@
 import { DeleteProjectModalProps } from "./DeleteProjectModal.props";
 import styles from './DeleteProjectModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
-import { deleteProject } from "@/api/client/projects";
+import { deleteProject, getProjects } from "@/api/client/projects";
 import { useRouter } from "next/navigation"
+import useStore from "@/store/store";
 
 export const DeleteProjectModal = ({ isOpen, project, onClose }: DeleteProjectModalProps) => {
+
+    // suztan store
+    const setProjects = useStore((state) => state.setAllProjects);
 
     const router = useRouter();
 
@@ -15,6 +19,11 @@ export const DeleteProjectModal = ({ isOpen, project, onClose }: DeleteProjectMo
        const deleted = await deleteProject(project.id);
        onClose();
        if (deleted) {
+        const fetchProjects = async () => {
+                    const projects = await getProjects();
+                    setProjects(projects);
+                };
+                fetchProjects();
         router.push('/projects');
        }
      

@@ -6,6 +6,10 @@ import { Modal } from "../site/ModalForm/ModalForm";
 
 export const DeleteInstructionModal = ({ isOpen, instruction, onClose }: DeleteInstructionModalProps): JSX.Element => {
 
+    const handleDeleteInstruction = () => {
+        
+    }
+
     return (
         <Modal className={styles.white}
         isOpen={isOpen} onClose={onClose} title={` Точно удалить ${instruction.title}?`}>
