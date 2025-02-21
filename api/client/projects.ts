@@ -272,7 +272,7 @@ export const transcribeVideo = async (id: number, videoId: number) => {
         throw new Error('Failed to transcribe video of project');
     }
 
-    return await response.json();
+    return response.json();
 
 }
 
