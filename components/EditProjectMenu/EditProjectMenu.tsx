@@ -6,7 +6,7 @@ import { DeleteProjectModal } from '../DeleteProjectModal/DeleteProjectModal';
 
 export const EditProjectMenu = ({closeDropdown, project}: any) => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isRenameModelOpen, setIsRenameModelOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const router = useRouter();
@@ -15,8 +15,8 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
         router.push(`/editor/${project.id}`)
     }
 
-    const openHandler = () => {
-        setIsModalOpen(true);
+    const openRenameHandler = () => {
+        setIsRenameModelOpen(true);
     }
 
     const openDeleteHandler = () => {
@@ -25,40 +25,39 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
 
     return (
         <>
+            <div className={styles.edit}>
+                <nav>
+                    <ul>
+                        <li>
+                            <span onClick={editProjectHandler}>Редактировать</span>
+                        </li>
+                        <li>
+                            <span onClick={openRenameHandler}>Переименовать</span>
+                        </li>
+                        <li>
+                            <span onClick={openDeleteHandler}>Удалить</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
-        <div className={styles.edit}>
-            <nav>
-                <ul>
-                <li>
-                    <span
-                    onClick={editProjectHandler}
-                        >Редактировать</span>
-                    </li>
-                    <li>
-                        <span
-                        onClick={openHandler}
-                        >Переименовать</span>
-                    </li>
-                    <li>
-                        <span
-                        onClick={openDeleteHandler}
-                        >Удалить</span>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+            {isRenameModelOpen && <RenameProjectModal
+                isOpen={isRenameModelOpen}
+                project={project}
+                onClose={() => {
+                    closeDropdown();
+                    setIsRenameModelOpen(false);
+                }}/>
+            }
 
-<RenameProjectModal isOpen={isModalOpen} project={project} onClose={() => {
-    setIsModalOpen(false);
-    console.log("RenameProjectModal onClose");
-  }} />
-
-  <DeleteProjectModal
-  isOpen={isDeleteModalOpen} project={project} onClose={() => {
-    closeDropdown();
-    setIsDeleteModalOpen(false);
-    console.log("refresh");
-}} />
- </>
+            {isDeleteModalOpen && <DeleteProjectModal
+                isOpen={isDeleteModalOpen}
+                project={project}
+                onClose={() => {
+                    closeDropdown();
+                    setIsDeleteModalOpen(false);
+                }} />
+            }
+        </>
     )
 }

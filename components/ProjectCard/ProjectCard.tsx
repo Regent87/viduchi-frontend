@@ -43,11 +43,11 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 					<div className={styles.projectCreated}>
 						{projectModel.date.substring(0, 10) }
 					</div>
-					<div className={styles.menuContainer} ref={menuRef}>
+					<div className={styles.menuContainer}>
 						<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
 						{
 							isEditOpen && (
-								<EditProjectMenu closeDropdown={closeDropdown}
+								<EditProjectMenu key={projectModel.id} closeDropdown={closeDropdown}
 								project={projectModel}
 								/>
 							)

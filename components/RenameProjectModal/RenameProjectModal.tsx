@@ -38,6 +38,7 @@ export const RenameProjectModal = ({ isOpen, project, onClose }: RenameProjectMo
                 <div>
                     <P size="s">Название проекта</P>
                     <Input
+                        style={{ width: '100%' }}
                         type="text"
                         placeholder="Введите название проекта"
                         value={projectName}
@@ -45,20 +46,15 @@ export const RenameProjectModal = ({ isOpen, project, onClose }: RenameProjectMo
                         required
                     />
                 </div>
-                <div></div>
 
-                <div>
+                <div className={styles.buttons}>
                     <Button
-                        className={styles.element}
                         appearance="ghost"
                         onClick={onClose}
                     >
                         Отменить
                     </Button>
-                </div>
-                <div>
                     <Button
-                        className={styles.element}
                         appearance="primary"
                         onClick={handleSubmit}
                     >
