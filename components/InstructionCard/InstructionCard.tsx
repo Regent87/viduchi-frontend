@@ -1,12 +1,11 @@
 import { InstructionCardProps } from './InstructionCard.props';
 import styles from './InstructionCard.module.css';
 import cn from 'classnames';
-import { P } from '../P/P';
 import MenuIcon from './menu.svg';
 import PlayIcon from './play.svg';
 import cover from '../../public/cover.png';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { EditInstructionMenu } from '../EditInstructionMenu/EditInstructionMenu';
 
 export const InstructionCard = ({ instructionModel, className, ...props }: InstructionCardProps): JSX.Element => {
@@ -16,47 +15,44 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 		setIsEditOpen(false);
 	};
 
-	//console.log(projectModel)
-	
+	const menuRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+				setIsEditOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<>
-		<div className={cn(styles.project, className)} {...props}>
-			<div className={styles.projectCover}>
-				<Image src={instructionModel.cover_url ? instructionModel.cover_url : cover } alt="cover" width={220} height={150} />
-					
-				<PlayIcon />
+			<div className={cn(styles.instruction, className)} {...props}>
+				<div className={styles.instructionCover}>
+					<Image src={instructionModel.cover_url ? instructionModel.cover_url : cover } alt="cover" width={220} height={150} />
+					<PlayIcon />
+				</div>
+				<div className={styles.dateAndTitle}>
+					<div className={styles.instructionTitle}>
+						{ instructionModel.title }
+					</div>
+					<div className={styles.menuContainer} ref={menuRef}>
+						<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
+						{
+							isEditOpen && (
+								<EditInstructionMenu closeDropdown={closeDropdown}
+								instruction={instructionModel}
+								/>
+							)
+						}
+					</div>
+				</div>
 			</div>
-			<div className={styles.dateAndTitle}>
-			 <span className={styles.projectCreated}>
-				{ instructionModel.title }
-		
-			 </span>
-			<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
-			
-		
-			</div>
-			 <span className={styles.title}>
-			{/* {instructionModel.title} */}
-			</span> 
-
-		
-			
-			
-		
-			
-
-			{
-	isEditOpen && (
-		<EditInstructionMenu closeDropdown={closeDropdown}
-		instruction={instructionModel}
-		/>
-	)
-}
-		</div>
-
-
-
-</>
+		</>
 	);
 };

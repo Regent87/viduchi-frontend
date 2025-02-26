@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import styles from './EditProjectMenu.module.css';
-import { EditTeacherModal } from '../EditTeacherModal/EditTeacherModal';
-import { DeleteTeacherModal } from '../DeleteTeacherModal/DeleteTeacherModal';
 import { useRouter } from 'next/navigation';
 import { RenameProjectModal } from '../RenameProjectModal/RenameProjectModal';
 import { DeleteProjectModal } from '../DeleteProjectModal/DeleteProjectModal';
@@ -25,11 +23,9 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
         setIsDeleteModalOpen(true);
     }
 
-   // console.log("Project in menu: ", project)
-
     return (
         <>
-       
+
         <div className={styles.edit}>
             <nav>
                 <ul>
@@ -53,10 +49,8 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
         </div>
 
 <RenameProjectModal isOpen={isModalOpen} project={project} onClose={() => {
-    closeDropdown();
     setIsModalOpen(false);
-    console.log("refresh");
-  //  router.replace('/projects');
+    console.log("RenameProjectModal onClose");
   }} />
 
   <DeleteProjectModal
@@ -64,7 +58,6 @@ export const EditProjectMenu = ({closeDropdown, project}: any) => {
     closeDropdown();
     setIsDeleteModalOpen(false);
     console.log("refresh");
-  //  router.replace('/projects');
 }} />
  </>
     )
