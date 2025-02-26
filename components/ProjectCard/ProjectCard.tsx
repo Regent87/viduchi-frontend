@@ -1,13 +1,13 @@
 import { ProjectCardProps } from './ProjectCard.props';
 import styles from './ProjectCard.module.css';
 import cn from 'classnames';
-import { P } from '../P/P';
 import MenuIcon from './menu.svg';
 import PlayIcon from './play.svg';
 import cover from '../../public/cover.png';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { EditProjectMenu } from '../EditProjectMenu/EditProjectMenu';
+import { P } from '../P/P';
 
 export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardProps): JSX.Element => {
 
@@ -16,64 +16,49 @@ export const ProjectCard = ({ projectModel, className, ...props }: ProjectCardPr
 		setIsEditOpen(false);
 	};
 
-	console.log(projectModel)
-	
+	const menuRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+				setIsEditOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<>
-
-
-		{/* <div className={cn(styles.project, className)} {...props}>
-			<div className={styles.projectCover}>
-				<Image src={cover} alt="cover" width={220} height={150} />
-					
-				<PlayIcon />
-			</div>
-			<span className={styles.projectCreated}>{projectModel.date.substring(0, 10) }
-
-			
-			</span>
-
-			<P size="s" className={styles.projectInfo}>
-			
-			<P size="m" className={styles.projectTitle}>{projectModel.title}</P>
-			<span className={styles.menu}>
-				<MenuIcon onClick={() => setIsEditOpen(!isEditOpen)} />
-			</span>
-		</P> */}
-			
-			
 			<div className={cn(styles.project, className)} {...props}>
-			<div className={styles.projectCover}>
-				<Image src={cover} alt="cover" width={220} height={150} />
-					
-				<PlayIcon />
+				<div className={styles.projectCover}>
+					<Image src={projectModel.cover_url ? projectModel.cover_url : cover } alt="cover" width={220} height={150} />
+
+					<PlayIcon />
+				</div>
+				<div className={styles.dateAndTitle}>
+					<div className={styles.projectCreated}>
+						{projectModel.date.substring(0, 10) }
+					</div>
+					<div className={styles.menuContainer} ref={menuRef}>
+						<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
+						{
+							isEditOpen && (
+								<EditProjectMenu closeDropdown={closeDropdown}
+								project={projectModel}
+								/>
+							)
+						}
+					</div>
+				</div>
+				<P size="l" className={styles.title}>
+					{projectModel.title}
+				</P>
+
 			</div>
-			<div className={styles.dateAndTitle}>
-			<span className={styles.projectCreated}>{projectModel.date.substring(0, 10) }
-		
-			</span>
-			<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
-			
-		
-			</div>
-			<span className={styles.title}>
-			{projectModel.title}
-			</span>
-
-			
-
-			{
-	isEditOpen && (
-		<EditProjectMenu closeDropdown={closeDropdown}
-		project={projectModel}
-		/>
-	)
-}
-		</div>
-
-
-
-</>
+		</>
 	);
 };

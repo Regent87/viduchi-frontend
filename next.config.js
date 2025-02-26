@@ -62,6 +62,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'dev.viduchi.ru',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
   },
   eslint: {

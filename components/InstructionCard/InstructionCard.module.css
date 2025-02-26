@@ -1,79 +1,54 @@
-.project {
-	display: flex;
-	flex-direction: column;
-	gap: 3%;
-
-	/* width: 200px;
-	height: 250px; */
-
-	width: 15vw;
-	height: 25vh;
-
-	flex-shrink: 0;
+.instruction {
+	width: 250px;
 	border-radius: 10px;
 	background: #383A47;
-	/* margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 10px; */
 	color: var(--white);
 }
 
-.project:hover {
+.instruction:hover {
 	/* cursor: pointer; */
 }
 
-.projectCover {
+.instructionCover {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* margin-top: -10px; */
+	margin-top: 10px;
 }
 
-.projectCover img {
-	/* width: 200px;
-	height: 150px; */
-
-	width: 13vw;
-	height: 18vh;
-	/* margin-top: 2vh; */
+.instructionCover img {
+	width: 220px;
+	height: 150px;
+	object-fit: cover;
 }
 
-.projectCover svg {
+.instructionCover svg {
 	position: absolute;
 	cursor: pointer;
-	
 }
 
-
-
-
-
-
-.projectTitle {
-	/* text-align: left; */
-	/* margin-left: 14px; */
-	font-size: 14px;
+.instructionTitle {
+	margin-top: 10px;
+	margin-bottom: 15px;
 }
 
 .menu {
-	width: 24px;
-	height: 24px;
 	cursor: pointer;
 }
 
-.projectCreated {
-	font-size: 12px;
-	margin-left: 1vw;
-}
-
 .dateAndTitle {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+	display: grid;
+	grid-template-columns: 1fr 20px;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 20px;
+	margin-right: 10px;
 }
 
 .title {
-	margin-left: 1vw;
-	font-size: 13px;
+	padding-left: 0px;
+}
+
+.menuContainer {
+	margin-right: 0px;
 }

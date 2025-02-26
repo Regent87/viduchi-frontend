@@ -18,6 +18,7 @@ export const API = {
 		delete: (id: number) => `/admin-api/v1/projects/${id}`,
 		list: '/admin-api/v1/projects',
 		byId: (id: number) => `/admin-api/v1/projects/${id}`,
+		editTitle: (id: number) => `/admin-api/v1/projects/${id}/title`,
 		addVideo: (id: any) => `/admin-api/v1/projects/${id}/videos`,
 		addAudio: (id: any) => `/admin-api/v1/projects/${id}/audios`,
 		audios: (id: any) => `/admin-api/v1/projects/${id}/audios`,
