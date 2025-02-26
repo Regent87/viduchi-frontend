@@ -56,6 +56,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'api-test.viduchi.ru',
+      },
+      {
+        protocol: 'https',
         hostname: 'api-dev.viduchi.ru',
       },
       {
