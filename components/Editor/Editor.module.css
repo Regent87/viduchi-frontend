@@ -114,6 +114,7 @@
   font-size: 30px;
   color: #169ffd;
   font-family: var(--font-family);
+  cursor: pointer;
 }
 
 .header input[type="text"] {
