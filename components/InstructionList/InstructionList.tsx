@@ -2,14 +2,16 @@ import styles from './InstructionList.module.css';
 import cn from 'classnames';
 import { InstructionListProps } from './InstructionList.props';
 import { useEffect, useState } from 'react';
-import { InstructionModel } from '@/interfaces/instruction.interface';
 import { InstructionCard } from '../InstructionCard/InstructionCard';
 import { getAllInstructions } from '@/api/client/instructions';
-;
+import useStore from '@/store/store';
 
 export default function InstructionList({ className }: InstructionListProps)  {
 
-    const [instructions, setInstructions] = useState<InstructionModel[]>([]);
+    // zustand store
+    const instructions = useStore((state) => state.instructions);
+    const setInstructions = useStore((state) => state.setAllInstructions);
+
 	const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {

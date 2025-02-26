@@ -1,5 +1,7 @@
 import { Istep, Isubtitle } from "@/components/SubtitlesEditor/SubtitlesEditor";
-import { Istudent } from "@/interfaces/student.interface";
+import { InstructionModel } from "@/interfaces/instruction.interface";
+import { ProjectModel } from "@/interfaces/project.interface";
+import { StudentModel } from "@/interfaces/student.interface";
 import { IaudioFromServer, IvideoFromServer } from "@/interfaces/video.interface";
 import CanvasTimeline, {
   ITimelineScaleState,
@@ -79,11 +81,11 @@ interface ITimelineStore {
   setAllLastCheckedSubtitles: (subtitles: Isubtitle[]) => void;
   removeAllLastCheckedSubtitles: () => void;
 
-  students: Istudent[];
-  setAllStudents: (new_students: Istudent[]) => void;
-  setStudents: (student: Istudent) => void;
+  students: StudentModel[];
+  setAllStudents: (new_students: StudentModel[]) => void;
+  setStudents: (student: StudentModel) => void;
   deleteStudent: (studentId: number) => void;
-  updateStudent: (id: number, new_student: Istudent) => void;
+  updateStudent: (id: number, new_student: StudentModel) => void;
 
   videosFromServer: IvideoFromServer[];
   setAllVideosFromServer: (new_videos: IvideoFromServer[]) => void;
@@ -91,6 +93,13 @@ interface ITimelineStore {
   audiosFromServer: IaudioFromServer[];
   setAllAudiosFromServer: (new_audios: IaudioFromServer[]) => void;
 
+  instructions: InstructionModel[];
+  setAllInstructions: (new_instructions: InstructionModel[]) => void;
+  updateInstruction: (id: number, new_title: string) => void;
+
+  projects: ProjectModel[];
+  setAllProjects: (new_projects: ProjectModel[]) => void;
+  updateProject: (id: number, new_title: string) => void;
 
 
 }
@@ -130,8 +139,40 @@ const useStore = create<ITimelineStore>((set) => ({
   videosFromServer: [],
   audiosFromServer: [],
   renderedVideoFiles: [],
+  instructions: [],
+  projects: [],
 
 
+  setAllProjects: (new_projects: ProjectModel[] ) => 
+    set((state) => ({
+      projects: new_projects,
+    })),
+
+    updateProject: (id: number, new_title: string) => {
+      set((state) => {
+        const obj = state.projects.find((item) => Number(item.id) == id);
+        if (obj) {
+          obj.title = new_title; 
+        }
+        return { projects: [...state.projects] };
+      });
+    },
+
+
+  setAllInstructions: (new_instructions: InstructionModel[] ) => 
+    set((state) => ({
+      instructions: new_instructions,
+    })),
+
+    updateInstruction: (id: number, new_title: string) => {
+      set((state) => {
+        const obj = state.instructions.find((item) => Number(item.id) == id);
+        if (obj) {
+          obj.title = new_title; 
+        }
+        return { instructions: [...state.instructions] };
+      });
+    },
 
   setRenderedVideoFiles: (new_videofile: File) =>
     set((state) => ({
@@ -164,12 +205,12 @@ const useStore = create<ITimelineStore>((set) => ({
       videosFromServer: new_videos,
     })),
 
-  setAllStudents: (new_students: Istudent[]) => 
+  setAllStudents: (new_students: StudentModel[]) => 
     set((state) => ({
       students: new_students,
     })),
 
-    setStudents: (student: Istudent) =>
+    setStudents: (student: StudentModel) =>
       set((state) => ({
         students: [...state.students, student],
       })),
@@ -179,7 +220,7 @@ const useStore = create<ITimelineStore>((set) => ({
         students: state.students.filter((item) => item.id !== studentId),
       })),
 
-      updateStudent: (id: number, new_student: Istudent) => {
+      updateStudent: (id: number, new_student: StudentModel) => {
         set((state) => {
           const obj = state.students.find((item) => Number(item.id) == id);
           if (obj) {
