@@ -365,7 +365,10 @@ if (file.type === "video/mp4") {
   let formData = new FormData();
   formData.append("video_file", file);
 
+  // получаем id загруженного видоса
   const uploadedFile: any = await addProjectVideo(project.id, formData);
+
+  // отделяем от видоса аудио и сохраняем на сервер
 
   // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
   if (uploadedFile) {
