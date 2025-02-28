@@ -340,6 +340,25 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
     return await response.json();
 }
 
+
+const extractAudio = async (projectId: number, videoId: number) => {
+    const token = localStorage.getItem('jwt_token');
+
+    const response = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get project');
+    }
+
+    return response.json();
+
+}
+
 /*
 FOR SERVER NODEJS RENDERING
 */
