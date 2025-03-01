@@ -62,6 +62,7 @@ export const API = {
 	},
 	render: {
 		renderVideo: '/render/api/rendervideo',
+		renderAudio: '/render/api/renderaudio',
 		sendProject: '/render/api/sendproject',
 	}
 };
