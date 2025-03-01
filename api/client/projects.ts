@@ -341,7 +341,7 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
 }
 
 
-const extractAudio = async (projectId: number, videoId: number) => {
+export const extractAudioFromProjectVideo = async (projectId: number, videoId: number) => {
     const token = localStorage.getItem('jwt_token');
 
     const response = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {

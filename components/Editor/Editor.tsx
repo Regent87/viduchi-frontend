@@ -40,13 +40,14 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, extractAudioFromProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 import { saveProjectData } from "@/utils/save_editor";
 import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
 import { IaudioFromServer } from "@/interfaces/video.interface";
 import { API } from "@/app/api";
+import { extractAudio } from "@/utils/extract-audio-from-video";
 
 // import renderedVideo from "../../out/myComp.mp4";
 
@@ -59,6 +60,8 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const videosFromServer = useStore((state) => state.videosFromServer);
 
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
+
+
 
 
   const tracks = useStore((state) => state.tracks);
@@ -152,8 +155,9 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // загружаем аудиофайлы с сервера
 const [ isAudioLoading, setIsAudioLoading ] = useState(false);
-const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
-const setAudiosFromVerver = useStore((state) => state.setAllAudiosFromServer);
+// const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
+const setAudiosFromServer = useStore((state) => state.setAllAudiosFromServer);
+const audiosFromServer = useStore((state) => state.audiosFromServer);
 const[ audios, setAudios ] = useState<any>([]);
 
  useEffect(() => {
@@ -366,12 +370,37 @@ if (file.type === "video/mp4") {
   formData.append("video_file", file);
 
   // получаем id загруженного видоса
-  const uploadedFile: any = await addProjectVideo(project.id, formData);
+  const uploadedFile: number = await addProjectVideo(project.id, formData);
 
-  // отделяем от видоса аудио и сохраняем на сервер
+  
+
 
   // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
   if (uploadedFile) {
+// отделяем от видоса аудио и сохраняем на сервер
+
+const extractedAudio = await extractAudioFromProjectVideo(project.id, uploadedFile);
+
+// загружаем файл на сервер
+let formDataAudio = new FormData();
+formDataAudio.append("audio_file", extractedAudio);
+
+  const resp_aud = await addProjectAudio(project.id, formDataAudio);
+
+  // Если аудио загружено, то обновляем список аудио
+  if (resp_aud) {
+    const fetchAudios = async () => {
+      setIsVideoLoading(true);
+
+                const audios = await getAllAudios(project.id);
+                setVideosFromServer(audios);
+
+                setIsVideoLoading(false);
+            };
+            fetchAudios();
+  }
+
+
     const fetchVideos = async () => {
       setIsVideoLoading(true);
 
