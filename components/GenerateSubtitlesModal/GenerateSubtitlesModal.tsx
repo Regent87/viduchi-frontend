@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeVideo } from '@/api/client/projects';
+import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
 import { parseSubtitlesToJson } from '@/utils/subtitles';
 import { API } from '@/app/api';
@@ -131,44 +131,28 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     let fileOfBlob = new File([blob], 'rendered.mp4', { type: "video/mp4" });
     console.log("FILE FROM BLOB: ", fileOfBlob)
 
-    return await fileOfBlob;
-    // добавляем отрендеренное видео в стор
-//     setRenderedVIdeoFiles(fileOfBlob);
-
-//     console.log("RENDERED VIDEO FIELS IN STORE: ", renderedVIdeoFiles)
-
-//     const formData = new FormData();
-//     formData.append('video_file', renderedVIdeoFiles[0]);
-//  //  formData.append("blob", blob, "rendered.mp4");
-// console.log('FORMDATA FROM NODE SERVER: ', formData)
-  //  return formData;
-
-//  let blob = await fetch("http://localhost:4000/api/rendervideo", {
-//       method: "GET",
-//       // body: JSON.stringify({ selectedDoc }),
-//        headers: { "content-type": "application/json" },
-//     })
-//       .then((res) => (res.ok ? res.blob() : Promise.reject(res)))
-//       .then((blob) => {
-//         const blobUrl = URL.createObjectURL(blob);
-//         // now do something with the URL
-//         console.log("BLOB: ", blob);
-//         console.log(" BLOB URL: ", blobUrl);
-
-//         let fileOfBlob = new File([blob], 'rendered.mp4');
-//         const formData = new FormData();
-//         formData.append('video_file', fileOfBlob);
-
-
-//         // возращаем formData
-//         return formData;
-
-
-
-//       });
-
+    return fileOfBlob;
 
   }
+
+
+      // render audio on nodejs server
+      const handleRenderAudioOnServer = async () => {
+        let blob = await fetch("http://localhost:4000/api/renderaudio", {
+          method: "GET",
+      // let blob = await fetch(API.render.renderVideo, {
+          // method: "GET",
+          // body: JSON.stringify({ selectedDoc }),
+          //  headers: { "content-type": "application/json" },
+        }).then(r => r.blob());
+    
+        console.log("BLOB FROM SERVER: ", blob)
+        let fileOfBlob = new File([blob], 'rendered.mp3', { type: "audio/mpeg" });
+        console.log("FILE FROM BLOB: ", fileOfBlob)
+    
+        return fileOfBlob;
+    
+      }
 
 
 
@@ -209,8 +193,8 @@ await handleSaveProjectData();
 // 2. делаем запрос на сервер json для сохранения файла проекта json в public
 await handleGetAndSendProjectToServer();
 
-// 3. делаем запрос на рендеринг видео и получам видеофайл. в этой же функции отправляем видеофайл на сохранение на сервер
- const renderedFile = await handleRenderVideoOnServer();
+// 3. делаем запрос на рендеринг аудил и получам аудиофайл mp3. в этой же функции отправляем аудиофайл на сохранение на сервер
+ const renderedFile = await handleRenderAudioOnServer();
  console.log("REDNERED FILE rETURNED FROM SERVER FUNCTION: ", renderedFile)
 // setIsLoading(false);
 // const formData: any = await handleRenderVideoOnServer();
@@ -224,18 +208,18 @@ await handleGetAndSendProjectToServer();
 
    const formData = new FormData();
    // formData.append('video_file', uploadedFiles[0]);
-   formData.append('video_file', renderedFile);
+   formData.append('audio_file', renderedFile);
    console.log("FORMDATA FOR UPLOAD Rednered file: ", formData)
-  // загруажем видеофайл на сервер
+  // загруажем аудиофайл на сервер
 
   // проверяем если formData существует
   if (!!formData) {
-    const videoId: any = await addProjectVideo(projectId, formData);
-    if (!videoId) {
+    const audioId: any = await addProjectAudio(projectId, formData);
+    if (!audioId) {
       setIsError(true);
     } else {
   
-      console.log("GOT VIDEO ID: ", videoId)
+      console.log("GOT AUDIO ID: ", audioId)
       // добавляем id загруженного видео в стор
       setVideoIdForInstruction(videoId);
   
