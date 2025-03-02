@@ -1,0 +1,54 @@
+.instruction {
+	width: 250px;
+	border-radius: 10px;
+	background: #383A47;
+	color: var(--white);
+}
+
+.instruction:hover {
+	/* cursor: pointer; */
+}
+
+.instructionCover {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.instructionCover img {
+	width: 220px;
+	height: 150px;
+	object-fit: cover;
+}
+
+.instructionCover svg {
+	position: absolute;
+	cursor: pointer;
+}
+
+.instructionTitle {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+.menu {
+	cursor: pointer;
+}
+
+.dateAndTitle {
+	display: grid;
+	grid-template-columns: 1fr 20px;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+.title {
+	padding-left: 0px;
+}
+
+.menuContainer {
+	margin-right: 0px;
+}
