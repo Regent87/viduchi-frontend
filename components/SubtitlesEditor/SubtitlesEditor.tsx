@@ -138,7 +138,9 @@ console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
 
         // 3. перебросить в раздел /instructions
         setIsInstructionLoading(false);
-        router.push('/instructions');
+       
+       
+        router.push(`/instructions?projectid=${project.id}`);
 
 
 
