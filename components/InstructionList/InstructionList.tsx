@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { InstructionCard } from '../InstructionCard/InstructionCard';
 import { getAllInstructions } from '@/api/client/instructions';
 import useStore from '@/store/store';
+import { InstructionNewCreationCard } from '../InstructionNewCreationCard/InstructionNewCreationCard';
 
 export default function InstructionList({ className }: InstructionListProps)  {
 
@@ -13,6 +14,11 @@ export default function InstructionList({ className }: InstructionListProps)  {
     const setInstructions = useStore((state) => state.setAllInstructions);
 
 	const [isLoading, setIsLoading] = useState(false);
+    // is new instruction rendering
+    const [isRendering, setIsRendering] = useState(false);
+
+    // проерка если есть параметры projectid  то нужно сделать рендеринг видео
+    // функционал рендеринга видео и создания новой инструкции
 
     useEffect(() => {
         const fetchInstructions = async () => {
@@ -35,6 +41,12 @@ export default function InstructionList({ className }: InstructionListProps)  {
                 key={instruction.id}
                 instructionModel={instruction} />
 			))}
+
+            {
+                isRendering && (
+                    <InstructionNewCreationCard />
+                )
+            }
 		</div>
 	);
 };
