@@ -40,7 +40,7 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectAudio, addProjectVideo, extractAudioFromProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, extractAudioFromProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline, transcribeAudio } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 import { saveProjectData } from "@/utils/save_editor";
@@ -387,8 +387,12 @@ formDataAudio.append("audio_file", extractedAudio);
 
   const resp_aud = await addProjectAudio(project.id, formDataAudio);
 
-  // Если аудио загружено, то обновляем список аудио
+  // Если аудио загружено, то транскрибируем аудио и обновляем список аудио
   if (resp_aud) {
+
+    // транскрибируем аудио и получаем субтитры для аудио
+    await transcribeAudio(project.id, resp_aud);
+
     const fetchAudios = async () => {
       setIsVideoLoading(true);
 

@@ -30,6 +30,7 @@ export const API = {
 		getSteps: (id: number) => `/admin-api/v1/projects/${id}/steps`,
 		generateSteps: (id: number) => `/admin-api/v1/projects/${id}/steps/generate`,
 		transcribeVideo: (id: number, videoId: number) => `/admin-api/v1/projects/${id}/videos/${videoId}/transcribe`,
+		transcribeAudio: (id: number, audioId: number) => `/admin-api/v1/projects/${id}/audios/${audioId}/transcribe`,
 		addSubtitles: (id: number) => `/admin-api/v1/projects/${id}/subtitles`,
 		addSteps: (id: number) => `/admin-api/v1/projects/${id}/steps`,
 		updateStep: (id: number, stepId: number) => `/admin-api/v1/projects/${id}/steps/${stepId}`,

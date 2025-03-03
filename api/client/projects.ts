@@ -284,6 +284,25 @@ export const transcribeVideo = async (id: number, videoId: number) => {
 
 }
 
+export const transcribeAudio = async (id: number, audioId: number) => {
+    const token = localStorage.getItem('jwt_token');
+
+    const response = await fetch(API.projects.transcribeAudio(id, audioId), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to transcribe audio of project');
+    }
+
+    return response.json();
+
+}
+
 export const addSubtitlesToProject = async (id: number, subtitles: string) => {
     const token = localStorage.getItem('jwt_token');
 
