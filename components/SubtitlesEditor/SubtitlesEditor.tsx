@@ -360,7 +360,8 @@ if (steps_zustand.length < 1) {
     {
       !isInstructionLoading && (
         <button
-        onClick={handleNewInstruction}
+       // onClick={handleNewInstruction}
+       onClick={() => router.push(`/instructions?projectid=${project.id}&instructionname=${instructionName}`)}
         className={styles.generate_button} >Опубликовать инструкцию</button>
       )
     }
