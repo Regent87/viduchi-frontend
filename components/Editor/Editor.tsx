@@ -200,6 +200,16 @@ const[ videos, setVideos ] = useState<any>([]);
               };
               fetchVideos();
 
+              const fetchAudios = async () => {
+                setIsVideoLoading(true);
+          
+                          const audios = await getAllAudios(project.id);
+                          setAudiosFromServer(audios);
+          
+                          setIsVideoLoading(false);
+                      };
+                      fetchAudios();
+
 
 
   }, [])
@@ -388,7 +398,7 @@ formDataAudio.append("audio_file", extractedAudio);
   const resp_aud = await addProjectAudio(project.id, formDataAudio);
 
   // Если аудио загружено, то транскрибируем аудио и обновляем список аудио
-  if (resp_aud) {
+ // if (resp_aud) {
 
     // транскрибируем аудио и получаем субтитры для аудио
   //  await transcribeAudio(project.id, resp_aud);
@@ -397,12 +407,12 @@ formDataAudio.append("audio_file", extractedAudio);
       setIsVideoLoading(true);
 
                 const audios = await getAllAudios(project.id);
-                setVideosFromServer(audios);
+                setAudiosFromServer(audios);
 
                 setIsVideoLoading(false);
             };
             fetchAudios();
-  }
+  // }
 
 
     const fetchVideos = async () => {
