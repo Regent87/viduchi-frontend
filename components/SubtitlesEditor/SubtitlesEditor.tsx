@@ -140,7 +140,7 @@ console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
         setIsInstructionLoading(false);
        
        
-        router.push(`/instructions?projectid=${project.id}`);
+        router.push(`/instructions?projectid=${project.id}&instructionname=${instructionName}`);
 
 
 
