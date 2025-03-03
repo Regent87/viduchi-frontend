@@ -391,7 +391,7 @@ formDataAudio.append("audio_file", extractedAudio);
   if (resp_aud) {
 
     // транскрибируем аудио и получаем субтитры для аудио
-    await transcribeAudio(project.id, resp_aud);
+  //  await transcribeAudio(project.id, resp_aud);
 
     const fetchAudios = async () => {
       setIsVideoLoading(true);
