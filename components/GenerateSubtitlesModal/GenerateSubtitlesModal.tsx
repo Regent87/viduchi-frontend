@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeVideo } from '@/api/client/projects';
+import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeAudio, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
 import { parseSubtitlesToJson } from '@/utils/subtitles';
 import { API } from '@/app/api';
@@ -193,6 +193,16 @@ await handleSaveProjectData();
 // 2. делаем запрос на сервер json для сохранения файла проекта json в public
 await handleGetAndSendProjectToServer();
 
+
+/*
+---------------------------!!!!!!!!!!!!!!!!!!!!!!!!!
+ЗАПРОС НА РЕНДЕРИНГ ДЕЛАТ НЕ НУЖНО
+
+СУБТИТРЫ ПРИВЯЗАНЫ К ВЕРЕМЕННЫМ МЕТКАМ ПОЭТОМУ НУЖНО ДЕЛАТЬ РЕНДЕРИНГ АУДИО ВСЕГО ПРОЕКТА
+
+
+*/
+
 // 3. делаем запрос на рендеринг аудил и получам аудиофайл mp3. в этой же функции отправляем аудиофайл на сохранение на сервер
  const renderedFile = await handleRenderAudioOnServer();
  console.log("REDNERED FILE rETURNED FROM SERVER FUNCTION: ", renderedFile)
@@ -221,11 +231,11 @@ await handleGetAndSendProjectToServer();
   
       console.log("GOT AUDIO ID: ", audioId)
       // добавляем id загруженного видео в стор
-      setVideoIdForInstruction(videoId);
+     // setVideoIdForInstruction(videoId);
   
       // делаем транскрибацию
   
-          const data = await transcribeVideo(projectId, videoId);
+          const data = await transcribeAudio(projectId, audioId);
           const { subtitles } = data;
           if (!subtitles) {
             setIsLoading(false);
