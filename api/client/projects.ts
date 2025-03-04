@@ -310,15 +310,16 @@ export const addSubtitlesToProject = async (id: number, subtitles: any) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+            'Content-Type': 'application/json',
+            //  'Access-Control-Allow-Origin': 'https://api-test.viduchi.ru'
         },
-      //  body: JSON.stringify({ subtitles }),
-   // body: subtitles,
-    body: subtitles.json(),
+        body: JSON.stringify({ subtitles }),
+      
+   
     });
 
     if (!response.ok) {
-        throw new Error('Failed to add subtitles of project');
+        throw new Error('Failed to add subtitles to project');
     }
 
     return response.json();
