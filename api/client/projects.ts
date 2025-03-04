@@ -303,7 +303,7 @@ export const transcribeAudio = async (id: number, audioId: number) => {
 
 }
 
-export const addSubtitlesToProject = async (id: number, subtitles: string) => {
+export const addSubtitlesToProject = async (id: number, subtitles: any) => {
     const token = localStorage.getItem('jwt_token');
 
     const response = await fetch(API.projects.addSubtitles(id), {
@@ -313,7 +313,8 @@ export const addSubtitlesToProject = async (id: number, subtitles: string) => {
             // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
       //  body: JSON.stringify({ subtitles }),
-    body: subtitles,
+   // body: subtitles,
+    body: subtitles.json(),
     });
 
     if (!response.ok) {
