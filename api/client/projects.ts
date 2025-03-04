@@ -313,6 +313,7 @@ export const addSubtitlesToProject = async (id: number, subtitles: string) => {
             // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
         },
         body: JSON.stringify({ subtitles }),
+  //   body: subtitles,
     });
 
     if (!response.ok) {
