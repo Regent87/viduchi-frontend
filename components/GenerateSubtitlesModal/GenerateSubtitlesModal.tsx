@@ -255,9 +255,9 @@ await handleGetAndSendProjectToServer();
             console.log("Subtitles got: ", subtitles);
 
             // форматируем субтитры
-             const subtitles_to_upload = convertToSubtitles(subtitles);
+          // const subtitles_to_upload = parseSubtitlesToJson(subtitles);
             // добавляем субтитлы в проект
-            await addSubtitlesToProject(projectId, String(subtitles_to_upload));
+            await addSubtitlesToProject(projectId, String(subtitles));
             // обновляем данные в проекте
             const newProject = await getProjectById(projectId);
             if (!newProject) {
