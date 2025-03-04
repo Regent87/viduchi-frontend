@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { EditInstructionMenu } from '../EditInstructionMenu/EditInstructionMenu';
 
-export const InstructionCard = ({ instructionModel, className, ...props }: InstructionCardProps): JSX.Element => {
+export const InstructionCard = ({ instructionModel, className, ...props }: InstructionCardProps) => {
 
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const closeDropdown = () => {
@@ -17,18 +17,18 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 
 	const menuRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-				setIsEditOpen(false);
-			}
-		};
+	// useEffect(() => {
+	// 	const handleClickOutside = (event: MouseEvent) => {
+	// 		if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+	// 			setIsEditOpen(false);
+	// 		}
+	// 	};
 
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, []);
+	// 	document.addEventListener('mousedown', handleClickOutside);
+	// 	return () => {
+	// 		document.removeEventListener('mousedown', handleClickOutside);
+	// 	};
+	// }, []);
 
 	return (
 		<>
