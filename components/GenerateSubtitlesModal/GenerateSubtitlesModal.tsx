@@ -13,7 +13,7 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
 import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeAudio, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
-import { parseSubtitlesToJson } from '@/utils/subtitles';
+import { convertToSubtitles, parseSubtitlesToJson } from '@/utils/subtitles';
 import { API } from '@/app/api';
 
 
@@ -190,6 +190,15 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
 // 1. сохраняем timeline проекта на сервер
 await handleSaveProjectData();
+
+// if (project.subtitles) {
+//      // закрывем окно и переходим на редактирование
+//      onClose();
+//      setIsLoading(false);
+//      router.push('/subtitles/' + projectId )
+// }
+
+
 // 2. делаем запрос на сервер json для сохранения файла проекта json в public
 await handleGetAndSendProjectToServer();
 
@@ -244,8 +253,11 @@ await handleGetAndSendProjectToServer();
   
            // получаем субтитлы
             console.log("Subtitles got: ", subtitles);
+
+            // форматируем субтитры
+             const subtitles_to_upload = convertToSubtitles(subtitles);
             // добавляем субтитлы в проект
-            await addSubtitlesToProject(projectId, subtitles);
+            await addSubtitlesToProject(projectId, String(subtitles_to_upload));
             // обновляем данные в проекте
             const newProject = await getProjectById(projectId);
             if (!newProject) {
