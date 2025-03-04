@@ -48,6 +48,7 @@ import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCar
 import { IaudioFromServer } from "@/interfaces/video.interface";
 import { API } from "@/app/api";
 import { extractAudio } from "@/utils/extract-audio-from-video";
+import { convertTimeToStep } from "@/utils/subtitles";
 
 // import renderedVideo from "../../out/myComp.mp4";
 
@@ -379,23 +380,30 @@ if (file.type === "video/mp4") {
   let formData = new FormData();
   formData.append("video_file", file);
 
-  // получаем id загруженного видоса
-  const uploadedFile: number = await addProjectVideo(project.id, formData);
+  console.log("ЗАГРУЖАЕМ ФАЙЛ НА СЕРВЕР: ");
 
-  
+  // получаем id загруженного видоса
+const uploadedFile: number = await addProjectVideo(project.id, formData);
+
+  console.log("UPLOADED VIDEO FILE TO SERVER: ", uploadedFile);
 
 
   // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
   if (uploadedFile) {
 // отделяем от видоса аудио и сохраняем на сервер
 
-const extractedAudio = await extractAudioFromProjectVideo(project.id, uploadedFile);
+  const extractedAudio: any = await extractAudioFromProjectVideo(project.id, uploadedFile);
+
+
+  console.log("EXTRACTED AUDIO FROM VIDEO FILE: ", extractedAudio);
 
 // загружаем файл на сервер
 let formDataAudio = new FormData();
-formDataAudio.append("audio_file", extractedAudio);
+ formDataAudio.append("audio_file", extractedAudio);
 
-  const resp_aud = await addProjectAudio(project.id, formDataAudio);
+ await addProjectAudio(project.id, formDataAudio);
+
+//  const resp_aud = await addProjectAudio(project.id, formDataAudio);
 
   // Если аудио загружено, то транскрибируем аудио и обновляем список аудио
  // if (resp_aud) {
@@ -412,7 +420,7 @@ formDataAudio.append("audio_file", extractedAudio);
                 setIsVideoLoading(false);
             };
             fetchAudios();
-  // }
+  
 
 
     const fetchVideos = async () => {
@@ -423,10 +431,11 @@ formDataAudio.append("audio_file", extractedAudio);
 
                 setIsVideoLoading(false);
             };
-            fetchVideos();
+             fetchVideos();
   }
 
 }
+
     // если аудио то загрузить аудио
     if (file.type == 'audio/mpeg') {
 // загрузить файл на сайт
@@ -447,6 +456,9 @@ if (uploadedFile) {
 }
 
     }
+
+
+    
 
   //  const fileWithUrl = file as FileWithUrl;
   //  fileWithUrl.url = URL.createObjectURL(file);

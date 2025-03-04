@@ -363,18 +363,26 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
 export const extractAudioFromProjectVideo = async (projectId: number, videoId: number) => {
     const token = localStorage.getItem('jwt_token');
 
-    const response = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
-    });
+    // const response = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization': `Bearer ${token}`
+    //     },
+    // });
 
-    if (!response.ok) {
-        throw new Error('Failed to get project');
-    }
-
-    return response.json();
+    let blob = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
+        method: "GET",
+       headers: {
+           'Authorization': `Bearer ${token}`
+       },
+      }).then(r => r.blob());
+  
+      console.log("BLOB FROM SERVER: ", blob)
+      let fileOfBlob = new File([blob], 'audio.wav', { type: "audio/mpeg" });
+    //  let fileOfBlob = new File([blob], 'audio.wav');
+      console.log("AUDIO FILE FROM BLOB: ", fileOfBlob)
+  
+      return fileOfBlob;
 
 }
 
