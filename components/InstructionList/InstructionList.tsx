@@ -37,7 +37,7 @@ export default function InstructionList({ className }: InstructionListProps)  {
 
 
     const handleRenderVideoOnServer = async () => {
-        let blob = await fetch("http://localhost:4000/api/rendervideo", {
+        let blob = await fetch(API.render.renderVideo, {
           method: "GET",
         }).then(r => r.blob());
     

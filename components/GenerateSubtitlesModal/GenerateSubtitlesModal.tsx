@@ -138,7 +138,7 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 
       // render audio on nodejs server
       const handleRenderAudioOnServer = async () => {
-        let blob = await fetch("http://localhost:4000/api/renderaudio", {
+        let blob = await fetch(API.render.renderAudio, {
           method: "GET",
       // let blob = await fetch(API.render.renderVideo, {
           // method: "GET",
