@@ -245,10 +245,10 @@ await handleGetAndSendProjectToServer();
            // получаем субтитлы
             console.log("Subtitles got: ", subtitles);
             // добавляем субтитлы в проект
-  
+            await addSubtitlesToProject(projectId, subtitles);
             // обновляем данные в проекте
             const newProject = await getProjectById(projectId);
-            if (!newProject.subtitles) {
+            if (!newProject) {
               setIsLoading(false);
               setIsError(true);
   

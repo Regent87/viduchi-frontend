@@ -291,7 +291,7 @@ export const transcribeAudio = async (id: number, audioId: number) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+            'Access-Control-Allow-Origin': 'https://api-test.viduchi.ru'
         },
     });
 

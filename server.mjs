@@ -176,7 +176,7 @@ app.get('/api/renderaudio', async (req, res) => {
   await renderMedia({
     composition,
     serveUrl: bundleLocation,
-    codec: 'h264',
+    codec: "mp3",
     outputLocation: finalOutput,
     inputProps,
   });
