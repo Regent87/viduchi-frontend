@@ -434,9 +434,9 @@ const resp_aud_id = await addProjectAudio(project.id, formDataAudio);
             };
              fetchVideos();
 
-
- // транскрибируем аудио и получаем субтитры для аудио
-   await transcribeAudio(project.id, resp_aud_id);
+// транскрибируем аудио и получаем субтитры для аудио
+await transcribeAudio(project.id, resp_aud_id);
+ 
    
   }
 

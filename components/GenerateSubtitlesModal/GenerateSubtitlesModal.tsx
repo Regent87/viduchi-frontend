@@ -11,7 +11,7 @@ import useStore from '@/store/store';
 import { generateId } from '@designcombo/timeline';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
-import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getProjectById, saveProjectTimeline, transcribeAudio, transcribeVideo } from '@/api/client/projects';
+import { addProjectAudio, addProjectVideo, addSubtitlesToProject, getAllAudios, getProjectById, saveProjectTimeline, transcribeAudio, transcribeVideo } from '@/api/client/projects';
 import { P } from '../P/P';
 import { convertToSubtitles, parseSubtitlesToJson } from '@/utils/subtitles';
 import { API } from '@/app/api';
@@ -191,95 +191,112 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
 // 1. сохраняем timeline проекта на сервер
 await handleSaveProjectData();
 
-// if (project.subtitles) {
-//      // закрывем окно и переходим на редактирование
-//      onClose();
-//      setIsLoading(false);
-//      router.push('/subtitles/' + projectId )
-// }
+// =====================================
+// делаем проверку, если у нас всего один аудио файл, то вытаскиваем субтитры из него и добавляем субтитры в проект
+let audios = tracks.filter((item: any) => item.type === "audio");
+if (audios.length === 1) {
 
+  if (audios[0].items.length == 1) {
+   console.log("Split audios subtitles")
+   // достаем субтитры из аудио и загружаем их в проект
+// достаем id 
+const audId = audios[0].items[0];
+const aud_arr = audId.split("-");
+const audioDbId = Number(aud_arr[1]);
 
-// 2. делаем запрос на сервер json для сохранения файла проекта json в public
-await handleGetAndSendProjectToServer();
+// достаем все аудио из проекта
+const audiosFromDb = await getAllAudios(projectId);
+// достаем субтитры из первого аудио
+const { subtitles } = audiosFromDb[0];
+// если есть субтитры - добавляем субтитры в проект и переходим к редактированию
+if (subtitles) {
+  await addSubtitlesToProject(projectId, subtitles);
+     // закрывем окно и переходим на редактирование
+     onClose();
+     setIsLoading(false);
+     router.push('/subtitles/' + projectId );
 
-
-/*
----------------------------!!!!!!!!!!!!!!!!!!!!!!!!!
-ЗАПРОС НА РЕНДЕРИНГ ДЕЛАТ НЕ НУЖНО
-
-СУБТИТРЫ ПРИВЯЗАНЫ К ВЕРЕМЕННЫМ МЕТКАМ ПОЭТОМУ НУЖНО ДЕЛАТЬ РЕНДЕРИНГ АУДИО ВСЕГО ПРОЕКТА
-
-
-*/
-
-// 3. делаем запрос на рендеринг аудил и получам аудиофайл mp3. в этой же функции отправляем аудиофайл на сохранение на сервер
- const renderedFile = await handleRenderAudioOnServer();
- console.log("REDNERED FILE rETURNED FROM SERVER FUNCTION: ", renderedFile)
-// setIsLoading(false);
-// const formData: any = await handleRenderVideoOnServer();
-
-// console.log("FORMDATA FROM NODEJS SERVER: ", formData)
-
-  // загружаем видеофайл  - заглушка
-  // console.log("uploadedfiles : ", uploadedFiles);
-
-  // проверяем если файл отрендерился правильно
-
-   const formData = new FormData();
-   // formData.append('video_file', uploadedFiles[0]);
-   formData.append('audio_file', renderedFile);
-   console.log("FORMDATA FOR UPLOAD Rednered file: ", formData)
-  // загруажем аудиофайл на сервер
-
-  // проверяем если formData существует
-  if (!!formData) {
-    const audioId: any = await addProjectAudio(projectId, formData);
-    if (!audioId) {
-      setIsError(true);
-    } else {
-  
-      console.log("GOT AUDIO ID: ", audioId)
-      // добавляем id загруженного видео в стор
-     // setVideoIdForInstruction(videoId);
-  
-      // делаем транскрибацию
-  
-          const data = await transcribeAudio(projectId, audioId);
-          const { subtitles } = data;
-          if (!subtitles) {
-            setIsLoading(false);
-            setIsError(true);
-          } else {
-  
-           // получаем субтитлы
-            console.log("Subtitles got: ", data.subtitles);
-
-            // форматируем субтитры
-          // const subtitles_to_upload = parseSubtitlesToJson(subtitles);
-            // добавляем субтитлы в проект
-            await addSubtitlesToProject(projectId, data.subtitles);
-            // обновляем данные в проекте
-            const newProject = await getProjectById(projectId);
-            if (!newProject) {
-              setIsLoading(false);
-              setIsError(true);
-  
-            } else {
-              // закрывем окно и переходим на редактирование
-              onClose();
-              setIsLoading(false);
-              router.push('/subtitles/' + projectId )
-            }
-  
-           }
-  
-  
-    }
-  } else {
-    setIsError(true);
-    setIsLoading(false);
+} else {
+  setIsLoading(false);
+  setIsError(true);
+}
 
   }
+  
+  if (audios[0].items.length > 1) {
+   console.log("Render audios on server")
+   // если у нас несколько аудио файлов, то делаем рендеринг аудио
+   // рендерим все аудио на сервере
+
+// 2. делаем запрос на сервер json для сохранения файла проекта json в public
+   await handleGetAndSendProjectToServer();
+
+   // 3. делаем запрос на рендеринг аудио и получам аудиофайл mp3. в этой же функции отправляем аудиофайл на сохранение на сервер
+ const renderedFile = await handleRenderAudioOnServer();
+ console.log("REDNERED FILE rETURNED FROM SERVER FUNCTION: ", renderedFile);
+
+ const formData = new FormData();
+ // formData.append('video_file', uploadedFiles[0]);
+ formData.append('audio_file', renderedFile);
+ console.log("FORMDATA FOR UPLOAD Rednered file: ", formData)
+// загруажем аудиофайл на сервер
+if (!!formData) {
+  const audioId: any = await addProjectAudio(projectId, formData);
+  if (!audioId) {
+    setIsError(true);
+  } else {
+
+    console.log("GOT AUDIO ID: ", audioId)
+    // добавляем id загруженного видео в стор
+   // setVideoIdForInstruction(videoId);
+
+    // делаем транскрибацию
+
+        const data = await transcribeAudio(projectId, audioId);
+        const { subtitles } = data;
+        if (!subtitles) {
+          setIsLoading(false);
+          setIsError(true);
+        } else {
+
+         // получаем субтитлы
+          console.log("Subtitles got: ", data.subtitles);
+
+          // форматируем субтитры
+        // const subtitles_to_upload = parseSubtitlesToJson(subtitles);
+          // добавляем субтитлы в проект
+          await addSubtitlesToProject(projectId, data.subtitles);
+          // обновляем данные в проекте
+          const newProject = await getProjectById(projectId);
+          if (!newProject) {
+            setIsLoading(false);
+            setIsError(true);
+
+          } else {
+            // закрывем окно и переходим на редактирование
+            onClose();
+            setIsLoading(false);
+            router.push('/subtitles/' + projectId )
+          }
+
+         }
+
+
+  }
+} else {
+  setIsError(true);
+  setIsLoading(false);
+
+}
+
+  }
+  
+  }
+
+ 
+
+  // проверяем если formData существует
+  
 
   
 
