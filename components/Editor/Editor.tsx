@@ -401,7 +401,8 @@ const uploadedFile: number = await addProjectVideo(project.id, formData);
 let formDataAudio = new FormData();
  formDataAudio.append("audio_file", extractedAudio);
 
- await addProjectAudio(project.id, formDataAudio);
+const resp_aud_id = await addProjectAudio(project.id, formDataAudio);
+
 
 //  const resp_aud = await addProjectAudio(project.id, formDataAudio);
 
@@ -432,6 +433,11 @@ let formDataAudio = new FormData();
                 setIsVideoLoading(false);
             };
              fetchVideos();
+
+
+ // транскрибируем аудио и получаем субтитры для аудио
+   await transcribeAudio(project.id, resp_aud_id);
+   
   }
 
 }
