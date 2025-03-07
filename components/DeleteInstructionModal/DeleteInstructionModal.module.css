@@ -1,5 +1,5 @@
 .white {
-    background-color: var(--white);
+    background-color: var(--white) !important;;
     color: #33333FBF;
 }
 

@@ -62,15 +62,18 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
 
-
-
-
   const tracks = useStore((state) => state.tracks);
   const trackItemIds = useStore((state) => state.trackItemIds);
   const trackItemsMap = useStore((state) => state.trackItemsMap);
   const fps = useStore((state) => state.fps);
   const duration = useStore((state) => state.duration);
+  const removeAllTracks = useStore((state) => state.removeAllTracks);
+  const removeAllSteps = useStore((state) => state.removeAllSteps); 
+  const removeAllSubtitles = useStore((state) => state.removeAllSubtitles); 
+  const setTracks = useStore((state) => state.setTracks);
 
+  const setTrackItemsIds = useStore((state) => state.setTrackItemIds);
+  const setTrackItemsMap = useStore((state) => state.setTrackItemsMap);
 
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
@@ -534,7 +537,15 @@ if (uploadedFile) {
   };
 
 
-
+useEffect(() => {
+  removeAllTracks();
+  removeAllSteps();
+  removeAllSubtitles();
+  console.log("CLEARING TRACKS FROM ZUSTAND")
+  setTracks([]);
+  setTrackItemsIds([]);
+  setTrackItemsMap({});
+}, [])
 
 
   useEffect(() => {
@@ -550,6 +561,9 @@ if (uploadedFile) {
           <MenuIcon
           onClick={async () => {
             await handleSaveProjectData();
+            removeAllTracks();
+            removeAllSteps();
+            removeAllSubtitles();
             router.push('/projects');
             // handleGetAndSendProjectToServer();
             // handleRenderVideoOnServer();
