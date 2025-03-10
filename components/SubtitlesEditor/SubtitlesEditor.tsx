@@ -260,22 +260,23 @@ divElement!.scrollIntoView(false);
        }
     }, [])
 
-    useEffect(() => {
-           const fetchSteps = async () => {
-          const stepsFromServer = await getAllSteps(project.id);
-          console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-          // const steps = stepsFromServer;
 
-          // если шаги в сторе пустые, то загружаем шаги из базы данных
-if (steps_zustand.length < 1) {
-  setAllSteps(stepsFromServer);
-}
+//     useEffect(() => {
+//            const fetchSteps = async () => {
+//           const stepsFromServer = await getAllSteps(project.id);
+//           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
+//           // const steps = stepsFromServer;
+
+//           // если шаги в сторе пустые, то загружаем шаги из базы данных
+// if (steps_zustand.length < 1) {
+//   setAllSteps(stepsFromServer);
+// }
          
-         // setSteps(rawSteps.steps)
-        }
-         fetchSteps();
+//          // setSteps(rawSteps.steps)
+//         }
+//          fetchSteps();
         
-    }, [])
+//     }, [])
 
 
 // console.log("STEPS FROM ZUSTAND: ", steps_zustand)

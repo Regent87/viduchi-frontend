@@ -75,6 +75,9 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const setTrackItemsIds = useStore((state) => state.setTrackItemIds);
   const setTrackItemsMap = useStore((state) => state.setTrackItemsMap);
 
+  const setAllSubtitles = useStore((state) => state.setAllSubtitles);
+  const setAllSteps = useStore((state) => state.setAllSteps);
+
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
 
@@ -538,13 +541,26 @@ if (uploadedFile) {
 
 
 useEffect(() => {
-  removeAllTracks();
-  removeAllSteps();
-  removeAllSubtitles();
-  console.log("CLEARING TRACKS FROM ZUSTAND")
-  setTracks([]);
-  setTrackItemsIds([]);
-  setTrackItemsMap({});
+ 
+
+  // если у проекта есть timeline, то загружаем в стор
+  // if (project.timeline) {
+  //   console.log("RROJECT TIMELINE: ", project.timeline.tracks);
+  //   setTracks(project.timeline.tracks);
+  //   setTrackItemsIds(project.timeline.trackItemsIds);
+  //   setTrackItemsMap(project.timeline.trackItemsMap);
+  // } else {
+    removeAllTracks();
+    removeAllSteps();
+    removeAllSubtitles();
+    console.log("CLEARING TRACKS FROM ZUSTAND")
+    setTracks([]);
+    setTrackItemsIds([]);
+    setTrackItemsMap({});
+    setAllSubtitles([]);
+    setAllSteps([]);
+ // }
+
 }, [])
 
 
