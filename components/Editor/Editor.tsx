@@ -78,6 +78,8 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const setAllSubtitles = useStore((state) => state.setAllSubtitles);
   const setAllSteps = useStore((state) => state.setAllSteps);
 
+  const setIsSubtitlesGenerating = useStore((state) => state.setIsSubtitlesGenerating);
+
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
 
@@ -441,7 +443,18 @@ const resp_aud_id = await addProjectAudio(project.id, formDataAudio);
              fetchVideos();
 
 // транскрибируем аудио и получаем субтитры для аудио
-await transcribeAudio(project.id, resp_aud_id);
+setIsSubtitlesGenerating(true);
+// await transcribeAudio(project.id, resp_aud_id);
+transcribeAudio(project.id, resp_aud_id).then(
+  function() { 
+    setIsSubtitlesGenerating(false);
+  },
+  function(error) { 
+    console.log(error);
+    setIsSubtitlesGenerating(false);
+  }
+);
+
  
    
   }

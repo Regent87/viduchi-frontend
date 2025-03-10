@@ -39,6 +39,9 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
   const renderedVIdeoFiles = useStore((state) => state.renderedVideoFiles);
   const setRenderedVIdeoFiles = useStore((state) => state.setRenderedVideoFiles);
 
+  const isSubtitlesGenerating = useStore((state) => state.isSubtitlesGenerating);
+  const setIsSubtitlesGenerating = useStore((state) => state.setIsSubtitlesGenerating);
+
 
 
   const uploadedFiles = useStore((state) => state.uploadedFiles);
@@ -63,6 +66,16 @@ const setVideoIdForInstruction = useStore((state) => state.setVideoIdForInstruct
     fetchProject();
 
   }, [])
+
+
+  useEffect(() => {
+// setIsSubtitlesGenerating(true);
+if (isSubtitlesGenerating) {
+  setIsLoading(true);
+} else {
+  setIsLoading(false);
+}
+  }, [isSubtitlesGenerating, isLoading])
 
 
   console.log("PROJECT FROM THEDIALOG WINDOW: ", project)
@@ -333,7 +346,7 @@ isLoading && !isError && (
 }
 
 {
-!isLoading && !isError && (
+!isLoading && !isError && !isSubtitlesGenerating && (
   <>
   <p>ИИ выделит аудио дорожку из видео и преобразует <br />  ее в субтитры и вы перейдете <br /> на страницу редактирования инструкции</p>
 
@@ -359,7 +372,7 @@ isError && (
 
 
 {
-  !isLoading && (
+  !isLoading && !isSubtitlesGenerating && (
 <div className={styles.buttons}>
 <button
 onClick={onClose}

@@ -101,6 +101,9 @@ interface ITimelineStore {
   setAllProjects: (new_projects: ProjectModel[]) => void;
   updateProject: (id: number, new_title: string) => void;
 
+  isSubtitlesGenerating: boolean;
+  setIsSubtitlesGenerating: (isGenerating: boolean) => void;
+
 
 }
 
@@ -141,7 +144,13 @@ const useStore = create<ITimelineStore>((set) => ({
   renderedVideoFiles: [],
   instructions: [],
   projects: [],
+  isSubtitlesGenerating: false,
 
+
+  setIsSubtitlesGenerating: (isGenerating: boolean) => 
+    set((state) => ({
+      isSubtitlesGenerating: isGenerating,
+    })),
 
   setAllProjects: (new_projects: ProjectModel[] ) => 
     set((state) => ({
