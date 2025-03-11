@@ -54,7 +54,8 @@ app.post('/api/sendproject', async (req, res) => {
 // render video
 app.get('/api/rendervideo', async (req, res) => {
 
-// The composition you want to render
+try {
+  // The composition you want to render
 const compositionId = 'myComp';
 
 console.log("PAth: ", path.join(process.cwd(), './components/player/root.ts'))
@@ -118,10 +119,9 @@ return res.status(200).sendFile(fileName, options, function (err) {
   }
 });
 
- // return res.sendFile( path.join(process.cwd(), './' + finalOutput));
- 
-
-// res.status(200).json({ message: "Render done" });
+} catch (error) {
+  console.log(error);
+}
 
 })
 
@@ -132,7 +132,8 @@ return res.status(200).sendFile(fileName, options, function (err) {
 // render audio
 app.get('/api/renderaudio', async (req, res) => {
 
-  // The composition you want to render
+  try {
+     // The composition you want to render
   const compositionId = 'myComp';
   
   console.log("PAth: ", path.join(process.cwd(), './components/player/root.ts'))
@@ -195,6 +196,13 @@ app.get('/api/renderaudio', async (req, res) => {
         console.log('Sent:', fileName);
     }
   });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+
+ 
   
   
   })
@@ -270,11 +278,5 @@ app.listen(port);
 console.log(
   [
     `The server has started on http://localhost:${port}!`,
-    "You can render a video by passing props as URL parameters.",
-    "",
-    "If you are running Hello World, try this:",
-    "",
-    `http://localhost:${port}?titleText=Hello,+World!&titleColor=red`,
-    "",
   ].join("\n")
 );
