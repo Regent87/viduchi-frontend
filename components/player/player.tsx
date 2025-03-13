@@ -45,7 +45,7 @@ const Player = () => {
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
       compositionWidth={1100}
       compositionHeight={750}
-       style={{ width: "50%", height: "100%", background: 'transparent' }}
+        style={{ width: "50%", height: "100%", backgroundColor: 'transparent' }}
       inputProps={{}}
       fps={fps}
       controls={false}

@@ -648,7 +648,9 @@ useEffect(() => {
       </div>
 
       <div className={styles.videoEditorWindow}>
-        <div className={styles.videoPlayer}>
+        <div
+          className={styles.videoPlayer}
+         >
           {/* <Scene stateManager={stateManager} /> */}
 
           <Player />
