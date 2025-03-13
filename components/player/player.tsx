@@ -7,6 +7,7 @@ import useStore from "../../store/store";
 import CompositionVideosForClient from "./compositionForClient";
 
 
+
 const Player = () => {
   const playerRef: any = useRef<PlayerRef>(null);
   const { setPlayerRef, duration, fps } = useStore();
@@ -16,6 +17,8 @@ const Player = () => {
   const { setState } = useStore()
 
   const theState = useStore.getState();
+
+
 
   // theState.playerControls;
 
@@ -42,7 +45,7 @@ const Player = () => {
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
       compositionWidth={1100}
       compositionHeight={750}
-      style={{ width: "100%", height: "100%", background: 'transparent' }}
+       style={{ width: "50%", height: "100%", background: 'transparent' }}
       inputProps={{}}
       fps={fps}
       controls={false}

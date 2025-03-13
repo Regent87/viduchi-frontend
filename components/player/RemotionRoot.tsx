@@ -7,10 +7,13 @@ import { useState, useEffect } from "react";
 import { getProjectByIdForRendering } from "../../api/client/projects";
 
 import projectData from '../../public/project.json';
+
+
  
 export const RemotionRoot: React.FC = () => {
 
   const [project, setProject] = useState<any>({});
+
 
   useEffect(() => {
     setProject(projectData);
@@ -61,12 +64,15 @@ id="myComp"
         // }}
         durationInFrames={Math.round((duration / 1000) * 30) || 5 * 30}
         width={1100}
+     // width={video_width}
         height={750}
         // style={{ width: "100%", height: "100%", background: 'transparent' }}
        // inputProps={{}}
        // fps={fps}
       //  controls={false}
-
+      defaultProps={{
+        transparent: true,
+      }}
       />
       {/* Additional compositions can be rendered */}
     </>
