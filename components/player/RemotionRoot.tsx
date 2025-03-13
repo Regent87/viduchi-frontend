@@ -63,7 +63,7 @@ id="myComp"
         //   logoColor2: "#86A8E7",
         // }}
         durationInFrames={Math.round((duration / 1000) * 30) || 5 * 30}
-        width={1100}
+        width={500}
      // width={video_width}
         height={750}
         // style={{ width: "100%", height: "100%", background: 'transparent' }}

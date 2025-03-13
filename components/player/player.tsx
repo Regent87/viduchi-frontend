@@ -43,9 +43,9 @@ const Player = () => {
       component={CompositionVideosForClient}
     
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
-      compositionWidth={1100}
+      compositionWidth={500}
       compositionHeight={750}
-        style={{ width: "50%", height: "100%", backgroundColor: 'transparent' }}
+        style={{ width: "100%", height: "100%", backgroundColor: 'transparent' }}
       inputProps={{}}
       fps={fps}
       controls={false}
