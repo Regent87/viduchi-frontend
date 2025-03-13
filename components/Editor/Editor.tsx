@@ -80,6 +80,16 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   const setIsSubtitlesGenerating = useStore((state) => state.setIsSubtitlesGenerating);
 
+
+  const addVideoHeight = useStore((state) => state.addVideoHeight);
+  const addVideoWidth = useStore((state) => state.addVideoWidth);
+
+  const setVideoHeights = useStore((state) => state.setVideoHeights);
+  const setVideoWidths = useStore((state) => state.setVideoWidths);
+
+  const videoHeights = useStore((state) => state.videoHeights);
+  const videoWidths = useStore((state) => state.videoWidths);
+
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
 
@@ -151,7 +161,10 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
     console.log("TRACKS ITEMS MAP: ", trackItemsMap);
     console.log("FPS: ", fps);
     console.log("DURATION: ", duration);
-     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
+    console.log("VIDEOS WIDHTS IN STORE: ", videoWidths);
+    console.log("VIDEOS HEIGHTS IN STORE: ", videoHeights);
+
+     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration, videoWidths, videoHeights);
     if (savedData) {
       console.log("DATA WAS SAVED TO DB FROM EDITOR");
     }
@@ -381,6 +394,21 @@ useEffect(() => {
     const file = newFiles[0];
     if (!file) return;
 
+    console.log("UPLOADED VIDEO FILE FROM CLIENT: ", file);
+    const url = URL.createObjectURL(file);
+const $video = document.createElement("video");
+$video.src = url;
+$video.addEventListener("loadedmetadata", function () {
+ console.log("uploaded video width:", this.videoWidth);
+ console.log("uploaded video height:", this.videoHeight);
+
+ // сохранить данные ширины и высоты видео в zustand
+addVideoHeight(Number(this.videoHeight));
+addVideoWidth(Number(this.videoWidth));
+ // при сохранении project timeline нужно будет сохранять массивы высот и ширин видосов в project timeline
+
+});
+
     // загрузка файла на сервер
     // првоерить если тип файла видео то загрузить на сервер видео
 if (file.type === "video/mp4") {
@@ -572,6 +600,8 @@ useEffect(() => {
     setTrackItemsMap({});
     setAllSubtitles([]);
     setAllSteps([]);
+    setVideoHeights([]);
+    setVideoWidths([]);
  // }
 
 }, [])

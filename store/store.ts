@@ -104,6 +104,12 @@ interface ITimelineStore {
   isSubtitlesGenerating: boolean;
   setIsSubtitlesGenerating: (isGenerating: boolean) => void;
 
+  videoHeights: number[],
+  videoWidths: number[],
+  setVideoHeights: (new_videoHeights: number[]) => void;
+  setVideoWidths: (new_videoWidths: number[]) => void;
+  addVideoHeight: (new_videoHeight: number) => void;
+  addVideoWidth: (new_videoWidth: number) => void;
 
 }
 
@@ -145,7 +151,28 @@ const useStore = create<ITimelineStore>((set) => ({
   instructions: [],
   projects: [],
   isSubtitlesGenerating: false,
+  videoHeights: [],
+  videoWidths: [],
 
+  setVideoHeights: (new_videoHeights: number[]) =>
+    set((state) => ({
+      videoHeights: new_videoHeights,
+    })),
+
+    setVideoWidths: (new_videoWidths: number[]) =>
+      set((state) => ({
+        videoWidths: new_videoWidths,
+      })),
+
+      addVideoHeight: (videoHeight: number) =>
+        set((state) => ({
+          videoHeights: [...state.videoHeights, videoHeight],
+        })),
+
+        addVideoWidth: (videoWidth: number) =>
+          set((state) => ({
+            videoWidths: [...state.videoWidths, videoWidth],
+          })),
 
   setIsSubtitlesGenerating: (isGenerating: boolean) => 
     set((state) => ({

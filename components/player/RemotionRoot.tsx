@@ -40,6 +40,14 @@ export const RemotionRoot: React.FC = () => {
   console.log("DURATION FROM SERVER IN ROOT: ", duration)
   console.log("FPS FROM SERVER IN ROOT: ", fps)
 
+  // нужно достать данные массивов высот и ширин видосов
+  const video_widths = project?.timeline?.video_widths;
+  const video_heights = project?.timeline?.video_heights;
+
+  const max_width = Math.max.apply(Math, video_widths);
+  const max_height = Math.max.apply(Math, video_heights);
+
+
   return (
     <>
       <Composition
@@ -63,9 +71,10 @@ id="myComp"
         //   logoColor2: "#86A8E7",
         // }}
         durationInFrames={Math.round((duration / 1000) * 30) || 5 * 30}
-        width={500}
-     // width={video_width}
-        height={750}
+        // width={500}
+        // height={750}
+        width={max_width}
+        height={max_height}
         // style={{ width: "100%", height: "100%", background: 'transparent' }}
        // inputProps={{}}
        // fps={fps}
