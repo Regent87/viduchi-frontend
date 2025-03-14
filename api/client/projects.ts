@@ -343,7 +343,7 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number, video_widths: number[], video_heights: number[]) => {
+export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number, max_video_width: number, max_video_height: number) => {
     const token = localStorage.getItem('jwt_token');
 
     const response = await fetch(API.projects.saveTimeline(id), {
@@ -352,7 +352,7 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration, video_widths, video_heights }),
+        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration, max_video_width, max_video_height }),
     });
 
     if (!response.ok) {

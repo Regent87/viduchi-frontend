@@ -40,13 +40,11 @@ export const RemotionRoot: React.FC = () => {
   console.log("DURATION FROM SERVER IN ROOT: ", duration)
   console.log("FPS FROM SERVER IN ROOT: ", fps)
 
-  // нужно достать данные массивов высот и ширин видосов
-  const video_widths = project?.timeline?.video_widths;
-  const video_heights = project?.timeline?.video_heights;
 
-  const max_width = Math.max.apply(Math, video_widths);
-  const max_height = Math.max.apply(Math, video_heights);
-
+  
+   const max_width: number = Number(project?.timeline?.max_video_width) || 1100;
+   const max_height: number = Number(project?.timeline?.max_video_height) || 750;
+  
 
   return (
     <>

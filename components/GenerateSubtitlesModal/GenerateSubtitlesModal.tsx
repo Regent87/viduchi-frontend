@@ -87,10 +87,11 @@ if (isSubtitlesGenerating) {
       console.log("TRACKS ITEMS MAP: ", trackItemsMap);
       console.log("FPS: ", fps);
       console.log("DURATION: ", duration);
-       const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
-      if (savedData) {
-        console.log("DATA WAS SAVED TO DB FROM EDITOR");
-      }
+
+      //  const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
+      // if (savedData) {
+      //   console.log("DATA WAS SAVED TO DB FROM EDITOR");
+      // }
 
     }
 
@@ -202,7 +203,7 @@ if (isSubtitlesGenerating) {
 */
 
 // 1. сохраняем timeline проекта на сервер
-await handleSaveProjectData();
+// await handleSaveProjectData();
 
 // =====================================
 // делаем проверку, если у нас всего один аудио файл, то вытаскиваем субтитры из него и добавляем субтитры в проект

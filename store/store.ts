@@ -111,6 +111,13 @@ interface ITimelineStore {
   addVideoHeight: (new_videoHeight: number) => void;
   addVideoWidth: (new_videoWidth: number) => void;
 
+  max_video_width: number;
+  max_video_height: number;
+
+  setMaxVideoHeight: (max_video_height: number) => void;
+  setMaxVideoWidth: (max_video_width: number) => void;
+
+
 }
 
 
@@ -153,6 +160,18 @@ const useStore = create<ITimelineStore>((set) => ({
   isSubtitlesGenerating: false,
   videoHeights: [],
   videoWidths: [],
+  max_video_width: 0,
+  max_video_height: 0,
+
+  setMaxVideoWidth: (max_videoWidth: number) =>
+    set((state) => ({
+      max_video_width: max_videoWidth,
+    })),
+
+  setMaxVideoHeight: (max_videoHeight: number) =>
+      set((state) => ({
+        max_video_height: max_videoHeight,
+      })),
 
   setVideoHeights: (new_videoHeights: number[]) =>
     set((state) => ({

@@ -90,6 +90,11 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
   const videoHeights = useStore((state) => state.videoHeights);
   const videoWidths = useStore((state) => state.videoWidths);
 
+  const max_video_height = useStore((state) => state.max_video_height);
+  const max_video_width = useStore((state) => state.max_video_width);
+  const setMaxVideoHeight = useStore((state) => state.setMaxVideoHeight);
+  const setMaxVideoWidth = useStore((state) => state.setMaxVideoWidth);
+
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
 
@@ -159,12 +164,50 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
     console.log("TRACKS IN STORE: ", tracks);
     console.log("TRACKS ITEMS IDS: ", trackItemIds);
     console.log("TRACKS ITEMS MAP: ", trackItemsMap);
+
+    // добавим максимальную высоту и ширину видео для рендеринга
+    let video_widths_arr: any = [];
+let video_heights_arr: any = [];
+
+
+Object.keys(trackItemsMap).forEach(function(key) {
+
+//  console.log(key, videos[key]);
+
+if (trackItemsMap[key].type == "video") {
+// console.log(videos[key]);
+
+// console.log(videos[key].details);
+video_widths_arr.push(trackItemsMap[key].details.width);
+video_heights_arr.push(trackItemsMap[key].details.height);
+
+
+}
+
+});
+
+
+console.log("video heights", video_heights_arr);
+console.log("video widths", video_widths_arr);
+const max_width = Math.max.apply(Math, video_widths_arr);
+const max_height = Math.max.apply(Math, video_heights_arr);
+
+console.log("MAX VIDEO WITDH: ", max_width);
+console.log("MAX VIDEO HEIGHT: ", max_height);
+
+// setMaxVideoWidth(max_width);
+// setMaxVideoHeight(max_height);
+
+
+//  const max_width = Math.max.apply(Math, video_widths_arr);
+//  const max_height = Math.max.apply(Math, video_heights_arr);
+
     console.log("FPS: ", fps);
     console.log("DURATION: ", duration);
-    console.log("VIDEOS WIDHTS IN STORE: ", videoWidths);
-    console.log("VIDEOS HEIGHTS IN STORE: ", videoHeights);
+    // console.log("MAX  video WIDTH IN STORE: ", max_video_width);
+    // console.log("MAX VIDEO WIDTH IN STORE: ", max_video_height);
 
-     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration, videoWidths, videoHeights);
+     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration, max_width, max_height);
     if (savedData) {
       console.log("DATA WAS SAVED TO DB FROM EDITOR");
     }
@@ -602,6 +645,8 @@ useEffect(() => {
     setAllSteps([]);
     setVideoHeights([]);
     setVideoWidths([]);
+    setMaxVideoHeight(0);
+    setMaxVideoWidth(0);
  // }
 
 }, [])
