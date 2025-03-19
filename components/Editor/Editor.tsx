@@ -48,7 +48,7 @@ import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCar
 import { IaudioFromServer } from "@/interfaces/video.interface";
 import { API } from "@/app/api";
 import { extractAudio } from "@/utils/extract-audio-from-video";
-import { convertTimeToStep } from "@/utils/subtitles";
+import { convertTimeToStep, parseSubtitlesToJson } from "@/utils/subtitles";
 
 // import renderedVideo from "../../out/myComp.mp4";
 
@@ -651,6 +651,13 @@ useEffect(() => {
 
 }, [])
 
+
+useEffect(() => {
+  if (project.subtitles) {
+    let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles!);
+            setAllSubtitles(subtitlesFromServer);
+  }
+}, [project]);
 
   useEffect(() => {
     playerRef?.current?.isFullscreen

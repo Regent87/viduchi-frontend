@@ -232,7 +232,33 @@ if (subtitles) {
 
 } else {
   setIsLoading(false);
-  setIsError(true);
+  // setIsError(true);
+  // нужно заново транскрибирвоать аудио и в случае успеха перебросить в режим редактирования субтитров
+  // достаем id аудио
+  const audio_Id = Number(audios[0].items[0].split("-")[1]);
+  // транскрибируем аудио
+  setIsSubtitlesGenerating(true);
+  const resp_subscr_data = await transcribeAudio(projectId, audio_Id);
+
+  if (resp_subscr_data) {
+  // достаем все аудио из проекта
+  const audiosFromDb = await getAllAudios(projectId);
+  // достаем субтитры из первого аудио
+  const { subtitles } = audiosFromDb[0];
+  // если есть субтитры - добавляем субтитры в проект и переходим к редактированию
+  if (subtitles) {
+    await addSubtitlesToProject(projectId, subtitles);
+       // закрывем окно и переходим на редактирование
+       onClose();
+       setIsLoading(false);
+       setIsSubtitlesGenerating(false);
+       router.push('/subtitles/' + projectId );
+  } else {
+    setIsSubtitlesGenerating(false);
+    setIsError(true);
+  }
+ 
+  }
 }
 
   }
