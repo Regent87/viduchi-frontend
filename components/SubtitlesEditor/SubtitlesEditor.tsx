@@ -92,64 +92,68 @@ const [ instructionName, setInstructionName ] = useState("Инструкция 1
 console.log("VIDEO ID FO INSTRUCION from zustand: ", videoIdoForInstruction)
 
 
+
+
+// НУЖНО СОЗДАВАТЬ ИНСТРУККЦИЮ В КОМПОНЕНТЕ ИНСТРУКЦИЙ
+// СНАЧАЛА СДЕЛАТЬ РЕНДЕРИНГ ВИДОСА И ПОТОМ СОЗДАТЬ ИНСТРУКЦИЮ
+// НУЖНО ПЕРЕДАТЬ В КАЧЕСТВЕ ПАРАМЕТРОВ id проекта
 // создание инструкции
-const handleNewInstruction = async () => {
+  async function handleNewInstruction() {
 
-  setIsInstructionLoading(true);
-  // если айди видео из зустанда равно нулю, то выводим ошибку
- if (videoIdoForInstruction === 0) {
-  setIsInstructionError(true);
- } else {
-  console.log("STEPS FROM ZUSTAND: ", steps_zustand);
-  console.log("SUBTITLES_FROM_ZUSTAND: ", subtitles_zustand);
-  console.log("VIDEO ID TO UPLOAD FROM ZUSTAND: ", videoIdoForInstruction);
-  console.log("INSTRICTION NAME: ", instructionName);
-  // 1. Привести субтитлы в строку с помощью функции 
-  const subtitles_to_upload = convertToSubtitles(subtitles_zustand)
-  console.log("Subtitles in string: ", subtitles_to_upload);
-//2 сделать запрос на создание инструкции
-const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
+    setIsInstructionLoading(true);
+    // если айди видео из зустанда равно нулю, то выводим ошибку
+    if (videoIdoForInstruction === 0) {
+      setIsInstructionError(true);
+    } else {
+      console.log("STEPS FROM ZUSTAND: ", steps_zustand);
+      console.log("SUBTITLES_FROM_ZUSTAND: ", subtitles_zustand);
+      console.log("VIDEO ID TO UPLOAD FROM ZUSTAND: ", videoIdoForInstruction);
+      console.log("INSTRICTION NAME: ", instructionName);
+      // 1. Привести субтитлы в строку с помощью функции 
+      const subtitles_to_upload = convertToSubtitles(subtitles_zustand);
+      console.log("Subtitles in string: ", subtitles_to_upload);
+      //2 сделать запрос на создание инструкции
+      const new_instr = await createInstruction(instructionName, steps_zustand, videoIdoForInstruction);
 
-// если у нас не создана интсрукция, то выбрасываем ошибку
-if (!new_instr) {
-  setIsInstructionError(true);
-  setIsInstructionLoading(false);
-} else {
-  console.log("НОВАЯ ИНСТРУКЦИЯ: ", new_instr)
-// удалить номер видоса для инструкции и стора
-setVideoIdForInstruction(0);
+      // если у нас не создана интсрукция, то выбрасываем ошибку
+      if (!new_instr) {
+        setIsInstructionError(true);
+        setIsInstructionLoading(false);
+      } else {
+        console.log("НОВАЯ ИНСТРУКЦИЯ: ", new_instr);
+        // удалить номер видоса для инструкции и стора
+        setVideoIdForInstruction(0);
 
-// сохранить все треки из редактора на сервер
+        // сохранить все треки из редактора на сервер
+        // очистить все треки из редактора проекта
+        removeAllTracks();
+        // сохранить измененные субтитры в project
+        // const new_subtitles = await addSubtitlesToProject( project.id, String(subtitles_to_upload));
+        // сохранить измененные шаги в project
+        // const new_steps = await addStepsToProject(project.id, steps_zustand);
+        // сохрфнить изменненый timeline в project
+        // очистить все шаги и субтитлы
+        removeAllSubtitles();
+        removeAllSteps();
 
-// очистить все треки из редактора проекта
-removeAllTracks();
-// сохранить измененные субтитры в project
-// const new_subtitles = await addSubtitlesToProject( project.id, String(subtitles_to_upload));
-// сохранить измененные шаги в project
-// const new_steps = await addStepsToProject(project.id, steps_zustand);
-
-// сохрфнить изменненый timeline в project
-
-// очистить все шаги и субтитлы
-removeAllSubtitles();
-removeAllSteps();
-
-// 3. перебросить в раздел /instructions
-setIsInstructionLoading(false);
-router.push('/instructions');
-
-
-
-}
-
-
- }
-
-  
+        // 3. перебросить в раздел /instructions
+        setIsInstructionLoading(false);
+       
+       
+        router.push(`/instructions?projectid=${project.id}&instructionname=${instructionName}`);
 
 
 
-}
+      }
+
+
+    }
+
+
+
+
+
+  }
 
 
   // генерация шагов
@@ -256,22 +260,23 @@ divElement!.scrollIntoView(false);
        }
     }, [])
 
-    useEffect(() => {
-           const fetchSteps = async () => {
-          const stepsFromServer = await getAllSteps(project.id);
-          console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
-          // const steps = stepsFromServer;
 
-          // если шаги в сторе пустые, то загружаем шаги из базы данных
-if (steps_zustand.length < 1) {
-  setAllSteps(stepsFromServer);
-}
+//     useEffect(() => {
+//            const fetchSteps = async () => {
+//           const stepsFromServer = await getAllSteps(project.id);
+//           console.log("STEPS FROM FATCH RQ: ", stepsFromServer)
+//           // const steps = stepsFromServer;
+
+//           // если шаги в сторе пустые, то загружаем шаги из базы данных
+// if (steps_zustand.length < 1) {
+//   setAllSteps(stepsFromServer);
+// }
          
-         // setSteps(rawSteps.steps)
-        }
-         fetchSteps();
+//          // setSteps(rawSteps.steps)
+//         }
+//          fetchSteps();
         
-    }, [])
+//     }, [])
 
 
 // console.log("STEPS FROM ZUSTAND: ", steps_zustand)
@@ -356,7 +361,8 @@ if (steps_zustand.length < 1) {
     {
       !isInstructionLoading && (
         <button
-        onClick={handleNewInstruction}
+       // onClick={handleNewInstruction}
+       onClick={() => router.push(`/instructions?projectid=${project.id}&instructionname=${instructionName}`)}
         className={styles.generate_button} >Опубликовать инструкцию</button>
       )
     }

@@ -1,13 +1,13 @@
 "use client";
 
-import { DeleteInstructionModalProps } from './DeleteInstructionModal.props'; 
-import styles from './DeleteInstructionModal.module.css';
+import { PlayInstructionModalProps } from './PlayInstructionModal.props'; 
+import styles from './PlayInstructionModal.module.css';
 import { Modal } from "../site/ModalForm/ModalForm";
 import useStore from '@/store/store';
 import { useRouter } from "next/navigation";
 import { deleteInstruction, getAllInstructions } from '@/api/client/instructions';
 
-export const DeleteInstructionModal = ({ isOpen, instruction, onClose }: DeleteInstructionModalProps): JSX.Element => {
+export const PlayInstructionModal = ({ isOpen, instruction, onClose }: PlayInstructionModalProps) => {
      const router = useRouter();
     // zustan store
     const setInstructions = useStore((state) => state.setAllInstructions);
@@ -32,21 +32,15 @@ export const DeleteInstructionModal = ({ isOpen, instruction, onClose }: DeleteI
 
     return (
         <Modal className={styles.white}
-        isOpen={isOpen} onClose={onClose} title={` Точно удалить ${instruction.title}?`}>
-            <form
-             onSubmit={(e) => {
-                e.preventDefault();
-                handleDeleteInstruction();
-            }}
-            >
-            <div className={styles.buttons}>
-            <button
-className={styles.reset}>Да</button>
- <button
-  onClick={onClose}
-className={styles.apply}>Нет</button>
-                </div>
-            </form>
+        isOpen={isOpen} onClose={onClose} title={`${instruction.title}`}>
+
+<video 
+width="520" 
+height="340" 
+controls 
+src={instruction.video_url}></video>
+
+
 
         </Modal>
     )

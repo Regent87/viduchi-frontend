@@ -40,13 +40,15 @@ import PlayNavigation from "@/components/PlayNavigation/PlayNavigation";
 import { EditorProps } from "./Editor.props";
 import { CreateInstruction } from "../CreateInstruction/CreateInstruction";
 import { RightMenu } from "./RightMenu/RightMenu";
-import { addProjectAudio, addProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline } from "@/api/client/projects";
+import { addProjectAudio, addProjectVideo, extractAudioFromProjectVideo, getAllAudios, getAllVideos, getProjectById, saveProjectTimeline, transcribeAudio } from "@/api/client/projects";
 import { handelAddVideoFromServer, handleAddAudioFromServer } from "@/utils/upload";
 import { VideoItemCardFromServer } from "../VideoItemCardFromServer/VideoItemCardFromServer";
 import { saveProjectData } from "@/utils/save_editor";
 import { AudioItemCardFromServer } from "../AudioItemCardFromServer/AudioItemCardFromServer";
 import { IaudioFromServer } from "@/interfaces/video.interface";
 import { API } from "@/app/api";
+import { extractAudio } from "@/utils/extract-audio-from-video";
+import { convertTimeToStep, parseSubtitlesToJson } from "@/utils/subtitles";
 
 // import renderedVideo from "../../out/myComp.mp4";
 
@@ -60,13 +62,38 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   const setVideosFromServer = useStore((state) => state.setAllVideosFromServer);
 
-
   const tracks = useStore((state) => state.tracks);
   const trackItemIds = useStore((state) => state.trackItemIds);
   const trackItemsMap = useStore((state) => state.trackItemsMap);
   const fps = useStore((state) => state.fps);
   const duration = useStore((state) => state.duration);
+  const removeAllTracks = useStore((state) => state.removeAllTracks);
+  const removeAllSteps = useStore((state) => state.removeAllSteps); 
+  const removeAllSubtitles = useStore((state) => state.removeAllSubtitles); 
+  const setTracks = useStore((state) => state.setTracks);
 
+  const setTrackItemsIds = useStore((state) => state.setTrackItemIds);
+  const setTrackItemsMap = useStore((state) => state.setTrackItemsMap);
+
+  const setAllSubtitles = useStore((state) => state.setAllSubtitles);
+  const setAllSteps = useStore((state) => state.setAllSteps);
+
+  const setIsSubtitlesGenerating = useStore((state) => state.setIsSubtitlesGenerating);
+
+
+  const addVideoHeight = useStore((state) => state.addVideoHeight);
+  const addVideoWidth = useStore((state) => state.addVideoWidth);
+
+  const setVideoHeights = useStore((state) => state.setVideoHeights);
+  const setVideoWidths = useStore((state) => state.setVideoWidths);
+
+  const videoHeights = useStore((state) => state.videoHeights);
+  const videoWidths = useStore((state) => state.videoWidths);
+
+  const max_video_height = useStore((state) => state.max_video_height);
+  const max_video_width = useStore((state) => state.max_video_width);
+  const setMaxVideoHeight = useStore((state) => state.setMaxVideoHeight);
+  const setMaxVideoWidth = useStore((state) => state.setMaxVideoWidth);
 
   // render video on nodejs server
   const handleRenderVideoOnServer = async () => {
@@ -137,9 +164,50 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
     console.log("TRACKS IN STORE: ", tracks);
     console.log("TRACKS ITEMS IDS: ", trackItemIds);
     console.log("TRACKS ITEMS MAP: ", trackItemsMap);
+
+    // добавим максимальную высоту и ширину видео для рендеринга
+    let video_widths_arr: any = [];
+let video_heights_arr: any = [];
+
+
+Object.keys(trackItemsMap).forEach(function(key) {
+
+//  console.log(key, videos[key]);
+
+if (trackItemsMap[key].type == "video") {
+// console.log(videos[key]);
+
+// console.log(videos[key].details);
+video_widths_arr.push(trackItemsMap[key].details.width);
+video_heights_arr.push(trackItemsMap[key].details.height);
+
+
+}
+
+});
+
+
+console.log("video heights", video_heights_arr);
+console.log("video widths", video_widths_arr);
+const max_width = Math.max.apply(Math, video_widths_arr);
+const max_height = Math.max.apply(Math, video_heights_arr);
+
+console.log("MAX VIDEO WITDH: ", max_width);
+console.log("MAX VIDEO HEIGHT: ", max_height);
+
+// setMaxVideoWidth(max_width);
+// setMaxVideoHeight(max_height);
+
+
+//  const max_width = Math.max.apply(Math, video_widths_arr);
+//  const max_height = Math.max.apply(Math, video_heights_arr);
+
     console.log("FPS: ", fps);
     console.log("DURATION: ", duration);
-     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration);
+    // console.log("MAX  video WIDTH IN STORE: ", max_video_width);
+    // console.log("MAX VIDEO WIDTH IN STORE: ", max_video_height);
+
+     const savedData = await saveProjectTimeline(project.id, tracks, trackItemIds, trackItemsMap, fps, duration, max_width, max_height);
     if (savedData) {
       console.log("DATA WAS SAVED TO DB FROM EDITOR");
     }
@@ -152,8 +220,9 @@ export const Editor =  ({project, className, ...props }: EditorProps)=> {
 
   // загружаем аудиофайлы с сервера
 const [ isAudioLoading, setIsAudioLoading ] = useState(false);
-const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
-const setAudiosFromVerver = useStore((state) => state.setAllAudiosFromServer);
+// const [ audiosFromServer, setAudiosFromServer ] = useState<any>([]);
+const setAudiosFromServer = useStore((state) => state.setAllAudiosFromServer);
+const audiosFromServer = useStore((state) => state.audiosFromServer);
 const[ audios, setAudios ] = useState<any>([]);
 
  useEffect(() => {
@@ -195,6 +264,16 @@ const[ videos, setVideos ] = useState<any>([]);
                   setIsVideoLoading(false);
               };
               fetchVideos();
+
+              const fetchAudios = async () => {
+                setIsVideoLoading(true);
+          
+                          const audios = await getAllAudios(project.id);
+                          setAudiosFromServer(audios);
+          
+                          setIsVideoLoading(false);
+                      };
+                      fetchAudios();
 
 
 
@@ -358,6 +437,21 @@ useEffect(() => {
     const file = newFiles[0];
     if (!file) return;
 
+    console.log("UPLOADED VIDEO FILE FROM CLIENT: ", file);
+    const url = URL.createObjectURL(file);
+const $video = document.createElement("video");
+$video.src = url;
+$video.addEventListener("loadedmetadata", function () {
+ console.log("uploaded video width:", this.videoWidth);
+ console.log("uploaded video height:", this.videoHeight);
+
+ // сохранить данные ширины и высоты видео в zustand
+addVideoHeight(Number(this.videoHeight));
+addVideoWidth(Number(this.videoWidth));
+ // при сохранении project timeline нужно будет сохранять массивы высот и ширин видосов в project timeline
+
+});
+
     // загрузка файла на сервер
     // првоерить если тип файла видео то загрузить на сервер видео
 if (file.type === "video/mp4") {
@@ -365,10 +459,50 @@ if (file.type === "video/mp4") {
   let formData = new FormData();
   formData.append("video_file", file);
 
-  const uploadedFile: any = await addProjectVideo(project.id, formData);
+  console.log("ЗАГРУЖАЕМ ФАЙЛ НА СЕРВЕР: ");
+
+  // получаем id загруженного видоса
+const uploadedFile: number = await addProjectVideo(project.id, formData);
+
+  console.log("UPLOADED VIDEO FILE TO SERVER: ", uploadedFile);
+
 
   // если файл загружен, делаем запрос на сервер и загружаем все видосы в стор
   if (uploadedFile) {
+// отделяем от видоса аудио и сохраняем на сервер
+
+  const extractedAudio: any = await extractAudioFromProjectVideo(project.id, uploadedFile);
+
+
+  console.log("EXTRACTED AUDIO FROM VIDEO FILE: ", extractedAudio);
+
+// загружаем файл на сервер
+let formDataAudio = new FormData();
+ formDataAudio.append("audio_file", extractedAudio);
+
+const resp_aud_id = await addProjectAudio(project.id, formDataAudio);
+
+
+//  const resp_aud = await addProjectAudio(project.id, formDataAudio);
+
+  // Если аудио загружено, то транскрибируем аудио и обновляем список аудио
+ // if (resp_aud) {
+
+    // транскрибируем аудио и получаем субтитры для аудио
+  //  await transcribeAudio(project.id, resp_aud);
+
+    const fetchAudios = async () => {
+      setIsVideoLoading(true);
+
+                const audios = await getAllAudios(project.id);
+                setAudiosFromServer(audios);
+
+                setIsVideoLoading(false);
+            };
+            fetchAudios();
+  
+
+
     const fetchVideos = async () => {
       setIsVideoLoading(true);
 
@@ -377,10 +511,27 @@ if (file.type === "video/mp4") {
 
                 setIsVideoLoading(false);
             };
-            fetchVideos();
+             fetchVideos();
+
+// транскрибируем аудио и получаем субтитры для аудио
+setIsSubtitlesGenerating(true);
+// await transcribeAudio(project.id, resp_aud_id);
+transcribeAudio(project.id, resp_aud_id).then(
+  function() { 
+    setIsSubtitlesGenerating(false);
+  },
+  function(error) { 
+    console.log(error);
+    setIsSubtitlesGenerating(false);
+  }
+);
+
+ 
+   
   }
 
 }
+
     // если аудио то загрузить аудио
     if (file.type == 'audio/mpeg') {
 // загрузить файл на сайт
@@ -401,6 +552,9 @@ if (uploadedFile) {
 }
 
     }
+
+
+    
 
   //  const fileWithUrl = file as FileWithUrl;
   //  fileWithUrl.url = URL.createObjectURL(file);
@@ -470,8 +624,40 @@ if (uploadedFile) {
   };
 
 
+useEffect(() => {
+ 
+
+  // если у проекта есть timeline, то загружаем в стор
+  // if (project.timeline) {
+  //   console.log("RROJECT TIMELINE: ", project.timeline.tracks);
+  //   setTracks(project.timeline.tracks);
+  //   setTrackItemsIds(project.timeline.trackItemsIds);
+  //   setTrackItemsMap(project.timeline.trackItemsMap);
+  // } else {
+    removeAllTracks();
+    removeAllSteps();
+    removeAllSubtitles();
+    console.log("CLEARING TRACKS FROM ZUSTAND")
+    setTracks([]);
+    setTrackItemsIds([]);
+    setTrackItemsMap({});
+    setAllSubtitles([]);
+    setAllSteps([]);
+    setVideoHeights([]);
+    setVideoWidths([]);
+    setMaxVideoHeight(0);
+    setMaxVideoWidth(0);
+ // }
+
+}, [])
 
 
+useEffect(() => {
+  if (project.subtitles) {
+    let subtitlesFromServer: any = parseSubtitlesToJson(project.subtitles!);
+            setAllSubtitles(subtitlesFromServer);
+  }
+}, [project]);
 
   useEffect(() => {
     playerRef?.current?.isFullscreen
@@ -484,10 +670,14 @@ if (uploadedFile) {
       <div className={styles.editor}>
         <aside className={styles.leftMenu}>
           <MenuIcon
-          onClick={() => {
-            handleSaveProjectData();
-            handleGetAndSendProjectToServer();
-            handleRenderVideoOnServer();
+          onClick={async () => {
+            await handleSaveProjectData();
+            removeAllTracks();
+            removeAllSteps();
+            removeAllSubtitles();
+            router.push('/projects');
+            // handleGetAndSendProjectToServer();
+            // handleRenderVideoOnServer();
           }}
          // onClick={handleSaveProjectData}
        //   onClick={handleGetAndSendProjectToServer}
@@ -510,7 +700,12 @@ if (uploadedFile) {
         </aside>
         <div className={styles.headerWrapper}>
           <div className={styles.header}>
-            <span className={styles.logo}>VIDUCHI</span>
+            <span
+            onClick={ async () => {
+              await handleSaveProjectData();
+              router.push('/projects');
+            }}
+            className={styles.logo}>VIDUCHI</span>
 
             <input
               onChange={(e) => setProjectName(e.target.value)}
@@ -535,7 +730,9 @@ if (uploadedFile) {
       </div>
 
       <div className={styles.videoEditorWindow}>
-        <div className={styles.videoPlayer}>
+        <div
+          className={styles.videoPlayer}
+         >
           {/* <Scene stateManager={stateManager} /> */}
 
           <Player />

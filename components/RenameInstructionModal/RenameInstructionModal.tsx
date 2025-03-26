@@ -9,11 +9,17 @@ import { RenameInstructionModalProps } from './RenameInstructionModal.props';
 // import { createProject } from '@/api/client/projects';
 import { useRouter } from 'next/navigation';
 import { updateInstructionTitle } from '@/api/client/instructions';
+import useStore from '@/store/store';
 
 export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameInstructionModalProps): JSX.Element => {
-  const [projectName, setProjectName] = useState(instruction.title);
+  const [instructionName, setInstructionName] = useState(instruction.title);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+
+  // zustand store
+  const updateInstruction = useStore((state) => state.updateInstruction);
+
 
   const handleSubmit = async () => {
       setIsLoading(true);
@@ -22,19 +28,20 @@ export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameI
     //   console.log("project");
     //   console.log(project);
 
-      setProjectName('');
+      
 
       onClose();
 
-      const newInstructionTitle = await updateInstructionTitle(instruction.id, instruction.title);
+      // const newInstructionTitle = await updateInstructionTitle(instruction.id, instructionName);
+      await updateInstructionTitle(instruction.id, instructionName);
 
-      if (newInstructionTitle) {
-        // console.log("project refresh");
-        // router.replace("/projects");
-        // location.reload();
+    //  if (newInstructionTitle) {
+       
+        updateInstruction(instruction.id, instructionName);
         router.push('/instructions');
-      }
+     // }
 
+      setInstructionName('');
       setIsLoading(false);
 
   };
@@ -51,8 +58,8 @@ export const RenameInstructionModal = ({ isOpen, instruction, onClose }: RenameI
 <div className={styles.addProject}>
 
 <input
-onChange={(e: any) => setProjectName(e.target.value)}
-value={projectName}
+onChange={(e: any) => setInstructionName(e.target.value)}
+value={instructionName}
 placeholder='Введите название инструкции'
 type="text" required />
 
@@ -65,7 +72,7 @@ type="text" required />
 onClick={onClose}
 className={styles.reset}>Отмена</button>
 <button
-disabled={isLoading || !projectName.trim()}
+disabled={isLoading || !instructionName.trim()}
 className={styles.apply}>Сохранить</button>
 </div>
 

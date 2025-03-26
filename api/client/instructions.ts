@@ -79,10 +79,11 @@ export const updateInstructionTitle = async (id: number, title: string) => {
     const response = await fetch(API.instructions.editTitle(id), {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ title }),
+        // body: JSON.stringify({ title }),
+        body: title,
       
     });
 

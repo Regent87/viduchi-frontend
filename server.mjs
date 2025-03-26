@@ -54,7 +54,8 @@ app.post('/api/sendproject', async (req, res) => {
 // render video
 app.get('/api/rendervideo', async (req, res) => {
 
-// The composition you want to render
+try {
+  // The composition you want to render
 const compositionId = 'myComp';
 
 console.log("PAth: ", path.join(process.cwd(), './components/player/root.ts'))
@@ -118,15 +119,93 @@ return res.status(200).sendFile(fileName, options, function (err) {
   }
 });
 
- // return res.sendFile( path.join(process.cwd(), './' + finalOutput));
- 
-
-// res.status(200).json({ message: "Render done" });
+} catch (error) {
+  console.log(error);
+}
 
 })
 
 
 
+
+
+// render audio
+app.get('/api/renderaudio', async (req, res) => {
+
+  try {
+     // The composition you want to render
+  const compositionId = 'myComp';
+  
+  console.log("PAth: ", path.join(process.cwd(), './components/player/root.ts'))
+   
+  // You only have to create a bundle once, and you may reuse it
+  // for multiple renders that you can parametrize using input props.
+  const bundleLocation = await bundle({
+   ignoreRegisterRootWarning: true,
+    entryPoint: path.join(process.cwd(), './components/player/root.ts'),
+    // If you have a webpack override in remotion.config.ts, pass it here as well.
+    // webpackOverride: (config) => config,
+  });
+  
+  
+  console.log(" Budnle location: ", bundleLocation);
+  
+  const compositionsList = await getCompositions(bundleLocation);
+  
+  console.log("Compositions list: ", compositionsList)
+   
+  // Parametrize the video by passing props to your component.
+  const inputProps = {
+    // foo: 'bar',
+  };
+   
+  // Get the composition you want to render. Pass `inputProps` if you
+  // want to customize the duration or other metadata.
+  const composition = await selectComposition({
+    serveUrl: bundleLocation,
+    id: compositionId,
+    inputProps,
+  });
+  
+  console.log("Composition: ", composition)
+   
+  // Render the video. Pass the same `inputProps` again
+  // if your video is parametrized with data.
+  
+  const finalOutput = `out/${compositionId}.mp3`;
+  
+  await renderMedia({
+    composition,
+    serveUrl: bundleLocation,
+    codec: "mp3",
+    outputLocation: finalOutput,
+    inputProps,
+  });
+  
+  console.log('Render audio done!');
+  
+  const options = {
+    root:  path.join(process.cwd(), './out/')
+  };
+  
+  const fileName =`${compositionId}.mp3`;
+  return res.status(200).sendFile(fileName, options, function (err) {
+    if (err) {
+        console.error('Error sending file:', err);
+    } else {
+        console.log('Sent:', fileName);
+    }
+  });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+
+ 
+  
+  
+  })
 
 
 // GET запрос из компонента - отправляем ему данные из файла json в формате json
@@ -199,11 +278,5 @@ app.listen(port);
 console.log(
   [
     `The server has started on http://localhost:${port}!`,
-    "You can render a video by passing props as URL parameters.",
-    "",
-    "If you are running Hello World, try this:",
-    "",
-    `http://localhost:${port}?titleText=Hello,+World!&titleColor=red`,
-    "",
   ].join("\n")
 );

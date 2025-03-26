@@ -4,17 +4,21 @@ import { useRouter } from 'next/navigation';
 import { RenameInstructionModal } from '../RenameInstructionModal/RenameInstructionModal';
 import { DeleteInstructionModal } from '../DeleteInstructionModal/DeleteInstructionModal';
 import { AddStudentToInstructionModal } from '../AddStudentToInstructionModal/AddStudentToInstructionModal';
+import { PlayInstructionModal } from '../PlayInstructionModal/PlayInstructionModal';
 
 export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
 
     const router = useRouter();
 
     const editProjectHandler = () => {
-        router.push(`/instructions/${instruction.id}`)
+        // открыть модальное окно с воспроизведением инструкции
+        setIsPlayModalOpen(true);
+       // router.push(`/instructions/${instruction.id}`)
     }
 
     const openHandler = () => {
@@ -81,6 +85,13 @@ export const EditInstructionMenu = ({closeDropdown, instruction}: any) => {
   isOpen={isAddModalOpen} instruction={instruction} onClose={() => {
     closeDropdown();
     setIsAddModalOpen(false);
+    console.log("refresh");
+}} />
+
+<PlayInstructionModal 
+ isOpen={isPlayModalOpen} instruction={instruction} onClose={() => {
+    closeDropdown();
+    setIsPlayModalOpen(false);
     console.log("refresh");
 }} />
 

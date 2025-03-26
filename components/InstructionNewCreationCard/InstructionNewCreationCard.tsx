@@ -1,14 +1,14 @@
-import { InstructionCardProps } from './InstructionCard.props';
-import styles from './InstructionCard.module.css';
+
+import styles from './InstructionNewCreationCard.module.css';
 import cn from 'classnames';
 import MenuIcon from './menu.svg';
 import PlayIcon from './play.svg';
 import cover from '../../public/cover.png';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { EditInstructionMenu } from '../EditInstructionMenu/EditInstructionMenu';
 
-export const InstructionCard = ({ instructionModel, className, ...props }: InstructionCardProps) => {
+
+export const InstructionNewCreationCard = () => {
 
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const closeDropdown = () => {
@@ -32,24 +32,25 @@ export const InstructionCard = ({ instructionModel, className, ...props }: Instr
 
 	return (
 		<>
-			<div className={cn(styles.instruction, className)} {...props}>
+			<div className={cn(styles.instruction)}>
 				<div className={styles.instructionCover}>
-					<Image src={instructionModel.cover_url ? instructionModel.cover_url : cover } alt="cover" width={220} height={150} />
-					<PlayIcon />
+					{/* <Image src={instructionModel.cover_url ? instructionModel.cover_url : cover } alt="cover" width={220} height={150} /> */}
+					{/* <PlayIcon /> */}
 				</div>
 				<div className={styles.dateAndTitle}>
 					<div className={styles.instructionTitle}>
-						{ instructionModel.title }
+						{/* { instructionModel.title } */}
+                        Инструкция создается...
 					</div>
 					<div className={styles.menuContainer} ref={menuRef}>
-						<MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} />
-						{
+						{/* <MenuIcon className={styles.menu} onClick={() => setIsEditOpen(!isEditOpen)} /> */}
+						{/* {
 							isEditOpen && (
 								<EditInstructionMenu closeDropdown={closeDropdown}
 								instruction={instructionModel}
 								/>
 							)
-						}
+						} */}
 					</div>
 				</div>
 			</div>

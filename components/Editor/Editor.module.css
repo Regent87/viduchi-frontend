@@ -114,6 +114,7 @@
   font-size: 30px;
   color: #169ffd;
   font-family: var(--font-family);
+  cursor: pointer;
 }
 
 .header input[type="text"] {
@@ -281,6 +282,9 @@
   text-align: center;
 
   align-items: center;
+
+  /* justify-content: center; */
+  
 }
 
 .videoEditorRow {
@@ -296,6 +300,7 @@
   margin-top: -80vh;
   margin-left: 10%;
   border-radius: 10px;
+ 
   /* margin-top: 25vh; */
   /* margin-top: -80vh; */
   background-color: #383a47;

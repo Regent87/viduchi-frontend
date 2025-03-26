@@ -4,13 +4,15 @@ import { getProjects } from '@/api/client/projects';
 import { ProjectCard } from '../ProjectCard/ProjectCard';
 import { ProjectListProps } from './ProjectList.props';
 import { useEffect, useState } from 'react';
-import { ProjectModel } from '@/interfaces/project.interface';
-import Link from 'next/link';
-;
+import useStore from '@/store/store';
 
 export default function ProjectList({ className }: ProjectListProps)  {
-	const [projects, setProjects] = useState<ProjectModel[]>([]);
+	//const [projects, setProjects] = useState<ProjectModel[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+
+	// zustand store
+	const setProjects = useStore((state) => state.setAllProjects);
+	const projects = useStore((state) => state.projects);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -31,11 +33,7 @@ export default function ProjectList({ className }: ProjectListProps)  {
 	return (
 		<div className={cn(className, styles.projectList)}>
 			{projects.map((project) => (
-				// <Link href={`/projects/${project.id}`} key={project.id}>
-					<ProjectCard 
-					key={project.id}
-					projectModel={project} />
-				//  </Link>
+				<ProjectCard key={project.id} projectModel={project} />
 			))}
 		</div>
 	);

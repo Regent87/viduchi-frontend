@@ -21,20 +21,60 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
   const [updatedProject, setUpdatedProject] = useState({});
 
    // заносим данные проекта в БД из стора
-     const handleSaveProjectData = async () => {
+   const handleSaveProjectData = async () => {
 
-        console.log("TRACKS IN STORE: ", tracks);
-        console.log("TRACKS ITEMS IDS: ", trackItemIds);
-        console.log("TRACKS ITEMS MAP: ", trackItemsMap);
-        console.log("FPS: ", fps);
-        console.log("DURATION: ", duration);
-         const savedData = await saveProjectTimeline(projectId, tracks, trackItemIds, trackItemsMap, fps, duration);
-        if (savedData) {
-          console.log("DATA WAS SAVED TO DB FROM EDITOR");
-        }
+    console.log("TRACKS IN STORE: ", tracks);
+    console.log("TRACKS ITEMS IDS: ", trackItemIds);
+    console.log("TRACKS ITEMS MAP: ", trackItemsMap);
 
-      }
+    // добавим максимальную высоту и ширину видео для рендеринга
+    let video_widths_arr: any = [];
+let video_heights_arr: any = [];
 
+
+Object.keys(trackItemsMap).forEach(function(key) {
+
+//  console.log(key, videos[key]);
+
+if (trackItemsMap[key].type == "video") {
+// console.log(videos[key]);
+
+// console.log(videos[key].details);
+video_widths_arr.push(trackItemsMap[key].details.width);
+video_heights_arr.push(trackItemsMap[key].details.height);
+
+
+}
+
+});
+
+
+console.log("video heights", video_heights_arr);
+console.log("video widths", video_widths_arr);
+const max_width = Math.max.apply(Math, video_widths_arr);
+const max_height = Math.max.apply(Math, video_heights_arr);
+
+console.log("MAX VIDEO WITDH: ", max_width);
+console.log("MAX VIDEO HEIGHT: ", max_height);
+
+// setMaxVideoWidth(max_width);
+// setMaxVideoHeight(max_height);
+
+
+//  const max_width = Math.max.apply(Math, video_widths_arr);
+//  const max_height = Math.max.apply(Math, video_heights_arr);
+
+    console.log("FPS: ", fps);
+    console.log("DURATION: ", duration);
+    // console.log("MAX  video WIDTH IN STORE: ", max_video_width);
+    // console.log("MAX VIDEO WIDTH IN STORE: ", max_video_height);
+
+     const savedData = await saveProjectTimeline(projectId, tracks, trackItemIds, trackItemsMap, fps, duration, max_width, max_height);
+    if (savedData) {
+      console.log("DATA WAS SAVED TO DB FROM EDITOR");
+    }
+
+  }
 
       const handleGetAndSendProjectToServer = async () => {
         // fetch project by id to get updated data
@@ -80,13 +120,13 @@ export const CreateInstruction = ({projectId }: CreateInstructionProps ) => {
     return (
      <>
         <button
-        onClick={() => {
+        onClick={async () => {
           //  console.log("Создать инструкцию номер проекта: " + projectId );
 
             if (tracks.length < 1) {
                 setIsEmptyPlayerModalOpen(true)
             } else {
-             // handleSaveProjectData();
+             await handleSaveProjectData();
             //  handleGetAndSendProjectToServer();
                 setIsGenerateSubtitlesModalOpen(true)
             }

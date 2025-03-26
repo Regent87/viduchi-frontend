@@ -7,6 +7,9 @@ import useStore from "../../store/store";
 import CompositionVideosForClient from "./compositionForClient";
 
 
+
+
+
 const Player = () => {
   const playerRef: any = useRef<PlayerRef>(null);
   const { setPlayerRef, duration, fps } = useStore();
@@ -17,11 +20,12 @@ const Player = () => {
 
   const theState = useStore.getState();
 
-  // theState.playerControls;
+  // zustand store
+const videoHeights = useStore((state) => state.videoHeights);
+const videoWidths = useStore((state) => state.videoWidths);
+const max_width = Math.max.apply(Math, videoWidths);
+const max_height = Math.max.apply(Math, videoHeights);
 
-  // if (playerRef.current?.isFullscreen) {
-  //   setControlsVar(true);
-  // }
 
   useEffect(() => {
     setPlayerRef(playerRef);
@@ -40,9 +44,11 @@ const Player = () => {
       component={CompositionVideosForClient}
     
       durationInFrames={Math.round((duration / 1000) * fps) || 5 * 30}
-      compositionWidth={1100}
+      // compositionWidth={1100}
+      // compositionHeight={750}
+      compositionWidth={1200}
       compositionHeight={750}
-      style={{ width: "100%", height: "100%", background: 'transparent' }}
+        style={{ width: "100%", height: "100%", backgroundColor: 'transparent'}}
       inputProps={{}}
       fps={fps}
       controls={false}
