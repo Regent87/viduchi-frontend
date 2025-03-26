@@ -7,10 +7,13 @@ import { useState, useEffect } from "react";
 import { getProjectByIdForRendering } from "../../api/client/projects";
 
 import projectData from '../../public/project.json';
+
+
  
 export const RemotionRoot: React.FC = () => {
 
   const [project, setProject] = useState<any>({});
+
 
   useEffect(() => {
     setProject(projectData);
@@ -37,6 +40,12 @@ export const RemotionRoot: React.FC = () => {
   console.log("DURATION FROM SERVER IN ROOT: ", duration)
   console.log("FPS FROM SERVER IN ROOT: ", fps)
 
+
+  
+   const max_width: number = Number(project?.timeline?.max_video_width) || 1100;
+   const max_height: number = Number(project?.timeline?.max_video_height) || 750;
+  
+
   return (
     <>
       <Composition
@@ -60,13 +69,17 @@ id="myComp"
         //   logoColor2: "#86A8E7",
         // }}
         durationInFrames={Math.round((duration / 1000) * 30) || 5 * 30}
-        width={1100}
-        height={750}
+        // width={500}
+        // height={750}
+        width={max_width}
+        height={max_height}
         // style={{ width: "100%", height: "100%", background: 'transparent' }}
        // inputProps={{}}
        // fps={fps}
       //  controls={false}
-
+      defaultProps={{
+        transparent: true,
+      }}
       />
       {/* Additional compositions can be rendered */}
     </>

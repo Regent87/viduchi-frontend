@@ -8,10 +8,10 @@ export async function saveProjectData (projectId: number) {
     const trackItemsMap = useStore((state) => state.trackItemsMap);
     const fps = useStore((state) => state.fps);
 
-    const savedData = await saveProjectTimeline(projectId, tracks, trackItemIds, trackItemsMap, fps );
+    // const savedData = await saveProjectTimeline(projectId, tracks, trackItemIds, trackItemsMap, fps );
 
-    if (savedData) {
-        console.log("DATA WAS SAVED IN DB")
-    }
+    // if (savedData) {
+    //     console.log("DATA WAS SAVED IN DB")
+    // }
 
 }

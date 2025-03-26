@@ -101,6 +101,22 @@ interface ITimelineStore {
   setAllProjects: (new_projects: ProjectModel[]) => void;
   updateProject: (id: number, new_title: string) => void;
 
+  isSubtitlesGenerating: boolean;
+  setIsSubtitlesGenerating: (isGenerating: boolean) => void;
+
+  videoHeights: number[],
+  videoWidths: number[],
+  setVideoHeights: (new_videoHeights: number[]) => void;
+  setVideoWidths: (new_videoWidths: number[]) => void;
+  addVideoHeight: (new_videoHeight: number) => void;
+  addVideoWidth: (new_videoWidth: number) => void;
+
+  max_video_width: number;
+  max_video_height: number;
+
+  setMaxVideoHeight: (max_video_height: number) => void;
+  setMaxVideoWidth: (max_video_width: number) => void;
+
 
 }
 
@@ -141,7 +157,46 @@ const useStore = create<ITimelineStore>((set) => ({
   renderedVideoFiles: [],
   instructions: [],
   projects: [],
+  isSubtitlesGenerating: false,
+  videoHeights: [],
+  videoWidths: [],
+  max_video_width: 0,
+  max_video_height: 0,
 
+  setMaxVideoWidth: (max_videoWidth: number) =>
+    set((state) => ({
+      max_video_width: max_videoWidth,
+    })),
+
+  setMaxVideoHeight: (max_videoHeight: number) =>
+      set((state) => ({
+        max_video_height: max_videoHeight,
+      })),
+
+  setVideoHeights: (new_videoHeights: number[]) =>
+    set((state) => ({
+      videoHeights: new_videoHeights,
+    })),
+
+    setVideoWidths: (new_videoWidths: number[]) =>
+      set((state) => ({
+        videoWidths: new_videoWidths,
+      })),
+
+      addVideoHeight: (videoHeight: number) =>
+        set((state) => ({
+          videoHeights: [...state.videoHeights, videoHeight],
+        })),
+
+        addVideoWidth: (videoWidth: number) =>
+          set((state) => ({
+            videoWidths: [...state.videoWidths, videoWidth],
+          })),
+
+  setIsSubtitlesGenerating: (isGenerating: boolean) => 
+    set((state) => ({
+      isSubtitlesGenerating: isGenerating,
+    })),
 
   setAllProjects: (new_projects: ProjectModel[] ) => 
     set((state) => ({

@@ -21,6 +21,7 @@ export const API = {
 		editTitle: (id: number) => `/admin-api/v1/projects/${id}/title`,
 		addVideo: (id: any) => `/admin-api/v1/projects/${id}/videos`,
 		addAudio: (id: any) => `/admin-api/v1/projects/${id}/audios`,
+		extractAudioFromVideo: (projectId: number, videoId: number) => `/admin-api/v1/projects/${projectId}/videos/${videoId}/audio`,
 		audios: (id: any) => `/admin-api/v1/projects/${id}/audios`,
 		videos: (id: any) => `/admin-api/v1/projects/${id}/videos`,
 		deleteVideo: (id: any, videoId: any) => `/admin-api/v1/projects/${id}/videos/${videoId}`,
@@ -29,6 +30,7 @@ export const API = {
 		getSteps: (id: number) => `/admin-api/v1/projects/${id}/steps`,
 		generateSteps: (id: number) => `/admin-api/v1/projects/${id}/steps/generate`,
 		transcribeVideo: (id: number, videoId: number) => `/admin-api/v1/projects/${id}/videos/${videoId}/transcribe`,
+		transcribeAudio: (id: number, audioId: number) => `/admin-api/v1/projects/${id}/audios/${audioId}/transcribe`,
 		addSubtitles: (id: number) => `/admin-api/v1/projects/${id}/subtitles`,
 		addSteps: (id: number) => `/admin-api/v1/projects/${id}/steps`,
 		updateStep: (id: number, stepId: number) => `/admin-api/v1/projects/${id}/steps/${stepId}`,
@@ -61,6 +63,7 @@ export const API = {
 	},
 	render: {
 		renderVideo: '/render/api/rendervideo',
+		renderAudio: '/render/api/renderaudio',
 		sendProject: '/render/api/sendproject',
 	}
 };

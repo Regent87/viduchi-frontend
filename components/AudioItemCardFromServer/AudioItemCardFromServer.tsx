@@ -82,7 +82,7 @@ export const AudioItemCardFromServer= ({ audioItem, projectId }: AudioItemCardPr
       {isMediaFileDeleteMenuOpen && (
         <div className={styles.addAudio}>
 
-          <AddFileIcon onClick={() => handleAddAudioFromServer(audioItem.audio_url)} />
+          <AddFileIcon onClick={() => handleAddAudioFromServer(audioItem.audio_url, audioItem.id)} />
 
           {/* <IconButton size={24} onClick={() => handleFileUpload(audioItem)}>
             <svg width={24} height={24}>

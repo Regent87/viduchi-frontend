@@ -11,10 +11,10 @@ import {
 
 
   // добавить видео с сервера в плеер
-  export const handelAddVideoFromServer = async (url: string) => {
+  export const handelAddVideoFromServer = async (url: string, id: number) => {
     dispatch(ADD_VIDEO, {
       payload: {
-        id: generateId(),
+        id: generateId() + `-${id}`,
         display: {
           from: 2000,
           to: 7000
@@ -24,7 +24,7 @@ import {
         //  src: uploadedFile.url,
         //  name: uploadedFile.title,
         // name: file.name,
-          volume: 100
+          volume: 0
         },
         metadata: {
           url
@@ -34,10 +34,10 @@ import {
   }
 
   // добавить аудио в плеер с сервера
-  export const handleAddAudioFromServer = async (url: string) => {
+  export const handleAddAudioFromServer = async (url: string, id: number) => {
     dispatch(ADD_AUDIO, {
       payload: {
-        id: generateId(),
+        id: generateId() + `-${id}`,
         details: {
           src: url,
           volume: 100

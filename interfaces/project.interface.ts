@@ -5,4 +5,5 @@ export interface ProjectModel {
 	cover_url?: string;
 	date: string;
 	subtitles?: string;
+	timeline?: any;
 }

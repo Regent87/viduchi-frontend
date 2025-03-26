@@ -77,7 +77,7 @@ const fetchVideos = async () => {
 
           <AddFileIcon 
 
-          onClick={() => handelAddVideoFromServer(videoItem.video_url)}
+          onClick={() => handelAddVideoFromServer(videoItem.video_url, videoItem.id)}
        //  onClick={() => handleFileUpload(videoItem, projectId)}
            />
 

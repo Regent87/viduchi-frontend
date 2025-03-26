@@ -284,23 +284,45 @@ export const transcribeVideo = async (id: number, videoId: number) => {
 
 }
 
-export const addSubtitlesToProject = async (id: number, subtitles: string) => {
+export const transcribeAudio = async (id: number, audioId: number) => {
+    const token = localStorage.getItem('jwt_token');
+
+    const response = await fetch(API.projects.transcribeAudio(id, audioId), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': 'https://api-test.viduchi.ru'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to transcribe audio of project');
+    }
+
+    return response.json();
+
+}
+
+export const addSubtitlesToProject = async (id: number, subtitles: any) => {
     const token = localStorage.getItem('jwt_token');
 
     const response = await fetch(API.projects.addSubtitles(id), {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            // 'Access-Control-Allow-Origin': 'https://api-dev.viduchi.ru'
+            'Content-Type': 'application/json',
+            //  'Access-Control-Allow-Origin': 'https://api-test.viduchi.ru'
         },
         body: JSON.stringify({ subtitles }),
+      
+   
     });
 
     if (!response.ok) {
-        throw new Error('Failed to generate steps of project');
+        throw new Error('Failed to add subtitles to project');
     }
 
-    return await response.json();
+    return response.json();
 }
 
 
@@ -321,7 +343,7 @@ export const getProjectById = async (id: number) => {
     return await response.json();
 };
 
-export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number) => {
+export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackItemIds: string[], trackItemsMap: Record<string, ITrackItem>, fps: number, duration: number, max_video_width: number, max_video_height: number) => {
     const token = localStorage.getItem('jwt_token');
 
     const response = await fetch(API.projects.saveTimeline(id), {
@@ -330,7 +352,7 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration }),
+        body: JSON.stringify({ tracks, trackItemIds, trackItemsMap, fps, duration, max_video_width, max_video_height }),
     });
 
     if (!response.ok) {
@@ -338,6 +360,33 @@ export const saveProjectTimeline = async (id: number, tracks: ITrack[], trackIte
     }
 
     return await response.json();
+}
+
+
+export const extractAudioFromProjectVideo = async (projectId: number, videoId: number) => {
+    const token = localStorage.getItem('jwt_token');
+
+    // const response = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization': `Bearer ${token}`
+    //     },
+    // });
+
+    let blob = await fetch(API.projects.extractAudioFromVideo(projectId, videoId), {
+        method: "GET",
+       headers: {
+           'Authorization': `Bearer ${token}`
+       },
+      }).then(r => r.blob());
+  
+      console.log("BLOB FROM SERVER: ", blob)
+      let fileOfBlob = new File([blob], 'audio.wav', { type: "audio/mpeg" });
+    //  let fileOfBlob = new File([blob], 'audio.wav');
+      console.log("AUDIO FILE FROM BLOB: ", fileOfBlob)
+  
+      return fileOfBlob;
+
 }
 
 /*
