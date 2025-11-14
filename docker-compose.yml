@@ -13,8 +13,9 @@ services:
       - /app/node_modules
       - ./out:/app/out
     environment:
-      - NODE_ENV=staging
+      - NODE_ENV=production
       - ADMIN_API_URL=${ADMIN_API_URL}
+      - RENDER_SERVER_URL=${RENDER_SERVER_URL}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

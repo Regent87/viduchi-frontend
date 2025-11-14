@@ -1,10 +1,8 @@
 # Viduchi Admin Cabinet
 
-## Локальный запуск
+# С Docker
 
-### С Docker
-
-1. Переменные окружения должны быть следующие:
+1. Создаем файл `.env` и записываем в него переменные окружения:
 
 ```
 ADMIN_API_URL=http://host.docker.internal:8081
@@ -14,12 +12,12 @@ RENDER_SERVER_URL=http://render-server:4000
 2. Запускаем сервисы
 
 ```bash
-docker compose -f docker-compose-dev.yml up --build -d
+docker compose --env-file .env -f docker-compose.yml up --build -d
 ```
 
-### Без Docker
+# Без Docker
 
-1. Переменные окружения должны быть следующие:
+1. Создаем файл `.env` и записываем в него переменные окружения:
 
 ```
 ADMIN_API_URL=http://localhost:8081
